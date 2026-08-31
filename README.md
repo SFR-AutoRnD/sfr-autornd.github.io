@@ -9,8 +9,9 @@ Static site, no build step:
 - `index.html` — all content, styles, and figures (charts are inline SVG).
 - `assets/salesforce.svg` — Salesforce logo used in the hero, footer, and favicon.
 
-Author photos are hot-linked from Google Scholar profiles with an initials
-fallback if a photo fails to load.
+Author links and photos point to each author's personal website
+(shreypandit.github.io, nxphi47.github.io, zhaoyiran924.github.io,
+raihanjoty.github.io), with an initials fallback if a photo fails to load.
 
 ## Publishing
 
@@ -26,5 +27,4 @@ Search `index.html` for the `MARKETING:` comments:
 1. **Pull-request links** — the two hero buttons and the two "View the pull
    request" buttons have `href="XX"`. Replace `XX` with the upstream PR URLs
    for hnswlib and pandas.
-2. **Acknowledgments** — fill in or delete the placeholder line in the footer.
-3. Optionally add a "Corresponding author" line under the affiliation.
+2. Optionally add a "Corresponding author" line under the affiliation.
