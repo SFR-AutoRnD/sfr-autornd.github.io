@@ -447,30 +447,29 @@
       <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoResearch found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
       <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
       <figure class="chart">
-<svg viewBox="0 0 560 250" role="img" aria-label="hnswlib batch-query throughput gain by construction seed" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
-<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
-<line x1="46" y1="167.6" x2="548" y2="167.6" stroke="#e2e8f0" stroke-width="1"/>
-<text x="38" y="171.6" text-anchor="end" font-size="11" fill="#94a3b8">1%</text>
-<line x1="46" y1="131.2" x2="548" y2="131.2" stroke="#e2e8f0" stroke-width="1"/>
-<text x="38" y="135.2" text-anchor="end" font-size="11" fill="#94a3b8">2%</text>
-<line x1="46" y1="94.8" x2="548" y2="94.8" stroke="#e2e8f0" stroke-width="1"/>
-<text x="38" y="98.8" text-anchor="end" font-size="11" fill="#94a3b8">3%</text>
-<line x1="46" y1="58.4" x2="548" y2="58.4" stroke="#e2e8f0" stroke-width="1"/>
-<text x="38" y="62.4" text-anchor="end" font-size="11" fill="#94a3b8">4%</text>
-<line x1="46" y1="22.0" x2="548" y2="22.0" stroke="#e2e8f0" stroke-width="1"/>
-<text x="38" y="26.0" text-anchor="end" font-size="11" fill="#94a3b8">5%</text>
-<line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
-<path d="M117.7,204.0 V50.0 Q117.7,46.0 121.7,46.0 H137.7 Q141.7,46.0 141.7,50.0 V204.0 Z" fill="#0176D3"><title>Seed 7101: +4.34% queries per second, identical search results</title></path>
-<text x="129.7" y="39.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+4.34%</text>
-<text x="129.7" y="224" text-anchor="middle" font-size="12" fill="#475569">Seed 7101</text>
-<path d="M285.0,204.0 V58.0 Q285.0,54.0 289.0,54.0 H305.0 Q309.0,54.0 309.0,58.0 V204.0 Z" fill="#0176D3"><title>Seed 7102: +4.12% queries per second, identical search results</title></path>
-<text x="297.0" y="47.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+4.12%</text>
-<text x="297.0" y="224" text-anchor="middle" font-size="12" fill="#475569">Seed 7102</text>
-<path d="M452.3,204.0 V63.9 Q452.3,59.9 456.3,59.9 H472.3 Q476.3,59.9 476.3,63.9 V204.0 Z" fill="#0176D3"><title>Seed 7103: +3.96% queries per second, identical search results</title></path>
-<text x="464.3" y="52.9" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+3.96%</text>
-<text x="464.3" y="224" text-anchor="middle" font-size="12" fill="#475569">Seed 7103</text>
+<svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
+<defs>
+  <linearGradient id="hlg1" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0176D3"/><stop offset="1" stop-color="#032D60"/>
+  </linearGradient>
+</defs>
+<text x="20" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Scratch-pool lock round-trips per batch</text>
+<text x="20" y="47" font-size="11.5" fill="#94a3b8">2,000-query diagnostic batch, 16 worker threads</text>
+<line x1="20" y1="88" x2="20" y2="185" stroke="#cbd5e1" stroke-width="1"/>
+<text x="26" y="88" font-size="12" fill="#475569">Standard hnswlib</text>
+<path d="M20,97 H436 Q440,97 440,101 V111 Q440,115 436,115 H20 Z" fill="#b6c2ce"><title>Standard hnswlib: about 4,000 pool lock/unlock operations for a 2,000-query batch — two per query row</title></path>
+<text x="448" y="111" font-size="12.5" font-weight="700" fill="#1e293b">4,000</text>
+<text x="26" y="150" font-size="12" fill="#475569">With worker-scoped leases (ours)</text>
+<path d="M20,159 H23.4 V177 H20 Z" fill="#0176D3"><title>With worker-scoped leases: 32 pool lock/unlock operations — two per worker, reused across the whole batch</title></path>
+<text x="31" y="173" font-size="12.5" font-weight="700" fill="#1e293b">32</text>
+<text x="72" y="173" font-size="12" font-weight="700" fill="#2E844A">−99.2%</text>
+<line x1="520" y1="26" x2="520" y2="200" stroke="#e2e8f0" stroke-width="1"/>
+<text x="720" y="102" text-anchor="middle" font-size="46" font-weight="700" fill="url(#hlg1)" font-family="'Source Serif 4',serif">+4.1%</text>
+<text x="720" y="134" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">median queries-per-second gain</text>
+<text x="720" y="157" text-anchor="middle" font-size="11.5" fill="#94a3b8">+3.96% &#183; +4.12% &#183; +4.34% across three index builds</text>
+<text x="720" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#2E844A">&#10003; search results bit-for-bit identical</text>
 </svg>
-<figcaption><strong>Figure 2.</strong> Change in hnswlib batch-query throughput vs the unmodified library, on three independently built indexes. Faster in every paired run; search results unchanged.</figcaption>
+<figcaption><strong>Figure 2.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
 </figure>
       <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
       <div class="pr-row">
