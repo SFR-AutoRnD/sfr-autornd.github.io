@@ -4,606 +4,658 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AutoResearch — Salesforce AI Research</title>
-<meta name="description" content="AutoResearch is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — including verified wins in hnswlib, pandas, and Salesforce's internal SFR-RL stack.">
-<meta property="og:title" content="AutoResearch: the AI agent that does performance research on real code">
+<meta name="description" content="AutoResearch is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — verified wins in hnswlib, pandas, and Salesforce's internal SFR-RL stack.">
+<meta property="og:title" content="AutoResearch: an AI agent that does performance research on real code">
 <meta property="og:description" content="Verified speedups in hnswlib and pandas, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack — discovered, tested, and proven by an autonomous research agent.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232a78d6'/%3E%3Ccircle cx='32' cy='26' r='9' fill='none' stroke='white' stroke-width='4'/%3E%3Cpath d='M32 35 V52 M22 46 L32 52 L42 46' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="assets/salesforce.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    color-scheme: light;
-    --page:#f6f8fb;
-    --card:#ffffff;
-    --ink:#13233f;
-    --ink-2:#3f4c63;
-    --ink-3:#54627c;
-    --muted:#7a8699;
-    --accent:#2a78d6;
-    --accent-deep:#1c5cab;
-    --accent-ink:#0c3a72;
-    --accent-wash:#e9f2fc;
-    --accent-wash-2:#f2f7fd;
-    --hairline:rgba(19,35,63,.10);
-    --good:#006300;
-    --good-wash:#eef8f0;
-    --shadow:0 1px 2px rgba(19,35,63,.05), 0 10px 28px -18px rgba(19,35,63,.22);
-    --radius:16px;
+    --bg-primary:#fafbfd;
+    --bg-secondary:#ffffff;
+    --bg-tertiary:#f0f5fa;
+    --sf-blue:#0176D3;
+    --sf-blue-bright:#1B96FF;
+    --sf-blue-deep:#0B5CAB;
+    --sf-navy:#032D60;
+    --sf-cloud:#EAF5FE;
+    --sf-teal:#0B827C;
+    --sf-green:#2E844A;
+    --sf-orange:#DD7A01;
+    --sf-orange-text:#A96404;
+    --text-primary:#1e293b;
+    --text-secondary:#475569;
+    --text-muted:#94a3b8;
+    --border-color:#e2e8f0;
+    --gradient-1:linear-gradient(135deg,#1B96FF 0%,#0B5CAB 100%);
+    --gradient-deep:linear-gradient(135deg,#0176D3 0%,#032D60 100%);
+    --shadow-sm:0 1px 2px rgba(3,45,96,.05);
+    --shadow-md:0 4px 12px rgba(3,45,96,.08);
+    --shadow-lg:0 12px 40px rgba(3,45,96,.12);
   }
-  *{box-sizing:border-box}
+  *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    margin:0;
-    background:var(--page);
-    color:var(--ink-2);
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    font-size:16.5px;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
+    font-family:'DM Sans',system-ui,sans-serif;
+    background:var(--bg-primary);
+    color:var(--text-primary);
+    line-height:1.7;
   }
-  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-  h1,h2,h3,h4{color:var(--ink);line-height:1.25;margin:0 0 .5em;font-weight:700;letter-spacing:-.01em}
-  h2{font-size:1.85rem;margin-top:0}
-  h3{font-size:1.22rem}
-  p{margin:0 0 1em}
-  a{color:var(--accent-deep)}
-  code{background:var(--accent-wash-2);border:1px solid var(--hairline);border-radius:6px;padding:.08em .38em;font-size:.88em;color:var(--accent-ink)}
-  .eyebrow{
-    display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--accent-deep);margin-bottom:14px;
+  .bg-pattern{
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      radial-gradient(circle at 18% 40%, rgba(1,118,211,.05) 0%, transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(27,150,255,.05) 0%, transparent 45%);
   }
-
-  /* ---------- nav ---------- */
-  nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--hairline);
-  }
-  .nav-inner{display:flex;align-items:center;gap:28px;height:60px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);text-decoration:none;font-size:1.02rem}
-  .brand svg{flex:none}
-  .nav-links{margin-left:auto;display:flex;gap:22px}
-  .nav-links a{color:var(--ink-3);text-decoration:none;font-size:.92rem;font-weight:600}
-  .nav-links a:hover{color:var(--accent-deep)}
-  @media(max-width:760px){.nav-links{display:none}}
+  .container{max-width:1000px;margin:0 auto;padding:0 2rem}
+  a{color:var(--sf-blue-deep)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:6px;padding:.1em .4em;color:var(--sf-navy)}
 
   /* ---------- hero ---------- */
-  header.hero{
-    background:
-      radial-gradient(720px 340px at 12% -10%, #dcebfb 0%, rgba(220,235,251,0) 60%),
-      radial-gradient(640px 320px at 88% 0%, #e3f4ee 0%, rgba(227,244,238,0) 55%),
-      linear-gradient(#fbfdff,var(--page));
-    padding:76px 0 40px;
+  .hero{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:4.5rem 2rem 3.5rem;
   }
-  .hero h1{font-size:clamp(1.9rem, 4.4vw, 3rem);max-width:850px;letter-spacing:-.02em}
-  .hero .lede{font-size:1.16rem;max-width:760px;color:var(--ink-3)}
-  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 8px}
+  .hero-logo{height:64px;width:auto;margin-bottom:1.4rem;filter:drop-shadow(0 10px 24px rgba(1,118,211,.25))}
+  .hero-eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sf-blue-deep);margin-bottom:1.1rem;
+  }
+  .hero h1{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(2.6rem,6vw,4rem);font-weight:700;color:var(--sf-navy);
+    margin-bottom:.4rem;letter-spacing:-.01em;
+  }
+  .hero h2{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(1.1rem,2.4vw,1.45rem);font-weight:400;color:var(--text-secondary);
+    max-width:780px;margin-bottom:1.6rem;
+  }
+  .hero-description{
+    font-size:1.06rem;color:var(--text-secondary);max-width:730px;margin-bottom:2rem;line-height:1.8;
+  }
+  .highlight-pills{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:2.2rem}
+  .pill{padding:.48rem 1.05rem;border-radius:50px;font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:.45rem}
+  .pill.speed{background:rgba(46,132,74,.09);color:var(--sf-green);border:1px solid rgba(46,132,74,.3)}
+  .pill.memory{background:rgba(11,130,124,.09);color:var(--sf-teal);border:1px solid rgba(11,130,124,.3)}
+  .pill.exact{background:rgba(1,118,211,.08);color:var(--sf-blue-deep);border:1px solid rgba(1,118,211,.3)}
+  .pill.oss{background:rgba(221,122,1,.09);color:var(--sf-orange-text);border:1px solid rgba(221,122,1,.35)}
+  .cta-buttons{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;margin-bottom:2.8rem}
   .btn{
-    display:inline-block;padding:11px 20px;border-radius:10px;font-weight:650;font-size:.95rem;
-    text-decoration:none;border:1px solid transparent;
+    padding:.8rem 1.6rem;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;
+    display:inline-flex;align-items:center;gap:.5rem;transition:all .25s ease;
   }
-  .btn-primary{background:var(--accent);color:#fff}
-  .btn-primary:hover{background:var(--accent-deep)}
-  .btn-ghost{background:#fff;color:var(--accent-ink);border-color:var(--hairline)}
-  .btn-ghost:hover{border-color:var(--accent)}
+  .btn-primary{background:var(--sf-blue);color:#fff}
+  .btn-primary:hover{background:var(--sf-blue-deep);transform:translateY(-2px);box-shadow:0 10px 28px rgba(1,118,211,.35)}
+  .btn-secondary{background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color);box-shadow:var(--shadow-sm)}
+  .btn-secondary:hover{background:var(--bg-tertiary);transform:translateY(-2px)}
 
-  .stats{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:42px 0 6px;
+  /* authors */
+  .authors{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:center;margin-bottom:.9rem}
+  .author{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--text-primary);transition:transform .25s ease}
+  .author:hover{transform:translateY(-3px)}
+  .author-img{
+    width:74px;height:74px;border-radius:50%;border:3px solid var(--bg-secondary);
+    margin-bottom:.5rem;box-shadow:var(--shadow-md);object-fit:cover;background:var(--gradient-1);
+    display:block;
   }
-  @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
-  .stat{
-    background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);
-    padding:18px 20px;box-shadow:var(--shadow);
+  .author-fallback{
+    display:none;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:1.35rem;letter-spacing:.02em;
   }
-  .stat b{display:block;font-size:1.9rem;color:var(--accent-ink);font-weight:750;letter-spacing:-.02em}
-  .stat span{font-size:.86rem;color:var(--ink-3);line-height:1.45;display:block;margin-top:2px}
+  .author-name{font-size:.92rem;font-weight:600}
+  .affiliation{color:var(--sf-blue-deep);font-size:.98rem;font-weight:600;margin-top:.4rem}
+  .hero-meta{color:var(--text-muted);font-size:.85rem;margin-top:.3rem}
+  /* MARKETING: add a "Corresponding author: name@salesforce.com" line under .affiliation if desired */
 
-  /* ---------- sections & cards ---------- */
-  section{padding:56px 0 8px}
+  /* ---------- sections ---------- */
+  section{padding:3.6rem 0}
+  .section-title{
+    font-family:'Source Serif 4',serif;font-size:1.9rem;font-weight:600;
+    text-align:center;margin-bottom:2rem;color:var(--sf-navy);
+  }
+  .section-title::after{
+    content:'';display:block;width:60px;height:4px;background:var(--gradient-1);
+    margin:.9rem auto 0;border-radius:2px;
+  }
   .card{
-    background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);
-    padding:32px 36px;box-shadow:var(--shadow);
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:2rem;box-shadow:var(--shadow-sm);
   }
-  @media(max-width:640px){.card{padding:24px 20px}}
-  .tldr{border-left:4px solid var(--accent)}
-  .tldr ul{margin:.2em 0 0;padding-left:1.2em}
-  .tldr li{margin-bottom:.55em}
-  .note{
-    display:flex;gap:12px;align-items:flex-start;
-    background:var(--accent-wash-2);border:1px solid #d8e7f8;border-radius:12px;
-    padding:14px 18px;font-size:.92rem;color:var(--ink-3);margin-top:22px;
-  }
-  .note svg{flex:none;margin-top:3px}
+  .abstract{font-size:1.04rem;line-height:1.9;color:var(--text-secondary)}
+  .abstract strong{color:var(--text-primary)}
 
-  /* ---------- figures / charts ---------- */
-  figure.chart{margin:26px 0 6px;text-align:center;overflow-x:auto}
-  figure.chart svg{width:100%;min-width:470px;max-width:560px;height:auto;background:var(--card)}
-  figure.chart figcaption{
-    font-size:.85rem;color:var(--muted);max-width:600px;margin:10px auto 0;line-height:1.5;text-align:center;
+  /* takeaways */
+  .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.4rem;margin-bottom:1.8rem}
+  .result-card{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:1.7rem 1.4rem;text-align:center;box-shadow:var(--shadow-sm);
   }
+  .result-value{
+    font-family:'Source Serif 4',serif;font-size:2.9rem;font-weight:700;line-height:1.15;
+    background:var(--gradient-deep);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+  }
+  .result-label{font-size:.98rem;font-weight:600;margin-top:.4rem}
+  .result-detail{font-size:.83rem;color:var(--text-muted);margin-top:.2rem;line-height:1.5}
+  .takeaway-box{
+    background:linear-gradient(135deg,rgba(1,118,211,.06) 0%,rgba(3,45,96,.06) 100%);
+    border:1px solid rgba(1,118,211,.22);border-radius:16px;padding:1.8rem 2rem;
+  }
+  .takeaway-box h4{font-size:1rem;font-weight:700;color:var(--sf-blue-deep);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+  .takeaway-box ul{margin-left:1.15rem}
+  .takeaway-box li{font-size:.97rem;color:var(--text-secondary);line-height:1.75;margin-bottom:.5rem}
+  .takeaway-box li strong{color:var(--text-primary)}
+  .takeaway-box p{font-size:.95rem;color:var(--text-secondary)}
+
+  /* method cards */
+  .contributions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;margin-top:2rem}
+  .contribution-card{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:1.7rem;transition:all .3s ease;box-shadow:var(--shadow-sm);
+  }
+  .contribution-card:hover{border-color:var(--sf-blue);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .contribution-icon{
+    width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+    font-size:1.35rem;margin-bottom:.9rem;
+  }
+  .contribution-card:nth-child(1) .contribution-icon{background:rgba(1,118,211,.1)}
+  .contribution-card:nth-child(2) .contribution-icon{background:rgba(46,132,74,.1)}
+  .contribution-card:nth-child(3) .contribution-icon{background:rgba(11,130,124,.1)}
+  .contribution-card:nth-child(4) .contribution-icon{background:rgba(221,122,1,.1)}
+  .contribution-card h3{font-size:1.04rem;font-weight:700;margin-bottom:.5rem}
+  .contribution-card p{font-size:.92rem;color:var(--text-secondary);line-height:1.65}
+  .footnote{font-size:.85rem;color:var(--text-muted);font-style:italic;margin-top:1.8rem;text-align:center;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+  /* findings */
+  .disc{margin-bottom:2rem}
+  .disc-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.9rem}
+  .disc-badge{
+    flex:none;width:44px;height:44px;border-radius:12px;background:var(--gradient-1);
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.1rem;
+    box-shadow:0 6px 16px rgba(1,118,211,.3);
+  }
+  .disc-kicker{font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-blue-deep)}
+  .disc h3{font-family:'Source Serif 4',serif;font-size:1.5rem;font-weight:600;margin:.1em 0 0;color:var(--sf-navy)}
+  .disc p{color:var(--text-secondary);font-size:.99rem;margin-bottom:1em}
+  .disc p strong{color:var(--text-primary)}
+  .badge-row{margin:.2rem 0 1.1rem}
+  .mini-pill{
+    display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:.22rem .8rem;margin:.15rem .4rem .15rem 0;
+  }
+  .mini-pill.blue{background:rgba(1,118,211,.08);color:var(--sf-blue-deep);border:1px solid rgba(1,118,211,.3)}
+  .mini-pill.green{background:rgba(46,132,74,.09);color:var(--sf-green);border:1px solid rgba(46,132,74,.3)}
+  .pr-row{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border-color);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+  .pr-row .btn{padding:.6rem 1.2rem;font-size:.88rem}
+  .pr-row small{color:var(--text-muted)}
+
+  /* figures / charts */
+  figure.chart{margin:1.6rem 0 .4rem;text-align:center;overflow-x:auto}
+  figure.chart svg{width:100%;min-width:470px;max-width:560px;height:auto}
+  figure.chart figcaption{font-size:.84rem;color:var(--text-muted);max-width:600px;margin:.6rem auto 0;line-height:1.55;text-align:center}
+  figure.chart figcaption strong{color:var(--text-secondary)}
   figure.chart svg path[fill]:hover{opacity:.85}
-  .legend{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin:18px 0 -8px;font-size:.86rem;color:var(--ink-3)}
-  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
-  figure.diagram{margin:30px 0 4px;overflow-x:auto}
+  .legend{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin:1rem 0 -.4rem;font-size:.85rem;color:var(--text-secondary)}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.45rem;vertical-align:-1px}
+  figure.diagram{margin:1.8rem 0 .3rem;overflow-x:auto}
   figure.diagram svg{width:100%;min-width:780px;height:auto}
-  figure.diagram figcaption{font-size:.85rem;color:var(--muted);margin-top:10px;text-align:center}
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;align-items:start}
+  figure.diagram figcaption{font-size:.84rem;color:var(--text-muted);margin-top:.6rem;text-align:center}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.6rem;align-items:start}
+  .duo figure.chart svg{min-width:430px}
   @media(max-width:820px){.duo{grid-template-columns:1fr}}
 
-  /* ---------- discovery cards ---------- */
-  .disc{margin-bottom:28px}
-  .disc-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
-  .disc-badge{
-    flex:none;width:44px;height:44px;border-radius:12px;background:var(--accent-wash);
-    display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent-deep);font-size:1.05rem;
+  /* footer */
+  footer{
+    padding:2.6rem 2rem;text-align:center;border-top:1px solid var(--border-color);
+    color:var(--text-muted);font-size:.87rem;background:var(--bg-tertiary);
   }
-  .disc-kicker{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
-  .disc h3{font-size:1.42rem;margin:.15em 0 0}
-  .pill{
-    display:inline-block;background:var(--good-wash);color:var(--good);border:1px solid #cfe8d6;
-    font-size:.8rem;font-weight:700;border-radius:999px;padding:3px 12px;margin:2px 8px 2px 0;
-  }
-  .pill.blue{background:var(--accent-wash);color:var(--accent-ink);border-color:#cfe1f7}
-  .pr-row{margin-top:20px;padding-top:18px;border-top:1px solid var(--hairline);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .pr-row .btn{padding:9px 16px;font-size:.9rem}
-  .pr-row small{color:var(--muted)}
+  footer img{height:34px;width:auto;margin-bottom:.8rem;opacity:.95}
+  footer p{max-width:720px;margin:0 auto .5rem;line-height:1.65}
+  footer a{color:var(--sf-blue-deep);text-decoration:none}
+  footer a:hover{text-decoration:underline}
 
-  /* ---------- rigor list ---------- */
-  .rigor-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
-  @media(max-width:760px){.rigor-grid{grid-template-columns:1fr}}
-  .rigor-item{background:var(--accent-wash-2);border:1px solid #e0ebf8;border-radius:12px;padding:18px 20px}
-  .rigor-item h4{font-size:1rem;margin-bottom:.35em;display:flex;align-items:center;gap:9px}
-  .rigor-item p{font-size:.93rem;margin:0;color:var(--ink-3)}
-  .tick{
-    flex:none;width:22px;height:22px;border-radius:7px;background:var(--accent);color:#fff;
-    display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;
+  @media(max-width:600px){
+    .hero{padding:3rem 1.2rem 2.6rem}
+    section{padding:2.6rem 0}
+    .container{padding:0 1.2rem}
   }
-
-  /* ---------- team ---------- */
-  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px;margin-top:10px}
-  .person{text-align:center}
-  .person .photo{
-    width:96px;height:96px;border-radius:50%;margin:0 auto 12px;overflow:hidden;
-    background:linear-gradient(160deg,#dcebfb,#eef5fd);border:1px solid var(--hairline);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .person .photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .person b{display:block;color:var(--ink);font-size:.95rem}
-  .person span{font-size:.82rem;color:var(--muted);line-height:1.4;display:block}
-
-  /* ---------- footer ---------- */
-  footer{margin-top:70px;border-top:1px solid var(--hairline);background:#fff;padding:34px 0 44px}
-  footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-start}
-  footer p{font-size:.84rem;color:var(--muted);max-width:640px;margin:0}
-  footer .brand{font-size:.95rem}
 </style>
 </head>
 <body>
+<div class="bg-pattern"></div>
 
-<nav>
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="AutoResearch home">
-      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2a78d6"/><circle cx="32" cy="26" r="9" fill="none" stroke="#fff" stroke-width="4"/><path d="M32 35 V52 M22 46 L32 52 L42 46" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      AutoResearch
-    </a>
-    <div class="nav-links">
-      <a href="#how">How it works</a>
-      <a href="#discoveries">Discoveries</a>
-      <a href="#rigor">Rigor</a>
-      <a href="#team">Team</a>
-    </div>
-  </div>
-</nav>
-
+<!-- ==================== Hero ==================== -->
 <header class="hero" id="top">
-  <div class="wrap">
-    <span class="eyebrow">Salesforce AI Research</span>
-    <h1>Meet AutoResearch: an AI agent that does performance research on real code — and proves it</h1>
-    <p class="lede">Most coding agents write code. AutoResearch does something harder: it studies a mature, battle-tested codebase, invents its own optimization ideas, runs controlled experiments, and keeps only the wins it can back with evidence. Its first discoveries are already headed upstream.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#discoveries">See what it found</a>
-      <a class="btn btn-ghost" href="#how">How it works</a>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>3</b><span>real-world systems optimized — hnswlib, pandas, and Salesforce's internal SFR&#8209;RL stack</span></div>
-      <div class="stat"><b>3.1×</b><span>faster text generation on decode-heavy workloads, with outputs verified identical</span></div>
-      <div class="stat"><b>−39%</b><span>peak memory in RL training — turning out-of-memory crashes into stable runs</span></div>
-      <div class="stat"><b>1,910</b><span>exact-correctness checks on the pandas patches — zero mismatches</span></div>
-    </div>
+  <img class="hero-logo" src="assets/salesforce.svg" alt="Salesforce">
+  <div class="hero-eyebrow">Salesforce AI Research</div>
+  <h1>AutoResearch</h1>
+  <h2>An AI agent that does performance research on real code — and proves it</h2>
+
+  <p class="hero-description">
+    Most coding agents write code. AutoResearch does something harder: it studies mature, battle-tested
+    codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins
+    it can back with evidence. Its first discoveries are already headed upstream.
+  </p>
+
+  <div class="highlight-pills">
+    <span class="pill speed">⚡ Up to 3.14× Faster Generation</span>
+    <span class="pill memory">💾 39% Lower Peak RL Memory</span>
+    <span class="pill exact">✓ Outputs Verified Identical</span>
+    <span class="pill oss">⬆ 2 Open-Source PRs</span>
   </div>
+
+  <div class="cta-buttons">
+    <a href="#findings" class="btn btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      See the findings
+    </a>
+    <!-- MARKETING: replace href="XX" on both buttons below with the upstream pull request URLs -->
+    <a href="XX" class="btn btn-secondary" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      hnswlib PR
+    </a>
+    <a href="XX" class="btn btn-secondary" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      pandas PR
+    </a>
+  </div>
+
+  <div class="authors">
+    <a href="https://scholar.google.com/citations?user=a-dG59sAAAAJ&hl=en" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=a-dG59sAAAAJ&citpid=2" alt="Shrey Pandit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">SP</div>
+      <span class="author-name">Shrey Pandit</span>
+    </a>
+    <a href="https://scholar.google.com/citations?user=HN8VxX4AAAAJ&hl=en" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=HN8VxX4AAAAJ&citpid=2" alt="Xuan-Phi Nguyen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">XN</div>
+      <span class="author-name">Xuan-Phi Nguyen</span>
+    </a>
+    <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=D_HwSlEAAAAJ" alt="Yiran Zhao" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">YZ</div>
+      <span class="author-name">Yiran Zhao</span>
+    </a>
+    <a href="https://scholar.google.com/citations?user=hR249csAAAAJ&hl=en" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=hR249csAAAAJ&citpid=2" alt="Shafiq Joty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">SJ</div>
+      <span class="author-name">Shafiq Joty</span>
+    </a>
+  </div>
+  <p class="affiliation">Salesforce AI Research</p>
+  <p class="hero-meta">2026</p>
 </header>
 
-<section id="tldr">
-  <div class="wrap">
-    <div class="card tldr">
-      <h2>TL;DR</h2>
+<!-- ==================== Key takeaways ==================== -->
+<section id="takeaways" style="padding-top:1rem">
+  <div class="container">
+    <h2 class="section-title">Key Takeaways</h2>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-value">3.14×</div>
+        <div class="result-label">Faster Generation</div>
+        <div class="result-detail">SFR-RL serving, token-identical outputs</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">−39%</div>
+        <div class="result-label">Peak Training Memory</div>
+        <div class="result-detail">OOM crashes → 19 stable RL updates</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">+64.6%</div>
+        <div class="result-label">Best pandas Speedup</div>
+        <div class="result-detail">Row-wise ops on fragmented frames</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">1,910</div>
+        <div class="result-label">Correctness Checks</div>
+        <div class="result-detail">Exact differential tests, zero mismatches</div>
+      </div>
+    </div>
+
+    <div class="takeaway-box">
+      <h4>💡 In one minute</h4>
       <ul>
-        <li><b>AutoResearch is an autonomous research agent</b> built by Salesforce AI Research. Point it at a codebase and it closes the full loop on its own: form hypotheses, build candidate optimizations, benchmark them under strict controls, and promote only what survives.</li>
-        <li><b>It found genuine, measurable wins in popular open-source libraries:</b> a <b>+4.1%</b> query-throughput improvement in <a href="https://github.com/nmslib/hnswlib">hnswlib</a>, the vector-search engine behind many AI retrieval stacks, and speedups of <b>4–28%</b> (up to <b>64.6%</b> in the best case) on common <a href="https://github.com/pandas-dev/pandas">pandas</a> operations — all with outputs verified identical to the originals. We're contributing both back as pull requests.</li>
-        <li><b>Pointed at SFR&#8209;RL,</b> our internal reinforcement-learning post-training stack, it delivered a <b>~39% reduction in peak training memory</b> — rescuing runs that previously crashed — and made model generation up to <b>3.1× faster</b> without changing a single output token.</li>
-        <li><b>Every result ships with evidence:</b> paired A/B benchmarks, statistical confidence bounds, and exact differential correctness testing. When the evidence is mixed, AutoResearch says no to its own ideas.</li>
+        <li><strong>AutoResearch closes the full research loop on its own:</strong> point it at a codebase and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, outputs verified identical — both headed upstream as PRs.</li>
+        <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
+        <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section id="why">
-  <div class="wrap">
-    <span class="eyebrow">The idea</span>
-    <h2>From agents that write code to agents that do research</h2>
-    <p>Performance engineering is some of the most valuable — and scarcest — work in software. The wins hide in mature, heavily-optimized codebases that millions of applications depend on, and finding them takes a rare combination of systems intuition, patience, and experimental discipline. A profiler tells you where time goes; it doesn't tell you what to do about it, whether your fix actually works, or whether it quietly broke something subtle.</p>
-    <p>That last part is the crux. An optimization is not a code change — it's a <em>claim</em>: "this version is faster, and it computes exactly the same thing." Claims need experiments. So instead of building another code-writing assistant, we built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove.</p>
-    <p>We call the outputs <b>artifacts</b>: not just a patch, but a patch bundled with the benchmark evidence and analysis that justify it. Below, we share the first three.</p>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <div class="card">
-      <span class="eyebrow">Under the hood</span>
-      <h2>How AutoResearch works — a high-level tour</h2>
-      <p>AutoResearch runs a closed loop that mirrors how a human performance researcher operates, with one big difference: it can explore many more ideas in parallel, around the clock, and it never gets attached to a favorite hypothesis.</p>
-
-      <figure class="diagram">
-        <svg viewBox="0 0 960 292" role="img" aria-label="AutoResearch loop: scope the problem, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
-          <defs>
-            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="#8fb4e3"/>
-            </marker>
-          </defs>
-          <!-- stage boxes -->
-          <g>
-            <rect x="8" y="36" width="200" height="96" rx="12" fill="#f2f7fd" stroke="#cfe1f7"/>
-            <circle cx="34" cy="62" r="12" fill="#2a78d6"/><text x="34" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">1</text>
-            <text x="54" y="67" font-size="14.5" font-weight="700" fill="#13233f">Scope the target</text>
-            <text x="24" y="96" font-size="11.5" fill="#54627c">Studies the codebase and finds</text>
-            <text x="24" y="112" font-size="11.5" fill="#54627c">where performance is hiding</text>
-          </g>
-          <g>
-            <rect x="240" y="36" width="200" height="96" rx="12" fill="#f2f7fd" stroke="#cfe1f7"/>
-            <circle cx="266" cy="62" r="12" fill="#2a78d6"/><text x="266" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">2</text>
-            <text x="286" y="67" font-size="14.5" font-weight="700" fill="#13233f">Propose ideas</text>
-            <text x="256" y="96" font-size="11.5" fill="#54627c">Generates many candidate</text>
-            <text x="256" y="112" font-size="11.5" fill="#54627c">optimizations, like a researcher</text>
-          </g>
-          <g>
-            <rect x="472" y="36" width="200" height="96" rx="12" fill="#f2f7fd" stroke="#cfe1f7"/>
-            <circle cx="498" cy="62" r="12" fill="#2a78d6"/><text x="498" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">3</text>
-            <text x="518" y="67" font-size="14.5" font-weight="700" fill="#13233f">Run experiments</text>
-            <text x="488" y="96" font-size="11.5" fill="#54627c">Implements each idea and</text>
-            <text x="488" y="112" font-size="11.5" fill="#54627c">benchmarks it in a sandbox</text>
-          </g>
-          <g>
-            <rect x="704" y="36" width="200" height="96" rx="12" fill="#f2f7fd" stroke="#cfe1f7"/>
-            <circle cx="730" cy="62" r="12" fill="#2a78d6"/><text x="730" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">4</text>
-            <text x="750" y="67" font-size="14.5" font-weight="700" fill="#13233f">Verify &amp; decide</text>
-            <text x="720" y="96" font-size="11.5" fill="#54627c">Statistical and correctness</text>
-            <text x="720" y="112" font-size="11.5" fill="#54627c">gates — only real wins survive</text>
-          </g>
-          <!-- forward arrows -->
-          <line x1="208" y1="84" x2="234" y2="84" stroke="#8fb4e3" stroke-width="2" marker-end="url(#arr)"/>
-          <line x1="440" y1="84" x2="466" y2="84" stroke="#8fb4e3" stroke-width="2" marker-end="url(#arr)"/>
-          <line x1="672" y1="84" x2="698" y2="84" stroke="#8fb4e3" stroke-width="2" marker-end="url(#arr)"/>
-          <!-- reject loop -->
-          <path d="M744,132 V168 H340 V142" fill="none" stroke="#8fb4e3" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
-          <text x="520" y="162" text-anchor="middle" font-size="11" fill="#7a8699">not convincing? reject, learn, try the next idea</text>
-          <!-- pass arrow + artifact -->
-          <line x1="790" y1="132" x2="790" y2="178" stroke="#7bbd91" stroke-width="2" marker-end="url(#arr)"/>
-          <text x="798" y="161" text-anchor="start" font-size="11" fill="#2e7d43">evidence clears the bar</text>
-          <g>
-            <rect x="620" y="184" width="284" height="84" rx="12" fill="#eef8f0" stroke="#bfe0c9"/>
-            <text x="644" y="215" font-size="14.5" font-weight="700" fill="#13233f">✓ Vetted artifact</text>
-            <text x="644" y="238" font-size="11.5" fill="#54627c">A working patch, benchmark evidence,</text>
-            <text x="644" y="254" font-size="11.5" fill="#54627c">and a technical report</text>
-          </g>
-        </svg>
-        <figcaption>Figure 1 · The AutoResearch loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both performance and correctness gates are promoted to artifacts.</figcaption>
-      </figure>
-
-      <p style="margin-top:20px">A few things make this loop work where naive "ask an LLM to optimize my code" doesn't:</p>
-      <p><b>It experiments instead of guessing.</b> Every candidate change is built, run, and measured against the unmodified baseline in a controlled environment — same hardware, same inputs, paired runs in alternating order to cancel out noise.</p>
-      <p><b>Correctness is a gate, not an afterthought.</b> A candidate that is fast but changes any observable behavior — down to floating-point edge cases like the sign of a zero — is rejected automatically.</p>
-      <p><b>It's honest about uncertainty.</b> Results come with confidence bounds, and a candidate whose evidence is mixed gets held back, not hyped. Several of AutoResearch's own inventions didn't make the cut — and that's the system working as intended.</p>
-
-      <div class="note">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1c5cab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>The methodology behind AutoResearch — how it generates hypotheses, allocates its experiment budget, and gates evidence — is proprietary technology that Salesforce has filed patents on, so we're keeping this description intentionally high-level.</span>
-      </div>
+<!-- ==================== Overview ==================== -->
+<section id="overview" style="padding-top:1.2rem">
+  <div class="container">
+    <h2 class="section-title">Why an AI Researcher, Not a Code Assistant</h2>
+    <div class="card abstract">
+      <p>Performance engineering is some of the most valuable — and scarcest — work in software. The wins hide in mature codebases that millions of applications depend on, and an optimization is not just a code change: it's a <strong>claim</strong> — <em>"this version is faster, and it computes exactly the same thing."</em> Claims need experiments. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
+      <br>
+      <p>So instead of another code-writing assistant, we built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong> — a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first three: two in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
     </div>
   </div>
 </section>
 
-<section id="discoveries">
-  <div class="wrap">
-    <span class="eyebrow">The discoveries</span>
-    <h2>Three artifacts, from open source to our own stack</h2>
-    <p style="max-width:820px">To pressure-test AutoResearch we didn't hand it toy problems. We aimed it at two of the most heavily used — and heavily optimized — libraries in the Python data and AI ecosystem, plus one of our own production systems. It found something real in all three.</p>
+<!-- ==================== How it works ==================== -->
+<section id="how" style="padding-top:1.2rem">
+  <div class="container">
+    <h2 class="section-title">How AutoResearch Works</h2>
 
-    <!-- ==================== hnswlib ==================== -->
+    <figure class="diagram">
+      <svg viewBox="0 0 960 292" role="img" aria-label="AutoResearch loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8ab7e8"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="8" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="34" cy="62" r="12" fill="#0176D3"/><text x="34" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">1</text>
+          <text x="54" y="67" font-size="14.5" font-weight="700" fill="#032D60">Scope the target</text>
+          <text x="24" y="96" font-size="11.5" fill="#475569">Studies the codebase and finds</text>
+          <text x="24" y="112" font-size="11.5" fill="#475569">where performance is hiding</text>
+        </g>
+        <g>
+          <rect x="240" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="266" cy="62" r="12" fill="#0176D3"/><text x="266" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">2</text>
+          <text x="286" y="67" font-size="14.5" font-weight="700" fill="#032D60">Propose ideas</text>
+          <text x="256" y="96" font-size="11.5" fill="#475569">Generates many candidate</text>
+          <text x="256" y="112" font-size="11.5" fill="#475569">optimizations, like a researcher</text>
+        </g>
+        <g>
+          <rect x="472" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="498" cy="62" r="12" fill="#0176D3"/><text x="498" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">3</text>
+          <text x="518" y="67" font-size="14.5" font-weight="700" fill="#032D60">Run experiments</text>
+          <text x="488" y="96" font-size="11.5" fill="#475569">Implements each idea and</text>
+          <text x="488" y="112" font-size="11.5" fill="#475569">benchmarks it in a sandbox</text>
+        </g>
+        <g>
+          <rect x="704" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="730" cy="62" r="12" fill="#0176D3"/><text x="730" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">4</text>
+          <text x="750" y="67" font-size="14.5" font-weight="700" fill="#032D60">Verify &amp; decide</text>
+          <text x="720" y="96" font-size="11.5" fill="#475569">Statistical and correctness</text>
+          <text x="720" y="112" font-size="11.5" fill="#475569">gates — only real wins survive</text>
+        </g>
+        <line x1="208" y1="84" x2="234" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
+        <line x1="440" y1="84" x2="466" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
+        <line x1="672" y1="84" x2="698" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M744,132 V168 H340 V142" fill="none" stroke="#8ab7e8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+        <text x="520" y="162" text-anchor="middle" font-size="11" fill="#94a3b8">not convincing? reject, learn, try the next idea</text>
+        <line x1="790" y1="132" x2="790" y2="178" stroke="#7fc08f" stroke-width="2" marker-end="url(#arr)"/>
+        <text x="798" y="161" text-anchor="start" font-size="11" fill="#2E844A">evidence clears the bar</text>
+        <g>
+          <rect x="620" y="184" width="284" height="84" rx="12" fill="#EBF7E6" stroke="#abd9a0"/>
+          <text x="644" y="215" font-size="14.5" font-weight="700" fill="#032D60">✓ Vetted artifact</text>
+          <text x="644" y="238" font-size="11.5" fill="#475569">A working patch, benchmark evidence,</text>
+          <text x="644" y="254" font-size="11.5" fill="#475569">and a technical report</text>
+        </g>
+      </svg>
+      <figcaption><strong>Figure 1.</strong> The AutoResearch loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both performance and correctness gates become artifacts.</figcaption>
+    </figure>
+
+    <div class="contributions-grid">
+      <div class="contribution-card">
+        <div class="contribution-icon">🧪</div>
+        <h3>Experiments, Not Guesses</h3>
+        <p>Every candidate is built, run, and measured against the unmodified baseline — same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels instead of masquerading as a result.</p>
+      </div>
+      <div class="contribution-card">
+        <div class="contribution-icon">✓</div>
+        <h3>Correctness Is a Gate</h3>
+        <p>Patched and unpatched systems are fed identical inputs and compared exactly — hashes, dtypes, edge cases down to the sign of a floating-point zero. Any observable change means automatic rejection.</p>
+      </div>
+      <div class="contribution-card">
+        <div class="contribution-icon">📊</div>
+        <h3>Statistics Before Headlines</h3>
+        <p>Every reported number carries confidence bounds from repeated measurements. A flashy median with a shaky interval doesn't get promoted, no matter how good it looks.</p>
+      </div>
+      <div class="contribution-card">
+        <div class="contribution-icon">🚫</div>
+        <h3>It Rejects Its Own Ideas</h3>
+        <p>One clever kernel rewrite showed a small win in one phase and a regression in another — AutoResearch flagged the mixed evidence and held it back itself. Negative results are kept, not buried.</p>
+      </div>
+    </div>
+
+    <p class="footnote">The methodology itself — how AutoResearch generates hypotheses, allocates its experiment budget, and gates evidence — is patent-pending Salesforce technology, so this page keeps the description at a high level.</p>
+  </div>
+</section>
+
+<!-- ==================== Findings ==================== -->
+<section id="findings" style="padding-top:1.2rem">
+  <div class="container">
+    <h2 class="section-title">What It Found</h2>
+    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoResearch toy problems — we aimed it at two of the most heavily used and heavily optimized libraries in the Python data/AI ecosystem, plus one of our own production systems. It found something real in all three.</p>
+
+    <!-- hnswlib -->
     <div class="card disc" id="hnswlib">
       <div class="disc-head">
         <div class="disc-badge">1</div>
         <div>
-          <span class="disc-kicker">Open source · vector search</span>
+          <span class="disc-kicker">Open Source · Vector Search</span>
           <h3>hnswlib: a clean +4% in the engine behind AI retrieval</h3>
         </div>
       </div>
-      <span class="pill blue">+4.1% median query throughput</span>
-      <span class="pill">Bit-for-bit identical results</span>
-      <p style="margin-top:14px"><a href="https://github.com/nmslib/hnswlib">hnswlib</a> is one of the world's most widely used approximate-nearest-neighbor engines — it powers vector search inside databases, RAG pipelines, and recommendation systems. It has been profiled and tuned by experts for years, which is exactly why we chose it: any remaining win has to be a genuinely good idea.</p>
-      <p>AutoResearch found one in the library's batch query path. Each search needs a small piece of scratch memory (a "visited" list) that queries borrow from a shared pool — and in a batch, every single query was paying the synchronization cost of checking that scratch out and back in. AutoResearch's patch has each worker thread <em>lease</em> its scratch once and reuse it across the whole batch: in its diagnostic workload, roughly <b>4,000 lock operations collapsed to 32</b> — a 99.2% reduction — while preserving the search logic untouched.</p>
-      <p>The result: <b>+4.1% median queries-per-second</b> across three independently built indexes, faster in every paired run — with labels, distances, and recall verified <b>identical to the byte</b>.</p>
+      <div class="badge-row">
+        <span class="mini-pill blue">+4.1% median query throughput</span>
+        <span class="mini-pill green">Bit-for-bit identical results</span>
+      </div>
+      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoResearch found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
+      <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
       <figure class="chart">
-<svg viewBox="0 0 560 250" role="img" aria-label="hnswlib batch-query throughput gain by construction seed" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" preserveAspectRatio="xMidYMid meet">
-<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#7a8699">0%</text>
-<line x1="46" y1="167.6" x2="548" y2="167.6" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="171.6" text-anchor="end" font-size="11" fill="#7a8699">1%</text>
-<line x1="46" y1="131.2" x2="548" y2="131.2" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="135.2" text-anchor="end" font-size="11" fill="#7a8699">2%</text>
-<line x1="46" y1="94.8" x2="548" y2="94.8" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="98.8" text-anchor="end" font-size="11" fill="#7a8699">3%</text>
-<line x1="46" y1="58.4" x2="548" y2="58.4" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="62.4" text-anchor="end" font-size="11" fill="#7a8699">4%</text>
-<line x1="46" y1="22.0" x2="548" y2="22.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="26.0" text-anchor="end" font-size="11" fill="#7a8699">5%</text>
-<line x1="46" y1="204" x2="548" y2="204" stroke="#c6cede" stroke-width="1"/>
-<path d="M117.7,204.0 V50.0 Q117.7,46.0 121.7,46.0 H137.7 Q141.7,46.0 141.7,50.0 V204.0 Z" fill="#2a78d6"><title>Seed 7101: +4.34% queries per second, identical search results</title></path>
-<text x="129.7" y="39.0" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+4.34%</text>
-<text x="129.7" y="224" text-anchor="middle" font-size="12" fill="#54627c">Seed 7101</text>
-<path d="M285.0,204.0 V58.0 Q285.0,54.0 289.0,54.0 H305.0 Q309.0,54.0 309.0,58.0 V204.0 Z" fill="#2a78d6"><title>Seed 7102: +4.12% queries per second, identical search results</title></path>
-<text x="297.0" y="47.0" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+4.12%</text>
-<text x="297.0" y="224" text-anchor="middle" font-size="12" fill="#54627c">Seed 7102</text>
-<path d="M452.3,204.0 V63.9 Q452.3,59.9 456.3,59.9 H472.3 Q476.3,59.9 476.3,63.9 V204.0 Z" fill="#2a78d6"><title>Seed 7103: +3.96% queries per second, identical search results</title></path>
-<text x="464.3" y="52.9" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+3.96%</text>
-<text x="464.3" y="224" text-anchor="middle" font-size="12" fill="#54627c">Seed 7103</text>
+<svg viewBox="0 0 560 250" role="img" aria-label="hnswlib batch-query throughput gain by construction seed" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="46" y1="167.6" x2="548" y2="167.6" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="171.6" text-anchor="end" font-size="11" fill="#94a3b8">1%</text>
+<line x1="46" y1="131.2" x2="548" y2="131.2" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="135.2" text-anchor="end" font-size="11" fill="#94a3b8">2%</text>
+<line x1="46" y1="94.8" x2="548" y2="94.8" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="98.8" text-anchor="end" font-size="11" fill="#94a3b8">3%</text>
+<line x1="46" y1="58.4" x2="548" y2="58.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="62.4" text-anchor="end" font-size="11" fill="#94a3b8">4%</text>
+<line x1="46" y1="22.0" x2="548" y2="22.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="26.0" text-anchor="end" font-size="11" fill="#94a3b8">5%</text>
+<line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M117.7,204.0 V50.0 Q117.7,46.0 121.7,46.0 H137.7 Q141.7,46.0 141.7,50.0 V204.0 Z" fill="#0176D3"><title>Seed 7101: +4.34% queries per second, identical search results</title></path>
+<text x="129.7" y="39.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+4.34%</text>
+<text x="129.7" y="224" text-anchor="middle" font-size="12" fill="#475569">Seed 7101</text>
+<path d="M285.0,204.0 V58.0 Q285.0,54.0 289.0,54.0 H305.0 Q309.0,54.0 309.0,58.0 V204.0 Z" fill="#0176D3"><title>Seed 7102: +4.12% queries per second, identical search results</title></path>
+<text x="297.0" y="47.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+4.12%</text>
+<text x="297.0" y="224" text-anchor="middle" font-size="12" fill="#475569">Seed 7102</text>
+<path d="M452.3,204.0 V63.9 Q452.3,59.9 456.3,59.9 H472.3 Q476.3,59.9 476.3,63.9 V204.0 Z" fill="#0176D3"><title>Seed 7103: +3.96% queries per second, identical search results</title></path>
+<text x="464.3" y="52.9" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+3.96%</text>
+<text x="464.3" y="224" text-anchor="middle" font-size="12" fill="#475569">Seed 7103</text>
 </svg>
-<figcaption>Figure 2 · Change in hnswlib batch-query throughput (queries per second) versus the unmodified library, on three independently built indexes. Faster in every paired run; search results unchanged.</figcaption>
+<figcaption><strong>Figure 2.</strong> Change in hnswlib batch-query throughput vs the unmodified library, on three independently built indexes. Faster in every paired run; search results unchanged.</figcaption>
 </figure>
       <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">View the pull request →</a>
-        <small>We're contributing this optimization upstream to the hnswlib project.</small>
+        <small>Contributed upstream to the hnswlib project.</small>
       </div>
     </div>
 
-    <!-- ==================== pandas ==================== -->
+    <!-- pandas -->
     <div class="card disc" id="pandas">
       <div class="disc-head">
         <div class="disc-badge">2</div>
         <div>
-          <span class="disc-kicker">Open source · dataframes</span>
+          <span class="disc-kicker">Open Source · Dataframes</span>
           <h3>pandas: routing hot paths around work they don't need</h3>
         </div>
       </div>
-      <span class="pill blue">4–28% faster on primary workloads</span>
-      <span class="pill blue">Up to +64.6% in the best case</span>
-      <span class="pill">1,910 correctness checks, 0 mismatches</span>
-      <p style="margin-top:14px">pandas is the workhorse of data science, and its flexibility is the point: the same operation must handle every data type, missing-value convention, and memory layout users can throw at it. AutoResearch noticed that this generality has a cost — hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in the ideal form.</p>
-      <p>Its answer is a pattern we'd describe as <b>"check first, then take the express lane."</b> A narrowly guarded fast path handles data whose layout already qualifies; everything else falls through to pandas' unchanged, general implementation. AutoResearch applied the pattern in two places:</p>
-      <p><b>Counting and de-duplicating strings.</b> For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel, skipping redundant adapter layers. On one-million-value workloads that's <b>4.4–12.2% faster</b> — and peak memory for <code>value_counts</code> dropped by about a third. Total size of the change: a 28-line diff.</p>
+      <div class="badge-row">
+        <span class="mini-pill blue">4–28% faster primary workloads</span>
+        <span class="mini-pill blue">Up to +64.6% best case</span>
+        <span class="mini-pill green">1,910 checks, 0 mismatches</span>
+      </div>
+      <p>pandas must handle every data type, missing-value convention, and memory layout — and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoResearch's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
+      <p><strong>Counting and de-duplicating strings.</strong> For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
       <figure class="chart">
-<svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" preserveAspectRatio="xMidYMid meet">
-<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#7a8699">0%</text>
-<line x1="46" y1="143.3" x2="548" y2="143.3" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="147.3" text-anchor="end" font-size="11" fill="#7a8699">5%</text>
-<line x1="46" y1="82.7" x2="548" y2="82.7" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="86.7" text-anchor="end" font-size="11" fill="#7a8699">10%</text>
-<line x1="46" y1="22.0" x2="548" y2="22.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="26.0" text-anchor="end" font-size="11" fill="#7a8699">15%</text>
-<line x1="46" y1="204" x2="548" y2="204" stroke="#c6cede" stroke-width="1"/>
-<path d="M96.8,204.0 V154.6 Q96.8,150.6 100.8,150.6 H116.8 Q120.8,150.6 120.8,154.6 V204.0 Z" fill="#2a78d6"><title>value_counts: 4.4% faster on one million strings, exact same output</title></path>
-<text x="108.8" y="143.6" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+4.4%</text>
-<text x="108.8" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">value_counts</text>
-<path d="M222.2,204.0 V91.5 Q222.2,87.5 226.2,87.5 H242.2 Q246.2,87.5 246.2,91.5 V204.0 Z" fill="#2a78d6"><title>duplicated (first): 9.6% faster on one million strings, exact same output</title></path>
-<text x="234.2" y="80.5" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+9.6%</text>
-<text x="234.2" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">duplicated (first)</text>
-<path d="M347.8,204.0 V60.0 Q347.8,56.0 351.8,56.0 H367.8 Q371.8,56.0 371.8,60.0 V204.0 Z" fill="#2a78d6"><title>duplicated (last): 12.2% faster on one million strings, exact same output</title></path>
-<text x="359.8" y="49.0" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+12.2%</text>
-<text x="359.8" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">duplicated (last)</text>
-<path d="M473.2,204.0 V102.4 Q473.2,98.4 477.2,98.4 H493.2 Q497.2,98.4 497.2,102.4 V204.0 Z" fill="#2a78d6"><title>duplicated (False): 8.7% faster on one million strings, exact same output</title></path>
-<text x="485.2" y="91.4" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">+8.7%</text>
-<text x="485.2" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">duplicated (False)</text>
+<svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="46" y1="143.3" x2="548" y2="143.3" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="147.3" text-anchor="end" font-size="11" fill="#94a3b8">5%</text>
+<line x1="46" y1="82.7" x2="548" y2="82.7" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="86.7" text-anchor="end" font-size="11" fill="#94a3b8">10%</text>
+<line x1="46" y1="22.0" x2="548" y2="22.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="26.0" text-anchor="end" font-size="11" fill="#94a3b8">15%</text>
+<line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M96.8,204.0 V154.6 Q96.8,150.6 100.8,150.6 H116.8 Q120.8,150.6 120.8,154.6 V204.0 Z" fill="#0176D3"><title>value_counts: 4.4% faster on one million strings, exact same output</title></path>
+<text x="108.8" y="143.6" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+4.4%</text>
+<text x="108.8" y="224" text-anchor="middle" font-size="11.5" fill="#475569">value_counts</text>
+<path d="M222.2,204.0 V91.5 Q222.2,87.5 226.2,87.5 H242.2 Q246.2,87.5 246.2,91.5 V204.0 Z" fill="#0176D3"><title>duplicated (first): 9.6% faster on one million strings, exact same output</title></path>
+<text x="234.2" y="80.5" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+9.6%</text>
+<text x="234.2" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (first)</text>
+<path d="M347.8,204.0 V60.0 Q347.8,56.0 351.8,56.0 H367.8 Q371.8,56.0 371.8,60.0 V204.0 Z" fill="#0176D3"><title>duplicated (last): 12.2% faster on one million strings, exact same output</title></path>
+<text x="359.8" y="49.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+12.2%</text>
+<text x="359.8" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (last)</text>
+<path d="M473.2,204.0 V102.4 Q473.2,98.4 477.2,98.4 H493.2 Q497.2,98.4 497.2,102.4 V204.0 Z" fill="#0176D3"><title>duplicated (False): 8.7% faster on one million strings, exact same output</title></path>
+<text x="485.2" y="91.4" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+8.7%</text>
+<text x="485.2" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (False)</text>
 </svg>
-<figcaption>Figure 3 · Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
+<figcaption><strong>Figure 3.</strong> Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
 </figure>
-      <p style="margin-top:26px"><b>Row-wise math.</b> Computing <code>sum</code>, <code>prod</code>, <code>min</code>, or <code>max</code> across each row used to allocate fresh intermediate arrays for every internal block of the dataframe. The patch folds blocks into a single reused accumulator instead. On a typical 100,000-row mixed-type frame that's <b>12–28% faster</b>; on fragmented frames — the kind real pipelines accumulate after many inserts and joins — it reaches <b>64.6%</b>.</p>
+      <p style="margin-top:1.6rem"><strong>Row-wise math.</strong> <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame — and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
       <div class="legend" aria-hidden="true">
-        <span><i style="background:#2a78d6"></i>Typical mixed frame (100K rows)</span>
-        <span><i style="background:#eb6834"></i>Fragmented frame (32 blocks)</span>
+        <span><i style="background:#0176D3"></i>Typical mixed frame (100K rows)</span>
+        <span><i style="background:#DD7A01"></i>Fragmented frame (32 blocks)</span>
       </div>
       <figure class="chart">
-<svg viewBox="0 0 560 268" role="img" aria-label="pandas row-wise reduction speedups on a typical and a fragmented frame" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" preserveAspectRatio="xMidYMid meet">
-<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#7a8699">0%</text>
-<line x1="46" y1="152.0" x2="548" y2="152.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="156.0" text-anchor="end" font-size="11" fill="#7a8699">20%</text>
-<line x1="46" y1="100.0" x2="548" y2="100.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="104.0" text-anchor="end" font-size="11" fill="#7a8699">40%</text>
-<line x1="46" y1="48.0" x2="548" y2="48.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="38" y="52.0" text-anchor="end" font-size="11" fill="#7a8699">60%</text>
-<line x1="46" y1="204" x2="548" y2="204" stroke="#c6cede" stroke-width="1"/>
-<path d="M83.8,204.0 V167.2 Q83.8,163.2 87.8,163.2 H103.8 Q107.8,163.2 107.8,167.2 V204.0 Z" fill="#2a78d6"><title>sum — typical mixed frame (100,000 rows): 15.7% faster</title></path>
-<path d="M109.8,204.0 V129.7 Q109.8,125.7 113.8,125.7 H129.8 Q133.8,125.7 133.8,129.7 V204.0 Z" fill="#eb6834"><title>sum — fragmented frame (32 blocks): 30.1% faster</title></path>
-<text x="121.8" y="118.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#33415c">+30.1%</text>
-<text x="108.8" y="224" text-anchor="middle" font-size="12" fill="#54627c">sum</text>
-<path d="M209.2,204.0 V135.2 Q209.2,131.2 213.2,131.2 H229.2 Q233.2,131.2 233.2,135.2 V204.0 Z" fill="#2a78d6"><title>prod — typical mixed frame (100,000 rows): 28.0% faster</title></path>
-<path d="M235.2,204.0 V108.7 Q235.2,104.7 239.2,104.7 H255.2 Q259.2,104.7 259.2,108.7 V204.0 Z" fill="#eb6834"><title>prod — fragmented frame (32 blocks): 38.2% faster</title></path>
-<text x="247.2" y="97.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#33415c">+38.2%</text>
-<text x="234.2" y="224" text-anchor="middle" font-size="12" fill="#54627c">prod</text>
-<path d="M334.8,204.0 V175.0 Q334.8,171.0 338.8,171.0 H354.8 Q358.8,171.0 358.8,175.0 V204.0 Z" fill="#2a78d6"><title>min — typical mixed frame (100,000 rows): 12.7% faster</title></path>
-<path d="M360.8,204.0 V40.6 Q360.8,36.6 364.8,36.6 H380.8 Q384.8,36.6 384.8,40.6 V204.0 Z" fill="#eb6834"><title>min — fragmented frame (32 blocks): 64.4% faster</title></path>
-<text x="372.8" y="29.6" text-anchor="middle" font-size="11.5" font-weight="600" fill="#33415c">+64.4%</text>
-<text x="359.8" y="224" text-anchor="middle" font-size="12" fill="#54627c">min</text>
-<path d="M460.2,204.0 V176.0 Q460.2,172.0 464.2,172.0 H480.2 Q484.2,172.0 484.2,176.0 V204.0 Z" fill="#2a78d6"><title>max — typical mixed frame (100,000 rows): 12.3% faster</title></path>
-<path d="M486.2,204.0 V40.0 Q486.2,36.0 490.2,36.0 H506.2 Q510.2,36.0 510.2,40.0 V204.0 Z" fill="#eb6834"><title>max — fragmented frame (32 blocks): 64.6% faster</title></path>
-<text x="498.2" y="29.0" text-anchor="middle" font-size="11.5" font-weight="600" fill="#33415c">+64.6%</text>
-<text x="485.2" y="224" text-anchor="middle" font-size="12" fill="#54627c">max</text>
+<svg viewBox="0 0 560 268" role="img" aria-label="pandas row-wise reduction speedups on a typical and a fragmented frame" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="46" y1="152.0" x2="548" y2="152.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="156.0" text-anchor="end" font-size="11" fill="#94a3b8">20%</text>
+<line x1="46" y1="100.0" x2="548" y2="100.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="104.0" text-anchor="end" font-size="11" fill="#94a3b8">40%</text>
+<line x1="46" y1="48.0" x2="548" y2="48.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="52.0" text-anchor="end" font-size="11" fill="#94a3b8">60%</text>
+<line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M83.8,204.0 V167.2 Q83.8,163.2 87.8,163.2 H103.8 Q107.8,163.2 107.8,167.2 V204.0 Z" fill="#0176D3"><title>sum — typical mixed frame (100,000 rows): 15.7% faster</title></path>
+<path d="M109.8,204.0 V129.7 Q109.8,125.7 113.8,125.7 H129.8 Q133.8,125.7 133.8,129.7 V204.0 Z" fill="#DD7A01"><title>sum — fragmented frame (32 blocks): 30.1% faster</title></path>
+<text x="121.8" y="118.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+30.1%</text>
+<text x="108.8" y="224" text-anchor="middle" font-size="12" fill="#475569">sum</text>
+<path d="M209.2,204.0 V135.2 Q209.2,131.2 213.2,131.2 H229.2 Q233.2,131.2 233.2,135.2 V204.0 Z" fill="#0176D3"><title>prod — typical mixed frame (100,000 rows): 28.0% faster</title></path>
+<path d="M235.2,204.0 V108.7 Q235.2,104.7 239.2,104.7 H255.2 Q259.2,104.7 259.2,108.7 V204.0 Z" fill="#DD7A01"><title>prod — fragmented frame (32 blocks): 38.2% faster</title></path>
+<text x="247.2" y="97.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+38.2%</text>
+<text x="234.2" y="224" text-anchor="middle" font-size="12" fill="#475569">prod</text>
+<path d="M334.8,204.0 V175.0 Q334.8,171.0 338.8,171.0 H354.8 Q358.8,171.0 358.8,175.0 V204.0 Z" fill="#0176D3"><title>min — typical mixed frame (100,000 rows): 12.7% faster</title></path>
+<path d="M360.8,204.0 V40.6 Q360.8,36.6 364.8,36.6 H380.8 Q384.8,36.6 384.8,40.6 V204.0 Z" fill="#DD7A01"><title>min — fragmented frame (32 blocks): 64.4% faster</title></path>
+<text x="372.8" y="29.6" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.4%</text>
+<text x="359.8" y="224" text-anchor="middle" font-size="12" fill="#475569">min</text>
+<path d="M460.2,204.0 V176.0 Q460.2,172.0 464.2,172.0 H480.2 Q484.2,172.0 484.2,176.0 V204.0 Z" fill="#0176D3"><title>max — typical mixed frame (100,000 rows): 12.3% faster</title></path>
+<path d="M486.2,204.0 V40.0 Q486.2,36.0 490.2,36.0 H506.2 Q510.2,36.0 510.2,40.0 V204.0 Z" fill="#DD7A01"><title>max — fragmented frame (32 blocks): 64.6% faster</title></path>
+<text x="498.2" y="29.0" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.6%</text>
+<text x="485.2" y="224" text-anchor="middle" font-size="12" fill="#475569">max</text>
 </svg>
-<figcaption>Figure 4 · Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
+<figcaption><strong>Figure 4.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
-      <p style="margin-top:26px">What makes us comfortable proposing this upstream isn't the speed — it's the verification. AutoResearch ran <b>1,910 differential test cases</b> comparing patched and unpatched pandas on identical inputs: Unicode and emoji strings, missing values, integer overflow, <code>NaN</code> propagation, even the sign bit of floating-point zero. <b>Every output matched exactly.</b> And because the fast paths are guarded, anything unusual simply takes the original code path.</p>
+      <p style="margin-top:1.6rem">What makes this upstream-ready isn't the speed — it's the verification: <strong>1,910 differential test cases</strong> comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
       <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">View the pull request →</a>
-        <small>We're contributing these optimizations upstream to the pandas project.</small>
+        <small>Contributed upstream to the pandas project.</small>
       </div>
     </div>
 
-    <!-- ==================== SFR-RL ==================== -->
+    <!-- SFR-RL -->
     <div class="card disc" id="sfr-rl">
       <div class="disc-head">
         <div class="disc-badge">3</div>
         <div>
-          <span class="disc-kicker">Salesforce internal · LLM training</span>
-          <h3>SFR&#8209;RL: taming memory and speed in our own RL stack</h3>
+          <span class="disc-kicker">Salesforce Internal · LLM Training</span>
+          <h3>SFR-RL: taming memory and speed in our own RL stack</h3>
         </div>
       </div>
-      <span class="pill blue">−39% peak training memory</span>
-      <span class="pill blue">Up to 3.1× generation throughput</span>
-      <span class="pill">Outputs verified token-for-token identical</span>
-      <p style="margin-top:14px">The most satisfying test was pointing AutoResearch at our own infrastructure: <b>SFR&#8209;RL</b>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models — including the mixture-of-experts models behind our agentic AI work. (SFR&#8209;RL is internal, so we'll share the results here rather than the recipes.)</p>
-      <p><b>Memory: from roulette to guarantees.</b> RL training has a nasty property: the model generates its own training data as it learns, so the size and shape of each training step is drawn fresh every update — and a rare unlucky draw can blow past GPU memory at the worst possible moment, destroying an expensive run. AutoResearch produced improvements that make the trainer's peak memory <b>predictable and bounded by configuration</b> rather than by luck: on a demanding long-context workload, peak memory fell from <b>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</b>, and the run sustained 19 consecutive updates with room to spare. Crucially, the training computation itself is unchanged: same tokens, same gradients, same model.</p>
+      <div class="badge-row">
+        <span class="mini-pill blue">−39% peak training memory</span>
+        <span class="mini-pill blue">Up to 3.14× generation throughput</span>
+        <span class="mini-pill green">Token-for-token identical outputs</span>
+      </div>
+      <p>The most satisfying test was pointing AutoResearch at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so we share the results here rather than the recipes.)</p>
+      <p><strong>Memory: from roulette to guarantees.</strong> In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoResearch's improvements make peak memory <strong>predictable and bounded by configuration</strong> rather than luck: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <div class="duo">
 <figure class="chart">
-<svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoResearch's fixes" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" preserveAspectRatio="xMidYMid meet">
-<text x="44" y="214.0" text-anchor="end" font-size="11" fill="#7a8699">0</text>
-<line x1="52" y1="161.4" x2="468" y2="161.4" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="165.4" text-anchor="end" font-size="11" fill="#7a8699">40</text>
-<line x1="52" y1="112.9" x2="468" y2="112.9" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="116.9" text-anchor="end" font-size="11" fill="#7a8699">80</text>
-<line x1="52" y1="64.3" x2="468" y2="64.3" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="68.3" text-anchor="end" font-size="11" fill="#7a8699">120</text>
-<line x1="52" y1="210" x2="468" y2="210" stroke="#c6cede" stroke-width="1"/>
-<text x="44" y="16" text-anchor="end" font-size="10.5" fill="#7a8699">GiB</text>
-<path d="M144.0,210.0 V58.0 Q144.0,54.0 148.0,54.0 H164.0 Q168.0,54.0 168.0,58.0 V210.0 Z" fill="#b9c3d2"><title>Before: peak allocation 128.5 GiB — ran out of memory</title></path>
-<text x="156.0" y="32.0" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">128.5 GiB</text>
-<text x="156.0" y="47.0" text-anchor="middle" font-size="11" fill="#c23934">✕ ran out of memory</text>
-<text x="156.0" y="230" text-anchor="middle" font-size="12" fill="#54627c">Before</text>
-<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#2a78d6"><title>With AutoResearch: peak allocation 78.6 GiB — 19 updates, stable</title></path>
-<text x="364.0" y="92.6" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">78.6 GiB</text>
-<text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#006300">✓ 19 updates, stable</text>
-<text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#54627c">With AutoResearch</text>
+<svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoResearch's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="44" y="214.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
+<line x1="52" y1="161.4" x2="468" y2="161.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="165.4" text-anchor="end" font-size="11" fill="#94a3b8">40</text>
+<line x1="52" y1="112.9" x2="468" y2="112.9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="116.9" text-anchor="end" font-size="11" fill="#94a3b8">80</text>
+<line x1="52" y1="64.3" x2="468" y2="64.3" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="68.3" text-anchor="end" font-size="11" fill="#94a3b8">120</text>
+<line x1="52" y1="210" x2="468" y2="210" stroke="#cbd5e1" stroke-width="1"/>
+<text x="44" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">GiB</text>
+<path d="M144.0,210.0 V58.0 Q144.0,54.0 148.0,54.0 H164.0 Q168.0,54.0 168.0,58.0 V210.0 Z" fill="#b6c2ce"><title>Before: peak allocation 128.5 GiB — ran out of memory</title></path>
+<text x="156.0" y="32.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">128.5 GiB</text>
+<text x="156.0" y="47.0" text-anchor="middle" font-size="11" fill="#BA0517">✕ ran out of memory</text>
+<text x="156.0" y="230" text-anchor="middle" font-size="12" fill="#475569">Before</text>
+<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#0176D3"><title>With AutoResearch: peak allocation 78.6 GiB — 19 updates, stable</title></path>
+<text x="364.0" y="92.6" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">78.6 GiB</text>
+<text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#2E844A">✓ 19 updates, stable</text>
+<text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoResearch</text>
 </svg>
-<figcaption>Figure 5 · Peak trainer memory on the same long-context RL workload. The baseline configuration — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
+<figcaption><strong>Figure 5.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
 </figure>
 <figure class="chart">
-<svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" preserveAspectRatio="xMidYMid meet">
-<text x="44" y="208.0" text-anchor="end" font-size="11" fill="#7a8699">0%</text>
-<line x1="52" y1="158.5" x2="468" y2="158.5" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="162.5" text-anchor="end" font-size="11" fill="#7a8699">20%</text>
-<line x1="52" y1="113.0" x2="468" y2="113.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="117.0" text-anchor="end" font-size="11" fill="#7a8699">40%</text>
-<line x1="52" y1="67.5" x2="468" y2="67.5" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="71.5" text-anchor="end" font-size="11" fill="#7a8699">60%</text>
-<line x1="52" y1="22.0" x2="468" y2="22.0" stroke="#e5e9f1" stroke-width="1"/>
-<text x="44" y="26.0" text-anchor="end" font-size="11" fill="#7a8699">80%</text>
-<line x1="52" y1="204" x2="468" y2="204" stroke="#c6cede" stroke-width="1"/>
-<path d="M92.0,204.0 V58.3 Q92.0,54.3 96.0,54.3 H112.0 Q116.0,54.3 116.0,58.3 V204.0 Z" fill="#2a78d6"><title>Short chats: median time per generated token down 65.8%, outputs unchanged</title></path>
-<text x="104.0" y="47.3" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">−65.8%</text>
-<text x="104.0" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">Short chats</text>
-<path d="M196.0,204.0 V50.1 Q196.0,46.1 200.0,46.1 H216.0 Q220.0,46.1 220.0,50.1 V204.0 Z" fill="#2a78d6"><title>Long answers: median time per generated token down 69.4%, outputs unchanged</title></path>
-<text x="208.0" y="39.1" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">−69.4%</text>
-<text x="208.0" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">Long answers</text>
-<path d="M300.0,204.0 V69.7 Q300.0,65.7 304.0,65.7 H320.0 Q324.0,65.7 324.0,69.7 V204.0 Z" fill="#2a78d6"><title>Huge context: median time per generated token down 60.8%, outputs unchanged</title></path>
-<text x="312.0" y="58.7" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">−60.8%</text>
-<text x="312.0" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">Huge context</text>
-<path d="M404.0,204.0 V66.3 Q404.0,62.3 408.0,62.3 H424.0 Q428.0,62.3 428.0,66.3 V204.0 Z" fill="#2a78d6"><title>Mixed traffic: median time per generated token down 62.3%, outputs unchanged</title></path>
-<text x="416.0" y="55.3" text-anchor="middle" font-size="12" font-weight="600" fill="#33415c">−62.3%</text>
-<text x="416.0" y="224" text-anchor="middle" font-size="11.5" fill="#54627c">Mixed traffic</text>
+<svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="44" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="52" y1="158.5" x2="468" y2="158.5" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="162.5" text-anchor="end" font-size="11" fill="#94a3b8">20%</text>
+<line x1="52" y1="113.0" x2="468" y2="113.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="117.0" text-anchor="end" font-size="11" fill="#94a3b8">40%</text>
+<line x1="52" y1="67.5" x2="468" y2="67.5" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="71.5" text-anchor="end" font-size="11" fill="#94a3b8">60%</text>
+<line x1="52" y1="22.0" x2="468" y2="22.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="26.0" text-anchor="end" font-size="11" fill="#94a3b8">80%</text>
+<line x1="52" y1="204" x2="468" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M92.0,204.0 V58.3 Q92.0,54.3 96.0,54.3 H112.0 Q116.0,54.3 116.0,58.3 V204.0 Z" fill="#0176D3"><title>Short chats: median time per generated token down 65.8%, outputs unchanged</title></path>
+<text x="104.0" y="47.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−65.8%</text>
+<text x="104.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Short chats</text>
+<path d="M196.0,204.0 V50.1 Q196.0,46.1 200.0,46.1 H216.0 Q220.0,46.1 220.0,50.1 V204.0 Z" fill="#0176D3"><title>Long answers: median time per generated token down 69.4%, outputs unchanged</title></path>
+<text x="208.0" y="39.1" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−69.4%</text>
+<text x="208.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Long answers</text>
+<path d="M300.0,204.0 V69.7 Q300.0,65.7 304.0,65.7 H320.0 Q324.0,65.7 324.0,69.7 V204.0 Z" fill="#0176D3"><title>Huge context: median time per generated token down 60.8%, outputs unchanged</title></path>
+<text x="312.0" y="58.7" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−60.8%</text>
+<text x="312.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Huge context</text>
+<path d="M404.0,204.0 V66.3 Q404.0,62.3 408.0,62.3 H424.0 Q428.0,62.3 428.0,66.3 V204.0 Z" fill="#0176D3"><title>Mixed traffic: median time per generated token down 62.3%, outputs unchanged</title></path>
+<text x="416.0" y="55.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−62.3%</text>
+<text x="416.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Mixed traffic</text>
 </svg>
-<figcaption>Figure 6 · Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
+<figcaption><strong>Figure 6.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
 </div>
-      <p style="margin-top:26px"><b>Throughput: the same answers, three times faster.</b> On the serving side of the loop — where the model generates the text that RL learns from — AutoResearch delivered optimizations that cut the median time per generated token by <b>60–69%</b> across four workload types, lifting generation throughput to as much as <b>3.14× baseline</b> on long-output workloads. And in keeping with the house rule, the accelerated path was verified to produce <b>exactly the same tokens</b> as the original, request by request, across every confirmation run.</p>
-      <p>Faster iterations and no more lost runs: our researchers feel this one every day.</p>
-    </div>
-  </div>
-</section>
-
-<section id="rigor">
-  <div class="wrap">
-    <span class="eyebrow">Why you can trust it</span>
-    <h2>An AI that shows its work</h2>
-    <p style="max-width:820px">Anyone can claim a speedup. The reason we're comfortable putting AutoResearch's name on pull requests is the standard of evidence it holds itself to — the same one we'd demand of a human researcher, applied automatically to every candidate.</p>
-    <div class="rigor-grid">
-      <div class="rigor-item">
-        <h4><span class="tick">✓</span>Paired, controlled benchmarks</h4>
-        <p>Baseline and candidate run on the same hardware, same inputs, in alternating order across multiple seeds and process restarts — so noise cancels out instead of masquerading as a result.</p>
-      </div>
-      <div class="rigor-item">
-        <h4><span class="tick">✓</span>Exact differential testing</h4>
-        <p>Patched and unpatched systems are fed identical inputs and their outputs compared exactly — hashes, dtypes, edge cases and all. For serving, generated text must match token-for-token.</p>
-      </div>
-      <div class="rigor-item">
-        <h4><span class="tick">✓</span>Statistics before headlines</h4>
-        <p>Every reported number carries confidence bounds from repeated measurements. A flashy median with a shaky interval doesn't get promoted, no matter how good it looks.</p>
-      </div>
-      <div class="rigor-item">
-        <h4><span class="tick">✓</span>It rejects its own ideas</h4>
-        <p>One candidate — a clever low-level compute kernel rewrite — showed a small win in one phase and a small regression in another. AutoResearch flagged the mixed evidence and held it back itself. Negative results are kept, not buried.</p>
+      <p style="margin-top:1.6rem"><strong>Throughput: the same answers, three times faster.</strong> On the serving side of the loop, AutoResearch cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
+      <div class="takeaway-box" style="margin-top:1.4rem">
+        <h4>💡 Why it matters</h4>
+        <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="next">
-  <div class="wrap">
-    <div class="card">
-      <span class="eyebrow">Looking ahead</span>
-      <h2>What's next</h2>
-      <p>These three artifacts are a beginning, not a victory lap. The same loop that found a lock bottleneck in hnswlib and an allocation pattern in pandas generalizes to any system where performance claims can be tested — and most can. We're scaling AutoResearch along three axes:</p>
-      <p><b>More targets.</b> Broadening from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on — and more of Salesforce's own platform.</p>
-      <p><b>Deeper autonomy.</b> Letting the agent pursue longer research arcs: multi-step optimization campaigns where one discovery informs the next hypothesis.</p>
-      <p><b>Open contribution.</b> Continuing to package discoveries in open-source projects as upstream pull requests, with the full evidence attached — because a speedup only matters once it's in your hands.</p>
-      <p style="margin-bottom:0">We think the future of agentic AI isn't just agents that do what we ask — it's agents that find improvements we didn't know to ask for, and prove they're real. AutoResearch is our first step there.</p>
+<!-- ==================== What's next ==================== -->
+<section id="next" style="padding-top:1.2rem;padding-bottom:4.2rem">
+  <div class="container">
+    <h2 class="section-title">What's Next</h2>
+    <div class="card abstract">
+      <p>These three artifacts are a beginning, not a victory lap. We're scaling AutoResearch along three axes: <strong>more targets</strong> — from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong> — longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong> — packaging discoveries as upstream pull requests with the full evidence attached.</p>
+      <br>
+      <p>We think the future of agentic AI isn't just agents that do what we ask — it's agents that find improvements we didn't know to ask for, and prove they're real. AutoResearch is our first step there.</p>
     </div>
-  </div>
-</section>
-
-<section id="team">
-  <div class="wrap">
-    <span class="eyebrow">The people behind it</span>
-    <h2>Team</h2>
-    <p style="max-width:760px">AutoResearch is built by researchers and engineers at Salesforce AI Research.</p>
-    <!-- MARKETING: replace each placeholder below with the author's name, role, and photo.
-         For photos, swap the inline SVG inside .photo for:  <img src="assets/authors/<name>.jpg" alt="<Name>">  -->
-    <div class="team-grid">
-      <div class="person">
-        <div class="photo"><svg width="52" height="52" viewBox="0 0 24 24" fill="#9db9dd" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z"/></svg></div>
-        <b>Author Name</b><span>Role, Salesforce AI Research</span>
-      </div>
-      <div class="person">
-        <div class="photo"><svg width="52" height="52" viewBox="0 0 24 24" fill="#9db9dd" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z"/></svg></div>
-        <b>Author Name</b><span>Role, Salesforce AI Research</span>
-      </div>
-      <div class="person">
-        <div class="photo"><svg width="52" height="52" viewBox="0 0 24 24" fill="#9db9dd" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z"/></svg></div>
-        <b>Author Name</b><span>Role, Salesforce AI Research</span>
-      </div>
-      <div class="person">
-        <div class="photo"><svg width="52" height="52" viewBox="0 0 24 24" fill="#9db9dd" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z"/></svg></div>
-        <b>Author Name</b><span>Role, Salesforce AI Research</span>
-      </div>
-      <div class="person">
-        <div class="photo"><svg width="52" height="52" viewBox="0 0 24 24" fill="#9db9dd" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z"/></svg></div>
-        <b>Author Name</b><span>Role, Salesforce AI Research</span>
-      </div>
-      <div class="person">
-        <div class="photo"><svg width="52" height="52" viewBox="0 0 24 24" fill="#9db9dd" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z"/></svg></div>
-        <b>Author Name</b><span>Role, Salesforce AI Research</span>
-      </div>
-    </div>
-    <!-- MARKETING: fill in or remove the acknowledgments line -->
-    <p style="margin-top:26px;font-size:.9rem;color:var(--muted)"><b>Acknowledgments:</b> [Names of contributors, reviewers, and partner teams.]</p>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">
-    <a class="brand" href="#top">
-      <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2a78d6"/><circle cx="32" cy="26" r="9" fill="none" stroke="#fff" stroke-width="4"/><path d="M32 35 V52 M22 46 L32 52 L42 46" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      AutoResearch · Salesforce AI Research
-    </a>
-    <p>hnswlib and pandas are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions — results will vary by environment. © 2026 Salesforce, Inc.</p>
-  </div>
+  <img src="assets/salesforce.svg" alt="Salesforce">
+  <p><strong>AutoResearch</strong> · Salesforce AI Research · 2026</p>
+  <!-- MARKETING: fill in or remove the acknowledgments line -->
+  <p>Acknowledgments: [Names of contributors, reviewers, and partner teams.]</p>
+  <p>hnswlib and pandas are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions — results will vary by environment. © 2026 Salesforce, Inc.</p>
 </footer>
 
 </body>
