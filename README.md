@@ -24,7 +24,6 @@ branch (or the branch selected under *Settings → Pages*), the site is live at
 
 Search `index.html` for the `MARKETING:` comments:
 
-1. **Pull-request links** — the two hero buttons and the two "View the pull
-   request" buttons have `href="XX"`. Replace `XX` with the upstream PR URLs
-   for hnswlib and pandas.
+1. **Pull-request links** — the two "View the pull request" buttons have
+   `href="XX"`. Replace `XX` with the upstream PR URLs for hnswlib and pandas.
 2. Optionally add a "Corresponding author" line under the affiliation.
