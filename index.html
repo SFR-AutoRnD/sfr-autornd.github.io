@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AutoResearch — Salesforce AI Research</title>
-<meta name="description" content="AutoResearch is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — verified wins in hnswlib, pandas, and Salesforce's internal SFR-RL stack.">
-<meta property="og:title" content="AutoResearch: an AI agent that does performance research on real code">
+<title>AutoR&amp;D — Salesforce AI Research</title>
+<meta name="description" content="AutoR&amp;D is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — verified wins in hnswlib, pandas, and Salesforce's internal SFR-RL stack.">
+<meta property="og:title" content="AutoR&amp;D: an AI agent that does performance research on real code">
 <meta property="og:description" content="Verified speedups in hnswlib and pandas, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack — discovered, tested, and proven by an autonomous research agent.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="assets/salesforce.svg">
@@ -230,11 +230,11 @@
 <header class="hero" id="top">
   <img class="hero-logo" src="assets/salesforce.svg" alt="Salesforce">
   <div class="hero-eyebrow">Salesforce AI Research</div>
-  <h1>AutoResearch</h1>
+  <h1>AutoR&amp;D</h1>
   <h2>An AI agent that does performance research on real code — and proves it</h2>
 
   <p class="hero-description">
-    Most coding agents write code. AutoResearch does something harder: it studies mature, battle-tested
+    Most coding agents write code. AutoR&amp;D does something harder: it studies mature, battle-tested
     codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins
     it can back with evidence. Its first discoveries are already headed upstream.
   </p>
@@ -304,7 +304,7 @@
     <div class="takeaway-box">
       <h4>💡 In one minute</h4>
       <ul>
-        <li><strong>AutoResearch closes the full research loop on its own:</strong> point it at a codebase and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
+        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
         <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, outputs verified identical — headed upstream as three PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
         <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
@@ -328,10 +328,10 @@
 <!-- ==================== How it works ==================== -->
 <section id="how" style="padding-top:1.2rem">
   <div class="container">
-    <h2 class="section-title">How AutoResearch Works</h2>
+    <h2 class="section-title">How AutoR&amp;D Works</h2>
 
     <figure class="diagram">
-      <svg viewBox="0 0 960 292" role="img" aria-label="AutoResearch loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
+      <svg viewBox="0 0 960 292" role="img" aria-label="AutoR&amp;D loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
         <defs>
           <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#8ab7e8"/>
@@ -379,7 +379,7 @@
           <text x="644" y="254" font-size="11.5" fill="#475569">and a technical report</text>
         </g>
       </svg>
-      <figcaption><strong>Figure 1.</strong> The AutoResearch loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both performance and correctness gates become artifacts.</figcaption>
+      <figcaption><strong>Figure 1.</strong> The AutoR&amp;D loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both performance and correctness gates become artifacts.</figcaption>
     </figure>
 
     <div class="contributions-grid">
@@ -401,7 +401,7 @@
       <div class="contribution-card">
         <div class="contribution-icon">🚫</div>
         <h3>It Rejects Its Own Ideas</h3>
-        <p>One clever kernel rewrite showed a small win in one phase and a regression in another — AutoResearch flagged the mixed evidence and held it back itself. Negative results are kept, not buried.</p>
+        <p>One clever kernel rewrite showed a small win in one phase and a regression in another — AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are kept, not buried.</p>
       </div>
     </div>
 
@@ -412,7 +412,7 @@
 <section id="findings" style="padding-top:1.2rem">
   <div class="container">
     <h2 class="section-title">What It Found</h2>
-    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoResearch toy problems — we aimed it at two of the most heavily used and heavily optimized libraries in the Python data/AI ecosystem, plus one of our own production systems. It found something real in all three.</p>
+    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems — we aimed it at two of the most heavily used and heavily optimized libraries in the Python data/AI ecosystem, plus one of our own production systems. It found something real in all three.</p>
 
     <!-- hnswlib -->
     <div class="card disc" id="hnswlib">
@@ -427,7 +427,7 @@
         <span class="mini-pill blue">+4.1% median query throughput</span>
         <span class="mini-pill green">Bit-for-bit identical results</span>
       </div>
-      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoResearch found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
+      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
       <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
       <figure class="chart">
 <svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
@@ -475,7 +475,7 @@
         <span class="mini-pill blue">Up to +64.6% best case</span>
         <span class="mini-pill green">1,910 checks, 0 mismatches</span>
       </div>
-      <p>pandas must handle every data type, missing-value convention, and memory layout — and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoResearch's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
+      <p>pandas must handle every data type, missing-value convention, and memory layout — and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
       <p><strong>Counting and de-duplicating strings.</strong> For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
       <figure class="chart">
 <svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -559,11 +559,11 @@
         <span class="mini-pill blue">Up to 3.14× generation throughput</span>
         <span class="mini-pill green">Token-for-token identical outputs</span>
       </div>
-      <p>The most satisfying test was pointing AutoResearch at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so we share the results here rather than the recipes.)</p>
-      <p><strong>Memory: from roulette to guarantees.</strong> In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoResearch's improvements make peak memory <strong>predictable and bounded by configuration</strong> rather than luck: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
+      <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so we share the results here rather than the recipes.)</p>
+      <p><strong>Memory: from roulette to guarantees.</strong> In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong> rather than luck: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <div class="duo">
 <figure class="chart">
-<svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoResearch's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoR&amp;D's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="44" y="214.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
 <line x1="52" y1="161.4" x2="468" y2="161.4" stroke="#e2e8f0" stroke-width="1"/>
 <text x="44" y="165.4" text-anchor="end" font-size="11" fill="#94a3b8">40</text>
@@ -577,10 +577,10 @@
 <text x="156.0" y="32.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">128.5 GiB</text>
 <text x="156.0" y="47.0" text-anchor="middle" font-size="11" fill="#BA0517">✕ ran out of memory</text>
 <text x="156.0" y="230" text-anchor="middle" font-size="12" fill="#475569">Before</text>
-<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#0176D3"><title>With AutoResearch: peak allocation 78.6 GiB — 19 updates, stable</title></path>
+<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#0176D3"><title>With AutoR&amp;D: peak allocation 78.6 GiB — 19 updates, stable</title></path>
 <text x="364.0" y="92.6" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">78.6 GiB</text>
 <text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#2E844A">✓ 19 updates, stable</text>
-<text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoResearch</text>
+<text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoR&amp;D</text>
 </svg>
 <figcaption><strong>Figure 5.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
 </figure>
@@ -612,7 +612,7 @@
 <figcaption><strong>Figure 6.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
 </div>
-      <p style="margin-top:1.6rem"><strong>Throughput: the same answers, three times faster.</strong> On the serving side of the loop, AutoResearch cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
+      <p style="margin-top:1.6rem"><strong>Throughput: the same answers, three times faster.</strong> On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
       <div class="takeaway-box" style="margin-top:1.4rem">
         <h4>💡 Why it matters</h4>
         <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
@@ -626,16 +626,16 @@
   <div class="container">
     <h2 class="section-title">What's Next</h2>
     <div class="card abstract">
-      <p>These three artifacts are a beginning, not a victory lap. We're scaling AutoResearch along three axes: <strong>more targets</strong> — from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong> — longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong> — packaging discoveries as upstream pull requests with the full evidence attached.</p>
+      <p>These three artifacts are a beginning, not a victory lap. We're scaling AutoR&amp;D along three axes: <strong>more targets</strong> — from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong> — longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong> — packaging discoveries as upstream pull requests with the full evidence attached.</p>
       <br>
-      <p>We think the future of agentic AI isn't just agents that do what we ask — it's agents that find improvements we didn't know to ask for, and prove they're real. AutoResearch is our first step there.</p>
+      <p>We think the future of agentic AI isn't just agents that do what we ask — it's agents that find improvements we didn't know to ask for, and prove they're real. AutoR&amp;D is our first step there.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <img src="assets/salesforce.svg" alt="Salesforce">
-  <p><strong>AutoResearch</strong> · Salesforce AI Research · 2026</p>
+  <p><strong>AutoR&amp;D</strong> · Salesforce AI Research · 2026</p>
   <p>hnswlib and pandas are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions — results will vary by environment. © 2026 Salesforce, Inc.</p>
 </footer>
 

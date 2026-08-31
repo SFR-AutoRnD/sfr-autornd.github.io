@@ -1,6 +1,6 @@
-# AutoResearch — project website
+# AutoR&D — project website
 
-Landing page for **AutoResearch**, the autonomous performance-research agent from
+Landing page for **AutoR&D**, the autonomous performance-research agent from
 Salesforce AI Research, covering its first three artifacts (hnswlib, pandas, and
 SFR-RL).
 
