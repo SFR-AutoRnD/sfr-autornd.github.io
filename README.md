@@ -4,9 +4,13 @@ Landing page for **AutoResearch**, the autonomous performance-research agent fro
 Salesforce AI Research, covering its first three artifacts (hnswlib, pandas, and
 SFR-RL).
 
-The site is a single self-contained static page — no build step, no dependencies:
+Static site, no build step:
 
 - `index.html` — all content, styles, and figures (charts are inline SVG).
+- `assets/salesforce.svg` — Salesforce logo used in the hero, footer, and favicon.
+
+Author photos are hot-linked from Google Scholar profiles with an initials
+fallback if a photo fails to load.
 
 ## Publishing
 
@@ -19,9 +23,8 @@ branch (or the branch selected under *Settings → Pages*), the site is live at
 
 Search `index.html` for the `MARKETING:` comments:
 
-1. **Pull-request links** — two buttons have `href="XX"`. Replace `XX` with the
-   upstream PR URLs for hnswlib and pandas.
-2. **Team section** — replace each "Author Name" / "Role" placeholder, and swap
-   the placeholder avatar SVG for a real photo, e.g.
-   `<img src="assets/authors/<name>.jpg" alt="<Name>">` (create `assets/authors/`).
-3. **Acknowledgments** — fill in or delete the placeholder line.
+1. **Pull-request links** — the two hero buttons and the two "View the pull
+   request" buttons have `href="XX"`. Replace `XX` with the upstream PR URLs
+   for hnswlib and pandas.
+2. **Acknowledgments** — fill in or delete the placeholder line in the footer.
+3. Optionally add a "Corresponding author" line under the affiliation.
