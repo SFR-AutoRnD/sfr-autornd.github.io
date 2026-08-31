@@ -243,7 +243,7 @@
     <span class="pill speed">⚡ Up to 3.14× Faster Generation</span>
     <span class="pill memory">💾 39% Lower Peak RL Memory</span>
     <span class="pill exact">✓ Outputs Verified Identical</span>
-    <span class="pill oss">⬆ 2 Open-Source PRs</span>
+    <span class="pill oss">⬆ 3 Open-Source PRs</span>
   </div>
 
 
@@ -305,7 +305,7 @@
       <h4>💡 In one minute</h4>
       <ul>
         <li><strong>AutoResearch closes the full research loop on its own:</strong> point it at a codebase and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
-        <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, outputs verified identical — both headed upstream as PRs.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, outputs verified identical — headed upstream as three PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
         <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
       </ul>
@@ -537,10 +537,11 @@
 <figcaption><strong>Figure 4.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
       <p style="margin-top:1.6rem">What makes this upstream-ready isn't the speed — it's the verification: <strong>1,910 differential test cases</strong> comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
-      <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
+      <!-- MARKETING: replace the two href="XX" below with the two upstream pandas pull request URLs -->
       <div class="pr-row">
-        <a class="btn btn-primary" href="XX">View the pull request →</a>
-        <small>Created a PR to the pandas project.</small>
+        <a class="btn btn-primary" href="XX">String-hashing PR →</a>
+        <a class="btn btn-primary" href="XX">Row-wise reductions PR →</a>
+        <small>Created two PRs to the pandas project — one per optimization.</small>
       </div>
     </div>
 
