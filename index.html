@@ -150,6 +150,23 @@
   .takeaway-box li strong{color:var(--text-primary)}
   .takeaway-box p{font-size:.95rem;color:var(--text-secondary)}
 
+  /* breadth block */
+  .breadth{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:1.8rem 2rem;margin-bottom:1.4rem;box-shadow:var(--shadow-sm);
+  }
+  .breadth h3{font-family:'Source Serif 4',serif;font-size:1.35rem;font-weight:600;color:var(--sf-navy);margin-bottom:.4rem}
+  .breadth>p{color:var(--text-secondary);font-size:.97rem;max-width:780px}
+  .domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.2rem 0 1.4rem}
+  .domain{background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:12px;padding:1rem 1.1rem;display:flex;flex-direction:column}
+  .domain-icon{font-size:1.35rem;margin-bottom:.35rem}
+  .domain b{font-size:.98rem;color:var(--text-primary);margin-bottom:.15rem}
+  .domain span:last-child{font-size:.84rem;color:var(--text-secondary);line-height:1.5}
+  .breadth-stats{display:flex;flex-wrap:wrap;gap:.6rem 2.4rem;border-top:1px solid var(--border-color);padding-top:1.1rem}
+  .breadth-stats div{display:flex;align-items:baseline;gap:.45rem}
+  .breadth-stats b{font-family:'Source Serif 4',serif;font-size:1.7rem;font-weight:700;color:var(--sf-blue-deep)}
+  .breadth-stats span{font-size:.88rem;color:var(--text-secondary)}
+
   /* method cards */
   .contributions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;margin-top:2rem}
   .contribution-card{
@@ -278,17 +295,24 @@
   <div class="container">
     <h2 class="section-title">Key Takeaways</h2>
 
+    <div class="breadth">
+      <h3>One agent, very different problems</h3>
+      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in three unrelated systems — each with its own stack, its own performance model, and its own definition of "correct".</p>
+      <div class="domain-grid">
+        <div class="domain"><span class="domain-icon">🐼</span><b>Dataframes</b><span>pandas · Python, NumPy &amp; Arrow · allocation and dispatch on hot kernels</span></div>
+        <div class="domain"><span class="domain-icon">🧠</span><b>LLM training &amp; serving</b><span>SFR-RL · PyTorch, multi-GPU · memory bounds and decode throughput</span></div>
+        <div class="domain"><span class="domain-icon">🔍</span><b>Vector search</b><span>hnswlib · C++ · lock contention in multi-threaded query batches</span></div>
+      </div>
+      <div class="breadth-stats">
+        <div><b>3</b><span>codebases</span></div>
+        <div><b>3</b><span>problem domains</span></div>
+        <div><b>6</b><span>vetted optimizations</span></div>
+        <div><b>4</b><span>upstream PRs</span></div>
+        <div><b>0</b><span>correctness regressions</span></div>
+      </div>
+    </div>
+
     <div class="results-grid">
-      <div class="result-card">
-        <div class="result-value">3.14×</div>
-        <div class="result-label">Faster Generation</div>
-        <div class="result-detail">SFR-RL serving, token-identical outputs</div>
-      </div>
-      <div class="result-card">
-        <div class="result-value">−39%</div>
-        <div class="result-label">Peak Training Memory</div>
-        <div class="result-detail">OOM crashes → 19 stable RL updates</div>
-      </div>
       <div class="result-card">
         <div class="result-value">+64.6%</div>
         <div class="result-label">Best pandas Speedup</div>
@@ -299,13 +323,23 @@
         <div class="result-label">Correctness Checks</div>
         <div class="result-detail">Exact differential tests on the pandas patches, zero mismatches</div>
       </div>
+      <div class="result-card">
+        <div class="result-value">3.14×</div>
+        <div class="result-label">Faster Generation</div>
+        <div class="result-detail">SFR-RL serving, token-identical outputs</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">−39%</div>
+        <div class="result-label">Peak Training Memory</div>
+        <div class="result-detail">OOM crashes → 19 stable RL updates</div>
+      </div>
     </div>
 
     <div class="takeaway-box">
       <h4>💡 In one minute</h4>
       <ul>
-        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
-        <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, and up to 1.84× faster row-wise math on nullable-dtype frames — outputs verified identical, headed upstream as four PRs.</li>
+        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase — any language, any domain — and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations and up to 1.84× faster row-wise math on nullable-dtype frames, plus +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> — outputs verified identical, headed upstream as four PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
         <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
       </ul>
@@ -415,59 +449,12 @@
     <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems — we aimed it at two of the most heavily used and heavily optimized libraries in the Python data/AI ecosystem, plus one of our own production systems. It found something real in all three.</p>
 
     <!-- hnswlib -->
-    <div class="card disc" id="hnswlib">
+    <div class="card disc" id="pandas">
       <div class="disc-head">
         <div class="disc-badge">1</div>
         <div>
-          <span class="disc-kicker">Open Source · Vector Search</span>
-          <h3>hnswlib: a clean +4% in the engine behind AI retrieval</h3>
-        </div>
-      </div>
-      <div class="badge-row">
-        <span class="mini-pill blue">+4.1% median query throughput</span>
-        <span class="mini-pill green">Bit-for-bit identical results</span>
-      </div>
-      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
-      <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
-      <figure class="chart">
-<svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
-<defs>
-  <linearGradient id="hlg1" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#0176D3"/><stop offset="1" stop-color="#032D60"/>
-  </linearGradient>
-</defs>
-<text x="20" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Scratch-pool lock round-trips per batch</text>
-<text x="20" y="47" font-size="11.5" fill="#94a3b8">2,000-query diagnostic batch, 16 worker threads</text>
-<line x1="20" y1="88" x2="20" y2="185" stroke="#cbd5e1" stroke-width="1"/>
-<text x="26" y="88" font-size="12" fill="#475569">Standard hnswlib</text>
-<path d="M20,97 H436 Q440,97 440,101 V111 Q440,115 436,115 H20 Z" fill="#b6c2ce"><title>Standard hnswlib: about 4,000 pool lock/unlock operations for a 2,000-query batch — two per query row</title></path>
-<text x="448" y="111" font-size="12.5" font-weight="700" fill="#1e293b">4,000</text>
-<text x="26" y="150" font-size="12" fill="#475569">With worker-scoped leases (ours)</text>
-<path d="M20,159 H23.4 V177 H20 Z" fill="#0176D3"><title>With worker-scoped leases: 32 pool lock/unlock operations — two per worker, reused across the whole batch</title></path>
-<text x="31" y="173" font-size="12.5" font-weight="700" fill="#1e293b">32</text>
-<text x="72" y="173" font-size="12" font-weight="700" fill="#2E844A">−99.2%</text>
-<line x1="520" y1="26" x2="520" y2="200" stroke="#e2e8f0" stroke-width="1"/>
-<text x="720" y="102" text-anchor="middle" font-size="46" font-weight="700" fill="url(#hlg1)" font-family="'Source Serif 4',serif">+4.1%</text>
-<text x="720" y="134" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">median queries-per-second gain</text>
-<text x="720" y="157" text-anchor="middle" font-size="11.5" fill="#94a3b8">+3.96% &#183; +4.12% &#183; +4.34% across three index builds</text>
-<text x="720" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#2E844A">&#10003; search results bit-for-bit identical</text>
-</svg>
-<figcaption><strong>Figure 2.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
-</figure>
-      <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
-      <div class="pr-row">
-        <a class="btn btn-primary" href="XX">View the pull request →</a>
-        <small>Created a PR to the hnswlib project.</small>
-      </div>
-    </div>
-
-    <!-- pandas -->
-    <div class="card disc" id="pandas">
-      <div class="disc-head">
-        <div class="disc-badge">2</div>
-        <div>
           <span class="disc-kicker">Open Source · Dataframes</span>
-          <h3>pandas: routing hot paths around work they don't need</h3>
+          <h3>pandas: three speedups in the workhorse of data science</h3>
         </div>
       </div>
       <div class="badge-row">
@@ -501,7 +488,7 @@
 <text x="485.2" y="91.4" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+8.7%</text>
 <text x="485.2" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (False)</text>
 </svg>
-<figcaption><strong>Figure 3.</strong> Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
+<figcaption><strong>Figure 2.</strong> Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
 </figure>
       <p style="margin-top:1.6rem"><strong>Row-wise math.</strong> <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame — and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
       <div class="legend" aria-hidden="true">
@@ -535,7 +522,7 @@
 <text x="498.2" y="29.0" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.6%</text>
 <text x="485.2" y="224" text-anchor="middle" font-size="12" fill="#475569">max</text>
 </svg>
-<figcaption><strong>Figure 4.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
+<figcaption><strong>Figure 3.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
       <p style="margin-top:1.6rem"><strong>Row-wise math on nullable dtypes.</strong> pandas' nullable integer, float, and boolean columns — including their Arrow-backed variants — take a different route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element — a throwaway array as large as the frame itself — just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
 <div class="duo">
@@ -566,7 +553,7 @@
 <text x="52" y="215" font-size="12" font-weight="600" fill="#2E844A">&#10003; all 40 confidence intervals above parity &#183; no cell slower</text>
 <text x="52" y="236" font-size="11.5" fill="#94a3b8">Neutral on tiny frames (&lt;300 rows); gains from 300 rows up</text>
 </svg>
-<figcaption><strong>Figure 5.</strong> Speedup of row-wise reductions on nullable-dtype frames over unpatched pandas, across 40 benchmark cells (sum/prod/min/max × Int64, Float64, boolean, int64[pyarrow], float64[pyarrow] × tall and wide 400K-element frames). Paired, CPU-pinned runs; every bootstrap interval is above 1.</figcaption>
+<figcaption><strong>Figure 4.</strong> Speedup of row-wise reductions on nullable-dtype frames over unpatched pandas, across 40 benchmark cells (sum/prod/min/max × Int64, Float64, boolean, int64[pyarrow], float64[pyarrow] × tall and wide 400K-element frames). Paired, CPU-pinned runs; every bootstrap interval is above 1.</figcaption>
 </figure>
 <figure class="chart">
 <svg viewBox="0 0 480 282" role="img" aria-label="Peak memory of row-wise reductions on a 10-million-element nullable frame, baseline versus patched, 12 to 15 percent lower" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -606,7 +593,7 @@
 <text x="416.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
 <text x="416.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
 </svg>
-<figcaption><strong>Figure 6.</strong> Peak memory on a 2,000,000 × 5 nullable frame (10M elements). The eliminated per-element label array shows up directly as 12–15% less peak RSS.</figcaption>
+<figcaption><strong>Figure 5.</strong> Peak memory on a 2,000,000 × 5 nullable frame (10M elements). The eliminated per-element label array shows up directly as 12–15% less peak RSS.</figcaption>
 </figure>
 </div>
       <p style="margin-top:1.6rem">What makes this upstream-ready isn't the speed — it's the verification: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs — from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
@@ -622,7 +609,7 @@
     <!-- SFR-RL -->
     <div class="card disc" id="sfr-rl">
       <div class="disc-head">
-        <div class="disc-badge">3</div>
+        <div class="disc-badge">2</div>
         <div>
           <span class="disc-kicker">Salesforce Internal · LLM Training</span>
           <h3>SFR-RL: taming memory and speed in our own RL stack</h3>
@@ -656,7 +643,7 @@
 <text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#2E844A">✓ 19 updates, stable</text>
 <text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoR&amp;D</text>
 </svg>
-<figcaption><strong>Figure 7.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
+<figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
 </figure>
 <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -683,7 +670,7 @@
 <text x="416.0" y="55.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−62.3%</text>
 <text x="416.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Mixed traffic</text>
 </svg>
-<figcaption><strong>Figure 8.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
+<figcaption><strong>Figure 7.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
 </div>
       <p style="margin-top:1.6rem"><strong>Throughput: the same answers, three times faster.</strong> On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
@@ -691,7 +678,54 @@
         <h4>💡 Why it matters</h4>
         <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
       </div>
+    </div><div class="card disc" id="hnswlib">
+      <div class="disc-head">
+        <div class="disc-badge">3</div>
+        <div>
+          <span class="disc-kicker">Open Source · Vector Search</span>
+          <h3>hnswlib: a clean +4% in the engine behind AI retrieval</h3>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="mini-pill blue">+4.1% median query throughput</span>
+        <span class="mini-pill green">Bit-for-bit identical results</span>
+      </div>
+      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
+      <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
+      <figure class="chart">
+<svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
+<defs>
+  <linearGradient id="hlg1" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0176D3"/><stop offset="1" stop-color="#032D60"/>
+  </linearGradient>
+</defs>
+<text x="20" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Scratch-pool lock round-trips per batch</text>
+<text x="20" y="47" font-size="11.5" fill="#94a3b8">2,000-query diagnostic batch, 16 worker threads</text>
+<line x1="20" y1="88" x2="20" y2="185" stroke="#cbd5e1" stroke-width="1"/>
+<text x="26" y="88" font-size="12" fill="#475569">Standard hnswlib</text>
+<path d="M20,97 H436 Q440,97 440,101 V111 Q440,115 436,115 H20 Z" fill="#b6c2ce"><title>Standard hnswlib: about 4,000 pool lock/unlock operations for a 2,000-query batch — two per query row</title></path>
+<text x="448" y="111" font-size="12.5" font-weight="700" fill="#1e293b">4,000</text>
+<text x="26" y="150" font-size="12" fill="#475569">With worker-scoped leases (ours)</text>
+<path d="M20,159 H23.4 V177 H20 Z" fill="#0176D3"><title>With worker-scoped leases: 32 pool lock/unlock operations — two per worker, reused across the whole batch</title></path>
+<text x="31" y="173" font-size="12.5" font-weight="700" fill="#1e293b">32</text>
+<text x="72" y="173" font-size="12" font-weight="700" fill="#2E844A">−99.2%</text>
+<line x1="520" y1="26" x2="520" y2="200" stroke="#e2e8f0" stroke-width="1"/>
+<text x="720" y="102" text-anchor="middle" font-size="46" font-weight="700" fill="url(#hlg1)" font-family="'Source Serif 4',serif">+4.1%</text>
+<text x="720" y="134" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">median queries-per-second gain</text>
+<text x="720" y="157" text-anchor="middle" font-size="11.5" fill="#94a3b8">+3.96% &#183; +4.12% &#183; +4.34% across three index builds</text>
+<text x="720" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#2E844A">&#10003; search results bit-for-bit identical</text>
+</svg>
+<figcaption><strong>Figure 8.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
+</figure>
+      <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
+      <div class="pr-row">
+        <a class="btn btn-primary" href="XX">View the pull request →</a>
+        <small>Created a PR to the hnswlib project.</small>
+      </div>
     </div>
+
+    <!-- pandas -->
+    
   </div>
 </section>
 
