@@ -243,7 +243,7 @@
     <span class="pill speed">⚡ Up to 3.14× Faster Generation</span>
     <span class="pill memory">💾 39% Lower Peak RL Memory</span>
     <span class="pill exact">✓ Outputs Verified Identical</span>
-    <span class="pill oss">⬆ 3 Open-Source PRs</span>
+    <span class="pill oss">⬆ 4 Open-Source PRs</span>
   </div>
 
 
@@ -295,9 +295,9 @@
         <div class="result-detail">Row-wise ops on fragmented frames</div>
       </div>
       <div class="result-card">
-        <div class="result-value">1,910</div>
+        <div class="result-value">136K</div>
         <div class="result-label">Correctness Checks</div>
-        <div class="result-detail">Exact differential tests, zero mismatches</div>
+        <div class="result-detail">Exact differential tests on the pandas patches, zero mismatches</div>
       </div>
     </div>
 
@@ -305,7 +305,7 @@
       <h4>💡 In one minute</h4>
       <ul>
         <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
-        <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, outputs verified identical — headed upstream as three PRs.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> and 4–28% (up to 64.6%) on hot <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> operations, and up to 1.84× faster row-wise math on nullable-dtype frames — outputs verified identical, headed upstream as four PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
         <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
       </ul>
@@ -473,7 +473,8 @@
       <div class="badge-row">
         <span class="mini-pill blue">4–28% faster primary workloads</span>
         <span class="mini-pill blue">Up to +64.6% best case</span>
-        <span class="mini-pill green">1,910 checks, 0 mismatches</span>
+        <span class="mini-pill blue">Up to 1.84× on nullable dtypes</span>
+        <span class="mini-pill green">136K checks, 0 mismatches</span>
       </div>
       <p>pandas must handle every data type, missing-value convention, and memory layout — and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
       <p><strong>Counting and de-duplicating strings.</strong> For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
@@ -536,12 +537,85 @@
 </svg>
 <figcaption><strong>Figure 4.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
-      <p style="margin-top:1.6rem">What makes this upstream-ready isn't the speed — it's the verification: <strong>1,910 differential test cases</strong> comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
-      <!-- MARKETING: replace the two href="XX" below with the two upstream pandas pull request URLs -->
+      <p style="margin-top:1.6rem"><strong>Row-wise math on nullable dtypes.</strong> pandas' nullable integer, float, and boolean columns — including their Arrow-backed variants — take a different route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element — a throwaway array as large as the frame itself — just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
+<div class="duo">
+<figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="Speedup of row-wise reductions on nullable-dtype frames across 40 benchmark cells: minimum 1.22 times, median 1.38 times, maximum 1.84 times, all above parity" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="52" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Speedup over unpatched pandas</text>
+<text x="52" y="47" font-size="11.5" fill="#94a3b8">40 benchmark cells: 4 ops × 5 nullable dtypes × 2 frame shapes</text>
+<line x1="52.0" y1="160" x2="52.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="52.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.0×</text>
+<line x1="132.0" y1="160" x2="132.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="132.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.2×</text>
+<line x1="212.0" y1="160" x2="212.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="212.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.4×</text>
+<line x1="292.0" y1="160" x2="292.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="292.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.6×</text>
+<line x1="372.0" y1="160" x2="372.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="372.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.8×</text>
+<line x1="452.0" y1="160" x2="452.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="452.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">2.0×</text>
+<line x1="52" y1="160" x2="452" y2="160" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="52" y1="96" x2="52" y2="160" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="90" text-anchor="middle" font-size="10.5" fill="#94a3b8">parity</text>
+<rect x="138.0" y="118" width="248.8" height="20" rx="10" fill="rgba(1,118,211,.18)"><title>Range across all 40 cells: 1.22× to 1.84× faster; every bootstrap confidence interval is above 1</title></rect>
+<text x="138.0" y="154" text-anchor="middle" font-size="11.5" fill="#475569">1.22×</text>
+<text x="386.8" y="154" text-anchor="middle" font-size="11.5" fill="#475569">1.84×</text>
+<circle cx="202.8" cy="128" r="7" fill="#0176D3" stroke="#fff" stroke-width="2"><title>Median speedup across the 40 cells: 1.377×</title></circle>
+<text x="202.8" y="108" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">median 1.38×</text>
+<text x="52" y="215" font-size="12" font-weight="600" fill="#2E844A">&#10003; all 40 confidence intervals above parity &#183; no cell slower</text>
+<text x="52" y="236" font-size="11.5" fill="#94a3b8">Neutral on tiny frames (&lt;300 rows); gains from 300 rows up</text>
+</svg>
+<figcaption><strong>Figure 5.</strong> Speedup of row-wise reductions on nullable-dtype frames over unpatched pandas, across 40 benchmark cells (sum/prod/min/max × Int64, Float64, boolean, int64[pyarrow], float64[pyarrow] × tall and wide 400K-element frames). Paired, CPU-pinned runs; every bootstrap interval is above 1.</figcaption>
+</figure>
+<figure class="chart">
+<svg viewBox="0 0 480 282" role="img" aria-label="Peak memory of row-wise reductions on a 10-million-element nullable frame, baseline versus patched, 12 to 15 percent lower" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="44" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
+<line x1="52" y1="171.2" x2="468" y2="171.2" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="175.2" text-anchor="end" font-size="11" fill="#94a3b8">100</text>
+<line x1="52" y1="138.4" x2="468" y2="138.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="142.4" text-anchor="end" font-size="11" fill="#94a3b8">200</text>
+<line x1="52" y1="105.6" x2="468" y2="105.6" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="109.6" text-anchor="end" font-size="11" fill="#94a3b8">300</text>
+<line x1="52" y1="72.8" x2="468" y2="72.8" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="76.8" text-anchor="end" font-size="11" fill="#94a3b8">400</text>
+<line x1="52" y1="40.0" x2="468" y2="40.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="44.0" text-anchor="end" font-size="11" fill="#94a3b8">500</text>
+<line x1="52" y1="204" x2="468" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<text x="44" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">MB</text>
+<rect x="300" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="315" y="17" font-size="11" fill="#475569">Baseline</text>
+<rect x="384" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="399" y="17" font-size="11" fill="#475569">Patched</text>
+<path d="M83.0,204.0 V60.7 Q83.0,56.7 87.0,56.7 H99.0 Q103.0,56.7 103.0,60.7 V204.0 Z" fill="#b6c2ce"><title>sum · Int64 — baseline peak: 449 MB</title></path>
+<path d="M105.0,204.0 V78.1 Q105.0,74.1 109.0,74.1 H121.0 Q125.0,74.1 125.0,78.1 V204.0 Z" fill="#0176D3"><title>sum · Int64 — patched peak: 396 MB (−12%)</title></path>
+<text x="104.0" y="49.7" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
+<text x="104.0" y="222" text-anchor="middle" font-size="12" fill="#475569">sum</text>
+<text x="104.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">Int64</text>
+<path d="M187.0,204.0 V53.2 Q187.0,49.2 191.0,49.2 H203.0 Q207.0,49.2 207.0,53.2 V204.0 Z" fill="#b6c2ce"><title>sum · float64[pyarrow] — baseline peak: 472 MB</title></path>
+<path d="M209.0,204.0 V76.5 Q209.0,72.5 213.0,72.5 H225.0 Q229.0,72.5 229.0,76.5 V204.0 Z" fill="#0176D3"><title>sum · float64[pyarrow] — patched peak: 401 MB (−15%)</title></path>
+<text x="208.0" y="42.2" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−15%</text>
+<text x="208.0" y="222" text-anchor="middle" font-size="12" fill="#475569">sum</text>
+<text x="208.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
+<path d="M291.0,204.0 V61.1 Q291.0,57.1 295.0,57.1 H307.0 Q311.0,57.1 311.0,61.1 V204.0 Z" fill="#b6c2ce"><title>max · Int64 — baseline peak: 448 MB</title></path>
+<path d="M313.0,204.0 V78.1 Q313.0,74.1 317.0,74.1 H329.0 Q333.0,74.1 333.0,78.1 V204.0 Z" fill="#0176D3"><title>max · Int64 — patched peak: 396 MB (−12%)</title></path>
+<text x="312.0" y="50.1" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
+<text x="312.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
+<text x="312.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">Int64</text>
+<path d="M395.0,204.0 V58.4 Q395.0,54.4 399.0,54.4 H411.0 Q415.0,54.4 415.0,58.4 V204.0 Z" fill="#b6c2ce"><title>max · float64[pyarrow] — baseline peak: 456 MB</title></path>
+<path d="M417.0,204.0 V76.5 Q417.0,72.5 421.0,72.5 H433.0 Q437.0,72.5 437.0,76.5 V204.0 Z" fill="#0176D3"><title>max · float64[pyarrow] — patched peak: 401 MB (−12%)</title></path>
+<text x="416.0" y="47.4" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
+<text x="416.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
+<text x="416.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
+</svg>
+<figcaption><strong>Figure 6.</strong> Peak memory on a 2,000,000 × 5 nullable frame (10M elements). The eliminated per-element label array shows up directly as 12–15% less peak RSS.</figcaption>
+</figure>
+</div>
+      <p style="margin-top:1.6rem">What makes this upstream-ready isn't the speed — it's the verification: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs — from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
+      <!-- MARKETING: replace the three href="XX" below with the three upstream pandas pull request URLs -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">String-hashing PR →</a>
         <a class="btn btn-primary" href="XX">Row-wise reductions PR →</a>
-        <small>Created two PRs to the pandas project — one per optimization.</small>
+        <a class="btn btn-primary" href="XX">Nullable-dtype reductions PR →</a>
+        <small>Created three PRs to the pandas project — one per optimization.</small>
       </div>
     </div>
 
@@ -582,7 +656,7 @@
 <text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#2E844A">✓ 19 updates, stable</text>
 <text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoR&amp;D</text>
 </svg>
-<figcaption><strong>Figure 5.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
+<figcaption><strong>Figure 7.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
 </figure>
 <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -609,7 +683,7 @@
 <text x="416.0" y="55.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−62.3%</text>
 <text x="416.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Mixed traffic</text>
 </svg>
-<figcaption><strong>Figure 6.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
+<figcaption><strong>Figure 8.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
 </div>
       <p style="margin-top:1.6rem"><strong>Throughput: the same answers, three times faster.</strong> On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
