@@ -77,12 +77,14 @@
   .hero-description{
     font-size:1.06rem;color:var(--text-secondary);max-width:730px;margin-bottom:2rem;line-height:1.8;
   }
-  .highlight-pills{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:2.2rem}
-  .pill{padding:.48rem 1.05rem;border-radius:50px;font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:.45rem}
+  .highlight-pills{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;align-items:center;margin-bottom:2.2rem}
+  .pill{padding:.48rem 1.05rem;border-radius:50px;font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;gap:.45rem;line-height:1.3}
   .pill.speed{background:rgba(46,132,74,.09);color:var(--sf-green);border:1px solid rgba(46,132,74,.3)}
   .pill.memory{background:rgba(11,130,124,.09);color:var(--sf-teal);border:1px solid rgba(11,130,124,.3)}
   .pill.exact{background:rgba(1,118,211,.08);color:var(--sf-blue-deep);border:1px solid rgba(1,118,211,.3)}
   .pill.oss{background:rgba(221,122,1,.09);color:var(--sf-orange-text);border:1px solid rgba(221,122,1,.35)}
+  .pill.scope{background:rgba(3,45,96,.07);color:var(--sf-navy);border:1px solid rgba(3,45,96,.28)}
+  .pill.pandas{background:rgba(90,27,169,.07);color:#5A1BA9;border:1px solid rgba(90,27,169,.3)}
   .btn{
     padding:.8rem 1.6rem;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;
     display:inline-flex;align-items:center;gap:.5rem;transition:all .25s ease;
@@ -267,8 +269,10 @@
   </p>
 
   <div class="highlight-pills">
-    <span class="pill speed">⚡ Up to 3.14× Faster Generation</span>
-    <span class="pill memory">💾 39% Lower Peak RL Memory</span>
+    <span class="pill scope">🧩 3 Codebases · 3 Domains · 6 Optimizations</span>
+    <span class="pill pandas">🐼 pandas: Up to 1.84× Faster</span>
+    <span class="pill speed">⚡ SFR-RL: Up to 3.14× Faster Generation</span>
+    <span class="pill memory">💾 SFR-RL: 39% Lower Peak Memory</span>
     <span class="pill exact">✓ Outputs Verified Identical</span>
     <span class="pill oss">⬆ 4 Open-Source PRs</span>
   </div>
