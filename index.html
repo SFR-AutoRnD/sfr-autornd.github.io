@@ -199,6 +199,16 @@
   .disc p{color:var(--text-secondary);font-size:.99rem;margin-bottom:1em}
   .disc p strong{color:var(--text-primary)}
   .badge-row{margin:.2rem 0 1.1rem}
+  .opt-head{
+    display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+    margin:1.9rem 0 .7rem;padding-top:1.5rem;border-top:1px solid var(--border-color);
+    font-family:'Source Serif 4',serif;font-size:1.2rem;font-weight:600;color:var(--sf-navy);
+  }
+  .opt-head span{
+    font-family:'DM Sans',system-ui,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--sf-blue-deep);background:rgba(1,118,211,.08);
+    border:1px solid rgba(1,118,211,.25);border-radius:999px;padding:.2rem .7rem;white-space:nowrap;
+  }
   .mini-pill{
     display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:.22rem .8rem;margin:.15rem .4rem .15rem 0;
   }
@@ -464,7 +474,8 @@
         <span class="mini-pill green">136K checks, 0 mismatches</span>
       </div>
       <p>pandas must handle every data type, missing-value convention, and memory layout — and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
-      <p><strong>Counting and de-duplicating strings.</strong> For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
+      <h4 class="opt-head"><span>Optimization 1</span>Counting and de-duplicating strings</h4>
+      <p>For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
       <figure class="chart">
 <svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
@@ -490,7 +501,8 @@
 </svg>
 <figcaption><strong>Figure 2.</strong> Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
 </figure>
-      <p style="margin-top:1.6rem"><strong>Row-wise math.</strong> <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame — and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
+      <h4 class="opt-head"><span>Optimization 2</span>Row-wise math on numeric frames</h4>
+      <p><code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame — and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
       <div class="legend" aria-hidden="true">
         <span><i style="background:#0176D3"></i>Typical mixed frame (100K rows)</span>
         <span><i style="background:#DD7A01"></i>Fragmented frame (32 blocks)</span>
@@ -524,7 +536,8 @@
 </svg>
 <figcaption><strong>Figure 3.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
-      <p style="margin-top:1.6rem"><strong>Row-wise math on nullable dtypes.</strong> pandas' nullable integer, float, and boolean columns — including their Arrow-backed variants — take a different route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element — a throwaway array as large as the frame itself — just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
+      <h4 class="opt-head"><span>Optimization 3</span>Row-wise math on nullable dtypes</h4>
+      <p>pandas' nullable integer, float, and boolean columns — including their Arrow-backed variants — take a different route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element — a throwaway array as large as the frame itself — just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
 <div class="duo">
 <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Speedup of row-wise reductions on nullable-dtype frames across 40 benchmark cells: minimum 1.22 times, median 1.38 times, maximum 1.84 times, all above parity" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -621,9 +634,9 @@
         <span class="mini-pill green">Token-for-token identical outputs</span>
       </div>
       <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so we share the results here rather than the recipes.)</p>
-      <p><strong>Memory: from roulette to guarantees.</strong> In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong> rather than luck: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
-      <div class="duo">
-<figure class="chart">
+      <h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
+      <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong> rather than luck: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
+      <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoR&amp;D's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="44" y="214.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
 <line x1="52" y1="161.4" x2="468" y2="161.4" stroke="#e2e8f0" stroke-width="1"/>
@@ -645,7 +658,9 @@
 </svg>
 <figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
 </figure>
-<figure class="chart">
+      <h4 class="opt-head"><span>Optimization 2</span>Throughput: the same answers, three times faster</h4>
+      <p>On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
+      <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="44" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
 <line x1="52" y1="158.5" x2="468" y2="158.5" stroke="#e2e8f0" stroke-width="1"/>
@@ -672,8 +687,6 @@
 </svg>
 <figcaption><strong>Figure 7.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
-</div>
-      <p style="margin-top:1.6rem"><strong>Throughput: the same answers, three times faster.</strong> On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
       <div class="takeaway-box" style="margin-top:1.4rem">
         <h4>💡 Why it matters</h4>
         <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
