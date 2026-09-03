@@ -24,8 +24,8 @@ branch (or the branch selected under *Settings → Pages*), the site is live at
 
 Search `index.html` for the `MARKETING:` comments:
 
-1. **Pull-request links** — four buttons have `href="XX"`: one on the
-   hnswlib card, three on the pandas card (nullable-dtype reductions,
-   string hashing, row-wise reductions). Replace each `XX` with the
-   corresponding upstream PR URL.
+1. **Pull-request links** — five buttons have `href="XX"`: three on the
+   pandas card (nullable-dtype reductions, string hashing, row-wise
+   reductions), one on the USearch card, one on the hnswlib card. Replace
+   each `XX` with the corresponding upstream PR URL.
 2. Optionally add a "Corresponding author" line under the affiliation.
