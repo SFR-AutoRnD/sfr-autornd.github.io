@@ -587,14 +587,14 @@
 <h5>Formulation</h5>
 <p>Take a frame <var>X</var> with <var>n</var> rows and <var>c</var> columns that share one nullable dtype. To evaluate <code>X.sum(axis=1)</code>, pandas concatenates the columns into a single one-dimensional extension array <var>A</var> of length <var>n</var>·<var>c</var>, laid out column-major, and hands the groupby aggregation kernel a label vector <var>L</var> so that group <var>r</var> collects row <var>r</var>:</p>
 <div class="math"><var>A</var>[<var>c</var>·<var>n</var> + <var>r</var>] = <var>X</var>[<var>r</var>, <var>c</var>], &nbsp;&nbsp; <var>L</var> = tile(arange(<var>n</var>), <var>c</var>), &nbsp;&nbsp; |<var>L</var>| = <var>n</var>·<var>c</var></div>
-<p>That label vector is an <var>n</var>·<var>c</var> array of 8-byte integers whose only job is to tell the kernel which row each element belongs to. The new route views the same data and mask buffers as a (<var>c</var>, <var>n</var>) matrix, transposes to (<var>n</var>, <var>c</var>), and calls the kernel with <strong>one</strong> group and <var>c</var> ids. Each of the kernel's <var>n</var> "columns" is then one frame row, aggregated over its <var>c</var> observations. Every output cell consumes the same values in the same column order as the labelled formulation, so results are bit-identical; the only thing that disappears is the label array.</p>
+<p>That label vector is an <var>n</var>·<var>c</var> array of 8-byte integers (on 64-bit builds) whose only job is to tell the kernel which row each element belongs to. The new route views the same data and mask buffers as a (<var>c</var>, <var>n</var>) matrix, transposes to (<var>n</var>, <var>c</var>), and calls the kernel with <strong>one</strong> group and <var>c</var> ids. Each of the kernel's <var>n</var> "columns" is then one frame row, aggregated over its <var>c</var> observations. Every output cell consumes the same values in the same column order as the labelled formulation, so results are bit-identical; the only thing that disappears is the label array.</p>
 <h5>Implementation</h5>
 <ul>
 <li><code>BaseMaskedArray._groupby_op_axis1(how, nrows, ncols, min_count, skipna)</code> reshapes <code>_data</code> and <code>_mask</code> as views and calls <code>WrappedCythonOp._cython_op_ndim_compat</code> with <code>ngroups=1</code>; it raises <code>NotImplementedError</code> for anything it does not handle so the caller falls back.</li>
 <li><code>ArrowExtensionArray._groupby_op_axis1</code> covers the eleven Arrow int, uint, float and bool types by delegating through <code>_to_masked()</code> and converting the result back. String, decimal and timestamp Arrow types fall through.</li>
 <li><code>DataFrame._reduce</code> tries the route first for <code>sum</code>, <code>prod</code>, <code>min</code> and <code>max</code>, and otherwise continues to the existing <code>np.tile</code> label path. Two ASV benchmark classes (<code>FrameOpsAxis1EA</code>, <code>FrameOpsAxis1EAPeakmem</code>) cover it.</li>
 </ul>
-<pre><code># pandas/core/arrays/masked.py
+<pre><code># pandas/core/arrays/masked.py (condensed: the real guard also checks ndim and positive shape)
 def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
     if how not in (&quot;sum&quot;, &quot;prod&quot;, &quot;min&quot;, &quot;max&quot;) or self.size != nrows * ncols:
         raise NotImplementedError                      # caller falls back to _groupby_op
@@ -647,7 +647,7 @@ def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
 <div class="tech-body">
 
 <h5>Formulation</h5>
-<p>Write the baseline operator as <var>F</var><sub>0</sub> and the candidate as <var>F</var><sub>1</sub>. A route is a guard <var>g</var>, a specialized kernel <var>K</var> and a reconstruction <var>Q</var>, with <var>P</var> a zero-copy projection of the physical representation:</p>
+<p>Write the baseline operator as <var>F</var><sub>0</sub> and the candidate as <var>F</var><sub>1</sub>. A route is a guard <var>g</var>, a specialized kernel <var>K</var> and a reconstruction <var>Q</var>, with <var>P</var> a zero-copy (or bounded-copy) projection of the physical representation:</p>
 <div class="math"><var>F</var><sub>1</sub>(<var>x</var>) = <var>Q</var>(<var>K</var>(<var>P</var>(<var>x</var>))) &nbsp;if&nbsp; <var>g</var>(<var>x</var>) = 1, &nbsp;&nbsp; <var>F</var><sub>1</sub>(<var>x</var>) = <var>F</var><sub>0</sub>(<var>x</var>) &nbsp;otherwise</div>
 <p>The obligation is stronger than equal values. With Π the public projection (values or exception type, value dtype, shape, index dtype, index values and names), the route must satisfy Π(<var>F</var><sub>1</sub>(<var>x</var>)) = Π(<var>F</var><sub>0</sub>(<var>x</var>)) for every input, so the guard has to cover aliasing and mutability as well as dtype.</p>
 <p>Here the representation is a <code>StringArray</code> whose backing store is an object ndarray with <code>pd.NA</code> as the sentinel. The inherited <code>duplicated</code> first materializes an NA mask, and the generic <code>value_counts</code> exports through <code>to_numpy</code>, hashes, then converts the result index back to the extension dtype. All of that is adapter work around a kernel that already accepts the backing array as it is.</p>
@@ -740,7 +740,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 <ul>
 <li>A 900-case broad matrix (four dtypes, four operations, both <code>skipna</code> settings, <code>min_count</code> boundaries, several shapes) plus an 880-case edge matrix (both orders of 12 promotion pairs at 17, 4,095 and 4,096 rows; signed-zero, NaN and infinity patterns; near-limit integers), compared by value-byte hash, dtype, index dtype, shape and name: zero mismatches.</li>
 <li>Primary 100,000-row mixed frame over 11 paired samples: sum 556.5 → 469.3 µs, prod 675.3 → 486.5 µs, min 437.8 → 382.2 µs, max 439.0 → 384.8 µs.</li>
-<li>A 32-cell topology sweep (8 frame layouts × 4 operations, 9 pairs each, bootstrap 95% intervals) shows where routing overhead dominates: homogeneous and short frames sit near parity or slightly negative, and the 4,096-row min/max gate admits one narrow case that costs about 31%. Those cells are reported as the data for a production dispatch policy over rows, blocks, columns per block, dtype and NA density.</li>
+<li>A 32-cell topology sweep (8 frame layouts × 4 operations, 9 pairs each, bootstrap 95% intervals) shows where routing overhead dominates: homogeneous float frames sit near parity, homogeneous integer frames lose up to 9%, 1,024-row mixed frames lose 4–16%, and the 4,096-row min/max gate admits one narrow case that costs about 31%. Those cells are reported as the data for a production dispatch policy over rows, blocks, columns per block, dtype and NA density.</li>
 </ul>
 </div>
 </details>
@@ -845,7 +845,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
       </div>
       <p><a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> is a compact, high-performance vector-search engine that ships as a single header and is embedded in databases and AI applications. Its cosine-similarity kernel — the default for comparing text and image embeddings — needs the length of both vectors for every comparison. AutoR&amp;D spotted a redundancy: the length of a <em>stored</em> vector never changes, yet the built-in kernel recomputed it on every one of the hundreds of comparisons a single query performs — millions of times across a workload.</p>
       <p>The patch caches each stored vector's length once, in a 4-byte lock-free "sidecar" that follows the vector through inserts, removals, compaction, copies, and reloads. The query's length is computed once per search, so each comparison shrinks to a dot product and one division: <strong>three multiply-adds per element become one, and two square roots become none</strong>. The route is deliberately narrow — custom metrics, memory-mapped indexes, non-finite values, and builds that use an external SIMD library all keep the original path — and the on-disk index format is unchanged.</p>
-      <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The cost is 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was unchanged with GCC 11 and within 0.01 point with GCC 13; the change passed the C and C++ suites under Address-, UndefinedBehavior- and ThreadSanitizer, from C++11 through C++20.</p>
+      <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The cost is 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was unchanged with GCC 11 and within 0.01 point with GCC 13; the change passed the C and C++ suites under Address- and UndefinedBehaviorSanitizer (ThreadSanitizer finds no race in the new code), from C++11 through C++20.</p>
 <div class="duo">
 <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="USearch single-core search throughput, baseline versus cached norms: plus 17.5 percent with GCC 11.4 and plus 7.4 percent with GCC 13.4" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -930,7 +930,7 @@ distance_t f(byte_t const* query, member_at member) const noexcept {
 result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
                                           f32_t a_norm, f32_t b_norm) const noexcept {
     f32_t ab = cosine_dot_(a, b, dimensions_);
-    bool a_is_zero = /* bit pattern of a_norm is +0 */, b_is_zero = /* likewise for b_norm */;
+    bool a_is_zero = /* norm bits are zero */, b_is_zero = /* likewise for b_norm */;
     if (a_is_zero) return b_is_zero ? 0 : 1;              // zero handling matches metric_cos_gt
     if (b_is_zero) return 1;
     return 1 - ab / (a_norm * b_norm);
@@ -939,7 +939,7 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
 <ul>
 <li>Wiki-1M (1M × 256 f32), identical prebuilt graph in both binaries, one pinned core, 1,024 held-out queries, 16 timed repeats, seven paired rounds: +17.54% median QPS with GCC 11.4 (95% bootstrap +17.14% to +17.76%) and +7.41% with GCC 13.4 (+7.20% to +7.61%), 7 of 7 rounds positive on both. Computed distances (926.5 per query) and visited members (75.8 per query) are unchanged in every timed row.</li>
 <li>Memory 1,333,418,176 → 1,337,418,176 bytes at one million slots, exactly four bytes per slot. Load 0.92–0.94 s → 1.04–1.05 s because the sidecar is rebuilt; 96-thread construction 10.2–10.5 s baseline and 10.1–10.2 s patched.</li>
-<li>Result parity over 10,240 top-10 outputs: GCC 11 reordered four positions across two queries with identical neighbor sets; GCC 13 changed twelve positions and one top-10 boundary member; maximum distance change 4.1 × 10<sup>−7</sup>; recall 0.98574 → 0.98564 at worst. The C and C++ suites pass under ASan, LSan, UBSan and alignment sanitizers with GCC 11 and 13, the public-header smoke test passes from C++11 through C++20, the full C++ tests pass under a gold <code>--icf=all</code> link, ThreadSanitizer reports no sidecar race, and a NumKong build confirms the route is never taken there.</li>
+<li>Result parity over 10,240 top-10 outputs: GCC 11 reordered four positions across two queries with identical neighbor sets; GCC 13 changed twelve positions and one top-10 boundary member; maximum distance change 4.1 × 10<sup>−7</sup>; recall 0.98574 → 0.98564 at worst. The C and C++ suites pass under ASan, LSan, UBSan and alignment sanitizers with GCC 11 and 13, the public-header smoke test passes from C++11 through C++20, the full C++ tests pass under a gold <code>--icf=all</code> link, ThreadSanitizer reports no sidecar or diagnostic-counter race (it still flags pre-existing upstream HNSW graph races under concurrent add/search, which this change does not claim to fix), and a NumKong build confirms the route is never taken there.</li>
 </ul>
 </div>
 </details>
@@ -1021,7 +1021,7 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
 <ul>
 <li>Invariants checked explicitly: a fresh visited set per row (wrap and clearing test), a single owner per slot (concurrent-batch test), return on exception (injected exception, then reuse), search equivalence (labels and distances matched), and coverage of L2, inner product, cosine, filters and deletions. An early resize-related segfault was caught in development, fixed, and kept as a regression test; 17 Python-binding regressions pass.</li>
 <li>Exploratory A/B on three independently built indexes with the order alternated B/C, C/B, B/C and all 31 timed repetitions retained: +4.34%, +4.12% and +3.96% QPS; recall@10 identical to four decimals; peak RSS within ±0.11%; output hashes identical.</li>
-<li>Reported as an exploratory signal that supports a focused upstream PR. The preregistered 48-point, five-seed campaign was not run.</li>
+<li>Reported as an exploratory signal that supports a focused upstream PR: three seeds and one query-only grid point were measured, and the preregistered 48-point campaign was not run.</li>
 </ul>
 </div>
 </details>
