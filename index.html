@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AutoR&amp;D — Salesforce AI Research</title>
-<meta name="description" content="AutoR&amp;D is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — verified wins in pandas, USearch, hnswlib, and Salesforce's internal SFR-RL stack.">
+<title>AutoR&amp;D · Salesforce AI Research</title>
+<meta name="description" content="AutoR&amp;D is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove: verified wins in pandas, USearch, hnswlib, and Salesforce's internal SFR-RL stack.">
 <meta property="og:title" content="AutoR&amp;D: an AI agent that does performance research on real code">
-<meta property="og:description" content="Verified speedups in pandas, USearch and hnswlib, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack — discovered, tested, and proven by an autonomous research agent.">
+<meta property="og:description" content="Verified speedups in pandas, USearch and hnswlib, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack, all discovered, tested, and proven by an autonomous research agent.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="assets/salesforce.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -284,7 +284,7 @@
   <img class="hero-logo" src="assets/salesforce.svg" alt="Salesforce">
   <div class="hero-eyebrow">Salesforce AI Research</div>
   <h1>AutoR&amp;D</h1>
-  <h2>An AI agent that does performance research on real code — and proves it</h2>
+  <h2>An AI agent that does performance research on real code, and proves it</h2>
 
   <p class="hero-description">
     Most coding agents write code. AutoR&amp;D does something harder: it studies mature, battle-tested
@@ -340,7 +340,7 @@
 
     <div class="breadth">
       <h3>One agent, very different problems</h3>
-      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in four unrelated systems — each with its own stack, its own performance model, and its own definition of "correct".</p>
+      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in four unrelated systems, each with its own stack, its own performance model, and its own definition of "correct".</p>
       <div class="domain-grid">
         <div class="domain"><span class="domain-icon">🐼</span><b>Dataframes</b><span>pandas · Python, NumPy &amp; Arrow · allocation and dispatch on hot kernels</span></div>
         <div class="domain"><span class="domain-icon">🧠</span><b>LLM training &amp; serving</b><span>SFR-RL · PyTorch, multi-GPU · memory bounds and decode throughput</span></div>
@@ -381,10 +381,10 @@
     <div class="takeaway-box">
       <h4>💡 In one minute</h4>
       <ul>
-        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase — any language, any domain — and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
-        <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +17.5% search throughput in <a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> and +4.1% in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> — correctness verified on every patch, headed upstream as five PRs.</li>
+        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase in any language or domain and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives: a patch bundled with its evidence.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +17.5% search throughput in <a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> and +4.1% in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a>. Correctness is verified on every patch, and all five are headed upstream as PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
-        <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are recorded alongside the wins.</li>
+        <li><strong>When evidence is mixed, it says no to its own ideas</strong>, and negative results are recorded alongside the wins.</li>
       </ul>
     </div>
   </div>
@@ -395,9 +395,9 @@
   <div class="container">
     <h2 class="section-title">Why We Built AutoR&amp;D</h2>
     <div class="card abstract">
-      <p>Performance engineering is some of the most valuable — and scarcest — work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> — <em>"this version is faster, and it computes exactly the same thing"</em> — that has to be tested. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
+      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
       <br>
-      <p>We built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong> — a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+      <p>We built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
     </div>
   </div>
 </section>
@@ -440,7 +440,7 @@
           <circle cx="730" cy="62" r="12" fill="#0176D3"/><text x="730" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">4</text>
           <text x="750" y="67" font-size="14.5" font-weight="700" fill="#032D60">Verify &amp; decide</text>
           <text x="720" y="96" font-size="11.5" fill="#475569">Statistical and correctness</text>
-          <text x="720" y="112" font-size="11.5" fill="#475569">gates — only real wins survive</text>
+          <text x="720" y="112" font-size="11.5" fill="#475569">gates; only real wins survive</text>
         </g>
         <line x1="208" y1="84" x2="234" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
         <line x1="440" y1="84" x2="466" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
@@ -463,12 +463,12 @@
       <div class="contribution-card">
         <div class="contribution-icon">🧪</div>
         <h3>Built, Run, and Measured</h3>
-        <p>Every candidate is built, run, and measured against the unmodified baseline — same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels out.</p>
+        <p>Every candidate is built, run, and measured against the unmodified baseline: same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels out.</p>
       </div>
       <div class="contribution-card">
         <div class="contribution-icon">✓</div>
         <h3>Correctness Is a Gate</h3>
-        <p>Patched and unpatched systems are fed identical inputs and compared exactly — hashes, dtypes, edge cases down to the sign of a floating-point zero. Any observable change means automatic rejection.</p>
+        <p>Patched and unpatched systems are fed identical inputs and compared exactly: hashes, dtypes, edge cases down to the sign of a floating-point zero. Any observable change means automatic rejection.</p>
       </div>
       <div class="contribution-card">
         <div class="contribution-icon">📊</div>
@@ -478,7 +478,7 @@
       <div class="contribution-card">
         <div class="contribution-icon">🚫</div>
         <h3>It Rejects Its Own Ideas</h3>
-        <p>One clever kernel rewrite showed a small win in one phase and a regression in another — AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are recorded too.</p>
+        <p>One clever kernel rewrite showed a small win in one phase and a regression in another. AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are recorded too.</p>
       </div>
     </div>
 
@@ -489,7 +489,7 @@
 <section id="findings" style="padding-top:1.2rem">
   <div class="container">
     <h2 class="section-title">What It Found</h2>
-    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems — we aimed it at three heavily used, heavily optimized open-source libraries — pandas, USearch, and hnswlib — plus one of our own production systems. It found something real in all four.</p>
+    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems. We aimed it at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
 
     <!-- pandas -->
     <div class="card disc" id="pandas">
@@ -506,9 +506,9 @@
         <span class="mini-pill blue">Up to +64.6% best case</span>
         <span class="mini-pill green">136K checks, 0 mismatches</span>
       </div>
-      <p>pandas must handle every data type, missing-value convention, and memory layout — and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
+      <p>pandas must handle every data type, missing-value convention, and memory layout, and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
       <h4 class="opt-head"><span>Optimization 1</span>Row-wise math on nullable dtypes</h4>
-      <p>pandas' nullable integer, float, and boolean columns — including their Arrow-backed variants — take their own route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element — a throwaway array as large as the frame itself — just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
+      <p>pandas' nullable integer, float, and boolean columns, including their Arrow-backed variants, take their own route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element, a throwaway array as large as the frame itself, just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
 <div class="duo">
 <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Speedup of row-wise reductions on nullable-dtype frames across 40 benchmark cells: minimum 1.22 times, median 1.38 times, maximum 1.84 times, all above parity" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -556,23 +556,23 @@
 <text x="44" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">MB</text>
 <rect x="300" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="315" y="17" font-size="11" fill="#475569">Baseline</text>
 <rect x="384" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="399" y="17" font-size="11" fill="#475569">Patched</text>
-<path d="M83.0,204.0 V60.7 Q83.0,56.7 87.0,56.7 H99.0 Q103.0,56.7 103.0,60.7 V204.0 Z" fill="#b6c2ce"><title>sum · Int64 — baseline peak: 449 MB</title></path>
-<path d="M105.0,204.0 V78.1 Q105.0,74.1 109.0,74.1 H121.0 Q125.0,74.1 125.0,78.1 V204.0 Z" fill="#0176D3"><title>sum · Int64 — patched peak: 396 MB (−12%)</title></path>
+<path d="M83.0,204.0 V60.7 Q83.0,56.7 87.0,56.7 H99.0 Q103.0,56.7 103.0,60.7 V204.0 Z" fill="#b6c2ce"><title>sum · Int64, baseline peak: 449 MB</title></path>
+<path d="M105.0,204.0 V78.1 Q105.0,74.1 109.0,74.1 H121.0 Q125.0,74.1 125.0,78.1 V204.0 Z" fill="#0176D3"><title>sum · Int64, patched peak: 396 MB (−12%)</title></path>
 <text x="104.0" y="49.7" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
 <text x="104.0" y="222" text-anchor="middle" font-size="12" fill="#475569">sum</text>
 <text x="104.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">Int64</text>
-<path d="M187.0,204.0 V53.2 Q187.0,49.2 191.0,49.2 H203.0 Q207.0,49.2 207.0,53.2 V204.0 Z" fill="#b6c2ce"><title>sum · float64[pyarrow] — baseline peak: 472 MB</title></path>
-<path d="M209.0,204.0 V76.5 Q209.0,72.5 213.0,72.5 H225.0 Q229.0,72.5 229.0,76.5 V204.0 Z" fill="#0176D3"><title>sum · float64[pyarrow] — patched peak: 401 MB (−15%)</title></path>
+<path d="M187.0,204.0 V53.2 Q187.0,49.2 191.0,49.2 H203.0 Q207.0,49.2 207.0,53.2 V204.0 Z" fill="#b6c2ce"><title>sum · float64[pyarrow], baseline peak: 472 MB</title></path>
+<path d="M209.0,204.0 V76.5 Q209.0,72.5 213.0,72.5 H225.0 Q229.0,72.5 229.0,76.5 V204.0 Z" fill="#0176D3"><title>sum · float64[pyarrow], patched peak: 401 MB (−15%)</title></path>
 <text x="208.0" y="42.2" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−15%</text>
 <text x="208.0" y="222" text-anchor="middle" font-size="12" fill="#475569">sum</text>
 <text x="208.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
-<path d="M291.0,204.0 V61.1 Q291.0,57.1 295.0,57.1 H307.0 Q311.0,57.1 311.0,61.1 V204.0 Z" fill="#b6c2ce"><title>max · Int64 — baseline peak: 448 MB</title></path>
-<path d="M313.0,204.0 V78.1 Q313.0,74.1 317.0,74.1 H329.0 Q333.0,74.1 333.0,78.1 V204.0 Z" fill="#0176D3"><title>max · Int64 — patched peak: 396 MB (−12%)</title></path>
+<path d="M291.0,204.0 V61.1 Q291.0,57.1 295.0,57.1 H307.0 Q311.0,57.1 311.0,61.1 V204.0 Z" fill="#b6c2ce"><title>max · Int64, baseline peak: 448 MB</title></path>
+<path d="M313.0,204.0 V78.1 Q313.0,74.1 317.0,74.1 H329.0 Q333.0,74.1 333.0,78.1 V204.0 Z" fill="#0176D3"><title>max · Int64, patched peak: 396 MB (−12%)</title></path>
 <text x="312.0" y="50.1" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
 <text x="312.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
 <text x="312.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">Int64</text>
-<path d="M395.0,204.0 V58.4 Q395.0,54.4 399.0,54.4 H411.0 Q415.0,54.4 415.0,58.4 V204.0 Z" fill="#b6c2ce"><title>max · float64[pyarrow] — baseline peak: 456 MB</title></path>
-<path d="M417.0,204.0 V76.5 Q417.0,72.5 421.0,72.5 H433.0 Q437.0,72.5 437.0,76.5 V204.0 Z" fill="#0176D3"><title>max · float64[pyarrow] — patched peak: 401 MB (−12%)</title></path>
+<path d="M395.0,204.0 V58.4 Q395.0,54.4 399.0,54.4 H411.0 Q415.0,54.4 415.0,58.4 V204.0 Z" fill="#b6c2ce"><title>max · float64[pyarrow], baseline peak: 456 MB</title></path>
+<path d="M417.0,204.0 V76.5 Q417.0,72.5 421.0,72.5 H433.0 Q437.0,72.5 437.0,76.5 V204.0 Z" fill="#0176D3"><title>max · float64[pyarrow], patched peak: 401 MB (−12%)</title></path>
 <text x="416.0" y="47.4" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
 <text x="416.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
 <text x="416.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
@@ -616,7 +616,7 @@ def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
 </div>
 </details>
       <h4 class="opt-head"><span>Optimization 2</span>Counting and de-duplicating strings</h4>
-      <p>For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
+      <p>For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel: <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
       <figure class="chart">
 <svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
@@ -676,7 +676,7 @@ def value_counts(self, dropna=True):
 </div>
 </details>
       <h4 class="opt-head"><span>Optimization 3</span>Row-wise math on numeric frames</h4>
-      <p><code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame — and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
+      <p><code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame, and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
       <div class="legend" aria-hidden="true">
         <span><i style="background:#0176D3"></i>Typical mixed frame (100K rows)</span>
         <span><i style="background:#DD7A01"></i>Fragmented frame (32 blocks)</span>
@@ -691,24 +691,24 @@ def value_counts(self, dropna=True):
 <line x1="46" y1="48.0" x2="548" y2="48.0" stroke="#e2e8f0" stroke-width="1"/>
 <text x="38" y="52.0" text-anchor="end" font-size="11" fill="#94a3b8">60%</text>
 <line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
-<path d="M83.8,204.0 V167.2 Q83.8,163.2 87.8,163.2 H103.8 Q107.8,163.2 107.8,167.2 V204.0 Z" fill="#0176D3"><title>sum — typical mixed frame (100,000 rows): 15.7% faster</title></path>
-<path d="M109.8,204.0 V129.7 Q109.8,125.7 113.8,125.7 H129.8 Q133.8,125.7 133.8,129.7 V204.0 Z" fill="#DD7A01"><title>sum — fragmented frame (32 blocks): 30.1% faster</title></path>
+<path d="M83.8,204.0 V167.2 Q83.8,163.2 87.8,163.2 H103.8 Q107.8,163.2 107.8,167.2 V204.0 Z" fill="#0176D3"><title>sum, typical mixed frame (100,000 rows): 15.7% faster</title></path>
+<path d="M109.8,204.0 V129.7 Q109.8,125.7 113.8,125.7 H129.8 Q133.8,125.7 133.8,129.7 V204.0 Z" fill="#DD7A01"><title>sum, fragmented frame (32 blocks): 30.1% faster</title></path>
 <text x="121.8" y="118.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+30.1%</text>
 <text x="108.8" y="224" text-anchor="middle" font-size="12" fill="#475569">sum</text>
-<path d="M209.2,204.0 V135.2 Q209.2,131.2 213.2,131.2 H229.2 Q233.2,131.2 233.2,135.2 V204.0 Z" fill="#0176D3"><title>prod — typical mixed frame (100,000 rows): 28.0% faster</title></path>
-<path d="M235.2,204.0 V108.7 Q235.2,104.7 239.2,104.7 H255.2 Q259.2,104.7 259.2,108.7 V204.0 Z" fill="#DD7A01"><title>prod — fragmented frame (32 blocks): 38.2% faster</title></path>
+<path d="M209.2,204.0 V135.2 Q209.2,131.2 213.2,131.2 H229.2 Q233.2,131.2 233.2,135.2 V204.0 Z" fill="#0176D3"><title>prod, typical mixed frame (100,000 rows): 28.0% faster</title></path>
+<path d="M235.2,204.0 V108.7 Q235.2,104.7 239.2,104.7 H255.2 Q259.2,104.7 259.2,108.7 V204.0 Z" fill="#DD7A01"><title>prod, fragmented frame (32 blocks): 38.2% faster</title></path>
 <text x="247.2" y="97.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+38.2%</text>
 <text x="234.2" y="224" text-anchor="middle" font-size="12" fill="#475569">prod</text>
-<path d="M334.8,204.0 V175.0 Q334.8,171.0 338.8,171.0 H354.8 Q358.8,171.0 358.8,175.0 V204.0 Z" fill="#0176D3"><title>min — typical mixed frame (100,000 rows): 12.7% faster</title></path>
-<path d="M360.8,204.0 V40.6 Q360.8,36.6 364.8,36.6 H380.8 Q384.8,36.6 384.8,40.6 V204.0 Z" fill="#DD7A01"><title>min — fragmented frame (32 blocks): 64.4% faster</title></path>
+<path d="M334.8,204.0 V175.0 Q334.8,171.0 338.8,171.0 H354.8 Q358.8,171.0 358.8,175.0 V204.0 Z" fill="#0176D3"><title>min, typical mixed frame (100,000 rows): 12.7% faster</title></path>
+<path d="M360.8,204.0 V40.6 Q360.8,36.6 364.8,36.6 H380.8 Q384.8,36.6 384.8,40.6 V204.0 Z" fill="#DD7A01"><title>min, fragmented frame (32 blocks): 64.4% faster</title></path>
 <text x="372.8" y="29.6" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.4%</text>
 <text x="359.8" y="224" text-anchor="middle" font-size="12" fill="#475569">min</text>
-<path d="M460.2,204.0 V176.0 Q460.2,172.0 464.2,172.0 H480.2 Q484.2,172.0 484.2,176.0 V204.0 Z" fill="#0176D3"><title>max — typical mixed frame (100,000 rows): 12.3% faster</title></path>
-<path d="M486.2,204.0 V40.0 Q486.2,36.0 490.2,36.0 H506.2 Q510.2,36.0 510.2,40.0 V204.0 Z" fill="#DD7A01"><title>max — fragmented frame (32 blocks): 64.6% faster</title></path>
+<path d="M460.2,204.0 V176.0 Q460.2,172.0 464.2,172.0 H480.2 Q484.2,172.0 484.2,176.0 V204.0 Z" fill="#0176D3"><title>max, typical mixed frame (100,000 rows): 12.3% faster</title></path>
+<path d="M486.2,204.0 V40.0 Q486.2,36.0 490.2,36.0 H506.2 Q510.2,36.0 510.2,40.0 V204.0 Z" fill="#DD7A01"><title>max, fragmented frame (32 blocks): 64.6% faster</title></path>
 <text x="498.2" y="29.0" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.6%</text>
 <text x="485.2" y="224" text-anchor="middle" font-size="12" fill="#475569">max</text>
 </svg>
-<figcaption><strong>Figure 5.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
+<figcaption><strong>Figure 5.</strong> Median speedup of row-wise reductions. Fragmented frames, common in real pipelines, benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
 <details class="tech">
 <summary>Technical details: formulation &amp; implementation</summary>
@@ -744,13 +744,13 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </ul>
 </div>
 </details>
-      <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs — from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
+      <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
       <!-- MARKETING: replace the three href="XX" below with the three upstream pandas pull request URLs -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">Nullable-dtype reductions PR →</a>
         <a class="btn btn-primary" href="XX">String-hashing PR →</a>
         <a class="btn btn-primary" href="XX">Row-wise reductions PR →</a>
-        <small>Created three PRs to the pandas project — one per optimization.</small>
+        <small>Created three PRs to the pandas project, one per optimization.</small>
       </div>
     </div>
 
@@ -770,7 +770,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
       </div>
       <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so this page covers the results and keeps the recipes in-house.)</p>
       <h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
-      <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
+      <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update, and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB (an out-of-memory crash) to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoR&amp;D's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="44" y="214.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
@@ -782,19 +782,19 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 <text x="44" y="68.3" text-anchor="end" font-size="11" fill="#94a3b8">120</text>
 <line x1="52" y1="210" x2="468" y2="210" stroke="#cbd5e1" stroke-width="1"/>
 <text x="44" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">GiB</text>
-<path d="M144.0,210.0 V58.0 Q144.0,54.0 148.0,54.0 H164.0 Q168.0,54.0 168.0,58.0 V210.0 Z" fill="#b6c2ce"><title>Before: peak allocation 128.5 GiB — ran out of memory</title></path>
+<path d="M144.0,210.0 V58.0 Q144.0,54.0 148.0,54.0 H164.0 Q168.0,54.0 168.0,58.0 V210.0 Z" fill="#b6c2ce"><title>Before: peak allocation 128.5 GiB, ran out of memory</title></path>
 <text x="156.0" y="32.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">128.5 GiB</text>
 <text x="156.0" y="47.0" text-anchor="middle" font-size="11" fill="#BA0517">✕ ran out of memory</text>
 <text x="156.0" y="230" text-anchor="middle" font-size="12" fill="#475569">Before</text>
-<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#0176D3"><title>With AutoR&amp;D: peak allocation 78.6 GiB — 19 updates, stable</title></path>
+<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#0176D3"><title>With AutoR&amp;D: peak allocation 78.6 GiB, 19 updates, stable</title></path>
 <text x="364.0" y="92.6" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">78.6 GiB</text>
 <text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#2E844A">✓ 19 updates, stable</text>
 <text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoR&amp;D</text>
 </svg>
-<figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
+<figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline, already using every standard memory-saving technique, ran out of memory on its first big step.</figcaption>
 </figure>
       <h4 class="opt-head"><span>Optimization 2</span>Throughput: the same answers, three times faster</h4>
-      <p>On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
+      <p>On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types, up to <strong>3.14× baseline throughput</strong> on long-output workloads, with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
       <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="44" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
@@ -824,7 +824,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </figure>
       <div class="takeaway-box" style="margin-top:1.4rem">
         <h4>💡 Why it matters</h4>
-        <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
+        <p>Faster iterations and no more lost runs: our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
       </div>
     </div>
 
@@ -843,8 +843,8 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
         <span class="mini-pill blue">+4 bytes per vector</span>
         <span class="mini-pill green">Same neighbors · recall within 0.01 pt</span>
       </div>
-      <p><a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> is a compact, high-performance vector-search engine that ships as a single header and is embedded in databases and AI applications. Its cosine-similarity kernel — the default for comparing text and image embeddings — needs the length of both vectors for every comparison. AutoR&amp;D spotted a redundancy: the length of a <em>stored</em> vector never changes, yet the built-in kernel recomputed it on every one of the hundreds of comparisons a single query performs — millions of times across a workload.</p>
-      <p>The patch caches each stored vector's length once, in a 4-byte lock-free "sidecar" that follows the vector through inserts, removals, compaction, copies, and reloads. The query's length is computed once per search, so each comparison shrinks to a dot product and one division: <strong>three multiply-adds per element become one, and two square roots become none</strong>. The route is deliberately narrow — custom metrics, memory-mapped indexes, non-finite values, and builds that use an external SIMD library all keep the original path — and the on-disk index format is unchanged.</p>
+      <p><a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> is a compact, high-performance vector-search engine that ships as a single header and is embedded in databases and AI applications. Its cosine-similarity kernel, the default for comparing text and image embeddings, needs the length of both vectors for every comparison. AutoR&amp;D spotted a redundancy: the length of a <em>stored</em> vector never changes, yet the built-in kernel recomputed it on every one of the hundreds of comparisons a single query performs, millions of times across a workload.</p>
+      <p>The patch caches each stored vector's length once, in a 4-byte lock-free "sidecar" that follows the vector through inserts, removals, compaction, copies, and reloads. The query's length is computed once per search, so each comparison shrinks to a dot product and one division: <strong>three multiply-adds per element become one, and two square roots become none</strong>. The route is deliberately narrow: custom metrics, memory-mapped indexes, non-finite values, and builds that use an external SIMD library all keep the original path, and the on-disk index format is unchanged.</p>
       <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The cost is 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was unchanged with GCC 11 and within 0.01 point with GCC 13; the change passed the C and C++ suites under Address- and UndefinedBehaviorSanitizer (ThreadSanitizer finds no race in the new code), from C++11 through C++20.</p>
 <div class="duo">
 <figure class="chart">
@@ -864,12 +864,12 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 <text x="52" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">QPS</text>
 <rect x="270" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="285" y="17" font-size="11" fill="#475569">Baseline</text>
 <rect x="352" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="367" y="17" font-size="11" fill="#475569">Cached norms</text>
-<path d="M137.0,204.0 V83.8 Q137.0,79.8 141.0,79.8 H157.0 Q161.0,79.8 161.0,83.8 V204.0 Z" fill="#b6c2ce"><title>GCC 11.4 — baseline: 3,785 queries/s</title></path>
-<path d="M163.0,204.0 V62.2 Q163.0,58.2 167.0,58.2 H183.0 Q187.0,58.2 187.0,62.2 V204.0 Z" fill="#0176D3"><title>GCC 11.4 — with cached norms: 4,445 queries/s (+17.5%)</title></path>
+<path d="M137.0,204.0 V83.8 Q137.0,79.8 141.0,79.8 H157.0 Q161.0,79.8 161.0,83.8 V204.0 Z" fill="#b6c2ce"><title>GCC 11.4, baseline: 3,785 queries/s</title></path>
+<path d="M163.0,204.0 V62.2 Q163.0,58.2 167.0,58.2 H183.0 Q187.0,58.2 187.0,62.2 V204.0 Z" fill="#0176D3"><title>GCC 11.4, with cached norms: 4,445 queries/s (+17.5%)</title></path>
 <text x="162.0" y="51.2" text-anchor="middle" font-size="12" font-weight="700" fill="#2E844A">+17.5%</text>
 <text x="162.0" y="224" text-anchor="middle" font-size="12" fill="#475569">GCC 11.4</text>
-<path d="M341.0,204.0 V86.0 Q341.0,82.0 345.0,82.0 H361.0 Q365.0,82.0 365.0,86.0 V204.0 Z" fill="#b6c2ce"><title>GCC 13.4 — baseline: 3,718 queries/s</title></path>
-<path d="M367.0,204.0 V76.8 Q367.0,72.8 371.0,72.8 H387.0 Q391.0,72.8 391.0,76.8 V204.0 Z" fill="#0176D3"><title>GCC 13.4 — with cached norms: 4,000 queries/s (+7.4%)</title></path>
+<path d="M341.0,204.0 V86.0 Q341.0,82.0 345.0,82.0 H361.0 Q365.0,82.0 365.0,86.0 V204.0 Z" fill="#b6c2ce"><title>GCC 13.4, baseline: 3,718 queries/s</title></path>
+<path d="M367.0,204.0 V76.8 Q367.0,72.8 371.0,72.8 H387.0 Q391.0,72.8 391.0,76.8 V204.0 Z" fill="#0176D3"><title>GCC 13.4, with cached norms: 4,000 queries/s (+7.4%)</title></path>
 <text x="366.0" y="65.8" text-anchor="middle" font-size="12" font-weight="700" fill="#2E844A">+7.4%</text>
 <text x="366.0" y="224" text-anchor="middle" font-size="12" fill="#475569">GCC 13.4</text>
 <text x="264.0" y="250" text-anchor="middle" font-size="11" fill="#94a3b8">7 of 7 paired rounds positive on both compilers</text>
@@ -891,11 +891,11 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 <path d="M52.0,155.0 H248.0 Q252.0,155.0 252.0,159.0 V165.0 Q252.0,169.0 248.0,169.0 H52.0 Z" fill="#b6c2ce"><title>Before: 2</title></path>
 <text x="260" y="166" font-size="12" font-weight="700" fill="#1e293b">2</text>
 <line x1="52" y1="173" x2="52" y2="187" stroke="#0176D3" stroke-width="2"/>
-<text x="60" y="184" font-size="12" font-weight="700" fill="#1e293b">0 — norms cached</text>
+<text x="60" y="184" font-size="12" font-weight="700" fill="#1e293b">0 (norms cached)</text>
 <text x="52" y="222" font-size="12" font-weight="600" fill="#2E844A">&#10003; Traversal unchanged: 926.5 distances per query</text>
 <text x="52" y="243" font-size="11.5" fill="#94a3b8">Cost: 4 bytes per stored vector (+0.3% memory on a 1M-vector index)</text>
 </svg>
-<figcaption><strong>Figure 9.</strong> What the cached norm removes from every distance comparison. Traversal is untouched — the same distances and nodes are evaluated per query — each distance is simply cheaper.</figcaption>
+<figcaption><strong>Figure 9.</strong> What the cached norm removes from every distance comparison. Traversal is untouched (the same distances and nodes are evaluated per query); each distance is simply cheaper.</figcaption>
 </figure>
 </div>
 <details class="tech">
@@ -963,7 +963,7 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
         <span class="mini-pill blue">+4.1% median query throughput</span>
         <span class="mini-pill green">Bit-for-bit identical results</span>
       </div>
-      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years — exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch — roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload — while leaving the search logic untouched.</p>
+      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years, which is exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch: roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload, while leaving the search logic untouched.</p>
       <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
       <figure class="chart">
 <svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
@@ -976,10 +976,10 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
 <text x="20" y="47" font-size="11.5" fill="#94a3b8">2,000-query diagnostic batch, 16 worker threads</text>
 <line x1="20" y1="88" x2="20" y2="185" stroke="#cbd5e1" stroke-width="1"/>
 <text x="26" y="88" font-size="12" fill="#475569">Standard hnswlib</text>
-<path d="M20,97 H436 Q440,97 440,101 V111 Q440,115 436,115 H20 Z" fill="#b6c2ce"><title>Standard hnswlib: about 4,000 pool lock/unlock operations for a 2,000-query batch — two per query row</title></path>
+<path d="M20,97 H436 Q440,97 440,101 V111 Q440,115 436,115 H20 Z" fill="#b6c2ce"><title>Standard hnswlib: about 4,000 pool lock/unlock operations for a 2,000-query batch, two per query row</title></path>
 <text x="448" y="111" font-size="12.5" font-weight="700" fill="#1e293b">4,000</text>
 <text x="26" y="150" font-size="12" fill="#475569">With worker-scoped leases (ours)</text>
-<path d="M20,159 H23.4 V177 H20 Z" fill="#0176D3"><title>With worker-scoped leases: 32 pool lock/unlock operations — two per worker, reused across the whole batch</title></path>
+<path d="M20,159 H23.4 V177 H20 Z" fill="#0176D3"><title>With worker-scoped leases: 32 pool lock/unlock operations, two per worker, reused across the whole batch</title></path>
 <text x="31" y="173" font-size="12.5" font-weight="700" fill="#1e293b">32</text>
 <text x="72" y="173" font-size="12" font-weight="700" fill="#2E844A">−99.2%</text>
 <line x1="520" y1="26" x2="520" y2="200" stroke="#e2e8f0" stroke-width="1"/>
@@ -988,7 +988,7 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
 <text x="720" y="157" text-anchor="middle" font-size="11.5" fill="#94a3b8">+3.96% &#183; +4.12% &#183; +4.34% across three index builds</text>
 <text x="720" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#2E844A">&#10003; search results bit-for-bit identical</text>
 </svg>
-<figcaption><strong>Figure 10.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
+<figcaption><strong>Figure 10.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization: scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
 </figure>
 <details class="tech">
 <summary>Technical details: formulation &amp; implementation</summary>
@@ -1041,7 +1041,7 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
   <div class="container">
     <h2 class="section-title">What's Next</h2>
     <div class="card abstract">
-      <p>These artifacts are a starting point. We're scaling AutoR&amp;D along three axes: <strong>more targets</strong> — from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong> — longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong> — packaging discoveries as upstream pull requests with the full evidence attached.</p>
+      <p>These artifacts are a starting point. We're scaling AutoR&amp;D along three axes: <strong>more targets</strong>, from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong>, longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong>, packaging discoveries as upstream pull requests with the full evidence attached.</p>
       <br>
       <p>The agents we're most excited about find improvements nobody thought to ask for, and prove they're real. AutoR&amp;D is our first step there.</p>
     </div>
@@ -1051,7 +1051,7 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
 <footer>
   <img src="assets/salesforce.svg" alt="Salesforce">
   <p><strong>AutoR&amp;D</strong> · Salesforce AI Research · 2026</p>
-  <p>pandas, USearch, and hnswlib are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions — results will vary by environment. © 2026 Salesforce, Inc.</p>
+  <p>pandas, USearch, and hnswlib are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</p>
 </footer>
 
 </body>
