@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AutoR&amp;D — Salesforce AI Research</title>
-<meta name="description" content="AutoR&amp;D is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — verified wins in hnswlib, pandas, and Salesforce's internal SFR-RL stack.">
+<meta name="description" content="AutoR&amp;D is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove — verified wins in pandas, USearch, hnswlib, and Salesforce's internal SFR-RL stack.">
 <meta property="og:title" content="AutoR&amp;D: an AI agent that does performance research on real code">
-<meta property="og:description" content="Verified speedups in hnswlib and pandas, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack — discovered, tested, and proven by an autonomous research agent.">
+<meta property="og:description" content="Verified speedups in pandas, USearch and hnswlib, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack — discovered, tested, and proven by an autonomous research agent.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="assets/salesforce.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,6 +85,7 @@
   .pill.exact{background:rgba(1,118,211,.08);color:var(--sf-blue-deep);border:1px solid rgba(1,118,211,.3)}
   .pill.oss{background:rgba(221,122,1,.09);color:var(--sf-orange-text);border:1px solid rgba(221,122,1,.35)}
   .pill.scope{background:rgba(3,45,96,.07);color:var(--sf-navy);border:1px solid rgba(3,45,96,.28)}
+  .pill.search{background:rgba(88,103,232,.08);color:#3B4DB8;border:1px solid rgba(88,103,232,.3)}
   .pill.pandas{background:rgba(90,27,169,.07);color:#5A1BA9;border:1px solid rgba(90,27,169,.3)}
   .btn{
     padding:.8rem 1.6rem;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;
@@ -271,14 +272,15 @@
 
   <div class="highlight-pills">
     <div class="pill-row">
-      <span class="pill scope">🧩 3 Codebases · 3 Domains · 6 Optimizations</span>
+      <span class="pill scope">🧩 4 Codebases · 3 Domains · 7 Optimizations</span>
       <span class="pill pandas">🐼 pandas: Up to 1.84× Faster</span>
       <span class="pill speed">⚡ SFR-RL: Up to 3.14× Faster Generation</span>
     </div>
     <div class="pill-row">
       <span class="pill memory">💾 SFR-RL: 39% Lower Peak Memory</span>
-      <span class="pill exact">✓ Outputs Verified Identical</span>
-      <span class="pill oss">⬆ 4 Open-Source PRs</span>
+      <span class="pill search">🔍 USearch: +17.5% Faster Search</span>
+      <span class="pill exact">✓ Correctness Verified on Every Patch</span>
+      <span class="pill oss">⬆ 5 Open-Source PRs</span>
     </div>
   </div>
 
@@ -316,17 +318,17 @@
 
     <div class="breadth">
       <h3>One agent, very different problems</h3>
-      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in three unrelated systems — each with its own stack, its own performance model, and its own definition of "correct".</p>
+      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in four unrelated systems — each with its own stack, its own performance model, and its own definition of "correct".</p>
       <div class="domain-grid">
         <div class="domain"><span class="domain-icon">🐼</span><b>Dataframes</b><span>pandas · Python, NumPy &amp; Arrow · allocation and dispatch on hot kernels</span></div>
         <div class="domain"><span class="domain-icon">🧠</span><b>LLM training &amp; serving</b><span>SFR-RL · PyTorch, multi-GPU · memory bounds and decode throughput</span></div>
-        <div class="domain"><span class="domain-icon">🔍</span><b>Vector search</b><span>hnswlib · C++ · lock contention in multi-threaded query batches</span></div>
+        <div class="domain"><span class="domain-icon">🔍</span><b>Vector search</b><span>USearch &amp; hnswlib · C++ · redundant arithmetic and lock contention in query hot paths</span></div>
       </div>
       <div class="breadth-stats">
-        <div><b>3</b><span>codebases</span></div>
+        <div><b>4</b><span>codebases</span></div>
         <div><b>3</b><span>problem domains</span></div>
-        <div><b>6</b><span>vetted optimizations</span></div>
-        <div><b>4</b><span>upstream PRs</span></div>
+        <div><b>7</b><span>vetted optimizations</span></div>
+        <div><b>5</b><span>upstream PRs</span></div>
         <div><b>0</b><span>correctness regressions</span></div>
       </div>
     </div>
@@ -358,7 +360,7 @@
       <h4>💡 In one minute</h4>
       <ul>
         <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase — any language, any domain — and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
-        <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +4.1% query throughput in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> — outputs verified identical, headed upstream as four PRs.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +17.5% search throughput in <a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> and +4.1% in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> — correctness verified on every patch, headed upstream as five PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
         <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
       </ul>
@@ -373,7 +375,7 @@
     <div class="card abstract">
       <p>Performance engineering is some of the most valuable — and scarcest — work in software. The wins hide in mature codebases that millions of applications depend on, and an optimization is not just a code change: it's a <strong>claim</strong> — <em>"this version is faster, and it computes exactly the same thing."</em> Claims need experiments. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
       <br>
-      <p>So instead of another code-writing assistant, we built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong> — a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first three: two in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+      <p>So instead of another code-writing assistant, we built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong> — a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
     </div>
   </div>
 </section>
@@ -465,9 +467,9 @@
 <section id="findings" style="padding-top:1.2rem">
   <div class="container">
     <h2 class="section-title">What It Found</h2>
-    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems — we aimed it at two of the most heavily used and heavily optimized libraries in the Python data/AI ecosystem, plus one of our own production systems. It found something real in all three.</p>
+    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems — we aimed it at three heavily used, heavily optimized open-source libraries — pandas, USearch, and hnswlib — plus one of our own production systems. It found something real in all four.</p>
 
-    <!-- hnswlib -->
+    <!-- pandas -->
     <div class="card disc" id="pandas">
       <div class="disc-head">
         <div class="disc-badge">1</div>
@@ -700,9 +702,89 @@
         <h4>💡 Why it matters</h4>
         <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
       </div>
-    </div><div class="card disc" id="hnswlib">
+    </div>
+
+    <!-- USearch -->
+    <div class="card disc" id="usearch">
       <div class="disc-head">
         <div class="disc-badge">3</div>
+        <div>
+          <span class="disc-kicker">Open Source · Vector Search</span>
+          <h3>USearch: skipping the math that vector search repeats millions of times</h3>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="mini-pill blue">+17.5% search throughput (GCC 11)</span>
+        <span class="mini-pill blue">+7.4% (GCC 13)</span>
+        <span class="mini-pill blue">+4 bytes per vector</span>
+        <span class="mini-pill green">Same neighbors · recall within 0.01 pt</span>
+      </div>
+      <p><a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> is a compact, high-performance vector-search engine that ships as a single header and is embedded in databases and AI applications. Its cosine-similarity kernel — the default for comparing text and image embeddings — needs the length of both vectors for every comparison. AutoR&amp;D spotted a redundancy: the length of a <em>stored</em> vector never changes, yet the built-in kernel recomputed it on every one of the hundreds of comparisons a single query performs — millions of times across a workload.</p>
+      <p>The patch caches each stored vector's length once, in a 4-byte lock-free "sidecar" that follows the vector through inserts, removals, compaction, copies, and reloads. The query's length is computed once per search, so each comparison shrinks to a dot product and one division: <strong>three multiply-adds per element become one, and two square roots become none</strong>. The route is deliberately narrow — custom metrics, memory-mapped indexes, non-finite values, and builds that use an external SIMD library all keep the original path — and the on-disk index format is unchanged.</p>
+      <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The cost is 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was unchanged with GCC 11 and within 0.01 point with GCC 13; the change passed the C and C++ suites under Address-, UndefinedBehavior- and ThreadSanitizer, from C++11 through C++20.</p>
+<div class="duo">
+<figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="USearch single-core search throughput, baseline versus cached norms: plus 17.5 percent with GCC 11.4 and plus 7.4 percent with GCC 13.4" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="52" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
+<line x1="60" y1="171.2" x2="468" y2="171.2" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="175.2" text-anchor="end" font-size="11" fill="#94a3b8">1,000</text>
+<line x1="60" y1="138.4" x2="468" y2="138.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="142.4" text-anchor="end" font-size="11" fill="#94a3b8">2,000</text>
+<line x1="60" y1="105.6" x2="468" y2="105.6" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="109.6" text-anchor="end" font-size="11" fill="#94a3b8">3,000</text>
+<line x1="60" y1="72.8" x2="468" y2="72.8" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="76.8" text-anchor="end" font-size="11" fill="#94a3b8">4,000</text>
+<line x1="60" y1="40.0" x2="468" y2="40.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="44.0" text-anchor="end" font-size="11" fill="#94a3b8">5,000</text>
+<line x1="60" y1="204" x2="468" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<text x="52" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">QPS</text>
+<rect x="270" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="285" y="17" font-size="11" fill="#475569">Baseline</text>
+<rect x="352" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="367" y="17" font-size="11" fill="#475569">Cached norms</text>
+<path d="M137.0,204.0 V83.8 Q137.0,79.8 141.0,79.8 H157.0 Q161.0,79.8 161.0,83.8 V204.0 Z" fill="#b6c2ce"><title>GCC 11.4 — baseline: 3,785 queries/s</title></path>
+<path d="M163.0,204.0 V62.2 Q163.0,58.2 167.0,58.2 H183.0 Q187.0,58.2 187.0,62.2 V204.0 Z" fill="#0176D3"><title>GCC 11.4 — with cached norms: 4,445 queries/s (+17.5%)</title></path>
+<text x="162.0" y="51.2" text-anchor="middle" font-size="12" font-weight="700" fill="#2E844A">+17.5%</text>
+<text x="162.0" y="224" text-anchor="middle" font-size="12" fill="#475569">GCC 11.4</text>
+<path d="M341.0,204.0 V86.0 Q341.0,82.0 345.0,82.0 H361.0 Q365.0,82.0 365.0,86.0 V204.0 Z" fill="#b6c2ce"><title>GCC 13.4 — baseline: 3,718 queries/s</title></path>
+<path d="M367.0,204.0 V76.8 Q367.0,72.8 371.0,72.8 H387.0 Q391.0,72.8 391.0,76.8 V204.0 Z" fill="#0176D3"><title>GCC 13.4 — with cached norms: 4,000 queries/s (+7.4%)</title></path>
+<text x="366.0" y="65.8" text-anchor="middle" font-size="12" font-weight="700" fill="#2E844A">+7.4%</text>
+<text x="366.0" y="224" text-anchor="middle" font-size="12" fill="#475569">GCC 13.4</text>
+<text x="264.0" y="250" text-anchor="middle" font-size="11" fill="#94a3b8">7 of 7 paired rounds positive on both compilers</text>
+</svg>
+<figcaption><strong>Figure 8.</strong> Single-core search throughput on a 1-million-vector, 256-dimensional Wikipedia-embedding index (k=10, 1,024 held-out queries, seven paired rounds per compiler). Both binaries search the identical prebuilt graph.</figcaption>
+</figure>
+<figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="Arithmetic per cosine comparison: multiply-adds per element drop from 3 to 1 and square roots per comparison from 2 to 0" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="52" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Arithmetic per cosine comparison</text>
+<text x="52" y="47" font-size="11.5" fill="#94a3b8">256-dim f32 vectors · HNSW search</text>
+<rect x="330" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="345" y="17" font-size="11" fill="#475569">Before</text>
+<rect x="398" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="413" y="17" font-size="11" fill="#475569">After</text>
+<text x="52" y="78" font-size="12" fill="#475569">Multiply-adds per vector element</text>
+<path d="M52.0,87.0 H348.0 Q352.0,87.0 352.0,91.0 V97.0 Q352.0,101.0 348.0,101.0 H52.0 Z" fill="#b6c2ce"><title>Before: 3</title></path>
+<text x="360" y="98" font-size="12" font-weight="700" fill="#1e293b">3</text>
+<path d="M52.0,105.0 H148.0 Q152.0,105.0 152.0,109.0 V115.0 Q152.0,119.0 148.0,119.0 H52.0 Z" fill="#0176D3"><title>After: 1</title></path>
+<text x="160" y="116" font-size="12" font-weight="700" fill="#1e293b">1</text>
+<text x="52" y="146" font-size="12" fill="#475569">Square roots per comparison</text>
+<path d="M52.0,155.0 H248.0 Q252.0,155.0 252.0,159.0 V165.0 Q252.0,169.0 248.0,169.0 H52.0 Z" fill="#b6c2ce"><title>Before: 2</title></path>
+<text x="260" y="166" font-size="12" font-weight="700" fill="#1e293b">2</text>
+<line x1="52" y1="173" x2="52" y2="187" stroke="#0176D3" stroke-width="2"/>
+<text x="60" y="184" font-size="12" font-weight="700" fill="#1e293b">0 — norms cached</text>
+<text x="52" y="222" font-size="12" font-weight="600" fill="#2E844A">&#10003; Traversal unchanged: 926.5 distances, 75.8 nodes per query</text>
+<text x="52" y="243" font-size="11.5" fill="#94a3b8">Cost: 4 bytes per stored vector (+0.3% memory on a 1M-vector index)</text>
+</svg>
+<figcaption><strong>Figure 9.</strong> What the cached norm removes from every distance comparison. Traversal is untouched — the same distances and nodes are evaluated per query — each distance is simply cheaper.</figcaption>
+</figure>
+</div>
+      <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
+      <div class="pr-row">
+        <a class="btn btn-primary" href="XX">View the pull request →</a>
+        <small>Created a PR to the USearch project.</small>
+      </div>
+    </div>
+
+    <!-- hnswlib -->
+    <div class="card disc" id="hnswlib">
+      <div class="disc-head">
+        <div class="disc-badge">4</div>
         <div>
           <span class="disc-kicker">Open Source · Vector Search</span>
           <h3>hnswlib: a clean +4% in the engine behind AI retrieval</h3>
@@ -737,7 +819,7 @@
 <text x="720" y="157" text-anchor="middle" font-size="11.5" fill="#94a3b8">+3.96% &#183; +4.12% &#183; +4.34% across three index builds</text>
 <text x="720" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#2E844A">&#10003; search results bit-for-bit identical</text>
 </svg>
-<figcaption><strong>Figure 8.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
+<figcaption><strong>Figure 10.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
 </figure>
       <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
       <div class="pr-row">
@@ -746,7 +828,6 @@
       </div>
     </div>
 
-    <!-- pandas -->
     
   </div>
 </section>
@@ -766,7 +847,7 @@
 <footer>
   <img src="assets/salesforce.svg" alt="Salesforce">
   <p><strong>AutoR&amp;D</strong> · Salesforce AI Research · 2026</p>
-  <p>hnswlib and pandas are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions — results will vary by environment. © 2026 Salesforce, Inc.</p>
+  <p>pandas, USearch, and hnswlib are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions — results will vary by environment. © 2026 Salesforce, Inc.</p>
 </footer>
 
 </body>
