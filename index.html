@@ -190,6 +190,21 @@
   .contribution-card p{font-size:.92rem;color:var(--text-secondary);line-height:1.65}
   .footnote{font-size:.85rem;color:var(--text-muted);font-style:italic;margin-top:1.8rem;text-align:center;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.6}
 
+  /* technical-details dropdowns */
+  details.tech{margin:1.2rem 0 .3rem;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-tertiary);overflow:hidden}
+  details.tech summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.7rem;padding:.85rem 1.1rem;font-weight:700;font-size:.92rem;color:var(--sf-blue-deep);user-select:none}
+  details.tech summary::-webkit-details-marker{display:none}
+  details.tech summary::before{content:'';flex:none;width:8px;height:8px;border-right:2px solid var(--sf-blue-deep);border-bottom:2px solid var(--sf-blue-deep);transform:rotate(-45deg);transition:transform .2s;margin:0 .1rem 0 .2rem}
+  details.tech[open] summary::before{transform:rotate(45deg);margin-top:-.25rem}
+  details.tech summary:hover{background:rgba(1,118,211,.06)}
+  details.tech .tech-body{padding:.1rem 1.25rem 1.2rem;font-size:.93rem;color:var(--text-secondary);border-top:1px solid var(--border-color);background:var(--bg-secondary);line-height:1.65}
+  details.tech h5{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-blue-deep);margin:1.1rem 0 .45rem}
+  details.tech p{margin:0 0 .7rem}
+  details.tech ul{margin:0 0 .7rem 1.2rem}
+  details.tech li{margin-bottom:.35rem}
+  details.tech pre{background:#0b1a33;color:#e2e8f0;border-radius:10px;padding:.9rem 1rem;font-size:.79rem;line-height:1.55;overflow-x:auto;margin:.4rem 0 .9rem}
+  details.tech pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
   /* findings */
   .disc{margin-bottom:2rem}
   .disc-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.9rem}
@@ -362,7 +377,7 @@
         <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase — any language, any domain — and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives — a patch bundled with its evidence.</li>
         <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +17.5% search throughput in <a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> and +4.1% in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> — correctness verified on every patch, headed upstream as five PRs.</li>
         <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
-        <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are kept, not buried.</li>
+        <li><strong>When evidence is mixed, it says no to its own ideas</strong> — negative results are recorded alongside the wins.</li>
       </ul>
     </div>
   </div>
@@ -371,11 +386,11 @@
 <!-- ==================== Overview ==================== -->
 <section id="overview" style="padding-top:1.2rem">
   <div class="container">
-    <h2 class="section-title">Why an AI Researcher, Not a Code Assistant</h2>
+    <h2 class="section-title">Why We Built AutoR&amp;D</h2>
     <div class="card abstract">
-      <p>Performance engineering is some of the most valuable — and scarcest — work in software. The wins hide in mature codebases that millions of applications depend on, and an optimization is not just a code change: it's a <strong>claim</strong> — <em>"this version is faster, and it computes exactly the same thing."</em> Claims need experiments. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
+      <p>Performance engineering is some of the most valuable — and scarcest — work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> — <em>"this version is faster, and it computes exactly the same thing"</em> — that has to be tested. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
       <br>
-      <p>So instead of another code-writing assistant, we built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong> — a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+      <p>We built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong> — a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
     </div>
   </div>
 </section>
@@ -440,8 +455,8 @@
     <div class="contributions-grid">
       <div class="contribution-card">
         <div class="contribution-icon">🧪</div>
-        <h3>Experiments, Not Guesses</h3>
-        <p>Every candidate is built, run, and measured against the unmodified baseline — same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels instead of masquerading as a result.</p>
+        <h3>Built, Run, and Measured</h3>
+        <p>Every candidate is built, run, and measured against the unmodified baseline — same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels out.</p>
       </div>
       <div class="contribution-card">
         <div class="contribution-icon">✓</div>
@@ -456,7 +471,7 @@
       <div class="contribution-card">
         <div class="contribution-icon">🚫</div>
         <h3>It Rejects Its Own Ideas</h3>
-        <p>One clever kernel rewrite showed a small win in one phase and a regression in another — AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are kept, not buried.</p>
+        <p>One clever kernel rewrite showed a small win in one phase and a regression in another — AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are recorded too.</p>
       </div>
     </div>
 
@@ -558,6 +573,39 @@
 <figcaption><strong>Figure 3.</strong> Peak memory on a 2,000,000 × 5 nullable frame (10M elements). The eliminated per-element label array shows up directly as 12–15% less peak RSS.</figcaption>
 </figure>
 </div>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>For a frame <em>X</em> with <em>n</em> rows and <em>c</em> columns that share one nullable dtype, pandas evaluates <code>X.sum(axis=1)</code> by concatenating the columns into a single 1-D extension array <em>A</em> of length <em>n·c</em>, laid out column-major (<em>A</em>[<em>c·n + r</em>] = <em>X</em>[<em>r, c</em>]), and calling the groupby aggregation kernel with a label vector <em>L</em> = tile(arange(<em>n</em>), <em>c</em>) so that group <em>r</em> collects row <em>r</em>. That label vector is an <em>n·c</em> array of 8-byte integers that exists only to tell the kernel which row each element belongs to.</p>
+<p>The new route views the same data and mask buffers as a (<em>c, n</em>) matrix, transposes to (<em>n, c</em>), and calls the kernel with <strong>one</strong> group and <em>c</em> ids. Each of the kernel's <em>n</em> "columns" is now one frame row, aggregated over its <em>c</em> observations. Every output cell consumes the same values in the same column order as the labelled formulation, so results are bit-identical; the only thing that disappears is the label array.</p>
+<h5>Implementation</h5>
+<ul>
+<li><code>BaseMaskedArray._groupby_op_axis1(how, nrows, ncols, min_count, skipna)</code> reshapes <code>_data</code>/<code>_mask</code> as views and calls <code>WrappedCythonOp._cython_op_ndim_compat(values, ngroups=1, comp_ids=zeros(ncols), mask, result_mask)</code>; it raises <code>NotImplementedError</code> for anything it doesn't handle so the caller falls back.</li>
+<li><code>ArrowExtensionArray._groupby_op_axis1</code> covers the eleven Arrow int/uint/float/bool types by delegating through <code>_to_masked()</code> and converting the result back; string, decimal and timestamp Arrow types fall through.</li>
+<li><code>DataFrame._reduce</code> tries the route first for <code>sum/prod/min/max</code> and otherwise continues to the existing <code>np.tile</code> label path. New ASV benchmarks (<code>FrameOpsAxis1EA</code>, <code>FrameOpsAxis1EAPeakmem</code>) cover it.</li>
+</ul>
+<pre><code class="lang-python"># pandas/core/arrays/masked.py
+def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
+    if how not in (&quot;sum&quot;, &quot;prod&quot;, &quot;min&quot;, &quot;max&quot;) or self.size != nrows * ncols:
+        raise NotImplementedError                     # caller falls back to _groupby_op
+    op = WrappedCythonOp(how=how, kind=WrappedCythonOp.get_kind_from_how(how),
+                         has_dropped_na=False)
+    values = self._data.reshape(ncols, nrows).T       # views of the existing buffers
+    mask   = self._mask.reshape(ncols, nrows).T
+    result = op._cython_op_ndim_compat(values, min_count=min_count, ngroups=1,
+                                       comp_ids=np.zeros(ncols, dtype=np.intp),
+                                       mask=mask, result_mask=result_mask, skipna=skipna)
+    return self._maybe_mask_result(result.squeeze(axis=1), result_mask.squeeze(axis=1))</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>134,064 differential cases (141,120 calls) across every supported dtype, <code>skipna</code>, <code>min_count</code> 0–4, degenerate shapes, infinities and NA patterns: zero result, mask, dtype, index-dtype or exception differences. 1,584 of 1,584 routing checks used the new kernel; a monkeypatched <code>_groupby_op</code> proves the old path is never reached.</li>
+<li>ASV: 29 of 40 timing cells flagged improved (ratios 0.51–0.82), 10 more faster with overlapping intervals, one neutral, none slower. Paired CPU-pinned study: 1.215–1.837× (median 1.377×), every bootstrap interval above 1.</li>
+<li>Peak memory on a 2,000,000 × 5 frame: 449 → 396 MB (sum, Int64), 472 → 401 MB (sum, float64[pyarrow]); 437 new tests and 44,458 existing tests pass.</li>
+</ul>
+</div>
+</details>
       <h4 class="opt-head"><span>Optimization 2</span>Counting and de-duplicating strings</h4>
       <p>For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel — <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
       <figure class="chart">
@@ -585,6 +633,36 @@
 </svg>
 <figcaption><strong>Figure 4.</strong> Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
 </figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>Write the baseline operator as <em>F</em><sub>0</sub> and the candidate as <em>F</em><sub>1</sub>. A route is a guard <em>g</em>, a kernel <em>K</em> and a reconstruction <em>Q</em>: <em>F</em><sub>1</sub>(<em>x</em>) = <em>Q</em>(<em>K</em>(<em>P</em>(<em>x</em>))) when <em>g</em>(<em>x</em>) = 1, and <em>F</em><sub>0</sub>(<em>x</em>) otherwise, where <em>P</em> is a zero-copy projection of the physical representation. The obligation is equality of the full public projection — values or exception type, value dtype, shape, index dtype, index values and names — for every input, so the guard has to cover aliasing and mutability as well as dtype.</p>
+<p>Here the representation is a <code>StringArray</code> whose backing store is an object ndarray with <code>pd.NA</code> as the sentinel. The inherited <code>duplicated</code> first materializes an NA mask and the generic <code>value_counts</code> exports via <code>to_numpy</code>, hashes, then converts the result index back to the extension dtype — adapter work around a kernel that already accepts the backing array as-is.</p>
+<h5>Implementation</h5>
+<p>One file, <code>pandas/core/arrays/string_.py</code>, 28 lines inserted and 2 deleted. The guard for <code>duplicated</code> is that the sentinel is exactly <code>pd.NA</code>; <code>value_counts</code> additionally requires <code>dropna=True</code>. No new hash table, encoding or NA rule is introduced — the behavioral risk sits entirely in the guard and the reconstruction.</p>
+<pre><code class="lang-python"># pandas/core/arrays/string_.py
+def duplicated(self, keep=&quot;first&quot;):
+    if self.dtype.na_value is libmissing.NA:
+        return duplicated(self._ndarray, keep=keep)          # algorithms-layer kernel, no NA mask pass
+    return super().duplicated(keep=keep)
+
+def value_counts(self, dropna=True):
+    if self.dtype.na_value is libmissing.NA and dropna:
+        result = value_counts_internal(self._ndarray, sort=False, dropna=True)
+        index_arr = self._from_backing_data(np.asarray(result.index._data))
+        result = Series(result._values, index=Index(index_arr, copy=False), copy=False)
+    else:
+        result = super().value_counts(dropna=dropna)</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>130-case differential matrix over object, Python-string and Arrow-string representations; ASCII, empty, embedded-NUL, composed/decomposed Unicode, CJK and emoji payloads; every NA variant; all <code>keep</code> modes and <code>value_counts</code> options. Baseline and candidate serializations share the same SHA-256.</li>
+<li>30 paired timings per case in alternating order on a pinned core: all four activated routes have simultaneous 95% upper ratio bounds below parity (0.899–0.970); the intentional Unicode fallback control does not (1.025), confirming the route counter.</li>
+<li>Fresh-process memory: <code>value_counts</code> peak RSS increase 37.13 → 24.45 MB, traced peak 31.65 → 24.66 MB; duplicate detection non-increasing on both metrics.</li>
+</ul>
+</div>
+</details>
       <h4 class="opt-head"><span>Optimization 3</span>Row-wise math on numeric frames</h4>
       <p><code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame — and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
       <div class="legend" aria-hidden="true">
@@ -620,7 +698,39 @@
 </svg>
 <figcaption><strong>Figure 5.</strong> Median speedup of row-wise reductions. Fragmented frames — common in real pipelines — benefit most, because that's where the eliminated allocations multiply.</figcaption>
 </figure>
-      <p style="margin-top:1.6rem">What makes this upstream-ready isn't the speed — it's the verification: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs — from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>For <code>sum/prod/min/max</code> with <code>axis=1</code> the baseline avoids a transpose: each physical block is reduced to a length-<em>n</em> vector <em>middle</em>, the first is copied into <em>result</em>, and every later block produces a fresh <em>ufunc(result, middle)</em>. With <em>B</em> blocks that is <em>B</em> block temporaries, one copy and <em>B − 1</em> combine temporaries; nullable float sum/prod add mask and filled-copy allocations inside nanops. The candidate reduces the first eligible block straight into an owned accumulator and folds each later block through one reused scratch array, combining in place — one accumulator and at most one scratch regardless of <em>B</em>.</p>
+<p>Bitwise fidelity is the constraint. Float sum/prod are identity-seeded in the baseline, and that seed is observable: (+0.0) + (−0.0) is +0.0, whereas copying the first row would preserve −0.0. The fold therefore seeds with 0 or 1, visits rows in order, and substitutes the identity for NaN only on rows that contain one. Integer ops and min/max use <code>ufunc.reduce(..., out=)</code>.</p>
+<h5>Implementation</h5>
+<p><code>pandas/core/frame.py</code>, 151 lines added, mostly guards. A block is eligible when it is a C-contiguous, native-byte-order 2-D ndarray of int64/uint64/float32/float64 whose <code>ufunc.resolve_dtypes</code> is a no-cast operation; the accumulator must be owned, writable, shape-compatible and non-aliasing. Unlike dtypes are accepted only when one side dominates promotion (the accumulator is promoted once); mixed promotions such as int64 + uint64 → float64 stay generic. min/max use the route from 4,096 rows; sum/prod at any length.</p>
+<pre><code class="lang-python"># pandas/core/frame.py — inside DataFrame._reduce_axis1&#x27;s block loop
+if result is None and _can_fuse_axis1_block(vals, ufunc):
+    result = np.empty(vals.shape[1], dtype=vals.dtype)
+    _fold_axis1_block(vals, result, name, skipna, ufunc)   # reduce straight into the accumulator
+    continue
+elif _can_fuse_axis1_into(vals, result, ufunc):
+    if np.promote_types(result.dtype, vals.dtype) == vals.dtype:
+        result = result.astype(vals.dtype)                 # promote the accumulator once
+    if vals.shape[0] == 1 and singleton_is_bitwise_safe:
+        ufunc(result, vals[0], out=result)
+    else:
+        scratch = ensure_scratch(dtype=vals.dtype)         # one scratch array, reused
+        _fold_axis1_block(vals, scratch, name, skipna, ufunc)
+        ufunc(result, scratch, out=result)                 # combine in place
+    continue</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>900-case broad matrix (four dtypes, four ops, both <code>skipna</code> settings, <code>min_count</code> boundaries, several shapes) plus an 880-case edge matrix (both orders of 12 promotion pairs at 17, 4,095 and 4,096 rows; signed zero, NaN and infinity patterns; near-limit integers), compared by value-byte hash, dtype, index dtype, shape and name: zero mismatches.</li>
+<li>Primary 100,000-row mixed frame: sum 556.5 → 469.3 µs, prod 675.3 → 486.5 µs, min 437.8 → 382.2 µs, max 439.0 → 384.8 µs over 11 paired samples.</li>
+<li>A 32-cell topology sweep (8 frame layouts × 4 ops, 9 pairs each, bootstrap 95% intervals) shows where routing overhead dominates: homogeneous and short frames are near parity or slightly negative, and the 4,096-row min/max gate admits one narrow case that costs ~31% — reported as data for a production dispatch policy over rows, blocks, columns per block, dtype and NA density.</li>
+</ul>
+</div>
+</details>
+      <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs — from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
       <!-- MARKETING: replace the three href="XX" below with the three upstream pandas pull request URLs -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">Nullable-dtype reductions PR →</a>
@@ -644,9 +754,9 @@
         <span class="mini-pill blue">Up to 3.14× generation throughput</span>
         <span class="mini-pill green">Token-for-token identical outputs</span>
       </div>
-      <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so we share the results here rather than the recipes.)</p>
+      <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so this page covers the results and keeps the recipes in-house.)</p>
       <h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
-      <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong> rather than luck: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
+      <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update — and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB — an out-of-memory crash — to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoR&amp;D's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
 <text x="44" y="214.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
@@ -669,6 +779,23 @@
 </svg>
 <figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline — already using every standard memory-saving technique — ran out of memory on its first big step.</figcaption>
 </figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>In supervised training the memory-relevant shape of an update is a configuration choice, so one representative step can be profiled and the settings stay valid. RL post-training removes that property: each update consumes trajectories the current policy just generated, so the token count, the sequence-length mixture and — because routing is a learned function of content — the expert-routing matrix of a mixture-of-experts model are all sampled, and are only known after generation has committed them. Two things follow. What a configuration has to survive is the range the sampler admits, which is far larger than anything a run happens to exhibit: on the studied one-node run the token packer admits a worst-case dispatch demand more than three times the worst of 7,440 logged routing matrices. And the peak lands inside a checkpointed backward pass, after rollout, scoring and a full forward have been paid for, so an overflow discards the whole update.</p>
+<p>The design requirements AutoR&amp;D worked to were therefore: (1) a memory bound that is a function of configured constants, never of the observed workload; (2) a bound that holds during checkpoint recomputation as well as in the forward pass; (3) fail-closed behavior — stop deterministically before any collective is issued when a draw cannot be honored; (4) exact computation — no change to tokens, routing, expert assignment, precision, gradients or optimizer semantics, because anything that perturbed the policy would also perturb every later update.</p>
+<h5>What changed</h5>
+<p>Two complementary mechanisms, each targeting one of the two dominant activation live sets in the checkpointed backward (transient expert-dispatch buffers and long-lived decoder checkpoint boundaries), give those live sets bounds that follow from the configuration alone and rebuild anything route-scale on demand during recomputation. They compose with activation checkpointing, ZeRO-3 partitioning and CPU optimizer offload, which the baseline already used. The mechanism internals are SFR-RL's and are not described here.</p>
+<h5>Evidence</h5>
+<ul>
+<li>Same configuration, same workload: the baseline exhausts device memory during its first checkpointed backward at a 128.5 GiB peak allocation; with the mechanisms enabled the run sustains 19 consecutive updates at a 78.6 GiB peak with at least 28 GiB of physical headroom.</li>
+<li>The bounded live sets match their configuration-derived ceilings to three decimal places at the largest observed step, confirming the bounds come from the configuration and would hold for any draw.</li>
+<li>Because trajectories are not replayed identically between configurations, the before/after contrast is reported as a single system-level observation without a matched per-mechanism decomposition.</li>
+</ul>
+</div>
+</details>
       <h4 class="opt-head"><span>Optimization 2</span>Throughput: the same answers, three times faster</h4>
       <p>On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types — up to <strong>3.14× baseline throughput</strong> on long-output workloads — with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
       <figure class="chart">
@@ -698,6 +825,22 @@
 </svg>
 <figcaption><strong>Figure 7.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>Two endpoints are kept separate on purpose. For a request with <em>n</em> output tokens, time-to-first-token TTFT = <em>t</em><sub>first</sub> − <em>t</em><sub>submit</sub> and time-per-output-token TPOT = (<em>t</em><sub>last</sub> − <em>t</em><sub>first</sub>) / (<em>n</em> − 1); goodput is committed output tokens per second of wall-clock time. In autoregressive serving TPOT is dominated by the number of full target-model passes per committed token, while TTFT is governed by queueing, prefill and dispatch. The change reduces target passes per committed token on the serving path while keeping the target model the sole authority for every visible token, so the externally visible sequence is exactly the target's greedy sequence, and removes a device-to-host synchronization and a per-forward metadata translation from the remaining hot path.</p>
+<h5>Acceptance rule</h5>
+<p>The unit of replication is a fresh server-process restart: ten balanced-order control/treatment restart pairs per workload, two-stage bootstrap intervals (restart blocks, then requests within a block), and exact one-sided sign tests. A pair is admissible only if prompts, lengths, arrivals, sampling, parallelism, attention and graph policy all match, every request completes, and complete output token IDs match prompt by prompt. Decode acceptance requires both p50 and p95 TPOT ratios and their simultaneous upper bounds to be at most 0.80 with consistent restart direction.</p>
+<h5>Evidence</h5>
+<ul>
+<li>TPOT p50 down 65.8% (1K/128), 69.4% (8K/2048), 60.8% (32K/512) and 62.3% (paced mix); p95 down 47.5–68.8%; ten of ten restart signs favorable in every cell (<em>p</em> = 2<sup>−10</sup>). Decode goodput 2.30×, 3.14×, 1.80× and 1.07× control respectively — the paced mix is arrival-limited.</li>
+<li>Output equality: 320 matched requests per fixed-workload arm and every paced restart produced identical token sequences prompt by prompt.</li>
+<li>First-token latency is a separate objective: neutral-to-better on the fixed workloads, but the paced mix regresses p95 TTFT by 18%, driven by its long-prompt/short-output stratum. The path is therefore deployed for decode-heavy traffic and ordinary decoding is kept for first-token-tail-sensitive traffic.</li>
+</ul>
+</div>
+</details>
       <div class="takeaway-box" style="margin-top:1.4rem">
         <h4>💡 Why it matters</h4>
         <p>Faster iterations and no more lost runs — our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
@@ -774,6 +917,43 @@
 <figcaption><strong>Figure 9.</strong> What the cached norm removes from every distance comparison. Traversal is untouched — the same distances and nodes are evaluated per query — each distance is simply cheaper.</figcaption>
 </figure>
 </div>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>Cosine distance is <em>d</em>(<em>a, b</em>) = 1 − <em>a·b</em> / (‖<em>a</em>‖ ‖<em>b</em>‖). USearch's built-in f32/bf16 kernel evaluates <em>a·b</em>, ‖<em>a</em>‖² and ‖<em>b</em>‖² in one pass — three multiply-adds per element — followed by two square roots and a division, for every one of the ~927 comparisons an HNSW query performs. In that setting <em>b</em> is a stored member vector whose norm is fixed from insertion, and <em>a</em> is the query, whose norm is the same for every comparison in the search. Caching ‖<em>b</em>‖ per slot and computing ‖<em>a</em>‖ once per query leaves one multiply-add per element, one multiply and one division: the expression 1 − <em>a·b</em> / (‖<em>a</em>‖ ‖<em>b</em>‖) is algebraically identical to the kernel's 1 − <em>a·b</em> / (√<em>a</em>² √<em>b</em>²), differing only in floating-point rounding.</p>
+<h5>Implementation</h5>
+<ul>
+<li><strong>Sidecar.</strong> <code>index_dense_gt</code> gains <code>cosine_norms_</code>: one lock-free <code>std::atomic&lt;uint32_t&gt;</code> per capacity slot holding the raw bits of the f32 norm, or a quiet-NaN sentinel (<code>0x7fc00000</code>). Insertion publishes with a release store after the vector bytes are written; search loads with acquire before reading them; reserve, clear, compact, copy, load and metric changes use relaxed accesses because they exclude concurrent insertion. A C++11-compatible <code>static_assert</code> guards lock-freedom.</li>
+<li><strong>Search proxy.</strong> <code>metric_proxy_cosine_norms_t</code> carries the prepared query norm and calls <code>cosine_distance_with_valid_norms</code>; a slot holding the sentinel falls back to the full kernel per comparison, and a non-finite query bypasses the route for the whole search.</li>
+<li><strong>Eligibility and provenance.</strong> <code>supports_cosine_norm_cache()</code> identifies the built-in kernel by the address of the exact <code>metric_cos_gt</code> instantiation plus its dimension argument — deliberately <em>not</em> the routing trampoline, which identical-code-folding linkers (<code>/OPT:ICF</code>, <code>--icf=all</code>) can merge, so a cosine-labelled user callback can never be captured. Custom metrics, NumKong-supplied kernels, memory-mapped views, external-vector indexes and other scalar kinds keep the original path.</li>
+<li><strong>Lifecycle.</strong> reserve grows the sidecar with capacity; add/update populate a slot; remove and clear invalidate it; compact remaps and repopulates; copy duplicates a valid sidecar; load rebuilds it; views bypass it; a metric change builds and populates replacement state before committing, so an allocation failure leaves the index untouched. The sidecar is never serialized, so the file format is unchanged.</li>
+<li><strong>Fast-math safety.</strong> All finiteness classification is done on integer bit patterns, and the accumulated norm is laundered through a <code>volatile</code> before inspection so <code>-ffast-math</code> builds cannot assume it finite.</li>
+</ul>
+<pre><code class="lang-cpp">// include/usearch/index_dense.hpp — the search-only proxy&#x27;s hot path
+distance_t f(byte_t const* query, member_at member) const noexcept {
+    std::uint32_t bits = index_-&gt;cosine_norms_[get_slot(member)].load(std::memory_order_acquire);
+    if (!metric_t::is_valid_cosine_norm_bits(bits))            // sentinel: full kernel for this member
+        return index_-&gt;metric_(query, v(member));
+    f32_t member_norm; std::memcpy(&amp;member_norm, &amp;bits, sizeof member_norm);
+    return index_-&gt;metric_.cosine_distance_with_valid_norms(query, v(member), query_norm_, member_norm);
+}
+// include/usearch/index_plugins.hpp — one dot product, no square roots
+result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b, f32_t a_norm, f32_t b_norm) {
+    f32_t ab = cosine_dot_(a, b, dimensions_);
+    if (a_is_zero) return b_is_zero ? 0 : 1;                      // zero handling matches metric_cos_gt
+    if (b_is_zero) return 1;
+    return 1 - ab / (a_norm * b_norm);
+}</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>Wiki-1M (1M × 256 f32), identical prebuilt graph in both binaries, one pinned core, 1,024 held-out queries, 16 timed repeats, seven paired rounds: +17.54% median QPS with GCC 11.4 (95% bootstrap +17.14% to +17.76%) and +7.41% with GCC 13.4 (+7.20% to +7.61%); 7/7 rounds positive on both. Computed distances (926.5/query) and visited members (75.8/query) unchanged in every timed row.</li>
+<li>Memory 1,333,418,176 → 1,337,418,176 bytes at one million slots — exactly four bytes per slot. Load 0.92–0.94 s → 1.04–1.05 s (sidecar rebuilt); 96-thread construction 10.2–10.5 s either way.</li>
+<li>Result parity over 10,240 top-10 outputs: GCC 11 reordered four positions across two queries with identical neighbor sets; GCC 13 changed twelve positions and one top-10 boundary member; maximum distance change 4.1 × 10<sup>−7</sup>; recall 0.98574 → 0.98564 at worst. C and C++ suites pass under ASan, LSan, UBSan, alignment and (for the sidecar) TSan, with GCC 11 and 13, C++11–20, and a gold <code>--icf=all</code> link; a NumKong build confirms the route is never taken there.</li>
+</ul>
+</div>
+</details>
       <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">View the pull request →</a>
@@ -821,6 +1001,37 @@
 </svg>
 <figcaption><strong>Figure 10.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization — scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
 </figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>HNSW traversal needs a scratch "visited" set. hnswlib stores it as a dense generation-tag array: node <em>v</em> counts as visited in the current search when <code>mass[v] == curV</code>, so advancing <code>curV</code> clears the set in constant time and only a generation wrap performs a physical clear. The Python batch path calls <code>searchKnn</code> once per row, and each call locks <code>VisitedListPool</code> to acquire and reset a list and locks it again to return it — about 2<em>Q</em> mutex operations for <em>Q</em> rows, even though a <code>ParallelFor</code> worker executes many rows back to back. Moving ownership from the row to the worker makes that 2<em>W</em> for <em>W</em> active workers: with <em>Q</em> = 2,000 and <em>W</em> = 16, 4,000 lock episodes become 32 (−99.2%). Every row still gets exactly one generation advance; only pool ownership is amortized.</p>
+<h5>Implementation</h5>
+<ul>
+<li>A non-copyable RAII <code>VisitedListLease</code>: acquisition prepares the first generation, <code>next()</code> prepares each later row, and the destructor returns the list even when a filter callback or query raises.</li>
+<li>A private search helper, <code>searchKnnWithVisitedList</code>, accepts caller-owned scratch; the public <code>searchKnn</code> wrapper is unchanged, so direct C++ callers and single-row queries behave exactly as before.</li>
+<li>The batch <code>knn_query</code> keeps one lazily created lease per worker slot. The distance arithmetic, graph layout and serialization are untouched, which is why labels and distances are byte-identical.</li>
+</ul>
+<pre><code class="lang-cpp">// python_bindings — batch knn_query, inside the ParallelFor body
+auto&amp; lease = visited_list_leases[threadId];
+VisitedList* vl;
+if (!lease) {
+    lease = index-&gt;visited_list_pool_-&gt;getFreeVisitedListLease();   // lock once per worker
+    vl = lease-&gt;get();                                              // first row reset on acquire
+} else {
+    vl = lease-&gt;next();                                             // one generation advance per later row
+}
+auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
+// RAII: the lease returns vl to the pool exactly once, when this worker&#x27;s batch scope ends</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>Invariants checked explicitly: fresh visited set per row (wrap/clearing test), single owner per slot (concurrent-batch test), return on exception (injected exception, then reuse), search equivalence (labels and distances matched), and coverage of L2, inner product, cosine, filters and deletions. An early resize-related segfault was caught in development, fixed, and kept as a regression test.</li>
+<li>Exploratory A/B on three independently built indexes, order alternated B/C, C/B, B/C, all 31 timed repetitions retained: +4.34%, +4.12%, +3.96% QPS; recall@10 identical to four decimals; peak RSS within ±0.11%; output hashes identical.</li>
+<li>Reported as an exploratory signal that supports a focused upstream PR; a full preregistered 48-point, five-seed campaign was not run.</li>
+</ul>
+</div>
+</details>
       <!-- MARKETING: replace href="XX" below with the upstream pull request URL -->
       <div class="pr-row">
         <a class="btn btn-primary" href="XX">View the pull request →</a>
@@ -837,9 +1048,9 @@
   <div class="container">
     <h2 class="section-title">What's Next</h2>
     <div class="card abstract">
-      <p>These three artifacts are a beginning, not a victory lap. We're scaling AutoR&amp;D along three axes: <strong>more targets</strong> — from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong> — longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong> — packaging discoveries as upstream pull requests with the full evidence attached.</p>
+      <p>These artifacts are a starting point. We're scaling AutoR&amp;D along three axes: <strong>more targets</strong> — from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong> — longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong> — packaging discoveries as upstream pull requests with the full evidence attached.</p>
       <br>
-      <p>We think the future of agentic AI isn't just agents that do what we ask — it's agents that find improvements we didn't know to ask for, and prove they're real. AutoR&amp;D is our first step there.</p>
+      <p>The agents we're most excited about find improvements nobody thought to ask for, and prove they're real. AutoR&amp;D is our first step there.</p>
     </div>
   </div>
 </section>
