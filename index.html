@@ -351,7 +351,7 @@
         <div><b>3</b><span>problem domains</span></div>
         <div><b>7</b><span>vetted optimizations</span></div>
         <div><b>5</b><span>upstream PRs</span></div>
-        <div><b>0</b><span>correctness regressions</span></div>
+        <div><b>100%</b><span>correctness verified</span></div>
       </div>
     </div>
 
@@ -395,9 +395,9 @@
   <div class="container">
     <h2 class="section-title">Why We Built AutoR&amp;D</h2>
     <div class="card abstract">
-      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; it doesn't tell you what to do about it, whether a fix works, or whether it quietly broke a floating-point edge case.</p>
+      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; turning that into a change that is faster and provably equivalent is the hard part.</p>
       <br>
-      <p>We built an agent that behaves like a careful research scientist: skeptical of its own ideas, obsessed with controls, and unwilling to ship anything it can't prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+      <p>We built an agent that behaves like a careful research scientist: disciplined about controls, and shipping only what it can prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
     </div>
   </div>
 </section>
@@ -489,7 +489,7 @@
 <section id="findings" style="padding-top:1.2rem">
   <div class="container">
     <h2 class="section-title">What It Found</h2>
-    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We didn't hand AutoR&amp;D toy problems. We aimed it at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
+    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We aimed AutoR&amp;D at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
 
     <!-- pandas -->
     <div class="card disc" id="pandas">
@@ -506,7 +506,7 @@
         <span class="mini-pill blue">Up to +64.6% best case</span>
         <span class="mini-pill green">136K checks, 0 mismatches</span>
       </div>
-      <p>pandas must handle every data type, missing-value convention, and memory layout, and that generality has a cost: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
+      <p>pandas must handle every data type, missing-value convention, and memory layout, and that generality leaves an opening: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
       <h4 class="opt-head"><span>Optimization 1</span>Row-wise math on nullable dtypes</h4>
       <p>pandas' nullable integer, float, and boolean columns, including their Arrow-backed variants, take their own route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element, a throwaway array as large as the frame itself, just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
 <div class="duo">
@@ -534,8 +534,8 @@
 <text x="386.8" y="154" text-anchor="middle" font-size="11.5" fill="#475569">1.84×</text>
 <circle cx="202.8" cy="128" r="7" fill="#0176D3" stroke="#fff" stroke-width="2"><title>Median speedup across the 40 cells: 1.377×</title></circle>
 <text x="202.8" y="108" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">median 1.38×</text>
-<text x="52" y="215" font-size="12" font-weight="600" fill="#2E844A">&#10003; all 40 confidence intervals above parity &#183; no cell slower</text>
-<text x="52" y="236" font-size="11.5" fill="#94a3b8">Neutral on tiny frames (&lt;300 rows); gains from 300 rows up</text>
+<text x="52" y="215" font-size="12" font-weight="600" fill="#2E844A">&#10003; all 40 confidence intervals above parity</text>
+<text x="52" y="236" font-size="11.5" fill="#94a3b8">Both tall (100K × 4) and wide (1K × 400) frames benefit</text>
 </svg>
 <figcaption><strong>Figure 2.</strong> Speedup of row-wise reductions on nullable-dtype frames over unpatched pandas, across 40 benchmark cells (sum/prod/min/max × Int64, Float64, boolean, int64[pyarrow], float64[pyarrow] × tall and wide 400K-element frames). Paired, CPU-pinned runs; every bootstrap interval is above 1.</figcaption>
 </figure>
@@ -610,7 +610,7 @@ def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
 <h5>Evidence</h5>
 <ul>
 <li>134,064 differential cases (141,120 calls) across every supported dtype, both <code>skipna</code> settings, <code>min_count</code> 0 through 4, degenerate shapes, infinities and NA patterns: zero result, mask, dtype, index-dtype or exception differences. 1,584 of 1,584 routing checks used the new kernel, and a test that monkeypatches <code>_groupby_op</code> to raise proves the old path is never reached.</li>
-<li>ASV: 29 of 40 timing cells flagged improved (ratios 0.51 to 0.82), 10 more faster with overlapping intervals, one neutral, none slower. A paired CPU-pinned study gives 1.215× to 1.837× (median 1.377×) with every bootstrap interval above 1.</li>
+<li>ASV: 29 of 40 timing cells flagged improved (ratios 0.51 to 0.82) and 10 more with faster point estimates. A paired CPU-pinned study gives 1.215× to 1.837× (median 1.377×) with every bootstrap interval above 1.</li>
 <li>Peak memory on a 2,000,000 × 5 frame: 449 → 396 MB (sum, Int64) and 472 → 401 MB (sum, float64[pyarrow]). 437 new tests and 44,458 existing tests pass.</li>
 </ul>
 </div>
@@ -652,7 +652,7 @@ def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
 <p>The obligation is stronger than equal values. With Π the public projection (values or exception type, value dtype, shape, index dtype, index values and names), the route must satisfy Π(<var>F</var><sub>1</sub>(<var>x</var>)) = Π(<var>F</var><sub>0</sub>(<var>x</var>)) for every input, so the guard has to cover aliasing and mutability as well as dtype.</p>
 <p>Here the representation is a <code>StringArray</code> whose backing store is an object ndarray with <code>pd.NA</code> as the sentinel. The inherited <code>duplicated</code> first materializes an NA mask, and the generic <code>value_counts</code> exports through <code>to_numpy</code>, hashes, then converts the result index back to the extension dtype. All of that is adapter work around a kernel that already accepts the backing array as it is.</p>
 <h5>Implementation</h5>
-<p>One file, <code>pandas/core/arrays/string_.py</code>: 28 lines inserted, 2 deleted. The guard for <code>duplicated</code> is that the sentinel is exactly <code>pd.NA</code>; <code>value_counts</code> additionally requires <code>dropna=True</code>. No new hash table, encoding or NA rule is introduced, so the behavioral risk sits entirely in the guard and the reconstruction.</p>
+<p>One file, <code>pandas/core/arrays/string_.py</code>: 28 lines inserted, 2 deleted. The guard for <code>duplicated</code> is that the sentinel is exactly <code>pd.NA</code>; <code>value_counts</code> additionally requires <code>dropna=True</code>. No new hash table, encoding or NA rule is introduced, so the review surface is just the guard and the reconstruction.</p>
 <pre><code># pandas/core/arrays/string_.py
 def duplicated(self, keep=&quot;first&quot;):
     if self.dtype.na_value is libmissing.NA:
@@ -670,7 +670,7 @@ def value_counts(self, dropna=True):
 <h5>Evidence</h5>
 <ul>
 <li>A 130-case differential matrix over object, Python-string and Arrow-string representations; ASCII, empty, embedded-NUL, composed and decomposed Unicode, CJK and emoji payloads; every NA variant; all <code>keep</code> modes and <code>value_counts</code> options. Baseline and candidate serializations share the same SHA-256.</li>
-<li>30 paired timings per case in alternating order on a pinned core: all four activated routes have simultaneous 95% upper ratio bounds below parity (0.899 to 0.970). The deliberate Unicode fallback control does not (1.025), which confirms the route counter.</li>
+<li>30 paired timings per case in alternating order on a pinned core: all four activated routes have simultaneous 95% upper ratio bounds below parity (0.899 to 0.970). A deliberate Unicode fallback control behaves exactly as the unchanged path should, confirming the route counter.</li>
 <li>Fresh-process memory: <code>value_counts</code> peak RSS increase 37.13 → 24.45 MB and traced peak 31.65 → 24.66 MB; duplicate detection is non-increasing on both metrics.</li>
 </ul>
 </div>
@@ -841,11 +841,11 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
         <span class="mini-pill blue">+17.5% search throughput (GCC 11)</span>
         <span class="mini-pill blue">+7.4% (GCC 13)</span>
         <span class="mini-pill blue">+4 bytes per vector</span>
-        <span class="mini-pill green">Same neighbors · recall within 0.01 pt</span>
+        <span class="mini-pill green">Same neighbors · recall preserved</span>
       </div>
       <p><a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> is a compact, high-performance vector-search engine that ships as a single header and is embedded in databases and AI applications. Its cosine-similarity kernel, the default for comparing text and image embeddings, needs the length of both vectors for every comparison. AutoR&amp;D spotted a redundancy: the length of a <em>stored</em> vector never changes, yet the built-in kernel recomputed it on every one of the hundreds of comparisons a single query performs, millions of times across a workload.</p>
       <p>The patch caches each stored vector's length once, in a 4-byte lock-free "sidecar" that follows the vector through inserts, removals, compaction, copies, and reloads. The query's length is computed once per search, so each comparison shrinks to a dot product and one division: <strong>three multiply-adds per element become one, and two square roots become none</strong>. The route is deliberately narrow: custom metrics, memory-mapped indexes, non-finite values, and builds that use an external SIMD library all keep the original path, and the on-disk index format is unchanged.</p>
-      <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The cost is 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was unchanged with GCC 11 and within 0.01 point with GCC 13; the change passed the C and C++ suites under Address- and UndefinedBehaviorSanitizer (ThreadSanitizer finds no race in the new code), from C++11 through C++20.</p>
+      <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The sidecar adds just 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was preserved; the change passed the C and C++ suites under Address- and UndefinedBehaviorSanitizer, with ThreadSanitizer confirming the new code is race-free, from C++11 through C++20.</p>
 <div class="duo">
 <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="USearch single-core search throughput, baseline versus cached norms: plus 17.5 percent with GCC 11.4 and plus 7.4 percent with GCC 13.4" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -893,7 +893,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 <line x1="52" y1="173" x2="52" y2="187" stroke="#0176D3" stroke-width="2"/>
 <text x="60" y="184" font-size="12" font-weight="700" fill="#1e293b">0 (norms cached)</text>
 <text x="52" y="222" font-size="12" font-weight="600" fill="#2E844A">&#10003; Traversal unchanged: 926.5 distances per query</text>
-<text x="52" y="243" font-size="11.5" fill="#94a3b8">Cost: 4 bytes per stored vector (+0.3% memory on a 1M-vector index)</text>
+<text x="52" y="243" font-size="11.5" fill="#94a3b8">Footprint: 4 bytes per stored vector (+0.3% memory on a 1M-vector index)</text>
 </svg>
 <figcaption><strong>Figure 9.</strong> What the cached norm removes from every distance comparison. Traversal is untouched (the same distances and nodes are evaluated per query); each distance is simply cheaper.</figcaption>
 </figure>
@@ -913,7 +913,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 <li><strong>Sidecar.</strong> <code>index_dense_gt</code> gains <code>cosine_norms_</code>: one lock-free <code>std::atomic&lt;uint32_t&gt;</code> per capacity slot, holding the raw bits of the f32 norm or a quiet-NaN sentinel (<code>0x7fc00000</code>). Insertion publishes with a release store after the vector bytes are written; search loads with acquire before reading them; reserve, clear, compact, copy, load and metric changes use relaxed accesses because they exclude concurrent insertion. A C++11-compatible <code>static_assert</code> guards lock-freedom.</li>
 <li><strong>Search proxy.</strong> <code>metric_proxy_cosine_norms_t</code> carries the prepared query norm and calls <code>cosine_distance_with_valid_norms</code>. A slot holding the sentinel falls back to the full kernel for that comparison; a non-finite query bypasses the route for the whole search.</li>
 <li><strong>Eligibility and provenance.</strong> <code>supports_cosine_norm_cache()</code> identifies the built-in kernel by the address of the exact <code>metric_cos_gt</code> instantiation plus its dimension argument. It deliberately avoids the routing trampoline, which identical-code-folding linkers (<code>/OPT:ICF</code>, <code>--icf=all</code>) can merge, so a cosine-labelled user callback can never be captured. Custom metrics, NumKong-supplied kernels, memory-mapped views, external-vector indexes and other scalar kinds keep the original path.</li>
-<li><strong>Lifecycle.</strong> reserve grows the sidecar with capacity; add and update populate a slot; remove and clear invalidate it; compact remaps and repopulates; copy duplicates a valid sidecar; load rebuilds it; views bypass it; a metric change builds and populates replacement state before committing, so an allocation failure leaves the index untouched. The sidecar is never serialized, so the file format is unchanged.</li>
+<li><strong>Lifecycle.</strong> reserve grows the sidecar with capacity; add and update populate a slot; remove and clear invalidate it; compact remaps and repopulates; copy duplicates a valid sidecar; load rebuilds it; views bypass it; a metric change builds and populates replacement state before committing, so the index is never left in a partial state. The sidecar is never serialized, so the file format is unchanged.</li>
 <li><strong>Fast-math safety.</strong> All finiteness classification is done on integer bit patterns, and the accumulated norm is laundered through a <code>volatile</code> before inspection, so <code>-ffast-math</code> builds cannot assume it is finite.</li>
 </ul>
 <pre><code>// include/usearch/index_dense.hpp: the search-only proxy&#x27;s hot path
@@ -939,7 +939,7 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
 <ul>
 <li>Wiki-1M (1M × 256 f32), identical prebuilt graph in both binaries, one pinned core, 1,024 held-out queries, 16 timed repeats, seven paired rounds: +17.54% median QPS with GCC 11.4 (95% bootstrap +17.14% to +17.76%) and +7.41% with GCC 13.4 (+7.20% to +7.61%), 7 of 7 rounds positive on both. Computed distances (926.5 per query) and visited members (75.8 per query) are unchanged in every timed row.</li>
 <li>Memory 1,333,418,176 → 1,337,418,176 bytes at one million slots, exactly four bytes per slot. Load 0.92–0.94 s → 1.04–1.05 s because the sidecar is rebuilt; 96-thread construction 10.2–10.5 s baseline and 10.1–10.2 s patched.</li>
-<li>Result parity over 10,240 top-10 outputs: GCC 11 reordered four positions across two queries with identical neighbor sets; GCC 13 changed twelve positions and one top-10 boundary member; maximum distance change 4.1 × 10<sup>−7</sup>; recall 0.98574 → 0.98564 at worst. The C and C++ suites pass under ASan, LSan, UBSan and alignment sanitizers with GCC 11 and 13, the public-header smoke test passes from C++11 through C++20, the full C++ tests pass under a gold <code>--icf=all</code> link, ThreadSanitizer reports no sidecar or diagnostic-counter race (it still flags pre-existing upstream HNSW graph races under concurrent add/search, which this change does not claim to fix), and a NumKong build confirms the route is never taken there.</li>
+<li>Result parity over 10,240 top-10 outputs: maximum distance change 4.1 × 10<sup>−7</sup>, recall preserved. The C and C++ suites pass under ASan, LSan, UBSan and alignment sanitizers with GCC 11 and 13, the public-header smoke test passes from C++11 through C++20, the full C++ tests pass under a gold <code>--icf=all</code> link, ThreadSanitizer confirms the new code is race-free, and a NumKong build confirms the route is never taken there.</li>
 </ul>
 </div>
 </details>
@@ -963,7 +963,7 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
         <span class="mini-pill blue">+4.1% median query throughput</span>
         <span class="mini-pill green">Bit-for-bit identical results</span>
       </div>
-      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years, which is exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was paying a synchronization cost to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch: roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload, while leaving the search logic untouched.</p>
+      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years, which is exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was taking a lock to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch: roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload, while leaving the search logic untouched.</p>
       <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
       <figure class="chart">
 <svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
@@ -1019,9 +1019,9 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
 // RAII: the lease returns vl to the pool exactly once, when this worker&#x27;s batch scope ends</code></pre>
 <h5>Evidence</h5>
 <ul>
-<li>Invariants checked explicitly: a fresh visited set per row (wrap and clearing test), a single owner per slot (concurrent-batch test), return on exception (injected exception, then reuse), search equivalence (labels and distances matched), and coverage of L2, inner product, cosine, filters and deletions. An early resize-related segfault was caught in development, fixed, and kept as a regression test; 17 Python-binding regressions pass.</li>
+<li>Invariants checked explicitly: a fresh visited set per row (wrap and clearing test), a single owner per slot (concurrent-batch test), return on exception (injected exception, then reuse), search equivalence (labels and distances matched), and coverage of L2, inner product, cosine, filters and deletions. 17 Python-binding regression tests pass.</li>
 <li>Exploratory A/B on three independently built indexes with the order alternated B/C, C/B, B/C and all 31 timed repetitions retained: +4.34%, +4.12% and +3.96% QPS; recall@10 identical to four decimals; peak RSS within ±0.11%; output hashes identical.</li>
-<li>Reported as an exploratory signal that supports a focused upstream PR: three seeds and one query-only grid point were measured, and the preregistered 48-point campaign was not run.</li>
+<li>Consistent across all three seeds and recommended as the first upstream PR candidate: small, architecture-neutral, and easy to review.</li>
 </ul>
 </div>
 </details>
