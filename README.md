@@ -24,8 +24,9 @@ branch (or the branch selected under *Settings → Pages*), the site is live at
 
 Search `index.html` for the `MARKETING:` comments:
 
-1. **Pull-request links** — five buttons have `href="XX"`: three on the
-   pandas card (nullable-dtype reductions, string hashing, row-wise
-   reductions), one on the USearch card, one on the hnswlib card. Replace
-   each `XX` with the corresponding upstream PR URL.
+1. **Pull-request links** — the three buttons on the pandas card
+   (nullable-dtype reductions, string hashing, row-wise reductions) still
+   have `href="XX"`; replace each with the upstream PR URL. The hnswlib
+   (nmslib/hnswlib#676) and USearch (unum-cloud/USearch#787) buttons are
+   already linked.
 2. Optionally add a "Corresponding author" line under the affiliation.
