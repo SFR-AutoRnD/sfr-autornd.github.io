@@ -50,6 +50,11 @@ after an organization rename, so external links should point at the new host.
 
 ## Placeholders still to fill in
 
+0. **Hero artwork**: add the Astro, Codey and Einstein illustration as
+   `assets/mascots.png` (PNG, transparent background preferred, roughly 2:1).
+   The umbrella hero shows it beside the SFR-AutoR&D title and hides the slot
+   until the file exists.
+
 Search `engineer/index.html` for the `MARKETING:` comments:
 
 1. **Pull-request links**: the three buttons on the pandas card
