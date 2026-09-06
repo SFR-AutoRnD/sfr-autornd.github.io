@@ -7,7 +7,7 @@ development agents from Salesforce AI Research, and for its two sub-projects:
 |---|---|---|
 | SFR-AutoR&D | <https://sfr-autornd.github.io/> | Mission, shared design (Figure 1 loop), a two-tab summary of the sub-projects, and a placeholder card for future sub-projects. |
 | SFR-AutoR&D-Engineer | <https://sfr-autornd.github.io/engineer/> | Performance research on real code: pandas, SFR-RL, USearch, hnswlib. |
-| SFR-AutoR&D-TrainForge | <https://sfr-autornd.github.io/trainforge/> | Autonomous model training. Mirror of the original page by Yiran Zhao at <https://zhaoyiran924.github.io/trainforge/>, which is the canonical version. |
+| SFR-AutoR&D-TrainForge | <https://sfr-autornd.github.io/trainforge/> | Autonomous model training. Copied from Yiran Zhao's `zhaoyiran924/trainforge` repository. |
 
 Static site, no build step:
 
@@ -28,8 +28,7 @@ Static site, no build step:
   "Launch public Training Forge research site"), including the 8.3 MB demo
   video. Edits on top of the copy: title, brand, branch band and footer renamed
   to SFR-AutoR&D-TrainForge; header links to `../` and `../engineer/` (class
-  `family-link`, styled in `assets/styles.css`); a canonical link and a hero
-  button pointing to the original page; em-dashes removed from the copy.
+  `family-link`, styled in `assets/styles.css`); em-dashes removed from the copy.
   To resync, re-copy `index.html` and `assets/` from the source repo and
   re-apply those edits.
 - `assets/salesforce.svg`: Salesforce logo used in the nav, hero, footer, and favicon.
