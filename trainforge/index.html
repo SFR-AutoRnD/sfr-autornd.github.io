@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Give SFR-AutoR&amp;D-TrainForge a baseline model and training target; get back the best verified model while budgets, code, checkpoints, and evaluation remain controlled." />
+    <title>SFR-AutoR&amp;D-TrainForge · Salesforce AI Research</title>
+    <link rel="icon" href="assets/salesforce-logo.jpg" />
+    <link rel="canonical" href="https://zhaoyiran924.github.io/trainforge/" />
+    <link rel="stylesheet" href="assets/styles.css?v=20" />
+    <script src="assets/site.js?v=3" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="page-shell">
+      
+      <header class="site-header">
+        <a class="site-brand" href="index.html">
+          <img src="assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span>
+            <strong>SFR-AutoR&amp;D-TrainForge</strong>
+            <small>Salesforce AI Research</small>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index.html#team">Team</a>
+          <a href="index.html#pipeline">Pipeline</a>
+          <a href="index.html#contributions">Contributions</a>
+          <a href="index.html#programs">Runs</a>
+          <a href="index.html#demo">Demo</a>
+          <a class="family-link" href="../">SFR-AutoR&amp;D</a>
+          <a class="family-link" href="../engineer/">SFR-AutoR&amp;D-Engineer</a>
+        </nav>
+      </header>
+    
+      <main id="main-content">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Autonomous model training · Salesforce AI Research</p>
+            <h1>Give it a target. Get back the <span>best verified model.</span></h1>
+            <p class="hero-deck">
+              SFR-AutoR&amp;D-TrainForge autonomously designs the data, tools, training, and evaluation;
+              writes and validates the code; runs the experiments; and returns the best
+              verified checkpoint. If nothing improves, it keeps the incumbent and explains why.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#demo">Watch autonomous training</a>
+              <a class="button secondary" href="#programs">See active training programs</a>
+              <a class="button secondary" href="https://zhaoyiran924.github.io/trainforge/" target="_blank" rel="noreferrer">Original page by Yiran Zhao ↗</a>
+            </div>
+          </div>
+          <aside class="hero-autotrain-card" aria-label="Autonomous Training Forge loop">
+            <header>
+              <span>Autonomous training</span>
+              <strong>One target. One controlled loop.</strong>
+            </header>
+            <div class="hero-autotrain-flow">
+              <section>
+                <small>Input</small>
+                <strong>Baseline model + target</strong>
+              </section>
+              <i aria-hidden="true">↓</i>
+              <section class="hero-autotrain-engine">
+                <small>Training Forge</small>
+                <strong>Design → Build → Train → Evaluate</strong>
+                <span>Iterate until target or budget</span>
+              </section>
+              <i aria-hidden="true">↓</i>
+              <section>
+                <small>Output</small>
+                <strong>Best verified model</strong>
+                <span>Or preserve the incumbent</span>
+              </section>
+            </div>
+            <div class="hero-autotrain-controls">
+              <small>Control plane</small>
+              <div>
+                <span>Code contract</span>
+                <span>Compute budget</span>
+                <span>Checkpoints</span>
+                <span>Frozen evaluation</span>
+                <span>Human approval</span>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="author-band" id="team">
+          <div class="author-band-heading">
+            <p class="section-kicker">Authors</p>
+            <strong>Salesforce AI Research</strong>
+            <span>2026</span>
+          </div>
+          <div class="author-grid">
+          <a href="https://zhaoyiran924.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/yiran-zhao.jpg" alt="Yiran Zhao" width="84" height="84" loading="lazy" decoding="async" />
+            <strong>Yiran Zhao</strong>
+          </a>
+        
+
+          <a href="https://nxphi47.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" width="84" height="84" loading="lazy" decoding="async" />
+            <strong>Xuan-Phi Nguyen</strong>
+          </a>
+        
+
+          <a href="https://shreypandit.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/shrey-pandit.jpg" alt="Shrey Pandit" width="84" height="84" loading="lazy" decoding="async" />
+            <strong>Shrey Pandit</strong>
+          </a>
+        
+
+          <a href="https://raihanjoty.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/shafiq-joty.jpg" alt="Shafiq Joty" width="84" height="84" loading="lazy" decoding="async" />
+            <strong>Shafiq Joty</strong>
+          </a>
+        </div>
+        </section>
+
+        <section class="branch-band" aria-labelledby="branches-title">
+          <div>
+            <p class="section-kicker">One research family, two branches</p>
+            <h2 id="branches-title">SFR-AutoR&amp;D works on code and models.</h2>
+          </div>
+          <a href="../engineer/">
+            <span>01</span><strong>SFR-AutoR&amp;D-Engineer</strong><small>Performance research on real code</small><i>→</i>
+          </a>
+          <div class="active">
+            <span>02</span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Model-training research</small><i>Here</i>
+          </div>
+        </section>
+
+        <section class="section" id="pipeline">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">How autonomous training works</p>
+              <h2>The loop runs itself. Every handoff stays controlled.</h2>
+            </div>
+            <p>
+              Training Forge owns the complete pipeline: data, tools, training, and
+              evaluation. Novelty, implementation fidelity, compute, and promotion
+              are enforced as gates.
+            </p>
+          </div>
+          <figure class="feature-figure">
+            <img src="assets/trainforge-pipeline.svg?v=5" alt="A baseline model and training target enter the autonomous Training Forge loop and produce the best verified model while code, compute, checkpoints, evaluation, and approvals remain controlled." />
+            <figcaption>Figure 1 · Autonomous training with an explicit control plane.</figcaption>
+          </figure>
+        </section>
+
+        <section class="section contribution-section" id="contributions">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Main contributions</p>
+              <h2>Autonomous training with research-grade control.</h2>
+            </div>
+            <p>
+              Training Forge does more than launch jobs. Four enforced mechanisms connect
+              a research idea to the exact model artifact that may be promoted.
+            </p>
+          </div>
+          <div class="contribution-list">
+            <article>
+              <span class="contribution-index">01</span>
+              <div><small>Novelty</small><h3>Discover what’s genuinely new</h3></div>
+              <p>Scouts search across research domains while proposer and critic agents challenge every candidate against prior work and run history.</p>
+              <strong>search → propose → challenge</strong>
+            </article>
+            <article>
+              <span class="contribution-index">02</span>
+              <div><small>Fidelity</small><h3>Turn ideas into faithful code</h3></div>
+              <p>A frozen contract covers data, tool use, training, and evaluation; structure, live-path, and behavior checks enforce it before training.</p>
+              <strong>contract → code → verify</strong>
+            </article>
+            <article>
+              <span class="contribution-index">03</span>
+              <div><small>Efficiency</small><h3>Focus compute on the strongest ideas</h3></div>
+              <p>A staged funnel rejects weak candidates cheaply, raises fidelity for survivors, and reserves final confirmation for the strongest ideas.</p>
+              <strong>f0 screen → f1 verify → f2 confirm</strong>
+            </article>
+            <article>
+              <span class="contribution-index">04</span>
+              <div><small>Trust</small><h3>Promote only verified gains</h3></div>
+              <p>Every held-out score stays bound to the checkpoint that produced it. Stale, invalid, or non-positive evidence preserves the incumbent.</p>
+              <strong>evaluate → bind → promote or preserve</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="programs">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Runs in progress</p>
+              <h2>What Training Forge is training now.</h2>
+            </div>
+            <p>
+              GPT-OSS includes a compact view of prior harness gains. Other programs remain
+              placeholders until their idea and evaluation details are ready.
+            </p>
+          </div>
+          <div class="program-grid">
+      <article class="running-card has-results">
+        
+        <p class="running-model-label">Target model</p>
+        <h3>GPT-OSS-20B</h3>
+        <p class="running-title">Long-Horizon Research Quality</p>
+        <dl class="running-facts">
+          <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+        </dl>
+        
+          <figure class="historical-gains">
+            <div>
+              <div class="historical-gain-row">
+                <div class="historical-gain-label">
+                  <span>Byte Evidence Frontier SFT</span>
+                  <em>Novelty 5/10</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:100.00%"></i></div>
+                <strong>+11 pp</strong>
+              </div>
+            
+              <div class="historical-gain-row">
+                <div class="historical-gain-label">
+                  <span>Linter-Gated Natural-Boundary Training</span>
+                  <em>Novelty 5/10</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:90.91%"></i></div>
+                <strong>+10 pp</strong>
+              </div>
+            
+              <div class="historical-gain-row">
+                <div class="historical-gain-label">
+                  <span>Distill + DFA + Collision Reset</span>
+                  <em>Novelty 1/10</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:72.73%"></i></div>
+                <strong>+8 pp</strong>
+              </div>
+            
+              <div class="historical-gain-row">
+                <div class="historical-gain-label">
+                  <span>Verifier-Certified Contract Options + Conformal Stop</span>
+                  <em>Novelty 4/10</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:54.55%"></i></div>
+                <strong>+6 pp</strong>
+              </div>
+            
+              <div class="historical-gain-row">
+                <div class="historical-gain-label">
+                  <span>Certified Obligation-Stutter Quotient Training</span>
+                  <em>Novelty 7/10</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:45.45%"></i></div>
+                <strong>+5 pp</strong>
+              </div>
+            
+              <div class="historical-gain-row">
+                <div class="historical-gain-label">
+                  <span>Confirmatory Alarm-Gated MPC Distillation</span>
+                  <em>Novelty 3/10</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:18.18%"></i></div>
+                <strong>+2 pp</strong>
+              </div>
+            </div>
+          </figure>
+        
+      </article>
+    
+
+      <article class="running-card">
+        
+          <div class="idea-card-topline">
+            <span class="status placeholder">Placeholder</span>
+            <span>Details to follow</span>
+          </div>
+        
+        <p class="running-model-label">Target model</p>
+        <h3>Qwen3-4B</h3>
+        <p class="running-title">Single-Node Math Training</p>
+        <dl class="running-facts">
+          <div><dt>Target tasks</dt><dd>Riemann-Bench · Omni-MATH · AIME 2025 · AIME 2026</dd></div>
+        </dl>
+        
+          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
+        
+      </article>
+    
+
+      <article class="running-card">
+        
+          <div class="idea-card-topline">
+            <span class="status placeholder">Placeholder</span>
+            <span>Details to follow</span>
+          </div>
+        
+        <p class="running-model-label">Target model</p>
+        <h3>Qwen3-4B</h3>
+        <p class="running-title">Single-Node Coding Training</p>
+        <dl class="running-facts">
+          <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
+        </dl>
+        
+          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
+        
+      </article>
+    
+
+      <article class="running-card">
+        
+          <div class="idea-card-topline">
+            <span class="status placeholder">Placeholder</span>
+            <span>Details to follow</span>
+          </div>
+        
+        <p class="running-model-label">Target model</p>
+        <h3>Muse-Glimmer-30B</h3>
+        <p class="running-title">Multilingual Reasoning Training</p>
+        <dl class="running-facts">
+          <div><dt>Target tasks</dt><dd>PolyMath + PluraMath multilingual math · MMLU-ProX cross-lingual reasoning</dd></div>
+        </dl>
+        
+          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
+        
+      </article>
+    </div>
+        </section>
+
+        <section class="section video-section" id="demo">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Guided demonstration</p>
+              <h2>Three minutes from target to verified adapter.</h2>
+            </div>
+            <p>The recorded run trims only the waiting time. Training work and evaluation are shown in full.</p>
+          </div>
+          <div class="video-frame">
+            <video controls preload="metadata" poster="assets/video-poster.svg?v=2">
+              <source src="assets/trainforge-demo.mp4" type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+          <p class="figure-note">
+            The successful Qwen3-4B reference run performs 20 real optimizer updates on one
+            H200 and promotes only the adapter reproduced from disk.
+          </p>
+          <p class="figure-note">
+            The video presents its recorded demo profile. Fidelity budgets are profile-specific,
+            and the frozen contract for a run is authoritative.
+          </p>
+        </section>
+
+      </main>
+      
+      <footer class="site-footer">
+        <div>
+          <img src="assets/salesforce-logo.jpg" alt="" />
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research</small></span>
+        </div>
+        <p>Research claims are shown with their evaluation status. No improvement means no promotion.</p>
+      </footer>
+    
+    </div>
+  </body>
+</html>

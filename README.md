@@ -1,30 +1,52 @@
-# AutoR&D — project website
+# SFR-AutoR&D project website
 
-Landing page for **AutoR&D**, the autonomous performance-research agent from
-Salesforce AI Research, covering its first three artifacts (hnswlib, pandas, and
-SFR-RL).
+Umbrella site for **SFR-AutoR&D**, the family of autonomous research and
+development agents from Salesforce AI Research, and for its two sub-projects:
+
+| Page | URL | What it is |
+|---|---|---|
+| SFR-AutoR&D | <https://sfr-autornd.github.io/> | Mission, shared design (Figure 1 loop), a two-tab summary of the sub-projects, and a placeholder card for future sub-projects. |
+| SFR-AutoR&D-Engineer | <https://sfr-autornd.github.io/engineer/> | Performance research on real code: pandas, SFR-RL, USearch, hnswlib. |
+| SFR-AutoR&D-TrainForge | <https://sfr-autornd.github.io/trainforge/> | Autonomous model training. Mirror of the original page by Yiran Zhao at <https://zhaoyiran924.github.io/trainforge/>, which is the canonical version. |
 
 Static site, no build step:
 
-- `index.html` — all content, styles, and figures (charts are inline SVG).
-- `assets/salesforce.svg` — Salesforce logo used in the hero, footer, and favicon.
+- `index.html`: the umbrella page. Umbrella-only styles are inline; the shared
+  design system (palette, hero, cards, pills, family nav, contribution tabs) is
+  `assets/site.css`.
+- `engineer/index.html`: self-contained (inline styles and inline SVG charts).
+  Its `<style>` block is mirrored verbatim at the top of `assets/site.css`;
+  keep the two in sync when the design system changes.
+- `trainforge/`: copied from `zhaoyiran924/trainforge` (commit `a37e93f`,
+  "Launch public Training Forge research site"), including the 8.3 MB demo
+  video. Edits on top of the copy: title, brand, branch band and footer renamed
+  to SFR-AutoR&D-TrainForge; header links to `../` and `../engineer/` (class
+  `family-link`, styled in `assets/styles.css`); a canonical link and a hero
+  button pointing to the original page; em-dashes removed from the copy.
+  To resync, re-copy `index.html` and `assets/` from the source repo and
+  re-apply those edits.
+- `assets/salesforce.svg`: Salesforce logo used in the nav, hero, footer, and favicon.
 
-Author links and photos point to each author's personal website
-(shreypandit.github.io, nxphi47.github.io, zhaoyiran924.github.io,
-raihanjoty.github.io), with an initials fallback if a photo fails to load.
+All links between the three pages are relative, so the site works at any
+host name and from a local checkout.
+
+Author links and photos on the umbrella and Engineer pages point to each
+author's personal website (shreypandit.github.io, nxphi47.github.io,
+zhaoyiran924.github.io, raihanjoty.github.io), with an initials fallback if a
+photo fails to load. The TrainForge page ships its own author photos.
 
 ## Publishing
 
-This is a GitHub Pages user/org site (`sfr-autoresearch.github.io`), so it serves
-from the repository's **default branch**. Once this content is on the default
-branch (or the branch selected under *Settings → Pages*), the site is live at
-<https://sfr-autoresearch.github.io>.
+This is the GitHub Pages user site of the `SFR-AutoRnD` organization (repository
+`sfr-autornd.github.io`), served from the **default branch** at the repository
+root. GitHub does not redirect the old `sfr-autoresearch.github.io` address
+after an organization rename, so external links should point at the new host.
 
-## Before it goes live — placeholders to fill in
+## Placeholders still to fill in
 
-Search `index.html` for the `MARKETING:` comments:
+Search `engineer/index.html` for the `MARKETING:` comments:
 
-1. **Pull-request links** — the three buttons on the pandas card
+1. **Pull-request links**: the three buttons on the pandas card
    (nullable-dtype reductions, string hashing, row-wise reductions) still
    have `href="XX"`; replace each with the upstream PR URL. The hnswlib
    (nmslib/hnswlib#676) and USearch (unum-cloud/USearch#787) buttons are

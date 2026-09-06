@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SFR-AutoR&amp;D-Engineer · Salesforce AI Research</title>
+<meta name="description" content="SFR-AutoR&amp;D-Engineer is the autonomous performance-research agent in the SFR-AutoR&amp;D family from Salesforce AI Research. It studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove: verified wins in pandas, USearch, hnswlib, and Salesforce's internal SFR-RL stack.">
+<meta property="og:title" content="SFR-AutoR&amp;D-Engineer: an AI agent that does performance research on real code">
+<meta property="og:description" content="Verified speedups in pandas, USearch and hnswlib, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack, all discovered, tested, and proven by an autonomous research agent.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../assets/salesforce.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-primary:#fafbfd;
+    --bg-secondary:#ffffff;
+    --bg-tertiary:#f0f5fa;
+    --sf-blue:#0176D3;
+    --sf-blue-bright:#1B96FF;
+    --sf-blue-deep:#0B5CAB;
+    --sf-navy:#032D60;
+    --sf-cloud:#EAF5FE;
+    --sf-teal:#0B827C;
+    --sf-green:#2E844A;
+    --sf-orange:#DD7A01;
+    --sf-orange-text:#A96404;
+    --text-primary:#1e293b;
+    --text-secondary:#475569;
+    --text-muted:#94a3b8;
+    --border-color:#e2e8f0;
+    --gradient-1:linear-gradient(135deg,#1B96FF 0%,#0B5CAB 100%);
+    --gradient-deep:linear-gradient(135deg,#0176D3 0%,#032D60 100%);
+    --shadow-sm:0 1px 2px rgba(3,45,96,.05);
+    --shadow-md:0 4px 12px rgba(3,45,96,.08);
+    --shadow-lg:0 12px 40px rgba(3,45,96,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'DM Sans',system-ui,sans-serif;
+    background:var(--bg-primary);
+    color:var(--text-primary);
+    line-height:1.7;
+  }
+  .bg-pattern{
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      radial-gradient(circle at 18% 40%, rgba(1,118,211,.05) 0%, transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(27,150,255,.05) 0%, transparent 45%);
+  }
+  .container{max-width:1000px;margin:0 auto;padding:0 2rem}
+  a{color:var(--sf-blue-deep)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:6px;padding:.1em .4em;color:var(--sf-navy)}
+
+  /* ---------- hero ---------- */
+  .hero{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:4.5rem 2rem 3.5rem;
+  }
+  .hero-logo{height:64px;width:auto;margin-bottom:1.4rem;filter:drop-shadow(0 10px 24px rgba(1,118,211,.25))}
+  .hero-eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sf-blue-deep);margin-bottom:1.1rem;
+  }
+  .hero h1{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(2.6rem,6vw,4rem);font-weight:700;color:var(--sf-navy);
+    margin-bottom:.4rem;letter-spacing:-.01em;
+  }
+  .hero h2{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(1.1rem,2.4vw,1.45rem);font-weight:400;color:var(--text-secondary);
+    max-width:780px;margin-bottom:1.6rem;
+  }
+  .hero-description{
+    font-size:1.06rem;color:var(--text-secondary);max-width:730px;margin-bottom:2rem;line-height:1.8;
+  }
+  .highlight-pills{display:flex;flex-direction:column;align-items:center;gap:.7rem;margin-bottom:2.2rem}
+  .pill-row{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
+  .pill{padding:.48rem 1.05rem;border-radius:50px;font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;gap:.45rem;line-height:1.3}
+  .pill.speed{background:rgba(46,132,74,.09);color:var(--sf-green);border:1px solid rgba(46,132,74,.3)}
+  .pill.memory{background:rgba(11,130,124,.09);color:var(--sf-teal);border:1px solid rgba(11,130,124,.3)}
+  .pill.exact{background:rgba(1,118,211,.08);color:var(--sf-blue-deep);border:1px solid rgba(1,118,211,.3)}
+  .pill.oss{background:rgba(221,122,1,.09);color:var(--sf-orange-text);border:1px solid rgba(221,122,1,.35)}
+  .pill.scope{background:rgba(3,45,96,.07);color:var(--sf-navy);border:1px solid rgba(3,45,96,.28)}
+  .pill.search{background:rgba(88,103,232,.08);color:#3B4DB8;border:1px solid rgba(88,103,232,.3)}
+  .pill.pandas{background:rgba(90,27,169,.07);color:#5A1BA9;border:1px solid rgba(90,27,169,.3)}
+  .btn{
+    padding:.8rem 1.6rem;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;
+    display:inline-flex;align-items:center;gap:.5rem;transition:all .25s ease;
+  }
+  .btn-primary{background:var(--sf-blue);color:#fff}
+  .btn-primary:hover{background:var(--sf-blue-deep);transform:translateY(-2px);box-shadow:0 10px 28px rgba(1,118,211,.35)}
+  .btn-secondary{background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color);box-shadow:var(--shadow-sm)}
+  .btn-secondary:hover{background:var(--bg-tertiary);transform:translateY(-2px)}
+
+  /* authors */
+  .authors{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:center;margin-bottom:.9rem}
+  .author{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--text-primary);transition:transform .25s ease}
+  .author:hover{transform:translateY(-3px)}
+  .author-img{
+    width:74px;height:74px;border-radius:50%;border:3px solid var(--bg-secondary);
+    margin-bottom:.5rem;box-shadow:var(--shadow-md);object-fit:cover;background:var(--gradient-1);
+    display:block;
+  }
+  .author-fallback{
+    display:none;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:1.35rem;letter-spacing:.02em;
+  }
+  .author-name{font-size:.92rem;font-weight:600}
+  .affiliation{color:var(--sf-blue-deep);font-size:.98rem;font-weight:600;margin-top:.4rem}
+  .hero-meta{color:var(--text-muted);font-size:.85rem;margin-top:.3rem}
+  /* MARKETING: add a "Corresponding author: name@salesforce.com" line under .affiliation if desired */
+
+  /* ---------- sections ---------- */
+  section{padding:3.6rem 0}
+  .section-title{
+    font-family:'Source Serif 4',serif;font-size:1.9rem;font-weight:600;
+    text-align:center;margin-bottom:2rem;color:var(--sf-navy);
+  }
+  .section-title::after{
+    content:'';display:block;width:60px;height:4px;background:var(--gradient-1);
+    margin:.9rem auto 0;border-radius:2px;
+  }
+  .card{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:2rem;box-shadow:var(--shadow-sm);
+  }
+  .abstract{font-size:1.04rem;line-height:1.9;color:var(--text-secondary)}
+  .abstract strong{color:var(--text-primary)}
+
+  /* takeaways */
+  .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.4rem;margin-bottom:1.8rem}
+  .result-card{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:1.7rem 1.4rem;text-align:center;box-shadow:var(--shadow-sm);
+  }
+  .result-value{
+    font-family:'Source Serif 4',serif;font-size:2.9rem;font-weight:700;line-height:1.15;
+    background:var(--gradient-deep);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+  }
+  .result-label{font-size:.98rem;font-weight:600;margin-top:.4rem}
+  .result-detail{font-size:.83rem;color:var(--text-muted);margin-top:.2rem;line-height:1.5}
+  .takeaway-box{
+    background:linear-gradient(135deg,rgba(1,118,211,.06) 0%,rgba(3,45,96,.06) 100%);
+    border:1px solid rgba(1,118,211,.22);border-radius:16px;padding:1.8rem 2rem;
+  }
+  .takeaway-box h4{font-size:1rem;font-weight:700;color:var(--sf-blue-deep);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+  .takeaway-box ul{margin-left:1.15rem}
+  .takeaway-box li{font-size:.97rem;color:var(--text-secondary);line-height:1.75;margin-bottom:.5rem}
+  .takeaway-box li strong{color:var(--text-primary)}
+  .takeaway-box p{font-size:.95rem;color:var(--text-secondary)}
+
+  /* breadth block */
+  .breadth{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:1.8rem 2rem;margin-bottom:1.4rem;box-shadow:var(--shadow-sm);
+  }
+  .breadth h3{font-family:'Source Serif 4',serif;font-size:1.35rem;font-weight:600;color:var(--sf-navy);margin-bottom:.4rem}
+  .breadth>p{color:var(--text-secondary);font-size:.97rem;max-width:780px}
+  .domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.2rem 0 1.4rem}
+  .domain{background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:12px;padding:1rem 1.1rem;display:flex;flex-direction:column}
+  .domain-icon{font-size:1.35rem;margin-bottom:.35rem}
+  .domain b{font-size:.98rem;color:var(--text-primary);margin-bottom:.15rem}
+  .domain span:last-child{font-size:.84rem;color:var(--text-secondary);line-height:1.5}
+  .breadth-stats{display:flex;flex-wrap:wrap;gap:.6rem 2.4rem;border-top:1px solid var(--border-color);padding-top:1.1rem}
+  .breadth-stats div{display:flex;align-items:baseline;gap:.45rem}
+  .breadth-stats b{font-family:'Source Serif 4',serif;font-size:1.7rem;font-weight:700;color:var(--sf-blue-deep)}
+  .breadth-stats span{font-size:.88rem;color:var(--text-secondary)}
+
+  /* method cards */
+  .contributions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;margin-top:2rem}
+  .contribution-card{
+    background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;
+    padding:1.7rem;transition:all .3s ease;box-shadow:var(--shadow-sm);
+  }
+  .contribution-card:hover{border-color:var(--sf-blue);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .contribution-icon{
+    width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+    font-size:1.35rem;margin-bottom:.9rem;
+  }
+  .contribution-card:nth-child(1) .contribution-icon{background:rgba(1,118,211,.1)}
+  .contribution-card:nth-child(2) .contribution-icon{background:rgba(46,132,74,.1)}
+  .contribution-card:nth-child(3) .contribution-icon{background:rgba(11,130,124,.1)}
+  .contribution-card:nth-child(4) .contribution-icon{background:rgba(221,122,1,.1)}
+  .contribution-card h3{font-size:1.04rem;font-weight:700;margin-bottom:.5rem}
+  .contribution-card p{font-size:.92rem;color:var(--text-secondary);line-height:1.65}
+  .footnote{font-size:.85rem;color:var(--text-muted);font-style:italic;margin-top:1.8rem;text-align:center;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+
+  /* technical-details dropdowns */
+  details.tech{margin:1.3rem 0 .3rem;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-tertiary);overflow:hidden}
+  details.tech summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.7rem;padding:.9rem 1.2rem;font-weight:700;font-size:.95rem;color:var(--sf-blue-deep);user-select:none}
+  details.tech summary::-webkit-details-marker{display:none}
+  details.tech summary::before{content:'';flex:none;width:8px;height:8px;border-right:2px solid var(--sf-blue-deep);border-bottom:2px solid var(--sf-blue-deep);transform:rotate(-45deg);transition:transform .2s;margin:0 .1rem 0 .2rem}
+  details.tech[open] summary::before{transform:rotate(45deg);margin-top:-.25rem}
+  details.tech summary:hover{background:rgba(1,118,211,.06)}
+  details.tech .tech-body{padding:.3rem 1.5rem 1.4rem;font-size:1rem;color:var(--text-primary);border-top:1px solid var(--border-color);background:var(--bg-secondary);line-height:1.75}
+  details.tech h5{font-family:'Source Serif 4',Georgia,serif;font-size:1.08rem;font-weight:600;color:var(--sf-navy);margin:1.3rem 0 .5rem;padding-bottom:.3rem;border-bottom:1px solid var(--border-color)}
+  details.tech p{margin:0 0 .85rem}
+  details.tech ul{margin:0 0 .85rem 1.25rem}
+  details.tech li{margin-bottom:.45rem}
+  details.tech .tech-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;background:#eef3f9;border:0;border-radius:5px;padding:.08em .38em;color:#0b3d7a}
+  details.tech pre{background:#f7f9fc;border:1px solid var(--border-color);color:#1e293b;border-radius:10px;padding:1rem 1.15rem;font-size:.86rem;line-height:1.6;overflow-x:auto;margin:.5rem 0 1rem}
+  details.tech .tech-body pre code{background:none;border:0;border-radius:0;padding:0;color:inherit;font-size:inherit;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  details.tech var{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:1.06em;color:var(--sf-navy)}
+  details.tech .math{display:block;text-align:center;font-family:'Source Serif 4',Georgia,serif;font-size:1.15rem;color:var(--text-primary);margin:.7rem 0 1rem;line-height:1.7}
+  details.tech .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .3em;line-height:1.3}
+  details.tech .frac>span:first-child{border-bottom:1px solid currentColor;padding:0 .35em .12em}
+  details.tech .frac>span:last-child{padding:.12em .35em 0}
+
+  /* findings */
+  .disc{margin-bottom:2rem}
+  .disc-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.9rem}
+  .disc-badge{
+    flex:none;width:44px;height:44px;border-radius:12px;background:var(--gradient-1);
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.1rem;
+    box-shadow:0 6px 16px rgba(1,118,211,.3);
+  }
+  .disc-kicker{font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-blue-deep)}
+  .disc h3{font-family:'Source Serif 4',serif;font-size:1.5rem;font-weight:600;margin:.1em 0 0;color:var(--sf-navy)}
+  .disc p{color:var(--text-secondary);font-size:.99rem;margin-bottom:1em}
+  .disc p strong{color:var(--text-primary)}
+  .badge-row{margin:.2rem 0 1.1rem}
+  .opt-head{
+    display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+    margin:1.9rem 0 .7rem;padding-top:1.5rem;border-top:1px solid var(--border-color);
+    font-family:'Source Serif 4',serif;font-size:1.2rem;font-weight:600;color:var(--sf-navy);
+  }
+  .opt-head span{
+    font-family:'DM Sans',system-ui,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--sf-blue-deep);background:rgba(1,118,211,.08);
+    border:1px solid rgba(1,118,211,.25);border-radius:999px;padding:.2rem .7rem;white-space:nowrap;
+  }
+  .mini-pill{
+    display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:.22rem .8rem;margin:.15rem .4rem .15rem 0;
+  }
+  .mini-pill.blue{background:rgba(1,118,211,.08);color:var(--sf-blue-deep);border:1px solid rgba(1,118,211,.3)}
+  .mini-pill.green{background:rgba(46,132,74,.09);color:var(--sf-green);border:1px solid rgba(46,132,74,.3)}
+  .pr-row{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border-color);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+  .pr-row .btn{padding:.6rem 1.2rem;font-size:.88rem}
+  .pr-row small{color:var(--text-muted)}
+
+  /* figures / charts */
+  figure.chart{margin:1.6rem 0 .4rem;text-align:center;overflow-x:auto}
+  figure.chart svg{width:100%;min-width:470px;max-width:560px;height:auto}
+  figure.chart figcaption{font-size:.84rem;color:var(--text-muted);max-width:600px;margin:.6rem auto 0;line-height:1.55;text-align:center}
+  figure.chart figcaption strong{color:var(--text-secondary)}
+  figure.chart svg path[fill]:hover{opacity:.85}
+  .legend{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin:1rem 0 -.4rem;font-size:.85rem;color:var(--text-secondary)}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.45rem;vertical-align:-1px}
+  figure.diagram{margin:1.8rem 0 .3rem;overflow-x:auto}
+  figure.diagram svg{width:100%;min-width:780px;height:auto}
+  figure.diagram figcaption{font-size:.84rem;color:var(--text-muted);margin-top:.6rem;text-align:center}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.6rem;align-items:start}
+  .duo figure.chart svg{min-width:430px}
+  @media(max-width:820px){.duo{grid-template-columns:1fr}}
+
+  /* footer */
+  footer{
+    padding:2.6rem 2rem;text-align:center;border-top:1px solid var(--border-color);
+    color:var(--text-muted);font-size:.87rem;background:var(--bg-tertiary);
+  }
+  footer img{height:34px;width:auto;margin-bottom:.8rem;opacity:.95}
+  footer p{max-width:720px;margin:0 auto .5rem;line-height:1.65}
+  footer a{color:var(--sf-blue-deep);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  @media(max-width:600px){
+    .hero{padding:3rem 1.2rem 2.6rem}
+    section{padding:2.6rem 0}
+    .container{padding:0 1.2rem}
+  }
+
+  /* ---- site nav (shared across the SFR-AutoR&D pages) ---- */
+  .site-nav{
+    position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:.55rem 2rem;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border-color);
+  }
+  .site-nav-brand{display:inline-flex;align-items:center;gap:.55rem;font-family:'Source Serif 4',serif;font-weight:700;font-size:1.05rem;color:var(--sf-navy);text-decoration:none;white-space:nowrap}
+  .site-nav-brand img{height:22px;width:auto}
+  .site-nav-links{display:flex;flex-wrap:wrap;gap:.2rem .35rem;justify-content:flex-end}
+  .site-nav-links a{font-size:.86rem;font-weight:600;color:var(--text-secondary);text-decoration:none;padding:.35rem .7rem;border-radius:8px;white-space:nowrap;transition:background .2s ease,color .2s ease}
+  .site-nav-links a:hover{color:var(--sf-blue-deep);background:rgba(1,118,211,.06)}
+  .site-nav-links a[aria-current=page]{color:var(--sf-blue-deep);box-shadow:inset 0 -2px 0 var(--sf-blue)}
+  @media(max-width:640px){
+    .site-nav{padding:.45rem 1rem}
+    .site-nav-brand{font-size:.98rem}
+    .site-nav-links a{padding:.3rem .5rem;font-size:.82rem}
+    .site-nav-links .long{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+
+<nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
+  <a class="site-nav-brand" href="../"><img src="../assets/salesforce.svg" alt="">SFR-AutoR&amp;D</a>
+  <div class="site-nav-links">
+    <a href="../">Overview</a>
+    <a href="../engineer/" aria-current="page"><span class="long">SFR-AutoR&amp;D-</span>Engineer</a>
+    <a href="../trainforge/"><span class="long">SFR-AutoR&amp;D-</span>TrainForge</a>
+  </div>
+</nav>
+
+<!-- ==================== Hero ==================== -->
+<header class="hero" id="top">
+  <img class="hero-logo" src="../assets/salesforce.svg" alt="Salesforce">
+  <div class="hero-eyebrow">SFR-AutoR&amp;D · Salesforce AI Research</div>
+  <h1>SFR-AutoR&amp;D-Engineer</h1>
+  <h2>An AI agent that does performance research on real code, and proves it</h2>
+
+  <p class="hero-description">
+    Most coding agents write code. SFR-AutoR&amp;D-Engineer, the engineering branch of the SFR-AutoR&amp;D family, does something harder: it studies mature, battle-tested
+    codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins
+    it can back with evidence. Its first discoveries are already headed upstream.
+  </p>
+
+  <div class="highlight-pills">
+    <div class="pill-row">
+      <span class="pill scope">🧩 4 Codebases · 3 Domains · 7 Optimizations</span>
+      <span class="pill pandas">🐼 pandas: Up to 1.84× Faster</span>
+      <span class="pill speed">⚡ SFR-RL: Up to 3.14× Faster Generation</span>
+    </div>
+    <div class="pill-row">
+      <span class="pill memory">💾 SFR-RL: 39% Lower Peak Memory</span>
+      <span class="pill search">🔍 USearch: +17.5% Faster Search</span>
+      <span class="pill exact">✓ Correctness Verified on Every Patch</span>
+      <span class="pill oss">⬆ 5 Open-Source PRs</span>
+    </div>
+  </div>
+
+
+  <div class="authors">
+    <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://shreypandit.github.io/images/Profile.jpg" alt="Shrey Pandit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">SP</div>
+      <span class="author-name">Shrey Pandit</span>
+    </a>
+    <a href="https://nxphi47.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://nxphi47.github.io/images/profile_photo.jpeg" alt="Xuan-Phi Nguyen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">XN</div>
+      <span class="author-name">Xuan-Phi Nguyen</span>
+    </a>
+    <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://zhaoyiran924.github.io/assets/img/my_pic.jpg" alt="Yiran Zhao" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">YZ</div>
+      <span class="author-name">Yiran Zhao</span>
+    </a>
+    <a href="https://raihanjoty.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="https://raihanjoty.github.io/img/nav/shafiq4.jpg" alt="Shafiq Joty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">SJ</div>
+      <span class="author-name">Shafiq Joty</span>
+    </a>
+  </div>
+  <p class="affiliation">Salesforce AI Research</p>
+  <p class="hero-meta">2026</p>
+</header>
+
+<!-- ==================== Key takeaways ==================== -->
+<section id="takeaways" style="padding-top:1rem">
+  <div class="container">
+    <h2 class="section-title">Key Takeaways</h2>
+
+    <div class="breadth">
+      <h3>One agent, very different problems</h3>
+      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in four unrelated systems, each with its own stack, its own performance model, and its own definition of "correct".</p>
+      <div class="domain-grid">
+        <div class="domain"><span class="domain-icon">🐼</span><b>Dataframes</b><span>pandas · Python, NumPy &amp; Arrow · allocation and dispatch on hot kernels</span></div>
+        <div class="domain"><span class="domain-icon">🧠</span><b>LLM training &amp; serving</b><span>SFR-RL · PyTorch, multi-GPU · memory bounds and decode throughput</span></div>
+        <div class="domain"><span class="domain-icon">🔍</span><b>Vector search</b><span>USearch &amp; hnswlib · C++ · redundant arithmetic and lock contention in query hot paths</span></div>
+      </div>
+      <div class="breadth-stats">
+        <div><b>4</b><span>codebases</span></div>
+        <div><b>3</b><span>problem domains</span></div>
+        <div><b>7</b><span>vetted optimizations</span></div>
+        <div><b>5</b><span>upstream PRs</span></div>
+        <div><b>100%</b><span>correctness verified</span></div>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-value">+64.6%</div>
+        <div class="result-label">Best pandas Speedup</div>
+        <div class="result-detail">Row-wise ops on fragmented frames</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">136K</div>
+        <div class="result-label">Correctness Checks</div>
+        <div class="result-detail">Exact differential tests on the pandas patches, zero mismatches</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">3.14×</div>
+        <div class="result-label">Faster Generation</div>
+        <div class="result-detail">SFR-RL serving, token-identical outputs</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">−39%</div>
+        <div class="result-label">Peak Training Memory</div>
+        <div class="result-detail">OOM crashes → 19 stable RL updates</div>
+      </div>
+    </div>
+
+    <div class="takeaway-box">
+      <h4>💡 In one minute</h4>
+      <ul>
+        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase in any language or domain and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives: a patch bundled with its evidence.</li>
+        <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +17.5% search throughput in <a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> and +4.1% in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a>. Correctness is verified on every patch, and all five are headed upstream as PRs.</li>
+        <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
+        <li><strong>When evidence is mixed, it says no to its own ideas</strong>, and negative results are recorded alongside the wins.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Overview ==================== -->
+<section id="overview" style="padding-top:1.2rem">
+  <div class="container">
+    <h2 class="section-title">Why We Built SFR-AutoR&amp;D-Engineer</h2>
+    <div class="card abstract">
+      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; turning that into a change that is faster and provably equivalent is the hard part.</p>
+      <br>
+      <p>We built an agent that behaves like a careful research scientist: disciplined about controls, and shipping only what it can prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== How it works ==================== -->
+<section id="how" style="padding-top:1.2rem">
+  <div class="container">
+    <h2 class="section-title">How SFR-AutoR&amp;D-Engineer Works</h2>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 960 292" role="img" aria-label="AutoR&amp;D loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8ab7e8"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="8" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="34" cy="62" r="12" fill="#0176D3"/><text x="34" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">1</text>
+          <text x="54" y="67" font-size="14.5" font-weight="700" fill="#032D60">Scope the target</text>
+          <text x="24" y="96" font-size="11.5" fill="#475569">Studies the codebase and finds</text>
+          <text x="24" y="112" font-size="11.5" fill="#475569">where performance is hiding</text>
+        </g>
+        <g>
+          <rect x="240" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="266" cy="62" r="12" fill="#0176D3"/><text x="266" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">2</text>
+          <text x="286" y="67" font-size="14.5" font-weight="700" fill="#032D60">Propose ideas</text>
+          <text x="256" y="96" font-size="11.5" fill="#475569">Generates many candidate</text>
+          <text x="256" y="112" font-size="11.5" fill="#475569">optimizations, like a researcher</text>
+        </g>
+        <g>
+          <rect x="472" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="498" cy="62" r="12" fill="#0176D3"/><text x="498" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">3</text>
+          <text x="518" y="67" font-size="14.5" font-weight="700" fill="#032D60">Run experiments</text>
+          <text x="488" y="96" font-size="11.5" fill="#475569">Implements each idea and</text>
+          <text x="488" y="112" font-size="11.5" fill="#475569">benchmarks it in a sandbox</text>
+        </g>
+        <g>
+          <rect x="704" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
+          <circle cx="730" cy="62" r="12" fill="#0176D3"/><text x="730" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">4</text>
+          <text x="750" y="67" font-size="14.5" font-weight="700" fill="#032D60">Verify &amp; decide</text>
+          <text x="720" y="96" font-size="11.5" fill="#475569">Statistical and correctness</text>
+          <text x="720" y="112" font-size="11.5" fill="#475569">gates; only real wins survive</text>
+        </g>
+        <line x1="208" y1="84" x2="234" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
+        <line x1="440" y1="84" x2="466" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
+        <line x1="672" y1="84" x2="698" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M744,132 V168 H340 V142" fill="none" stroke="#8ab7e8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+        <text x="520" y="162" text-anchor="middle" font-size="11" fill="#94a3b8">not convincing? reject, learn, try the next idea</text>
+        <line x1="790" y1="132" x2="790" y2="178" stroke="#7fc08f" stroke-width="2" marker-end="url(#arr)"/>
+        <text x="798" y="161" text-anchor="start" font-size="11" fill="#2E844A">evidence clears the bar</text>
+        <g>
+          <rect x="620" y="184" width="284" height="84" rx="12" fill="#EBF7E6" stroke="#abd9a0"/>
+          <text x="644" y="215" font-size="14.5" font-weight="700" fill="#032D60">✓ Vetted artifact</text>
+          <text x="644" y="238" font-size="11.5" fill="#475569">A working patch, benchmark evidence,</text>
+          <text x="644" y="254" font-size="11.5" fill="#475569">and a technical report</text>
+        </g>
+      </svg>
+      <figcaption><strong>Figure 1.</strong> The AutoR&amp;D loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both performance and correctness gates become artifacts.</figcaption>
+    </figure>
+
+    <div class="contributions-grid">
+      <div class="contribution-card">
+        <div class="contribution-icon">🧪</div>
+        <h3>Built, Run, and Measured</h3>
+        <p>Every candidate is built, run, and measured against the unmodified baseline: same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels out.</p>
+      </div>
+      <div class="contribution-card">
+        <div class="contribution-icon">✓</div>
+        <h3>Correctness Is a Gate</h3>
+        <p>Patched and unpatched systems are fed identical inputs and compared exactly: hashes, dtypes, edge cases down to the sign of a floating-point zero. Any observable change means automatic rejection.</p>
+      </div>
+      <div class="contribution-card">
+        <div class="contribution-icon">📊</div>
+        <h3>Statistics Before Headlines</h3>
+        <p>Every reported number carries confidence bounds from repeated measurements. A flashy median with a shaky interval doesn't get promoted, no matter how good it looks.</p>
+      </div>
+      <div class="contribution-card">
+        <div class="contribution-icon">🚫</div>
+        <h3>It Rejects Its Own Ideas</h3>
+        <p>One clever kernel rewrite showed a small win in one phase and a regression in another. AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are recorded too.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== Findings ==================== -->
+<section id="findings" style="padding-top:1.2rem">
+  <div class="container">
+    <h2 class="section-title">What It Found</h2>
+    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We aimed AutoR&amp;D at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
+
+    <!-- pandas -->
+    <div class="card disc" id="pandas">
+      <div class="disc-head">
+        <div class="disc-badge">1</div>
+        <div>
+          <span class="disc-kicker">Open Source · Dataframes</span>
+          <h3>pandas: three speedups in the workhorse of data science</h3>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="mini-pill blue">Up to 1.84× on nullable dtypes</span>
+        <span class="mini-pill blue">4–28% faster primary workloads</span>
+        <span class="mini-pill blue">Up to +64.6% best case</span>
+        <span class="mini-pill green">136K checks, 0 mismatches</span>
+      </div>
+      <p>pandas must handle every data type, missing-value convention, and memory layout, and that generality leaves an opening: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
+      <h4 class="opt-head"><span>Optimization 1</span>Row-wise math on nullable dtypes</h4>
+      <p>pandas' nullable integer, float, and boolean columns, including their Arrow-backed variants, take their own route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element, a throwaway array as large as the frame itself, just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
+<div class="duo">
+<figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="Speedup of row-wise reductions on nullable-dtype frames across 40 benchmark cells: minimum 1.22 times, median 1.38 times, maximum 1.84 times, all above parity" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="52" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Speedup over unpatched pandas</text>
+<text x="52" y="47" font-size="11.5" fill="#94a3b8">40 benchmark cells: 4 ops × 5 nullable dtypes × 2 frame shapes</text>
+<line x1="52.0" y1="160" x2="52.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="52.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.0×</text>
+<line x1="132.0" y1="160" x2="132.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="132.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.2×</text>
+<line x1="212.0" y1="160" x2="212.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="212.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.4×</text>
+<line x1="292.0" y1="160" x2="292.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="292.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.6×</text>
+<line x1="372.0" y1="160" x2="372.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="372.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">1.8×</text>
+<line x1="452.0" y1="160" x2="452.0" y2="165" stroke="#cbd5e1" stroke-width="1"/>
+<text x="452.0" y="180" text-anchor="middle" font-size="11" fill="#94a3b8">2.0×</text>
+<line x1="52" y1="160" x2="452" y2="160" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="52" y1="96" x2="52" y2="160" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="90" text-anchor="middle" font-size="10.5" fill="#94a3b8">parity</text>
+<rect x="138.0" y="118" width="248.8" height="20" rx="10" fill="rgba(1,118,211,.18)"><title>Range across all 40 cells: 1.22× to 1.84× faster; every bootstrap confidence interval is above 1</title></rect>
+<text x="138.0" y="154" text-anchor="middle" font-size="11.5" fill="#475569">1.22×</text>
+<text x="386.8" y="154" text-anchor="middle" font-size="11.5" fill="#475569">1.84×</text>
+<circle cx="202.8" cy="128" r="7" fill="#0176D3" stroke="#fff" stroke-width="2"><title>Median speedup across the 40 cells: 1.377×</title></circle>
+<text x="202.8" y="108" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">median 1.38×</text>
+<text x="52" y="215" font-size="12" font-weight="600" fill="#2E844A">&#10003; all 40 confidence intervals above parity</text>
+<text x="52" y="236" font-size="11.5" fill="#94a3b8">Both tall (100K × 4) and wide (1K × 400) frames benefit</text>
+</svg>
+<figcaption><strong>Figure 2.</strong> Speedup of row-wise reductions on nullable-dtype frames over unpatched pandas, across 40 benchmark cells (sum/prod/min/max × Int64, Float64, boolean, int64[pyarrow], float64[pyarrow] × tall and wide 400K-element frames). Paired, CPU-pinned runs; every bootstrap interval is above 1.</figcaption>
+</figure>
+<figure class="chart">
+<svg viewBox="0 0 480 282" role="img" aria-label="Peak memory of row-wise reductions on a 10-million-element nullable frame, baseline versus patched, 12 to 15 percent lower" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="44" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
+<line x1="52" y1="171.2" x2="468" y2="171.2" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="175.2" text-anchor="end" font-size="11" fill="#94a3b8">100</text>
+<line x1="52" y1="138.4" x2="468" y2="138.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="142.4" text-anchor="end" font-size="11" fill="#94a3b8">200</text>
+<line x1="52" y1="105.6" x2="468" y2="105.6" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="109.6" text-anchor="end" font-size="11" fill="#94a3b8">300</text>
+<line x1="52" y1="72.8" x2="468" y2="72.8" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="76.8" text-anchor="end" font-size="11" fill="#94a3b8">400</text>
+<line x1="52" y1="40.0" x2="468" y2="40.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="44.0" text-anchor="end" font-size="11" fill="#94a3b8">500</text>
+<line x1="52" y1="204" x2="468" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<text x="44" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">MB</text>
+<rect x="300" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="315" y="17" font-size="11" fill="#475569">Baseline</text>
+<rect x="384" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="399" y="17" font-size="11" fill="#475569">Patched</text>
+<path d="M83.0,204.0 V60.7 Q83.0,56.7 87.0,56.7 H99.0 Q103.0,56.7 103.0,60.7 V204.0 Z" fill="#b6c2ce"><title>sum · Int64, baseline peak: 449 MB</title></path>
+<path d="M105.0,204.0 V78.1 Q105.0,74.1 109.0,74.1 H121.0 Q125.0,74.1 125.0,78.1 V204.0 Z" fill="#0176D3"><title>sum · Int64, patched peak: 396 MB (−12%)</title></path>
+<text x="104.0" y="49.7" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
+<text x="104.0" y="222" text-anchor="middle" font-size="12" fill="#475569">sum</text>
+<text x="104.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">Int64</text>
+<path d="M187.0,204.0 V53.2 Q187.0,49.2 191.0,49.2 H203.0 Q207.0,49.2 207.0,53.2 V204.0 Z" fill="#b6c2ce"><title>sum · float64[pyarrow], baseline peak: 472 MB</title></path>
+<path d="M209.0,204.0 V76.5 Q209.0,72.5 213.0,72.5 H225.0 Q229.0,72.5 229.0,76.5 V204.0 Z" fill="#0176D3"><title>sum · float64[pyarrow], patched peak: 401 MB (−15%)</title></path>
+<text x="208.0" y="42.2" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−15%</text>
+<text x="208.0" y="222" text-anchor="middle" font-size="12" fill="#475569">sum</text>
+<text x="208.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
+<path d="M291.0,204.0 V61.1 Q291.0,57.1 295.0,57.1 H307.0 Q311.0,57.1 311.0,61.1 V204.0 Z" fill="#b6c2ce"><title>max · Int64, baseline peak: 448 MB</title></path>
+<path d="M313.0,204.0 V78.1 Q313.0,74.1 317.0,74.1 H329.0 Q333.0,74.1 333.0,78.1 V204.0 Z" fill="#0176D3"><title>max · Int64, patched peak: 396 MB (−12%)</title></path>
+<text x="312.0" y="50.1" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
+<text x="312.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
+<text x="312.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">Int64</text>
+<path d="M395.0,204.0 V58.4 Q395.0,54.4 399.0,54.4 H411.0 Q415.0,54.4 415.0,58.4 V204.0 Z" fill="#b6c2ce"><title>max · float64[pyarrow], baseline peak: 456 MB</title></path>
+<path d="M417.0,204.0 V76.5 Q417.0,72.5 421.0,72.5 H433.0 Q437.0,72.5 437.0,76.5 V204.0 Z" fill="#0176D3"><title>max · float64[pyarrow], patched peak: 401 MB (−12%)</title></path>
+<text x="416.0" y="47.4" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E844A">−12%</text>
+<text x="416.0" y="222" text-anchor="middle" font-size="12" fill="#475569">max</text>
+<text x="416.0" y="237" text-anchor="middle" font-size="10.5" fill="#94a3b8">float64[pyarrow]</text>
+</svg>
+<figcaption><strong>Figure 3.</strong> Peak memory on a 2,000,000 × 5 nullable frame (10M elements). The eliminated per-element label array shows up directly as 12–15% less peak RSS.</figcaption>
+</figure>
+</div>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>Take a frame <var>X</var> with <var>n</var> rows and <var>c</var> columns that share one nullable dtype. To evaluate <code>X.sum(axis=1)</code>, pandas concatenates the columns into a single one-dimensional extension array <var>A</var> of length <var>n</var>·<var>c</var>, laid out column-major, and hands the groupby aggregation kernel a label vector <var>L</var> so that group <var>r</var> collects row <var>r</var>:</p>
+<div class="math"><var>A</var>[<var>c</var>·<var>n</var> + <var>r</var>] = <var>X</var>[<var>r</var>, <var>c</var>], &nbsp;&nbsp; <var>L</var> = tile(arange(<var>n</var>), <var>c</var>), &nbsp;&nbsp; |<var>L</var>| = <var>n</var>·<var>c</var></div>
+<p>That label vector is an <var>n</var>·<var>c</var> array of 8-byte integers (on 64-bit builds) whose only job is to tell the kernel which row each element belongs to. The new route views the same data and mask buffers as a (<var>c</var>, <var>n</var>) matrix, transposes to (<var>n</var>, <var>c</var>), and calls the kernel with <strong>one</strong> group and <var>c</var> ids. Each of the kernel's <var>n</var> "columns" is then one frame row, aggregated over its <var>c</var> observations. Every output cell consumes the same values in the same column order as the labelled formulation, so results are bit-identical; the only thing that disappears is the label array.</p>
+<h5>Implementation</h5>
+<ul>
+<li><code>BaseMaskedArray._groupby_op_axis1(how, nrows, ncols, min_count, skipna)</code> reshapes <code>_data</code> and <code>_mask</code> as views and calls <code>WrappedCythonOp._cython_op_ndim_compat</code> with <code>ngroups=1</code>; it raises <code>NotImplementedError</code> for anything it does not handle so the caller falls back.</li>
+<li><code>ArrowExtensionArray._groupby_op_axis1</code> covers the eleven Arrow int, uint, float and bool types by delegating through <code>_to_masked()</code> and converting the result back. String, decimal and timestamp Arrow types fall through.</li>
+<li><code>DataFrame._reduce</code> tries the route first for <code>sum</code>, <code>prod</code>, <code>min</code> and <code>max</code>, and otherwise continues to the existing <code>np.tile</code> label path. Two ASV benchmark classes (<code>FrameOpsAxis1EA</code>, <code>FrameOpsAxis1EAPeakmem</code>) cover it.</li>
+</ul>
+<pre><code># pandas/core/arrays/masked.py (condensed: the real guard also checks ndim and positive shape)
+def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
+    if how not in (&quot;sum&quot;, &quot;prod&quot;, &quot;min&quot;, &quot;max&quot;) or self.size != nrows * ncols:
+        raise NotImplementedError                      # caller falls back to _groupby_op
+    kind = WrappedCythonOp.get_kind_from_how(how)
+    op = WrappedCythonOp(how=how, kind=kind, has_dropped_na=False)
+    values = self._data.reshape(ncols, nrows).T        # views of the existing buffers
+    mask = self._mask.reshape(ncols, nrows).T
+    ids = np.zeros(ncols, dtype=np.intp)               # one group: c ids, no n*c label array
+    result_mask = np.zeros((nrows, 1), dtype=bool)
+    result = op._cython_op_ndim_compat(values, min_count=min_count, ngroups=1, comp_ids=ids,
+                                       mask=mask, result_mask=result_mask, skipna=skipna, **kwargs)
+    return self._maybe_mask_result(result.squeeze(axis=1), result_mask.squeeze(axis=1))</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>134,064 differential cases (141,120 calls) across every supported dtype, both <code>skipna</code> settings, <code>min_count</code> 0 through 4, degenerate shapes, infinities and NA patterns: zero result, mask, dtype, index-dtype or exception differences. 1,584 of 1,584 routing checks used the new kernel, and a test that monkeypatches <code>_groupby_op</code> to raise proves the old path is never reached.</li>
+<li>ASV: 29 of 40 timing cells flagged improved (ratios 0.51 to 0.82) and 10 more with faster point estimates. A paired CPU-pinned study gives 1.215× to 1.837× (median 1.377×) with every bootstrap interval above 1.</li>
+<li>Peak memory on a 2,000,000 × 5 frame: 449 → 396 MB (sum, Int64) and 472 → 401 MB (sum, float64[pyarrow]). 437 new tests and 44,458 existing tests pass.</li>
+</ul>
+</div>
+</details>
+      <h4 class="opt-head"><span>Optimization 2</span>Counting and de-duplicating strings</h4>
+      <p>For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel: <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
+      <figure class="chart">
+<svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="46" y1="143.3" x2="548" y2="143.3" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="147.3" text-anchor="end" font-size="11" fill="#94a3b8">5%</text>
+<line x1="46" y1="82.7" x2="548" y2="82.7" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="86.7" text-anchor="end" font-size="11" fill="#94a3b8">10%</text>
+<line x1="46" y1="22.0" x2="548" y2="22.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="26.0" text-anchor="end" font-size="11" fill="#94a3b8">15%</text>
+<line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M96.8,204.0 V154.6 Q96.8,150.6 100.8,150.6 H116.8 Q120.8,150.6 120.8,154.6 V204.0 Z" fill="#0176D3"><title>value_counts: 4.4% faster on one million strings, exact same output</title></path>
+<text x="108.8" y="143.6" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+4.4%</text>
+<text x="108.8" y="224" text-anchor="middle" font-size="11.5" fill="#475569">value_counts</text>
+<path d="M222.2,204.0 V91.5 Q222.2,87.5 226.2,87.5 H242.2 Q246.2,87.5 246.2,91.5 V204.0 Z" fill="#0176D3"><title>duplicated (first): 9.6% faster on one million strings, exact same output</title></path>
+<text x="234.2" y="80.5" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+9.6%</text>
+<text x="234.2" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (first)</text>
+<path d="M347.8,204.0 V60.0 Q347.8,56.0 351.8,56.0 H367.8 Q371.8,56.0 371.8,60.0 V204.0 Z" fill="#0176D3"><title>duplicated (last): 12.2% faster on one million strings, exact same output</title></path>
+<text x="359.8" y="49.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+12.2%</text>
+<text x="359.8" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (last)</text>
+<path d="M473.2,204.0 V102.4 Q473.2,98.4 477.2,98.4 H493.2 Q497.2,98.4 497.2,102.4 V204.0 Z" fill="#0176D3"><title>duplicated (False): 8.7% faster on one million strings, exact same output</title></path>
+<text x="485.2" y="91.4" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">+8.7%</text>
+<text x="485.2" y="224" text-anchor="middle" font-size="11.5" fill="#475569">duplicated (False)</text>
+</svg>
+<figcaption><strong>Figure 4.</strong> Median speedup of pandas string operations on one million values (500K distinct, 10% missing). Outputs verified identical.</figcaption>
+</figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>Write the baseline operator as <var>F</var><sub>0</sub> and the candidate as <var>F</var><sub>1</sub>. A route is a guard <var>g</var>, a specialized kernel <var>K</var> and a reconstruction <var>Q</var>, with <var>P</var> a zero-copy (or bounded-copy) projection of the physical representation:</p>
+<div class="math"><var>F</var><sub>1</sub>(<var>x</var>) = <var>Q</var>(<var>K</var>(<var>P</var>(<var>x</var>))) &nbsp;if&nbsp; <var>g</var>(<var>x</var>) = 1, &nbsp;&nbsp; <var>F</var><sub>1</sub>(<var>x</var>) = <var>F</var><sub>0</sub>(<var>x</var>) &nbsp;otherwise</div>
+<p>The obligation is stronger than equal values. With Π the public projection (values or exception type, value dtype, shape, index dtype, index values and names), the route must satisfy Π(<var>F</var><sub>1</sub>(<var>x</var>)) = Π(<var>F</var><sub>0</sub>(<var>x</var>)) for every input, so the guard has to cover aliasing and mutability as well as dtype.</p>
+<p>Here the representation is a <code>StringArray</code> whose backing store is an object ndarray with <code>pd.NA</code> as the sentinel. The inherited <code>duplicated</code> first materializes an NA mask, and the generic <code>value_counts</code> exports through <code>to_numpy</code>, hashes, then converts the result index back to the extension dtype. All of that is adapter work around a kernel that already accepts the backing array as it is.</p>
+<h5>Implementation</h5>
+<p>One file, <code>pandas/core/arrays/string_.py</code>: 28 lines inserted, 2 deleted. The guard for <code>duplicated</code> is that the sentinel is exactly <code>pd.NA</code>; <code>value_counts</code> additionally requires <code>dropna=True</code>. No new hash table, encoding or NA rule is introduced, so the review surface is just the guard and the reconstruction.</p>
+<pre><code># pandas/core/arrays/string_.py
+def duplicated(self, keep=&quot;first&quot;):
+    if self.dtype.na_value is libmissing.NA:
+        return duplicated(self._ndarray, keep=keep)   # algorithms-layer kernel, no NA-mask pass
+    return super().duplicated(keep=keep)
+
+def value_counts(self, dropna=True):
+    if self.dtype.na_value is libmissing.NA and dropna:
+        result = value_counts_internal(self._ndarray, sort=False, dropna=True)
+        index_arr = self._from_backing_data(np.asarray(result.index._data))
+        index = Index(index_arr, name=result.index.name, copy=False)
+        result = Series(result._values, index=index, name=result.name, copy=False)
+    else:
+        result = super().value_counts(dropna=dropna)</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>A 130-case differential matrix over object, Python-string and Arrow-string representations; ASCII, empty, embedded-NUL, composed and decomposed Unicode, CJK and emoji payloads; every NA variant; all <code>keep</code> modes and <code>value_counts</code> options. Baseline and candidate serializations share the same SHA-256.</li>
+<li>30 paired timings per case in alternating order on a pinned core: all four activated routes have simultaneous 95% upper ratio bounds below parity (0.899 to 0.970). A deliberate Unicode fallback control behaves exactly as the unchanged path should, confirming the route counter.</li>
+<li>Fresh-process memory: <code>value_counts</code> peak RSS increase 37.13 → 24.45 MB and traced peak 31.65 → 24.66 MB; duplicate detection is non-increasing on both metrics.</li>
+</ul>
+</div>
+</details>
+      <h4 class="opt-head"><span>Optimization 3</span>Row-wise math on numeric frames</h4>
+      <p><code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame, and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:#0176D3"></i>Typical mixed frame (100K rows)</span>
+        <span><i style="background:#DD7A01"></i>Fragmented frame (32 blocks)</span>
+      </div>
+      <figure class="chart">
+<svg viewBox="0 0 560 268" role="img" aria-label="pandas row-wise reduction speedups on a typical and a fragmented frame" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="38" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="46" y1="152.0" x2="548" y2="152.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="156.0" text-anchor="end" font-size="11" fill="#94a3b8">20%</text>
+<line x1="46" y1="100.0" x2="548" y2="100.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="104.0" text-anchor="end" font-size="11" fill="#94a3b8">40%</text>
+<line x1="46" y1="48.0" x2="548" y2="48.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="38" y="52.0" text-anchor="end" font-size="11" fill="#94a3b8">60%</text>
+<line x1="46" y1="204" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M83.8,204.0 V167.2 Q83.8,163.2 87.8,163.2 H103.8 Q107.8,163.2 107.8,167.2 V204.0 Z" fill="#0176D3"><title>sum, typical mixed frame (100,000 rows): 15.7% faster</title></path>
+<path d="M109.8,204.0 V129.7 Q109.8,125.7 113.8,125.7 H129.8 Q133.8,125.7 133.8,129.7 V204.0 Z" fill="#DD7A01"><title>sum, fragmented frame (32 blocks): 30.1% faster</title></path>
+<text x="121.8" y="118.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+30.1%</text>
+<text x="108.8" y="224" text-anchor="middle" font-size="12" fill="#475569">sum</text>
+<path d="M209.2,204.0 V135.2 Q209.2,131.2 213.2,131.2 H229.2 Q233.2,131.2 233.2,135.2 V204.0 Z" fill="#0176D3"><title>prod, typical mixed frame (100,000 rows): 28.0% faster</title></path>
+<path d="M235.2,204.0 V108.7 Q235.2,104.7 239.2,104.7 H255.2 Q259.2,104.7 259.2,108.7 V204.0 Z" fill="#DD7A01"><title>prod, fragmented frame (32 blocks): 38.2% faster</title></path>
+<text x="247.2" y="97.7" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+38.2%</text>
+<text x="234.2" y="224" text-anchor="middle" font-size="12" fill="#475569">prod</text>
+<path d="M334.8,204.0 V175.0 Q334.8,171.0 338.8,171.0 H354.8 Q358.8,171.0 358.8,175.0 V204.0 Z" fill="#0176D3"><title>min, typical mixed frame (100,000 rows): 12.7% faster</title></path>
+<path d="M360.8,204.0 V40.6 Q360.8,36.6 364.8,36.6 H380.8 Q384.8,36.6 384.8,40.6 V204.0 Z" fill="#DD7A01"><title>min, fragmented frame (32 blocks): 64.4% faster</title></path>
+<text x="372.8" y="29.6" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.4%</text>
+<text x="359.8" y="224" text-anchor="middle" font-size="12" fill="#475569">min</text>
+<path d="M460.2,204.0 V176.0 Q460.2,172.0 464.2,172.0 H480.2 Q484.2,172.0 484.2,176.0 V204.0 Z" fill="#0176D3"><title>max, typical mixed frame (100,000 rows): 12.3% faster</title></path>
+<path d="M486.2,204.0 V40.0 Q486.2,36.0 490.2,36.0 H506.2 Q510.2,36.0 510.2,40.0 V204.0 Z" fill="#DD7A01"><title>max, fragmented frame (32 blocks): 64.6% faster</title></path>
+<text x="498.2" y="29.0" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">+64.6%</text>
+<text x="485.2" y="224" text-anchor="middle" font-size="12" fill="#475569">max</text>
+</svg>
+<figcaption><strong>Figure 5.</strong> Median speedup of row-wise reductions. Fragmented frames, common in real pipelines, benefit most, because that's where the eliminated allocations multiply.</figcaption>
+</figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>For <code>sum</code>, <code>prod</code>, <code>min</code> and <code>max</code> with <code>axis=1</code>, the baseline avoids a transpose. Each physical block is reduced to a length-<var>n</var> vector <em>middle</em>, the first is copied into <em>result</em>, and every later block produces a fresh <em>ufunc(result, middle)</em>. With <var>B</var> blocks that is <var>B</var> block temporaries, one copy and <var>B</var> − 1 combine temporaries; nullable float sum and prod add mask and filled-copy allocations inside nanops. The candidate reduces the first eligible block straight into an owned accumulator and folds each later block through one reused scratch array, combining in place: one accumulator and at most one scratch, whatever <var>B</var> is.</p>
+<p>Bitwise fidelity is the constraint. Float sum and prod are identity-seeded in the baseline, and that seed is observable:</p>
+<div class="math">(+0.0) + (−0.0) = +0.0, &nbsp; whereas copying the first row would preserve −0.0</div>
+<p>The fold therefore seeds with 0 or 1, visits rows in order, and substitutes the identity for NaN only on rows that contain one. Integer operations and min/max use <code>ufunc.reduce(..., out=)</code>.</p>
+<h5>Implementation</h5>
+<p><code>pandas/core/frame.py</code>, 151 lines added, most of them guards. A block is eligible when it is a C-contiguous, native-byte-order, two-dimensional ndarray of int64, uint64, float32 or float64 whose <code>ufunc.resolve_dtypes</code> resolves without a cast; the accumulator must be owned, writable, shape-compatible and non-aliasing. Unlike dtypes are accepted only when one side dominates promotion (the accumulator is promoted once); promotions that change both operands, such as int64 + uint64 → float64, stay on the generic path. min and max use the route from 4,096 rows; sum and prod at any length.</p>
+<pre><code># pandas/core/frame.py, inside the block loop of DataFrame._reduce_axis1
+if result is None and _can_fuse_axis1_block(vals, ufunc):
+    result = np.empty(vals.shape[1], dtype=vals.dtype)
+    _fold_axis1_block(vals, result, name, skipna, ufunc)  # reduce straight into the accumulator
+    continue
+elif _can_fuse_axis1_into(vals, result, ufunc):
+    if np.promote_types(result.dtype, vals.dtype) == vals.dtype:
+        result = result.astype(vals.dtype)                # promote the accumulator once
+    if vals.shape[0] == 1 and singleton_is_bitwise_safe:
+        ufunc(result, vals[0], out=result)
+    else:
+        scratch = ensure_scratch(dtype=vals.dtype)        # one scratch array, reused
+        _fold_axis1_block(vals, scratch, name, skipna, ufunc)
+        ufunc(result, scratch, out=result)                # combine in place
+    continue</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>A 900-case broad matrix (four dtypes, four operations, both <code>skipna</code> settings, <code>min_count</code> boundaries, several shapes) plus an 880-case edge matrix (both orders of 12 promotion pairs at 17, 4,095 and 4,096 rows; signed-zero, NaN and infinity patterns; near-limit integers), compared by value-byte hash, dtype, index dtype, shape and name: zero mismatches.</li>
+<li>Primary 100,000-row mixed frame over 11 paired samples: sum 556.5 → 469.3 µs, prod 675.3 → 486.5 µs, min 437.8 → 382.2 µs, max 439.0 → 384.8 µs.</li>
+<li>A 32-cell topology sweep (8 frame layouts × 4 operations, 9 pairs each, bootstrap 95% intervals) shows where routing overhead dominates: homogeneous float frames sit near parity, homogeneous integer frames lose up to 9%, 1,024-row mixed frames lose 4–16%, and the 4,096-row min/max gate admits one narrow case that costs about 31%. Those cells are reported as the data for a production dispatch policy over rows, blocks, columns per block, dtype and NA density.</li>
+</ul>
+</div>
+</details>
+      <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
+      <!-- MARKETING: replace the three href="XX" below with the three upstream pandas pull request URLs -->
+      <div class="pr-row">
+        <a class="btn btn-primary" href="XX">Nullable-dtype reductions PR →</a>
+        <a class="btn btn-primary" href="XX">String-hashing PR →</a>
+        <a class="btn btn-primary" href="XX">Row-wise reductions PR →</a>
+        <small>Created three PRs to the pandas project, one per optimization.</small>
+      </div>
+    </div>
+
+    <!-- SFR-RL -->
+    <div class="card disc" id="sfr-rl">
+      <div class="disc-head">
+        <div class="disc-badge">2</div>
+        <div>
+          <span class="disc-kicker">Salesforce Internal · LLM Training</span>
+          <h3>SFR-RL: taming memory and speed in our own RL stack</h3>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="mini-pill blue">−39% peak training memory</span>
+        <span class="mini-pill blue">Up to 3.14× generation throughput</span>
+        <span class="mini-pill green">Token-for-token identical outputs</span>
+      </div>
+      <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so this page covers the results and keeps the recipes in-house.)</p>
+      <h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
+      <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update, and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB (an out-of-memory crash) to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
+      <figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoR&amp;D's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="44" y="214.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
+<line x1="52" y1="161.4" x2="468" y2="161.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="165.4" text-anchor="end" font-size="11" fill="#94a3b8">40</text>
+<line x1="52" y1="112.9" x2="468" y2="112.9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="116.9" text-anchor="end" font-size="11" fill="#94a3b8">80</text>
+<line x1="52" y1="64.3" x2="468" y2="64.3" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="68.3" text-anchor="end" font-size="11" fill="#94a3b8">120</text>
+<line x1="52" y1="210" x2="468" y2="210" stroke="#cbd5e1" stroke-width="1"/>
+<text x="44" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">GiB</text>
+<path d="M144.0,210.0 V58.0 Q144.0,54.0 148.0,54.0 H164.0 Q168.0,54.0 168.0,58.0 V210.0 Z" fill="#b6c2ce"><title>Before: peak allocation 128.5 GiB, ran out of memory</title></path>
+<text x="156.0" y="32.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">128.5 GiB</text>
+<text x="156.0" y="47.0" text-anchor="middle" font-size="11" fill="#BA0517">✕ ran out of memory</text>
+<text x="156.0" y="230" text-anchor="middle" font-size="12" fill="#475569">Before</text>
+<path d="M352.0,210.0 V118.6 Q352.0,114.6 356.0,114.6 H372.0 Q376.0,114.6 376.0,118.6 V210.0 Z" fill="#0176D3"><title>With AutoR&amp;D: peak allocation 78.6 GiB, 19 updates, stable</title></path>
+<text x="364.0" y="92.6" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">78.6 GiB</text>
+<text x="364.0" y="107.6" text-anchor="middle" font-size="11" fill="#2E844A">✓ 19 updates, stable</text>
+<text x="364.0" y="230" text-anchor="middle" font-size="12" fill="#475569">With AutoR&amp;D</text>
+</svg>
+<figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline, already using every standard memory-saving technique, ran out of memory on its first big step.</figcaption>
+</figure>
+      <h4 class="opt-head"><span>Optimization 2</span>Throughput: the same answers, three times faster</h4>
+      <p>On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types, up to <strong>3.14× baseline throughput</strong> on long-output workloads, with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
+      <figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="44" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0%</text>
+<line x1="52" y1="158.5" x2="468" y2="158.5" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="162.5" text-anchor="end" font-size="11" fill="#94a3b8">20%</text>
+<line x1="52" y1="113.0" x2="468" y2="113.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="117.0" text-anchor="end" font-size="11" fill="#94a3b8">40%</text>
+<line x1="52" y1="67.5" x2="468" y2="67.5" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="71.5" text-anchor="end" font-size="11" fill="#94a3b8">60%</text>
+<line x1="52" y1="22.0" x2="468" y2="22.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="44" y="26.0" text-anchor="end" font-size="11" fill="#94a3b8">80%</text>
+<line x1="52" y1="204" x2="468" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M92.0,204.0 V58.3 Q92.0,54.3 96.0,54.3 H112.0 Q116.0,54.3 116.0,58.3 V204.0 Z" fill="#0176D3"><title>Short chats: median time per generated token down 65.8%, outputs unchanged</title></path>
+<text x="104.0" y="47.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−65.8%</text>
+<text x="104.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Short chats</text>
+<path d="M196.0,204.0 V50.1 Q196.0,46.1 200.0,46.1 H216.0 Q220.0,46.1 220.0,50.1 V204.0 Z" fill="#0176D3"><title>Long answers: median time per generated token down 69.4%, outputs unchanged</title></path>
+<text x="208.0" y="39.1" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−69.4%</text>
+<text x="208.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Long answers</text>
+<path d="M300.0,204.0 V69.7 Q300.0,65.7 304.0,65.7 H320.0 Q324.0,65.7 324.0,69.7 V204.0 Z" fill="#0176D3"><title>Huge context: median time per generated token down 60.8%, outputs unchanged</title></path>
+<text x="312.0" y="58.7" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−60.8%</text>
+<text x="312.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Huge context</text>
+<path d="M404.0,204.0 V66.3 Q404.0,62.3 408.0,62.3 H424.0 Q428.0,62.3 428.0,66.3 V204.0 Z" fill="#0176D3"><title>Mixed traffic: median time per generated token down 62.3%, outputs unchanged</title></path>
+<text x="416.0" y="55.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">−62.3%</text>
+<text x="416.0" y="224" text-anchor="middle" font-size="11.5" fill="#475569">Mixed traffic</text>
+</svg>
+<figcaption><strong>Figure 7.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
+</figure>
+      <div class="takeaway-box" style="margin-top:1.4rem">
+        <h4>💡 Why it matters</h4>
+        <p>Faster iterations and no more lost runs: our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
+      </div>
+    </div>
+
+    <!-- USearch -->
+    <div class="card disc" id="usearch">
+      <div class="disc-head">
+        <div class="disc-badge">3</div>
+        <div>
+          <span class="disc-kicker">Open Source · Vector Search</span>
+          <h3>USearch: skipping the math that vector search repeats millions of times</h3>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="mini-pill blue">+17.5% search throughput (GCC 11)</span>
+        <span class="mini-pill blue">+7.4% (GCC 13)</span>
+        <span class="mini-pill blue">+4 bytes per vector</span>
+        <span class="mini-pill green">Same neighbors · recall preserved</span>
+      </div>
+      <p><a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> is a compact, high-performance vector-search engine that ships as a single header and is embedded in databases and AI applications. Its cosine-similarity kernel, the default for comparing text and image embeddings, needs the length of both vectors for every comparison. AutoR&amp;D spotted a redundancy: the length of a <em>stored</em> vector never changes, yet the built-in kernel recomputed it on every one of the hundreds of comparisons a single query performs, millions of times across a workload.</p>
+      <p>The patch caches each stored vector's length once, in a 4-byte lock-free "sidecar" that follows the vector through inserts, removals, compaction, copies, and reloads. The query's length is computed once per search, so each comparison shrinks to a dot product and one division: <strong>three multiply-adds per element become one, and two square roots become none</strong>. The route is deliberately narrow: custom metrics, memory-mapped indexes, non-finite values, and builds that use an external SIMD library all keep the original path, and the on-disk index format is unchanged.</p>
+      <p>On a one-million-vector Wikipedia-embedding index, single-core search throughput rose <strong>17.5% with GCC 11</strong> and <strong>7.4% with GCC 13</strong>, positive in every paired round, while the graph traversal stayed identical: the same 926.5 distance evaluations and 75.8 visited nodes per query. The sidecar adds just 4 bytes per vector (+0.3% memory). Across 10,240 top-10 results, distances agreed to within 4×10<sup>−7</sup> and recall was preserved; the change passed the C and C++ suites under Address- and UndefinedBehaviorSanitizer, with ThreadSanitizer confirming the new code is race-free, from C++11 through C++20.</p>
+<div class="duo">
+<figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="USearch single-core search throughput, baseline versus cached norms: plus 17.5 percent with GCC 11.4 and plus 7.4 percent with GCC 13.4" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="52" y="208.0" text-anchor="end" font-size="11" fill="#94a3b8">0</text>
+<line x1="60" y1="171.2" x2="468" y2="171.2" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="175.2" text-anchor="end" font-size="11" fill="#94a3b8">1,000</text>
+<line x1="60" y1="138.4" x2="468" y2="138.4" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="142.4" text-anchor="end" font-size="11" fill="#94a3b8">2,000</text>
+<line x1="60" y1="105.6" x2="468" y2="105.6" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="109.6" text-anchor="end" font-size="11" fill="#94a3b8">3,000</text>
+<line x1="60" y1="72.8" x2="468" y2="72.8" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="76.8" text-anchor="end" font-size="11" fill="#94a3b8">4,000</text>
+<line x1="60" y1="40.0" x2="468" y2="40.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="52" y="44.0" text-anchor="end" font-size="11" fill="#94a3b8">5,000</text>
+<line x1="60" y1="204" x2="468" y2="204" stroke="#cbd5e1" stroke-width="1"/>
+<text x="52" y="16" text-anchor="end" font-size="10.5" fill="#94a3b8">QPS</text>
+<rect x="270" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="285" y="17" font-size="11" fill="#475569">Baseline</text>
+<rect x="352" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="367" y="17" font-size="11" fill="#475569">Cached norms</text>
+<path d="M137.0,204.0 V83.8 Q137.0,79.8 141.0,79.8 H157.0 Q161.0,79.8 161.0,83.8 V204.0 Z" fill="#b6c2ce"><title>GCC 11.4, baseline: 3,785 queries/s</title></path>
+<path d="M163.0,204.0 V62.2 Q163.0,58.2 167.0,58.2 H183.0 Q187.0,58.2 187.0,62.2 V204.0 Z" fill="#0176D3"><title>GCC 11.4, with cached norms: 4,445 queries/s (+17.5%)</title></path>
+<text x="162.0" y="51.2" text-anchor="middle" font-size="12" font-weight="700" fill="#2E844A">+17.5%</text>
+<text x="162.0" y="224" text-anchor="middle" font-size="12" fill="#475569">GCC 11.4</text>
+<path d="M341.0,204.0 V86.0 Q341.0,82.0 345.0,82.0 H361.0 Q365.0,82.0 365.0,86.0 V204.0 Z" fill="#b6c2ce"><title>GCC 13.4, baseline: 3,718 queries/s</title></path>
+<path d="M367.0,204.0 V76.8 Q367.0,72.8 371.0,72.8 H387.0 Q391.0,72.8 391.0,76.8 V204.0 Z" fill="#0176D3"><title>GCC 13.4, with cached norms: 4,000 queries/s (+7.4%)</title></path>
+<text x="366.0" y="65.8" text-anchor="middle" font-size="12" font-weight="700" fill="#2E844A">+7.4%</text>
+<text x="366.0" y="224" text-anchor="middle" font-size="12" fill="#475569">GCC 13.4</text>
+<text x="264.0" y="250" text-anchor="middle" font-size="11" fill="#94a3b8">7 of 7 paired rounds positive on both compilers</text>
+</svg>
+<figcaption><strong>Figure 8.</strong> Single-core search throughput on a 1-million-vector, 256-dimensional Wikipedia-embedding index (k=10, 1,024 held-out queries, seven paired rounds per compiler). Both binaries search the identical prebuilt graph.</figcaption>
+</figure>
+<figure class="chart">
+<svg viewBox="0 0 480 268" role="img" aria-label="Arithmetic per cosine comparison: multiply-adds per element drop from 3 to 1 and square roots per comparison from 2 to 0" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
+<text x="52" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Arithmetic per cosine comparison</text>
+<text x="52" y="47" font-size="11.5" fill="#94a3b8">256-dim f32 vectors · HNSW search</text>
+<rect x="330" y="8" width="10" height="10" rx="2" fill="#b6c2ce"/><text x="345" y="17" font-size="11" fill="#475569">Before</text>
+<rect x="398" y="8" width="10" height="10" rx="2" fill="#0176D3"/><text x="413" y="17" font-size="11" fill="#475569">After</text>
+<text x="52" y="78" font-size="12" fill="#475569">Multiply-adds per vector element</text>
+<path d="M52.0,87.0 H348.0 Q352.0,87.0 352.0,91.0 V97.0 Q352.0,101.0 348.0,101.0 H52.0 Z" fill="#b6c2ce"><title>Before: 3</title></path>
+<text x="360" y="98" font-size="12" font-weight="700" fill="#1e293b">3</text>
+<path d="M52.0,105.0 H148.0 Q152.0,105.0 152.0,109.0 V115.0 Q152.0,119.0 148.0,119.0 H52.0 Z" fill="#0176D3"><title>After: 1</title></path>
+<text x="160" y="116" font-size="12" font-weight="700" fill="#1e293b">1</text>
+<text x="52" y="146" font-size="12" fill="#475569">Square roots per comparison</text>
+<path d="M52.0,155.0 H248.0 Q252.0,155.0 252.0,159.0 V165.0 Q252.0,169.0 248.0,169.0 H52.0 Z" fill="#b6c2ce"><title>Before: 2</title></path>
+<text x="260" y="166" font-size="12" font-weight="700" fill="#1e293b">2</text>
+<line x1="52" y1="173" x2="52" y2="187" stroke="#0176D3" stroke-width="2"/>
+<text x="60" y="184" font-size="12" font-weight="700" fill="#1e293b">0 (norms cached)</text>
+<text x="52" y="222" font-size="12" font-weight="600" fill="#2E844A">&#10003; Traversal unchanged: 926.5 distances per query</text>
+<text x="52" y="243" font-size="11.5" fill="#94a3b8">Footprint: 4 bytes per stored vector (+0.3% memory on a 1M-vector index)</text>
+</svg>
+<figcaption><strong>Figure 9.</strong> What the cached norm removes from every distance comparison. Traversal is untouched (the same distances and nodes are evaluated per query); each distance is simply cheaper.</figcaption>
+</figure>
+</div>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>Cosine distance between a query <var>a</var> and a stored vector <var>b</var> is</p>
+<div class="math"><var>d</var>(<var>a</var>, <var>b</var>) = 1 − <span class="frac"><span><var>a</var>·<var>b</var></span><span>‖<var>a</var>‖ ‖<var>b</var>‖</span></span></div>
+<p>USearch's built-in f32/bf16 kernel evaluates <var>a</var>·<var>b</var>, ‖<var>a</var>‖² and ‖<var>b</var>‖² in one pass, three multiply-adds per element, then takes two square roots and one division:</p>
+<div class="math">1 − <span class="frac"><span><var>a</var>·<var>b</var></span><span>√(‖<var>a</var>‖²) · √(‖<var>b</var>‖²)</span></span></div>
+<p>It does this for every one of the roughly 927 comparisons an HNSW query performs. But <var>b</var> is a stored member whose norm is fixed from insertion, and <var>a</var> is the query, whose norm is the same for every comparison in the search. Caching ‖<var>b</var>‖ per slot and computing ‖<var>a</var>‖ once per query leaves one multiply-add per element, one multiply and one division. The two expressions are algebraically identical and differ only in floating-point rounding.</p>
+<h5>Implementation</h5>
+<ul>
+<li><strong>Sidecar.</strong> <code>index_dense_gt</code> gains <code>cosine_norms_</code>: one lock-free <code>std::atomic&lt;uint32_t&gt;</code> per capacity slot, holding the raw bits of the f32 norm or a quiet-NaN sentinel (<code>0x7fc00000</code>). Insertion publishes with a release store after the vector bytes are written; search loads with acquire before reading them; reserve, clear, compact, copy, load and metric changes use relaxed accesses because they exclude concurrent insertion. A C++11-compatible <code>static_assert</code> guards lock-freedom.</li>
+<li><strong>Search proxy.</strong> <code>metric_proxy_cosine_norms_t</code> carries the prepared query norm and calls <code>cosine_distance_with_valid_norms</code>. A slot holding the sentinel falls back to the full kernel for that comparison; a non-finite query bypasses the route for the whole search.</li>
+<li><strong>Eligibility and provenance.</strong> <code>supports_cosine_norm_cache()</code> identifies the built-in kernel by the address of the exact <code>metric_cos_gt</code> instantiation plus its dimension argument. It deliberately avoids the routing trampoline, which identical-code-folding linkers (<code>/OPT:ICF</code>, <code>--icf=all</code>) can merge, so a cosine-labelled user callback can never be captured. Custom metrics, NumKong-supplied kernels, memory-mapped views, external-vector indexes and other scalar kinds keep the original path.</li>
+<li><strong>Lifecycle.</strong> reserve grows the sidecar with capacity; add and update populate a slot; remove and clear invalidate it; compact remaps and repopulates; copy duplicates a valid sidecar; load rebuilds it; views bypass it; a metric change builds and populates replacement state before committing, so the index is never left in a partial state. The sidecar is never serialized, so the file format is unchanged.</li>
+<li><strong>Fast-math safety.</strong> All finiteness classification is done on integer bit patterns, and the accumulated norm is laundered through a <code>volatile</code> before inspection, so <code>-ffast-math</code> builds cannot assume it is finite.</li>
+</ul>
+<pre><code>// include/usearch/index_dense.hpp: the search-only proxy&#x27;s hot path
+distance_t f(byte_t const* query, member_at member) const noexcept {
+    std::uint32_t bits = index_-&gt;cosine_norms_[get_slot(member)].load(std::memory_order_acquire);
+    if (!metric_t::is_valid_cosine_norm_bits(bits))        // sentinel: full kernel for this member
+        return index_-&gt;metric_(query, v(member));
+    f32_t member_norm = 0;
+    std::memcpy(&amp;member_norm, &amp;bits, sizeof(member_norm));
+    return index_-&gt;metric_.cosine_distance_with_valid_norms(query, v(member), query_norm_, member_norm);
+}
+
+// include/usearch/index_plugins.hpp: one dot product, no square roots
+result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
+                                          f32_t a_norm, f32_t b_norm) const noexcept {
+    f32_t ab = cosine_dot_(a, b, dimensions_);
+    bool a_is_zero = /* norm bits are zero */, b_is_zero = /* likewise for b_norm */;
+    if (a_is_zero) return b_is_zero ? 0 : 1;              // zero handling matches metric_cos_gt
+    if (b_is_zero) return 1;
+    return 1 - ab / (a_norm * b_norm);
+}</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>Wiki-1M (1M × 256 f32), identical prebuilt graph in both binaries, one pinned core, 1,024 held-out queries, 16 timed repeats, seven paired rounds: +17.54% median QPS with GCC 11.4 (95% bootstrap +17.14% to +17.76%) and +7.41% with GCC 13.4 (+7.20% to +7.61%), 7 of 7 rounds positive on both. Computed distances (926.5 per query) and visited members (75.8 per query) are unchanged in every timed row.</li>
+<li>Memory 1,333,418,176 → 1,337,418,176 bytes at one million slots, exactly four bytes per slot. Load 0.92–0.94 s → 1.04–1.05 s because the sidecar is rebuilt; 96-thread construction 10.2–10.5 s baseline and 10.1–10.2 s patched.</li>
+<li>Result parity over 10,240 top-10 outputs: maximum distance change 4.1 × 10<sup>−7</sup>, recall preserved. The C and C++ suites pass under ASan, LSan, UBSan and alignment sanitizers with GCC 11 and 13, the public-header smoke test passes from C++11 through C++20, the full C++ tests pass under a gold <code>--icf=all</code> link, ThreadSanitizer confirms the new code is race-free, and a NumKong build confirms the route is never taken there.</li>
+</ul>
+</div>
+</details>
+      <div class="pr-row">
+        <a class="btn btn-primary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">View the pull request →</a>
+        <small>Created a PR to the USearch project.</small>
+      </div>
+    </div>
+
+    <!-- hnswlib -->
+    <div class="card disc" id="hnswlib">
+      <div class="disc-head">
+        <div class="disc-badge">4</div>
+        <div>
+          <span class="disc-kicker">Open Source · Vector Search</span>
+          <h3>hnswlib: a clean +4% in the engine behind AI retrieval</h3>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="mini-pill blue">+4.1% median query throughput</span>
+        <span class="mini-pill green">Bit-for-bit identical results</span>
+      </div>
+      <p><a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a> powers vector search inside databases, RAG pipelines, and recommendation systems, and has been tuned by experts for years, which is exactly why we chose it. AutoR&amp;D found a remaining win in the batch query path: every query was taking a lock to borrow scratch memory from a shared pool. Its patch has each worker thread <em>lease</em> that scratch once and reuse it across the batch: roughly <strong>4,000 lock operations collapsed to 32</strong> in the diagnostic workload, while leaving the search logic untouched.</p>
+      <p>The result: <strong>+4.1% median queries-per-second</strong> across three independently built indexes, faster in every paired run, with labels, distances, and recall verified <strong>identical to the byte</strong>.</p>
+      <figure class="chart">
+<svg viewBox="0 0 920 234" role="img" aria-label="Left: scratch-pool lock round-trips per batch drop from 4,000 to 32. Right: +4.1 percent median throughput gain with identical results" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet" style="max-width:860px;min-width:640px">
+<defs>
+  <linearGradient id="hlg1" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0176D3"/><stop offset="1" stop-color="#032D60"/>
+  </linearGradient>
+</defs>
+<text x="20" y="28" font-size="13.5" font-weight="700" fill="#1e293b">Scratch-pool lock round-trips per batch</text>
+<text x="20" y="47" font-size="11.5" fill="#94a3b8">2,000-query diagnostic batch, 16 worker threads</text>
+<line x1="20" y1="88" x2="20" y2="185" stroke="#cbd5e1" stroke-width="1"/>
+<text x="26" y="88" font-size="12" fill="#475569">Standard hnswlib</text>
+<path d="M20,97 H436 Q440,97 440,101 V111 Q440,115 436,115 H20 Z" fill="#b6c2ce"><title>Standard hnswlib: about 4,000 pool lock/unlock operations for a 2,000-query batch, two per query row</title></path>
+<text x="448" y="111" font-size="12.5" font-weight="700" fill="#1e293b">4,000</text>
+<text x="26" y="150" font-size="12" fill="#475569">With worker-scoped leases (ours)</text>
+<path d="M20,159 H23.4 V177 H20 Z" fill="#0176D3"><title>With worker-scoped leases: 32 pool lock/unlock operations, two per worker, reused across the whole batch</title></path>
+<text x="31" y="173" font-size="12.5" font-weight="700" fill="#1e293b">32</text>
+<text x="72" y="173" font-size="12" font-weight="700" fill="#2E844A">−99.2%</text>
+<line x1="520" y1="26" x2="520" y2="200" stroke="#e2e8f0" stroke-width="1"/>
+<text x="720" y="102" text-anchor="middle" font-size="46" font-weight="700" fill="url(#hlg1)" font-family="'Source Serif 4',serif">+4.1%</text>
+<text x="720" y="134" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">median queries-per-second gain</text>
+<text x="720" y="157" text-anchor="middle" font-size="11.5" fill="#94a3b8">+3.96% &#183; +4.12% &#183; +4.34% across three index builds</text>
+<text x="720" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#2E844A">&#10003; search results bit-for-bit identical</text>
+</svg>
+<figcaption><strong>Figure 10.</strong> Why it’s faster, and by how much. Left: the patch removes per-query synchronization: scratch-buffer lock round-trips per batch collapse from 4,000 to 32. Right: the resulting throughput gain, consistent across three independently built indexes, with search results unchanged.</figcaption>
+</figure>
+<details class="tech">
+<summary>Technical details: formulation &amp; implementation</summary>
+<div class="tech-body">
+
+<h5>Formulation</h5>
+<p>HNSW traversal needs a scratch "visited" set. hnswlib stores it as a dense generation-tag array, so a node <var>v</var> counts as visited in the current search exactly when</p>
+<div class="math">mass[<var>v</var>] = curV</div>
+<p>Advancing <code>curV</code> clears the set in constant time; only a generation wrap performs a physical clear. The Python batch path calls <code>searchKnn</code> once per row, and each call locks <code>VisitedListPool</code> to acquire and reset a list and locks it again to return it. For <var>Q</var> rows that is about 2<var>Q</var> mutex operations, even though a <code>ParallelFor</code> worker executes many rows back to back. Moving ownership from the row to the worker makes it 2<var>W</var> for <var>W</var> active workers:</p>
+<div class="math"><var>N</var><sub>lock</sub> = 2<var>Q</var> = 4,000 &nbsp;→&nbsp; 2<var>W</var> = 32 &nbsp;&nbsp;(<var>Q</var> = 2,000, <var>W</var> = 16, −99.2%)</div>
+<p>Every row still gets exactly one generation advance; only pool ownership is amortized.</p>
+<h5>Implementation</h5>
+<ul>
+<li>A non-copyable RAII <code>VisitedListLease</code>: acquisition prepares the first generation, <code>next()</code> prepares each later row, and the destructor returns the list even when a filter callback or a query throws.</li>
+<li>A private search helper, <code>searchKnnWithVisitedList</code>, accepts caller-owned scratch. The public <code>searchKnn</code> wrapper is unchanged, so direct C++ callers and single-row queries behave exactly as before.</li>
+<li>The batch <code>knn_query</code> keeps one lazily created lease per worker slot. Distance arithmetic, graph layout and serialization are untouched, which is why labels and distances are byte-identical.</li>
+</ul>
+<pre><code>// python_bindings: batch knn_query, inside the ParallelFor body
+auto&amp; lease = visited_list_leases[threadId];
+VisitedList* vl;
+if (!lease) {
+    lease = index-&gt;visited_list_pool_-&gt;getFreeVisitedListLease();  // lock once per worker
+    vl = lease-&gt;get();                                             // first row reset on acquire
+} else {
+    vl = lease-&gt;next();                                            // one generation advance per later row
+}
+auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
+// RAII: the lease returns vl to the pool exactly once, when this worker&#x27;s batch scope ends</code></pre>
+<h5>Evidence</h5>
+<ul>
+<li>Invariants checked explicitly: a fresh visited set per row (wrap and clearing test), a single owner per slot (concurrent-batch test), return on exception (injected exception, then reuse), search equivalence (labels and distances matched), and coverage of L2, inner product, cosine, filters and deletions. 17 Python-binding regression tests pass.</li>
+<li>Exploratory A/B on three independently built indexes with the order alternated B/C, C/B, B/C and all 31 timed repetitions retained: +4.34%, +4.12% and +3.96% QPS; recall@10 identical to four decimals; peak RSS within ±0.11%; output hashes identical.</li>
+<li>Consistent across all three seeds and recommended as the first upstream PR candidate: small, architecture-neutral, and easy to review.</li>
+</ul>
+</div>
+</details>
+      <div class="pr-row">
+        <a class="btn btn-primary" href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">View the pull request →</a>
+        <small>Created a PR to the hnswlib project.</small>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<!-- ==================== What's next ==================== -->
+<section id="next" style="padding-top:1.2rem;padding-bottom:4.2rem">
+  <div class="container">
+    <h2 class="section-title">What's Next</h2>
+    <div class="card abstract">
+      <p>These artifacts are a starting point. We're scaling AutoR&amp;D along three axes: <strong>more targets</strong>, from data infrastructure to the wider open-source ecosystem our customers' AI stacks depend on, and more of Salesforce's own platform; <strong>deeper autonomy</strong>, longer research arcs where one discovery informs the next hypothesis; and <strong>open contribution</strong>, packaging discoveries as upstream pull requests with the full evidence attached.</p>
+      <br>
+      <p>The agents we're most excited about find improvements nobody thought to ask for, and prove they're real. AutoR&amp;D is our first step there.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="../assets/salesforce.svg" alt="Salesforce">
+  <p><strong>SFR-AutoR&amp;D-Engineer</strong> · Salesforce AI Research · 2026</p>
+  <p>pandas, USearch, and hnswlib are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</p>
+</footer>
+
+</body>
+</html>
