@@ -32,6 +32,8 @@ Static site, no build step:
   To resync, re-copy `index.html` and `assets/` from the source repo and
   re-apply those edits.
 - `assets/salesforce.svg`: Salesforce logo used in the nav, hero, footer, and favicon.
+- `assets/mascot.png`: the Astro, Codey and Einstein illustration shown beside
+  the SFR-AutoR&D title on the umbrella page (transparent PNG, 1774 by 887).
 
 All links between the three pages are relative, so the site works at any
 host name and from a local checkout.
@@ -50,10 +52,6 @@ after an organization rename, so external links should point at the new host.
 
 ## Placeholders still to fill in
 
-0. **Hero artwork**: add the Astro, Codey and Einstein illustration as
-   `assets/mascots.png` (PNG, transparent background preferred, roughly 2:1).
-   The umbrella hero shows it beside the SFR-AutoR&D title and hides the slot
-   until the file exists.
 
 Search `engineer/index.html` for the `MARKETING:` comments:
 
