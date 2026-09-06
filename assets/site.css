@@ -282,7 +282,7 @@
 
   /* ---- umbrella page: editorial hero, section nav, question cards, stepper, switcher, motion ---- */
   :root{--nav-h:53px;--subnav-h:50px;--board-accent:var(--sf-blue)}
-  .hero-ed{display:flex;flex-direction:column;align-items:center;text-align:center;padding:4.4rem 1.5rem 2.4rem;max-width:960px;margin:0 auto}
+  .hero-ed{display:flex;flex-direction:column;align-items:center;text-align:center;padding:4rem 1.5rem 2.4rem;max-width:1040px;margin:0 auto}
   .kicker{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sf-blue-deep)}
   .byline{font-size:.9rem;color:var(--text-secondary);margin-top:.75rem;line-height:1.7}
   .byline a{color:var(--text-primary);font-weight:600;text-decoration:none}
@@ -294,6 +294,10 @@
   .team .authors{gap:1.2rem 2.4rem;margin:1.3rem 0 0}
   .team .byline{font-size:.95rem;margin-top:.9rem}
   .hero-ed h1{font-family:'Source Serif 4',serif;font-size:clamp(3rem,8vw,5.4rem);font-weight:700;color:var(--sf-navy);line-height:1.05;letter-spacing:-.015em;margin:.4rem 0 1.3rem}
+  .hero-title-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1rem 2.4rem;margin:.4rem 0 1.3rem;width:100%}
+  .hero-title-row h1{margin:0}
+  .hero-mascots{display:block;width:min(330px,84vw);height:auto;filter:drop-shadow(0 12px 28px rgba(3,45,96,.14))}
+  .hero-title-row.no-art .hero-mascots{display:none}
   .deck{font-family:'Source Serif 4',serif;font-size:clamp(1.12rem,2vw,1.32rem);line-height:1.6;color:var(--text-primary);max-width:800px}
   .deck strong{color:var(--sf-navy)}
   .stat-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2rem;margin-top:2.1rem;padding:.95rem 0;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);width:100%;max-width:940px}

@@ -28,7 +28,10 @@
 
 <!-- ==================== Hero ==================== -->
 <header class="hero-ed" id="top">
-  <h1 class="reveal" style="--i:0">SFR-AutoR&amp;D</h1>
+  <div class="hero-title-row reveal" style="--i:0">
+    <h1>SFR-AutoR&amp;D</h1>
+    <img class="hero-mascots" src="assets/mascots.png" alt="Astro, Codey and Einstein working at a laptop" onerror="this.closest('.hero-title-row').classList.add('no-art')">
+  </div>
   <p class="deck reveal" style="--i:1">
     SFR-AutoR&amp;D is the family of autonomous research and development agents from Salesforce AI Research.
     <strong>Research finds what is new. Development ships what is proven.</strong> Each agent takes a real
@@ -242,7 +245,7 @@
       <div class="ed-prose reveal" style="--i:1">
         <p>An SFR-AutoR&amp;D agent returns <strong>artifacts</strong>: a working patch or a verified checkpoint, bundled with the benchmark record, the correctness checks, and the analysis that justify it. A reviewer can read the evidence before the code, and a maintainer can rerun it.</p>
         <p>The loop transfers because the discipline transfers. Paired measurements, exact output checks, held-out evaluation, and confidence bounds are the habits a careful research scientist keeps, and they work whether the target is a dataframe kernel, a vector index, an RL stack, or a model under training.</p>
-        <blockquote class="pull">Every claim ships with the test that would have falsified it.</blockquote>
+        <blockquote class="pull">Every result on these pages comes with the tests and measurements that prove it.</blockquote>
       </div>
     </div>
   </div>
