@@ -629,6 +629,24 @@ section[id] {
   font-weight: 700;
 }
 
+/* SFR-AutoR&D mirror: stack the name and its caption so the full sub-project names fit */
+.branch-band > a > span,
+.branch-band > .active > span,
+.branch-band > a > i,
+.branch-band > .active > i {
+  grid-row: 1 / span 2;
+}
+
+.branch-band > a > small,
+.branch-band > .active > small {
+  grid-column: 2;
+}
+
+.branch-band > a > i,
+.branch-band > .active > i {
+  grid-column: 3;
+}
+
 .section {
   padding: 110px 4%;
 }
