@@ -11,12 +11,19 @@ development agents from Salesforce AI Research, and for its two sub-projects:
 
 Static site, no build step:
 
-- `index.html`: the umbrella page. Umbrella-only styles are inline; the shared
-  design system (palette, hero, cards, pills, family nav, contribution tabs) is
-  `assets/site.css`.
+- `index.html`: the umbrella page. Editorial layout: byline hero with a
+  count-up stat strip, a sticky section nav with scroll-spy and a Pages menu,
+  three question cards, a dark five-step loop card with a drawn loop line, a
+  sub-project switcher (hover, click, or arrow keys; `#engineer` /
+  `#trainforge` deep links) with animated bar charts, and two editorial
+  sections. All styles live in `assets/site.css`; the behaviour is one inline
+  script at the end of the page. Without JavaScript every section and both
+  switcher panels are visible; only the motion and the scroll-spy are lost.
+  `prefers-reduced-motion` turns the animations off.
 - `engineer/index.html`: self-contained (inline styles and inline SVG charts).
-  Its `<style>` block is mirrored verbatim at the top of `assets/site.css`;
-  keep the two in sync when the design system changes.
+  Its `<style>` block is mirrored verbatim at the top of `assets/site.css`
+  (everything above the "site nav" marker); keep the two in sync when the
+  design system changes. The umbrella components follow below that marker.
 - `trainforge/`: copied from `zhaoyiran924/trainforge` (commit `a37e93f`,
   "Launch public Training Forge research site"), including the 8.3 MB demo
   video. Edits on top of the copy: title, brand, branch band and footer renamed

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,41 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
-<style>
-  /* umbrella-only rules; the shared design system lives in assets/site.css */
-  .section-intro{text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)}
-  .sub-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.9rem}
-  .sub-badge{
-    flex:none;width:44px;height:44px;border-radius:12px;background:var(--gradient-1);
-    display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.05rem;
-    box-shadow:0 6px 16px rgba(1,118,211,.3);
-  }
-  .sub-kicker{font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-blue-deep)}
-  .sub-head h3{font-family:'Source Serif 4',serif;font-size:1.5rem;font-weight:600;margin:.1em 0 0;color:var(--sf-navy)}
-  .sub-lead{color:var(--text-secondary);font-size:1rem;margin-bottom:1.5rem;max-width:820px}
-  .sub-lead strong{color:var(--text-primary)}
-  .results-grid.compact{grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1rem;margin-bottom:1.4rem}
-  .results-grid.compact .result-card{padding:1.3rem 1rem}
-  .results-grid.compact .result-value{font-size:2.3rem}
-  .two-col{display:grid;grid-template-columns:1.15fr .85fr;gap:1.2rem;align-items:start}
-  @media(max-width:760px){.two-col{grid-template-columns:1fr}}
-  .list-card{background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:12px;padding:1.1rem 1.3rem}
-  .list-card h4{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-blue-deep);margin-bottom:.3rem}
-  .list-card ul{list-style:none}
-  .list-card li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;padding:.55rem 0;border-top:1px solid var(--border-color);font-size:.9rem;color:var(--text-secondary);line-height:1.55}
-  .list-card li:first-child{border-top:0}
-  .list-card li b{color:var(--text-primary);white-space:nowrap;font-family:'Source Serif 4',serif;font-size:1rem}
-  .list-card li a{color:var(--sf-blue-deep);text-decoration:none;font-weight:600}
-  .list-card li a:hover{text-decoration:underline}
-  .tab-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border-color)}
-  .tab-actions .btn{padding:.65rem 1.25rem;font-size:.9rem}
-  .more-card{border:2px dashed rgba(1,118,211,.35);background:rgba(1,118,211,.03);border-radius:16px;padding:2.4rem 2rem;text-align:center;max-width:760px;margin:0 auto}
-  .more-icon{font-size:1.8rem;margin-bottom:.6rem}
-  .more-card h3{font-family:'Source Serif 4',serif;font-size:1.3rem;font-weight:600;color:var(--sf-navy);margin-bottom:.5rem}
-  .more-card p{color:var(--text-secondary);font-size:.97rem;max-width:600px;margin:0 auto}
-</style>
 </head>
-<body>
+<body class="has-section-nav">
 <div class="bg-pattern"></div>
 
 <nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
@@ -60,293 +27,200 @@
 </nav>
 
 <!-- ==================== Hero ==================== -->
-<header class="hero" id="top">
-  <img class="hero-logo" src="assets/salesforce.svg" alt="Salesforce">
-  <div class="hero-eyebrow">Salesforce AI Research</div>
-  <h1>SFR-AutoR&amp;D</h1>
-  <h2>Autonomous research and development, from code to models</h2>
-
-  <p class="hero-description">
-    SFR-AutoR&amp;D is the family of autonomous research agents from Salesforce AI Research. Each agent
-    takes a real target, a production codebase or a model and its benchmark, forms its own hypotheses,
-    runs controlled experiments, and ships only the results it can prove. This site is the one-stop
-    shop for every sub-project, its evidence, and its artifacts.
+<header class="hero-ed" id="top">
+  <div class="kicker reveal" style="--i:0">Salesforce AI Research · Autonomous R&amp;D</div>
+  <p class="byline reveal" style="--i:1">
+    <a href="https://shreypandit.github.io/" target="_blank" rel="noopener">Shrey Pandit</a> ·
+    <a href="https://nxphi47.github.io/" target="_blank" rel="noopener">Xuan-Phi Nguyen</a> ·
+    <a href="https://zhaoyiran924.github.io/" target="_blank" rel="noopener">Yiran Zhao</a> ·
+    <a href="https://raihanjoty.github.io/" target="_blank" rel="noopener">Shafiq Joty</a>
+    · Salesforce AI Research · 2026
   </p>
-
-  <div class="highlight-pills">
-    <div class="pill-row">
-      <span class="pill scope">🧭 2 Sub-Projects · One Research Loop</span>
-      <span class="pill exact">🛠 SFR-AutoR&amp;D-Engineer: 7 Verified Optimizations in 4 Codebases</span>
-      <span class="pill pandas">🧠 SFR-AutoR&amp;D-TrainForge: 4 Autonomous Training Programs</span>
-    </div>
-    <div class="pill-row">
-      <span class="pill speed">✓ Evidence Gates on Every Promotion</span>
-      <span class="pill oss">⬆ 5 Open-Source PRs</span>
-      <span class="pill memory">🚀 More Sub-Projects in Progress</span>
-    </div>
+  <h1 class="reveal" style="--i:2">SFR-AutoR&amp;D</h1>
+  <p class="deck reveal" style="--i:3">
+    SFR-AutoR&amp;D is the family of autonomous research and development agents from Salesforce AI Research.
+    <strong>Research finds what is new. Development ships what is proven.</strong> Each agent takes a real
+    target, forms its own hypotheses, runs controlled experiments, and promotes only the candidates that
+    survive the evidence. This page is the home for every sub-project, its evidence, and its artifacts.
+  </p>
+  <div class="stat-strip reveal" style="--i:4">
+    <div><b data-count="2">2</b><span>sub-projects</span></div>
+    <div><b data-count="4">4</b><span>codebases improved</span></div>
+    <div><b data-count="7">7</b><span>vetted optimizations</span></div>
+    <div><b data-count="5">5</b><span>upstream PRs</span></div>
+    <div><b data-count="4">4</b><span>training programs</span></div>
   </div>
-
-  <div class="authors">
-    <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="https://shreypandit.github.io/images/Profile.jpg" alt="Shrey Pandit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">SP</div>
-      <span class="author-name">Shrey Pandit</span>
-    </a>
-    <a href="https://nxphi47.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="https://nxphi47.github.io/images/profile_photo.jpeg" alt="Xuan-Phi Nguyen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">XN</div>
-      <span class="author-name">Xuan-Phi Nguyen</span>
-    </a>
-    <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="https://zhaoyiran924.github.io/assets/img/my_pic.jpg" alt="Yiran Zhao" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">YZ</div>
-      <span class="author-name">Yiran Zhao</span>
-    </a>
-    <a href="https://raihanjoty.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="https://raihanjoty.github.io/img/nav/shafiq4.jpg" alt="Shafiq Joty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">SJ</div>
-      <span class="author-name">Shafiq Joty</span>
-    </a>
-  </div>
-  <p class="affiliation">Salesforce AI Research</p>
-  <p class="hero-meta">2026</p>
 </header>
 
-<!-- ==================== Mission ==================== -->
-<section id="mission" style="padding-top:1rem">
+<!-- ==================== Section nav ==================== -->
+<nav class="section-nav" aria-label="Explore this page">
+  <div class="section-nav-inner">
+    <div class="section-nav-title">Explore</div>
+    <div class="section-nav-track">
+      <a class="sn-link" href="#mission">Two questions</a>
+      <a class="sn-link" href="#how">How it works</a>
+      <a class="sn-link" href="#projects">Sub-projects</a>
+      <a class="sn-link" href="#practice">In practice</a>
+      <a class="sn-link" href="#next">What's next</a>
+    </div>
+    <div class="pages">
+      <button class="pages-trigger" type="button" aria-expanded="false" aria-controls="pages-menu">Pages <span class="caret" aria-hidden="true">▾</span></button>
+      <ul class="pages-menu" id="pages-menu">
+        <li><a href="engineer/">SFR-AutoR&amp;D-Engineer <small>Performance research on real code</small></a></li>
+        <li><a href="trainforge/">SFR-AutoR&amp;D-TrainForge <small>Autonomous model training</small></a></li>
+        <li><a href="https://zhaoyiran924.github.io/trainforge/" target="_blank" rel="noopener">Original TrainForge page ↗ <small>by Yiran Zhao</small></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- ==================== Two questions ==================== -->
+<section id="mission" class="ed">
   <div class="container">
-    <h2 class="section-title">Our Mission</h2>
-    <div class="card abstract">
-      <p>Research finds what is new. Development ships what is proven. Most AI agents do one or the other: they write plausible code, or they propose ideas nobody has time to test. <strong>SFR-AutoR&amp;D exists to close that gap.</strong> Every agent in the family runs the whole arc on its own: it scopes a real target, proposes ideas, builds them, measures them under strict controls, and promotes only the candidates that survive the evidence. The output is an artifact, a patch, a checkpoint, or a finding, bundled with the tests and measurements that justify it.</p>
-      <br>
-      <p>We started with the two problems closest to our own work. <strong>SFR-AutoR&amp;D-Engineer</strong> does performance research on production code, from open-source dataframe and vector-search libraries to the RL stack that post-trains our models. <strong>SFR-AutoR&amp;D-TrainForge</strong> does the same for model training: give it a baseline model and a target, and it returns the best verified checkpoint. Both share one research loop, one evidence bar, and this page as their home.</p>
+    <div class="ed-grid">
+      <div class="ed-head reveal">
+        <span class="kicker">Two sub-projects · one loop</span>
+        <h2>Two questions for autonomous R&amp;D</h2>
+      </div>
+      <p class="ed-lead reveal" style="--i:1">We split autonomous R&amp;D into two questions. Each one is answered by its own agent, with its own page, evidence, and artifacts.</p>
     </div>
 
-    <div class="breadth" style="margin-top:1.4rem">
-      <h3>What R&amp;D means here</h3>
-      <p>Three commitments hold across every sub-project, whatever the target.</p>
-      <div class="domain-grid">
-        <div class="domain"><span class="domain-icon">🔬</span><b>Research</b><span>The agent forms its own hypotheses about a real system and tests them experimentally, the way a careful scientist would.</span></div>
-        <div class="domain"><span class="domain-icon">🚀</span><b>Development</b><span>Winning ideas leave as working artifacts: upstream pull requests, verified checkpoints, and reproducible evidence.</span></div>
-        <div class="domain"><span class="domain-icon">📏</span><b>Evidence</b><span>Correctness checks, held-out evaluation, and statistics decide what is promoted. Weak evidence keeps the incumbent.</span></div>
-      </div>
-      <div class="breadth-stats">
-        <div><b>2</b><span>sub-projects</span></div>
-        <div><b>4</b><span>codebases improved</span></div>
-        <div><b>7</b><span>vetted optimizations</span></div>
-        <div><b>5</b><span>upstream PRs</span></div>
-        <div><b>4</b><span>training programs</span></div>
-      </div>
+    <div class="q-row">
+      <article class="q-card reveal" style="--i:0">
+        <div class="q-label">01 / Code</div>
+        <h3 class="q-title">Can an agent make production code faster, and prove it?</h3>
+        <div class="q-meta"><span>SFR-AutoR&amp;D-Engineer</span><a href="engineer/">View page ↗</a></div>
+        <p>The agent studies mature, heavily optimized codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins it can back with evidence. Seven verified optimizations so far across pandas, USearch, hnswlib, and the SFR-RL stack.</p>
+        <div class="q-test"><small>Test</small>Exact output equality on every patch, and paired benchmarks with confidence bounds.</div>
+      </article>
+      <div class="q-arrow" aria-hidden="true">→</div>
+      <article class="q-card reveal" style="--i:1">
+        <div class="q-label">02 / Models</div>
+        <h3 class="q-title">Can an agent train a better model, and verify it?</h3>
+        <div class="q-meta"><span>SFR-AutoR&amp;D-TrainForge</span><a href="trainforge/">View page ↗</a></div>
+        <p>Give it a baseline model and a target. It designs the data, tools, training, and evaluation, writes and validates the code, runs the experiments, and returns the best verified checkpoint. Four training programs are in progress.</p>
+        <div class="q-test"><small>Test</small>Held-out evaluation bound to the checkpoint that produced it. Weak evidence keeps the incumbent.</div>
+      </article>
+      <div class="q-arrow" aria-hidden="true">→</div>
+      <article class="q-card next reveal" style="--i:2">
+        <div class="q-label">03 / Next</div>
+        <h3 class="q-title">More sub-projects are in progress</h3>
+        <div class="q-meta"><span>SFR-AutoR&amp;D</span><span class="soft">Coming soon</span></div>
+        <p>The same loop is being pointed at new targets across Salesforce AI Research. Each new sub-project will get its own page here once it clears the same evidence bar.</p>
+        <div class="q-test"><small>Test</small>The same one: evidence first, then promotion.</div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ==================== Design ==================== -->
-<section id="design" style="padding-top:1.2rem">
+<!-- ==================== How it works ==================== -->
+<section id="how" class="ed">
   <div class="container">
-    <h2 class="section-title">How SFR-AutoR&amp;D Is Designed</h2>
-    <p class="section-intro">Every sub-project runs the same loop. Only the target changes: a hot path in a production library for SFR-AutoR&amp;D-Engineer, a model and a benchmark for SFR-AutoR&amp;D-TrainForge.</p>
-
-    <figure class="diagram">
-      <svg viewBox="0 0 960 292" role="img" aria-label="SFR-AutoR&amp;D loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
-        <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#8ab7e8"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="8" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="34" cy="62" r="12" fill="#0176D3"/><text x="34" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">1</text>
-          <text x="54" y="67" font-size="14.5" font-weight="700" fill="#032D60">Scope the target</text>
-          <text x="24" y="96" font-size="11.5" fill="#475569">Studies the codebase and finds</text>
-          <text x="24" y="112" font-size="11.5" fill="#475569">where performance is hiding</text>
-        </g>
-        <g>
-          <rect x="240" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="266" cy="62" r="12" fill="#0176D3"/><text x="266" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">2</text>
-          <text x="286" y="67" font-size="14.5" font-weight="700" fill="#032D60">Propose ideas</text>
-          <text x="256" y="96" font-size="11.5" fill="#475569">Generates many candidate</text>
-          <text x="256" y="112" font-size="11.5" fill="#475569">optimizations, like a researcher</text>
-        </g>
-        <g>
-          <rect x="472" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="498" cy="62" r="12" fill="#0176D3"/><text x="498" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">3</text>
-          <text x="518" y="67" font-size="14.5" font-weight="700" fill="#032D60">Run experiments</text>
-          <text x="488" y="96" font-size="11.5" fill="#475569">Implements each idea and</text>
-          <text x="488" y="112" font-size="11.5" fill="#475569">benchmarks it in a sandbox</text>
-        </g>
-        <g>
-          <rect x="704" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="730" cy="62" r="12" fill="#0176D3"/><text x="730" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">4</text>
-          <text x="750" y="67" font-size="14.5" font-weight="700" fill="#032D60">Verify &amp; decide</text>
-          <text x="720" y="96" font-size="11.5" fill="#475569">Statistical and correctness</text>
-          <text x="720" y="112" font-size="11.5" fill="#475569">gates; only real wins survive</text>
-        </g>
-        <line x1="208" y1="84" x2="234" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
-        <line x1="440" y1="84" x2="466" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
-        <line x1="672" y1="84" x2="698" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
-        <path d="M744,132 V168 H340 V142" fill="none" stroke="#8ab7e8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
-        <text x="520" y="162" text-anchor="middle" font-size="11" fill="#94a3b8">not convincing? reject, learn, try the next idea</text>
-        <line x1="790" y1="132" x2="790" y2="178" stroke="#7fc08f" stroke-width="2" marker-end="url(#arr)"/>
-        <text x="798" y="161" text-anchor="start" font-size="11" fill="#2E844A">evidence clears the bar</text>
-        <g>
-          <rect x="620" y="184" width="284" height="84" rx="12" fill="#EBF7E6" stroke="#abd9a0"/>
-          <text x="644" y="215" font-size="14.5" font-weight="700" fill="#032D60">✓ Vetted artifact</text>
-          <text x="644" y="238" font-size="11.5" fill="#475569">A working patch, benchmark evidence,</text>
-          <text x="644" y="254" font-size="11.5" fill="#475569">and a technical report</text>
-        </g>
-      </svg>
-      <figcaption><strong>Figure 1.</strong> The shared SFR-AutoR&amp;D loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both the performance and the correctness gates become artifacts.</figcaption>
-    </figure>
-
-    <div class="contributions-grid">
-      <div class="contribution-card">
-        <div class="contribution-icon">🧪</div>
-        <h3>Built, Run, and Measured</h3>
-        <p>Every candidate is built, run, and measured against the unmodified baseline on the same hardware and inputs. Code changes get paired runs across multiple seeds; training ideas get real optimizer updates and held-out scoring.</p>
-      </div>
-      <div class="contribution-card">
-        <div class="contribution-icon">✓</div>
-        <h3>Correctness Is a Gate</h3>
-        <p>Patched code must produce exactly the same outputs as the original, down to the sign of a floating-point zero. A candidate model is scored on a frozen evaluation bound to its checkpoint. Any observable regression means automatic rejection.</p>
-      </div>
-      <div class="contribution-card">
-        <div class="contribution-icon">📊</div>
-        <h3>Statistics Before Headlines</h3>
-        <p>Every reported number carries confidence bounds from repeated measurements. A flashy median with a shaky interval doesn't get promoted, no matter how good it looks.</p>
-      </div>
-      <div class="contribution-card">
-        <div class="contribution-icon">🛡️</div>
-        <h3>Evidence-Gated Promotion</h3>
-        <p>A candidate is promoted only when its evidence survives every gate. Mixed or stale evidence keeps the incumbent, whether that is the original code or the baseline model, and the record of the attempt informs the next hypothesis.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== Contributions ==================== -->
-<section id="contributions" style="padding-top:1.2rem">
-  <div class="container">
-    <h2 class="section-title">Contributions</h2>
-    <p class="section-intro">Two sub-projects so far, each with its own page, evidence, and artifacts.</p>
-
-    <div class="tabs" id="projects">
-      <input type="radio" name="proj" id="tab-engineer" checked>
-      <input type="radio" name="proj" id="tab-trainforge">
-      <div class="tab-strip" role="tablist" aria-label="Sub-projects">
-        <label for="tab-engineer">🛠 SFR-AutoR&amp;D-Engineer</label>
-        <label for="tab-trainforge">🧠 SFR-AutoR&amp;D-TrainForge</label>
-      </div>
-
-      <section class="panel" id="panel-engineer" aria-label="SFR-AutoR&amp;D-Engineer summary">
-        <div class="card">
-          <div class="sub-head">
-            <div class="sub-badge">01</div>
-            <div>
-              <div class="sub-kicker">Sub-project · Performance research on real code</div>
-              <h3>SFR-AutoR&amp;D-Engineer</h3>
-            </div>
-          </div>
-          <p class="sub-lead"><strong>An AI agent that does performance research on real code, and proves it.</strong> It studies mature, heavily optimized codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins it can back with evidence. Every patch ships with exact correctness checks and its full benchmark record.</p>
-
-          <div class="results-grid compact">
-            <div class="result-card">
-              <div class="result-value">+64.6%</div>
-              <div class="result-label">Best pandas Speedup</div>
-              <div class="result-detail">Row-wise ops on fragmented frames</div>
-            </div>
-            <div class="result-card">
-              <div class="result-value">3.14×</div>
-              <div class="result-label">Faster Generation</div>
-              <div class="result-detail">SFR-RL serving, token-identical outputs</div>
-            </div>
-            <div class="result-card">
-              <div class="result-value">−39%</div>
-              <div class="result-label">Peak Training Memory</div>
-              <div class="result-detail">SFR-RL, 19 stable RL updates</div>
-            </div>
-            <div class="result-card">
-              <div class="result-value">+17.5%</div>
-              <div class="result-label">Faster Search</div>
-              <div class="result-detail">USearch, cached vector norms</div>
-            </div>
-          </div>
-
-          <div class="two-col">
-            <div class="list-card">
-              <h4>Where it has shipped</h4>
-              <ul>
-                <li><b>pandas</b><span>Three optimizations on nullable dtypes, strings, and numeric frames: up to 1.84× faster, 136K exact correctness checks with zero mismatches.</span></li>
-                <li><b>SFR-RL</b><span>Two optimizations in Salesforce's RL post-training stack: 39% lower peak memory and up to 3.14× generation throughput.</span></li>
-                <li><b>USearch</b><span>+17.5% search throughput from cached vector norms. <a href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">PR #787</a></span></li>
-                <li><b>hnswlib</b><span>+4.1% batch-query throughput from worker-scoped visited-list leases. <a href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">PR #676</a></span></li>
-              </ul>
-            </div>
-            <div class="list-card">
-              <h4>Highlights</h4>
-              <ul>
-                <li><b>4</b><span>codebases across three problem domains: dataframes, LLM training and serving, vector search</span></li>
-                <li><b>7</b><span>vetted optimizations, each with paired benchmarks and confidence bounds</span></li>
-                <li><b>5</b><span>open-source pull requests to pandas, USearch, and hnswlib</span></li>
-                <li><b>100%</b><span>correctness verified on every promoted patch</span></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="tab-actions">
-            <a class="btn btn-primary" href="engineer/">Open SFR-AutoR&amp;D-Engineer →</a>
-            <a class="btn btn-secondary" href="engineer/#findings">Jump to the results</a>
-          </div>
+    <div class="ed-grid">
+      <div>
+        <div class="ed-head reveal">
+          <span class="kicker">How SFR-AutoR&amp;D works</span>
+          <h2>One loop, two targets.</h2>
         </div>
-      </section>
+        <p class="ed-lead reveal" style="--i:1;padding-top:1.2rem">The loop is the same whether the target is a hot path in a production library or a model and its benchmark. Only the gates change shape: exact output checks for code, held-out evaluation for models.</p>
+        <div class="reveal" style="--i:2">
+          <svg class="loop-line" viewBox="0 0 440 112" role="img" aria-label="The loop: scope, propose, build, verify, promote. Ideas with weak evidence return to propose.">
+            <defs>
+              <marker id="ll-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DD7A01"/></marker>
+            </defs>
+            <path class="ll-main" d="M22,44 H418" pathLength="1"/>
+            <path class="ll-back" d="M318,52 C318,100 122,100 122,60" pathLength="1" marker-end="url(#ll-arrow)"/>
+            <g>
+              <circle cx="22" cy="44" r="6" style="--i:0"/><text x="22" y="26" text-anchor="middle">Scope</text>
+              <circle cx="122" cy="44" r="6" style="--i:1"/><text x="122" y="26" text-anchor="middle">Propose</text>
+              <circle cx="220" cy="44" r="6" style="--i:2"/><text x="220" y="26" text-anchor="middle">Build</text>
+              <circle cx="318" cy="44" r="6" style="--i:3"/><text x="318" y="26" text-anchor="middle">Verify</text>
+              <circle cx="418" cy="44" r="6" style="--i:4"/><text x="418" y="26" text-anchor="middle">Promote</text>
+            </g>
+            <text class="ll-note" x="220" y="106" text-anchor="middle">weak evidence: back to propose, lesson recorded</text>
+          </svg>
+        </div>
+      </div>
+      <div class="stepper reveal" style="--i:1" aria-label="The SFR-AutoR&amp;D loop">
+        <div class="step" style="--i:0"><i>01</i><div><small>Scope</small><b>Scope the target</b><span class="desc">Study the system and find where the performance or the capability is hiding.</span></div></div>
+        <div class="step" style="--i:1"><i>02</i><div><small>Propose</small><b>Propose ideas</b><span class="desc">Generate many candidate changes, like a researcher working through a hypothesis list.</span></div></div>
+        <div class="step" style="--i:2"><i>03</i><div><small>Build</small><b>Build and run</b><span class="desc">Implement each idea and run it against the unmodified baseline in a sandbox.</span></div></div>
+        <div class="step" style="--i:3"><i>04</i><div><small>Verify</small><b>Verify and measure</b><span class="desc">Correctness gates and statistics with confidence bounds decide what is real.</span></div></div>
+        <div class="step" style="--i:4"><i>05</i><div><small>Promote</small><b>Promote or preserve</b><span class="desc">A vetted artifact ships with its evidence. Anything weaker keeps the incumbent.</span></div></div>
+        <div class="stepper-foot"><i>↺</i><span>Only candidates that clear every gate become artifacts. The rest loop back as recorded lessons for the next hypothesis.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <section class="panel" id="panel-trainforge" aria-label="SFR-AutoR&amp;D-TrainForge summary">
-        <div class="card">
-          <div class="sub-head">
-            <div class="sub-badge">02</div>
-            <div>
-              <div class="sub-kicker">Sub-project · Autonomous model training</div>
-              <h3>SFR-AutoR&amp;D-TrainForge</h3>
+<!-- ==================== Sub-projects ==================== -->
+<section id="projects" class="board-section">
+  <div class="container">
+    <div class="ed-grid">
+      <div class="ed-head reveal">
+        <span class="kicker">Sub-projects · the evidence</span>
+        <h2>Where the evidence comes from</h2>
+      </div>
+      <p class="ed-lead reveal" style="--i:1">Each sub-project keeps its full results, figures, and links on its own page. The panels below are the short version.</p>
+    </div>
+
+    <div class="board reveal" data-board style="--i:1">
+      <div class="board-tabs" role="tablist" aria-label="Sub-projects">
+        <button class="board-tab" type="button" role="tab" id="tab-engineer" aria-controls="panel-engineer" aria-selected="true" tabindex="0"><small>01 / Code</small><b>SFR-AutoR&amp;D-Engineer</b><span>Performance research on real code</span></button>
+        <button class="board-tab" type="button" role="tab" id="tab-trainforge" aria-controls="panel-trainforge" aria-selected="false" tabindex="-1"><small>02 / Models</small><b>SFR-AutoR&amp;D-TrainForge</b><span>Autonomous model training</span></button>
+      </div>
+      <div class="board-stage">
+        <section class="board-panel active" id="panel-engineer" role="tabpanel" aria-labelledby="tab-engineer" data-accent="#0176D3" data-hash="engineer">
+          <div class="panel-head">
+            <div><small>Sub-project 01 · four codebases, three problem domains</small><h3>SFR-AutoR&amp;D-Engineer</h3></div>
+            <div class="headline-stat"><b>7 verified optimizations</b><span>5 upstream pull requests · correctness verified on every patch</span></div>
+          </div>
+          <div class="viz-grid">
+            <div class="viz-card">
+              <h4>Throughput gains in open-source libraries</h4>
+              <div class="sub">Best verified speedup per library, exact same outputs</div>
+              <div class="gain-row" style="--i:0"><span>pandas · nullable-dtype math</span><div class="gain-track"><div class="gain-fill" style="width:100%" title="pandas: up to 1.84× faster (+84%) on row-wise math over nullable dtypes"></div></div><b>+84%</b></div>
+              <div class="gain-row" style="--i:1"><span>USearch · cached norms</span><div class="gain-track"><div class="gain-fill" style="width:20.8%" title="USearch: +17.5% search throughput with cached vector norms"></div></div><b>+17.5%</b></div>
+              <div class="gain-row" style="--i:2"><span>hnswlib · visited-list leases</span><div class="gain-track"><div class="gain-fill" style="width:4.9%" title="hnswlib: +4.1% batch-query throughput with worker-scoped visited-list leases"></div></div><b>+4.1%</b></div>
+            </div>
+            <div class="viz-card">
+              <h4>Inside Salesforce's SFR-RL stack</h4>
+              <div class="sub">Two optimizations in our RL post-training stack, results only</div>
+              <div class="big-stats">
+                <div class="big-stat"><b>−39%</b><span>peak training memory: runs that crashed now complete 19 stable RL updates</span></div>
+                <div class="big-stat"><b>3.14×</b><span>generation throughput on long-output workloads, with token-identical outputs</span></div>
+              </div>
             </div>
           </div>
-          <p class="sub-lead"><strong>Give it a target. Get back the best verified model.</strong> SFR-AutoR&amp;D-TrainForge autonomously designs the data, tools, training, and evaluation, writes and validates the code, runs the experiments, and returns the best verified checkpoint. If nothing improves, it keeps the incumbent and explains why.</p>
-
-          <div class="results-grid compact">
-            <div class="result-card">
-              <div class="result-value">4</div>
-              <div class="result-label">Training Programs</div>
-              <div class="result-detail">GPT-OSS-20B, Qwen3-4B math and coding, Muse-Glimmer-30B</div>
-            </div>
-            <div class="result-card">
-              <div class="result-value">+11 pp</div>
-              <div class="result-label">Largest Reported Gain</div>
-              <div class="result-detail">GPT-OSS-20B, long-horizon research quality</div>
-            </div>
-            <div class="result-card">
-              <div class="result-value">20</div>
-              <div class="result-label">Real Optimizer Updates</div>
-              <div class="result-detail">Qwen3-4B reference run on one H200, in the demo</div>
-            </div>
-            <div class="result-card">
-              <div class="result-value">4</div>
-              <div class="result-label">Enforced Gates</div>
-              <div class="result-detail">Novelty, fidelity, efficiency, trust</div>
-            </div>
+          <p class="panel-note"><strong>Every number carries its evidence.</strong> The pandas patches passed 136K exact differential checks with zero mismatches, and every speedup is a paired, multi-seed measurement with confidence bounds.</p>
+          <div class="panel-actions">
+            <a class="btn btn-primary" href="engineer/">Open SFR-AutoR&amp;D-Engineer →</a>
+            <a class="btn btn-secondary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">USearch PR ↗</a>
+            <a class="btn btn-secondary" href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">hnswlib PR ↗</a>
           </div>
+        </section>
 
-          <div class="two-col">
-            <div class="list-card">
-              <h4>Four enforced mechanisms</h4>
-              <ul>
-                <li><b>Novelty</b><span>Scouts search across research domains while proposer and critic agents challenge every candidate against prior work and run history.</span></li>
-                <li><b>Fidelity</b><span>A frozen specification covers data, tool use, training, and evaluation. Structure, live-path, and behavior checks enforce it before training starts.</span></li>
-                <li><b>Efficiency</b><span>A staged funnel rejects weak candidates cheaply, raises fidelity for survivors, and reserves final confirmation for the strongest ideas.</span></li>
-                <li><b>Trust</b><span>Every held-out score stays bound to the checkpoint that produced it. Verified gains are promoted; anything else preserves the incumbent.</span></li>
-              </ul>
+        <section class="board-panel" id="panel-trainforge" role="tabpanel" aria-labelledby="tab-trainforge" data-accent="#0B827C" data-hash="trainforge">
+          <div class="panel-head">
+            <div><small>Sub-project 02 · four training programs</small><h3>SFR-AutoR&amp;D-TrainForge</h3></div>
+            <div class="headline-stat"><b>+11 pp best gain</b><span>GPT-OSS-20B · long-horizon research quality</span></div>
+          </div>
+          <div class="viz-grid">
+            <div class="viz-card">
+              <h4>GPT-OSS-20B: prior harness gains</h4>
+              <div class="sub">Percentage-point gains by idea, as reported on the TrainForge page</div>
+              <div class="gain-row" style="--i:0"><span>Byte Evidence Frontier SFT</span><div class="gain-track"><div class="gain-fill" style="width:100%" title="Byte Evidence Frontier SFT: +11 pp"></div></div><b>+11 pp</b></div>
+              <div class="gain-row" style="--i:1"><span>Linter-Gated Natural-Boundary Training</span><div class="gain-track"><div class="gain-fill" style="width:90.9%" title="Linter-Gated Natural-Boundary Training: +10 pp"></div></div><b>+10 pp</b></div>
+              <div class="gain-row" style="--i:2"><span>Distill + DFA + Collision Reset</span><div class="gain-track"><div class="gain-fill" style="width:72.7%" title="Distill + DFA + Collision Reset: +8 pp"></div></div><b>+8 pp</b></div>
+              <div class="gain-row" style="--i:3"><span>Verifier-certified options + conformal stop</span><div class="gain-track"><div class="gain-fill" style="width:54.5%" title="Verifier-Certified Contract Options + Conformal Stop: +6 pp"></div></div><b>+6 pp</b></div>
+              <div class="gain-row" style="--i:4"><span>Certified Obligation-Stutter Quotient Training</span><div class="gain-track"><div class="gain-fill" style="width:45.5%" title="Certified Obligation-Stutter Quotient Training: +5 pp"></div></div><b>+5 pp</b></div>
+              <div class="gain-row" style="--i:5"><span>Confirmatory Alarm-Gated MPC Distillation</span><div class="gain-track"><div class="gain-fill" style="width:18.2%" title="Confirmatory Alarm-Gated MPC Distillation: +2 pp"></div></div><b>+2 pp</b></div>
             </div>
-            <div class="list-card">
+            <div class="viz-card">
               <h4>Training programs</h4>
-              <ul>
+              <div class="sub">Target model · target tasks</div>
+              <ul class="fact-list">
                 <li><b>GPT-OSS-20B</b><span>Long-horizon research quality: FRAMES, GAIA, HLE, BrowseComp</span></li>
                 <li><b>Qwen3-4B</b><span>Single-node math training: Riemann-Bench, Omni-MATH, AIME 2025 and 2026</span></li>
                 <li><b>Qwen3-4B</b><span>Single-node coding training: LiveCodeBench Hard, SWE-bench Live</span></li>
@@ -354,51 +228,242 @@
               </ul>
             </div>
           </div>
-
-          <div class="tab-actions">
+          <p class="panel-note"><strong>Four enforced gates:</strong> novelty (scouts, proposers, and critics), fidelity (a frozen specification checked before training), efficiency (a staged funnel), and trust (held-out scores bound to checkpoints). If nothing improves, it keeps the incumbent and explains why.</p>
+          <div class="panel-actions">
             <a class="btn btn-primary" href="trainforge/">Open SFR-AutoR&amp;D-TrainForge →</a>
-            <a class="btn btn-secondary" href="trainforge/#demo">Watch the three-minute demo</a>
+            <a class="btn btn-secondary" href="trainforge/#demo">Watch the demo</a>
             <a class="btn btn-secondary" href="https://zhaoyiran924.github.io/trainforge/" target="_blank" rel="noopener">Original page by Yiran Zhao ↗</a>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
+    <p class="board-hint">Hover, click, or use ← → to move between sub-projects.</p>
   </div>
 </section>
 
-<!-- ==================== More coming ==================== -->
-<section id="more" style="padding-top:1.2rem;padding-bottom:4.2rem">
+<!-- ==================== In practice ==================== -->
+<section id="practice" class="ed">
   <div class="container">
-    <h2 class="section-title">More Coming</h2>
-    <div class="more-card">
-      <div class="more-icon">✨</div>
-      <h3>More SFR-AutoR&amp;D sub-projects are in progress</h3>
-      <p>The same loop is being pointed at new targets across Salesforce AI Research. Each new sub-project will appear here, with its own page, once it clears the same evidence bar as the two above.</p>
+    <div class="ed-grid">
+      <div class="ed-head reveal">
+        <span class="kicker">Implications</span>
+        <h2>What this means in practice</h2>
+      </div>
+      <div class="ed-prose reveal" style="--i:1">
+        <p>An SFR-AutoR&amp;D agent returns <strong>artifacts</strong>: a working patch or a verified checkpoint, bundled with the benchmark record, the correctness checks, and the analysis that justify it. A reviewer can read the evidence before the code, and a maintainer can rerun it.</p>
+        <p>The loop transfers because the discipline transfers. Paired measurements, exact output checks, held-out evaluation, and confidence bounds are the habits a careful research scientist keeps, and they work whether the target is a dataframe kernel, a vector index, an RL stack, or a model under training.</p>
+        <blockquote class="pull">Every claim ships with the test that would have falsified it.</blockquote>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <img src="assets/salesforce.svg" alt="Salesforce">
-  <p><strong>SFR-AutoR&amp;D</strong> · Salesforce AI Research · 2026</p>
-  <p>SFR-AutoR&amp;D-Engineer and SFR-AutoR&amp;D-TrainForge each have their own page with full results, figures, and links. Performance figures are point-in-time measurements under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</p>
+<!-- ==================== What's next ==================== -->
+<section id="next" class="ed">
+  <div class="container">
+    <div class="ed-grid">
+      <div class="ed-head reveal">
+        <span class="kicker">Roadmap</span>
+        <h2>What's next</h2>
+      </div>
+      <div class="ed-prose reveal" style="--i:1">
+        <p>The loop is being pointed at new targets across Salesforce AI Research. New sub-projects will appear on this page, each with its own site, once they clear the same evidence bar as the two below.</p>
+        <div class="def-rows">
+          <div class="def-row"><b>SFR-AutoR&amp;D-Engineer</b><p>Performance research on real code, with seven verified optimizations and five upstream pull requests so far. <a href="engineer/">Open the page →</a></p></div>
+          <div class="def-row"><b>SFR-AutoR&amp;D-TrainForge</b><p>Autonomous model training, with four programs in progress and a recorded end-to-end demo. <a href="trainforge/">Open the page →</a></p></div>
+          <div class="def-row"><b>More sub-projects</b><p>In progress. They will be listed here as they launch.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot-ed">
+  <div><strong>SFR-AutoR&amp;D</strong> · Salesforce AI Research · 2026</div>
+  <div><a href="engineer/">SFR-AutoR&amp;D-Engineer</a> · <a href="trainforge/">SFR-AutoR&amp;D-TrainForge</a> · <a href="https://zhaoyiran924.github.io/trainforge/" target="_blank" rel="noopener">Original TrainForge page ↗</a></div>
+  <div class="fine">Performance figures are point-in-time measurements under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</div>
 </footer>
 
 <script>
 (function(){
-  var map={'#engineer':'tab-engineer','#trainforge':'tab-trainforge'};
-  function fromHash(scroll){
-    var id=map[location.hash]; if(!id) return;
-    document.getElementById(id).checked=true;
-    if(scroll) document.getElementById('contributions').scrollIntoView();
+  var root=document.documentElement;
+  root.classList.remove('no-js');
+  var reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var siteNav=document.querySelector('.site-nav');
+  var secNav=document.querySelector('.section-nav');
+
+  /* sticky offsets: the section nav sits right under the family nav when that one is sticky */
+  function setOffsets(){
+    var h=0;
+    if(siteNav&&getComputedStyle(siteNav).position==='sticky') h=siteNav.getBoundingClientRect().height;
+    root.style.setProperty('--nav-h',Math.round(h)+'px');
+    if(secNav) root.style.setProperty('--subnav-h',Math.round(secNav.getBoundingClientRect().height)+'px');
   }
-  fromHash(true);
-  window.addEventListener('hashchange',function(){fromHash(false);});
-  var radios=document.querySelectorAll('.tabs input[type=radio]');
-  for(var i=0;i<radios.length;i++){
-    radios[i].addEventListener('change',function(e){
-      if(e.target.checked) history.replaceState(null,'','#'+e.target.id.replace('tab-',''));
+  setOffsets();
+  window.addEventListener('resize',setOffsets);
+
+  /* count-up for the stat strip */
+  function countUp(el){
+    if(reduce||el.getAttribute('data-done')) return;
+    el.setAttribute('data-done','1');
+    var target=parseInt(el.getAttribute('data-count'),10);
+    if(isNaN(target)) return;
+    var start=null,dur=900;
+    function step(ts){
+      if(start===null) start=ts;
+      var p=Math.min(1,(ts-start)/dur), e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*e);
+      if(p<1) requestAnimationFrame(step); else el.textContent=target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* scroll reveal */
+  var reveals=[].slice.call(document.querySelectorAll('.reveal'));
+  function restartBars(scope){
+    if(reduce) return;
+    [].slice.call(scope.querySelectorAll('.board-panel.active .gain-fill')).forEach(function(el){
+      el.style.animation='none'; void el.offsetWidth; el.style.animation='';
     });
+  }
+  function show(el){
+    el.classList.add('is-visible');
+    [].slice.call(el.querySelectorAll('[data-count]')).forEach(countUp);
+    if(el.hasAttribute('data-board')) restartBars(el);
+  }
+  if(reduce||!('IntersectionObserver' in window)){
+    reveals.forEach(function(el){el.classList.add('is-visible');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){show(en.target);io.unobserve(en.target);} });
+    },{rootMargin:'0px 0px -10% 0px',threshold:0.12});
+    reveals.forEach(function(el){io.observe(el);});
+  }
+
+  /* section nav: scroll-spy and smooth jumps */
+  var links=[].slice.call(document.querySelectorAll('.section-nav a.sn-link'));
+  var sections=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  var track=document.querySelector('.section-nav-track');
+  var frame=null,currentId=null;
+  function marker(){
+    var nav=parseFloat(getComputedStyle(root).getPropertyValue('--nav-h'))||0;
+    return nav+(secNav?secNav.getBoundingClientRect().height:0)+24;
+  }
+  function centerLink(link){
+    if(!track||!link) return;
+    var left=link.offsetLeft-(track.clientWidth-link.offsetWidth)/2;
+    if(track.scrollTo) track.scrollTo({left:Math.max(0,left),behavior:reduce?'auto':'smooth'});
+  }
+  function update(){
+    var m=marker(),current=sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top<=m) current=s; });
+    links.forEach(function(a){
+      if(current&&a.getAttribute('href')==='#'+current.id) a.setAttribute('aria-current','location');
+      else a.removeAttribute('aria-current');
+    });
+    var id=current?current.id:null;
+    if(id!==currentId){
+      currentId=id;
+      centerLink(links.filter(function(a){return a.getAttribute('href')==='#'+id;})[0]);
+    }
+    frame=null;
+  }
+  function req(){ if(!frame) frame=requestAnimationFrame(update); }
+  if(sections.length){
+    window.addEventListener('scroll',req,{passive:true});
+    window.addEventListener('resize',req);
+    links.forEach(function(a){
+      a.addEventListener('click',function(e){
+        var t=document.querySelector(a.getAttribute('href'));
+        if(!t) return;
+        e.preventDefault();
+        t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+        history.replaceState(null,document.title,location.pathname+location.search);
+      });
+    });
+    update();
+  }
+
+  /* pages dropdown */
+  var trig=document.querySelector('.pages-trigger'),menu=document.querySelector('.pages-menu');
+  if(trig&&menu){
+    menu.hidden=true;
+    var closeMenu=function(){trig.setAttribute('aria-expanded','false');menu.hidden=true;};
+    var openMenu=function(){trig.setAttribute('aria-expanded','true');menu.hidden=false;};
+    trig.addEventListener('click',function(e){e.stopPropagation(); if(menu.hidden) openMenu(); else closeMenu();});
+    menu.addEventListener('click',function(e){e.stopPropagation();});
+    document.addEventListener('click',closeMenu);
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
+  }
+
+  /* sub-project switcher: hover, click, arrow keys, hash */
+  var board=document.querySelector('[data-board]');
+  if(board){
+    var tabs=[].slice.call(board.querySelectorAll('.board-tab'));
+    var panels=[].slice.call(board.querySelectorAll('.board-panel'));
+    var stage=board.querySelector('.board-stage');
+    var active=0;
+    /* pin the stage to the taller panel so switching never moves the tabs under the pointer */
+    function measureStage(){
+      if(!stage) return;
+      var max=0;
+      panels.forEach(function(p){
+        var wasHidden=p.hidden;
+        if(wasHidden){ p.hidden=false; p.style.visibility='hidden'; p.style.position='absolute'; p.style.width=stage.clientWidth+'px'; }
+        max=Math.max(max,p.offsetHeight);
+        if(wasHidden){ p.hidden=true; p.style.visibility=''; p.style.position=''; p.style.width=''; }
+      });
+      stage.style.minHeight=max?max+'px':'';
+    }
+    function select(i,focus,writeHash){
+      i=Math.max(0,Math.min(tabs.length-1,i));
+      active=i;
+      tabs.forEach(function(t,k){
+        var on=k===i;
+        t.setAttribute('aria-selected',on?'true':'false');
+        t.tabIndex=on?0:-1;
+      });
+      panels.forEach(function(p,k){
+        var on=k===i;
+        p.hidden=!on;
+        p.classList.toggle('active',on);
+        if(on) restartBars(board);
+      });
+      board.style.setProperty('--board-accent',panels[i].getAttribute('data-accent')||'');
+      if(focus){ try{tabs[i].focus({preventScroll:true});}catch(err){tabs[i].focus();} }
+      if(writeHash) history.replaceState(null,document.title,'#'+panels[i].getAttribute('data-hash'));
+    }
+    tabs.forEach(function(t,k){
+      t.addEventListener('pointermove',function(e){
+        /* a real mouse movement over a tab switches to it; the stage height is pinned so switching never shifts the tabs */
+        if((e.pointerType&&e.pointerType!=='mouse')||active===k) return;
+        select(k,false,false);
+      });
+      t.addEventListener('click',function(){select(k,false,true);});
+      t.addEventListener('keydown',function(e){
+        if(e.key==='Home'){e.preventDefault();select(0,true,true);return;}
+        if(e.key==='End'){e.preventDefault();select(tabs.length-1,true,true);return;}
+        var d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];
+        if(!d) return;
+        e.preventDefault();
+        select(active+d,true,true);
+      });
+    });
+    var stageTimer=null;
+    window.addEventListener('resize',function(){ clearTimeout(stageTimer); stageTimer=setTimeout(measureStage,120); });
+    function fromHash(scroll){
+      var h=location.hash.replace('#','');
+      var k=panels.map(function(p){return p.getAttribute('data-hash');}).indexOf(h);
+      if(k<0) return false;
+      select(k,false,false);
+      if(scroll){ var sec=document.getElementById('projects'); if(sec) sec.scrollIntoView({block:'start'}); }
+      return true;
+    }
+    measureStage();
+    if(!fromHash(true)) select(0,false,false);
+    window.addEventListener('hashchange',function(){fromHash(true);});
+    window.addEventListener('load',measureStage);
   }
 })();
 </script>
