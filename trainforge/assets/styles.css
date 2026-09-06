@@ -159,6 +159,28 @@ a {
   transform: scaleX(1);
 }
 
+.site-nav .family-link {
+  margin-left: 4px;
+  border: 1px solid #cce2f3;
+  border-radius: 999px;
+  background: var(--wash-blue);
+  padding: 8px 11px;
+  color: var(--action);
+}
+
+.site-nav .family-link::after {
+  display: none;
+}
+
+.site-nav .family-link:hover {
+  border-color: var(--cloud);
+  background: #e3f3ff;
+}
+
+.site-nav .family-link + .family-link {
+  margin-left: 0;
+}
+
 .site-nav .external-link {
   margin-left: 4px;
   border: 1px solid #cce2f3;
@@ -1974,6 +1996,10 @@ figcaption,
   }
 
   .site-nav .external-link {
+    margin-left: 0;
+  }
+
+  .site-nav .family-link {
     margin-left: 0;
   }
 

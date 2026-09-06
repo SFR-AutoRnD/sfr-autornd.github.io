@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Give AutoResearch Training Forge a baseline model and training target; get back the best verified model while budgets, code, checkpoints, and evaluation remain controlled." />
-    <title>AutoResearch Training Forge · Salesforce AI Research</title>
+    <meta name="description" content="Give SFR-AutoR&amp;D-TrainForge a baseline model and training target; get back the best verified model while budgets, code, checkpoints, and evaluation remain controlled." />
+    <title>SFR-AutoR&amp;D-TrainForge · Salesforce AI Research</title>
     <link rel="icon" href="assets/salesforce-logo.jpg" />
+    <link rel="canonical" href="https://zhaoyiran924.github.io/trainforge/" />
     <link rel="stylesheet" href="assets/styles.css?v=20" />
     <script src="assets/site.js?v=3" defer></script>
   </head>
@@ -17,7 +18,7 @@
         <a class="site-brand" href="index.html">
           <img src="assets/salesforce-logo.jpg" alt="Salesforce" />
           <span>
-            <strong>AutoResearch</strong>
+            <strong>SFR-AutoR&amp;D-TrainForge</strong>
             <small>Salesforce AI Research</small>
           </span>
         </a>
@@ -27,9 +28,8 @@
           <a href="index.html#contributions">Contributions</a>
           <a href="index.html#programs">Runs</a>
           <a href="index.html#demo">Demo</a>
-          <a class="external-link" href="https://sfr-autoresearch.github.io/" target="_blank" rel="noreferrer">
-            AutoR&amp;D <span aria-hidden="true">↗</span>
-          </a>
+          <a class="family-link" href="../">SFR-AutoR&amp;D</a>
+          <a class="family-link" href="../engineer/">SFR-AutoR&amp;D-Engineer</a>
         </nav>
       </header>
     
@@ -39,13 +39,14 @@
             <p class="eyebrow">Autonomous model training · Salesforce AI Research</p>
             <h1>Give it a target. Get back the <span>best verified model.</span></h1>
             <p class="hero-deck">
-              Training Forge autonomously designs the data, tools, training, and evaluation;
+              SFR-AutoR&amp;D-TrainForge autonomously designs the data, tools, training, and evaluation;
               writes and validates the code; runs the experiments; and returns the best
               verified checkpoint. If nothing improves, it keeps the incumbent and explains why.
             </p>
             <div class="hero-actions">
               <a class="button primary" href="#demo">Watch autonomous training</a>
               <a class="button secondary" href="#programs">See active training programs</a>
+              <a class="button secondary" href="https://zhaoyiran924.github.io/trainforge/" target="_blank" rel="noreferrer">Original page by Yiran Zhao ↗</a>
             </div>
           </div>
           <aside class="hero-autotrain-card" aria-label="Autonomous Training Forge loop">
@@ -119,13 +120,13 @@
         <section class="branch-band" aria-labelledby="branches-title">
           <div>
             <p class="section-kicker">One research family, two branches</p>
-            <h2 id="branches-title">AutoResearch works on code and models.</h2>
+            <h2 id="branches-title">SFR-AutoR&amp;D works on code and models.</h2>
           </div>
-          <a href="https://sfr-autoresearch.github.io/" target="_blank" rel="noreferrer">
-            <span>01</span><strong>AutoR&amp;D</strong><small>Script and systems optimization</small><i>↗</i>
+          <a href="../engineer/">
+            <span>01</span><strong>SFR-AutoR&amp;D-Engineer</strong><small>Performance research on real code</small><i>→</i>
           </a>
           <div class="active">
-            <span>02</span><strong>Training Forge</strong><small>Model-training research</small><i>Here</i>
+            <span>02</span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Model-training research</small><i>Here</i>
           </div>
         </section>
 
@@ -136,8 +137,8 @@
               <h2>The loop runs itself. Every handoff stays controlled.</h2>
             </div>
             <p>
-              Training Forge owns the complete pipeline—data, tools, training, and
-              evaluation—while novelty, implementation fidelity, compute, and promotion
+              Training Forge owns the complete pipeline: data, tools, training, and
+              evaluation. Novelty, implementation fidelity, compute, and promotion
               are enforced as gates.
             </p>
           </div>
@@ -282,7 +283,7 @@
           <div><dt>Target tasks</dt><dd>Riemann-Bench · Omni-MATH · AIME 2025 · AIME 2026</dd></div>
         </dl>
         
-          <p class="details-placeholder">Placeholder — current status, compute, ideas, and results will be added later.</p>
+          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
         
       </article>
     
@@ -301,7 +302,7 @@
           <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
         </dl>
         
-          <p class="details-placeholder">Placeholder — current status, compute, ideas, and results will be added later.</p>
+          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
         
       </article>
     
@@ -320,7 +321,7 @@
           <div><dt>Target tasks</dt><dd>PolyMath + PluraMath multilingual math · MMLU-ProX cross-lingual reasoning</dd></div>
         </dl>
         
-          <p class="details-placeholder">Placeholder — current status, compute, ideas, and results will be added later.</p>
+          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
         
       </article>
     </div>
@@ -332,7 +333,7 @@
               <p class="section-kicker">Guided demonstration</p>
               <h2>Three minutes from target to verified adapter.</h2>
             </div>
-            <p>The recorded run removes waiting time, not training work or evaluation.</p>
+            <p>The recorded run trims only the waiting time. Training work and evaluation are shown in full.</p>
           </div>
           <div class="video-frame">
             <video controls preload="metadata" poster="assets/video-poster.svg?v=2">
@@ -345,8 +346,8 @@
             H200 and promotes only the adapter reproduced from disk.
           </p>
           <p class="figure-note">
-            The video presents its recorded demo profile. Fidelity budgets are profile-specific;
-            the frozen contract for a run—not a UI default—is authoritative.
+            The video presents its recorded demo profile. Fidelity budgets are profile-specific,
+            and the frozen contract for a run is authoritative.
           </p>
         </section>
 
@@ -355,7 +356,7 @@
       <footer class="site-footer">
         <div>
           <img src="assets/salesforce-logo.jpg" alt="" />
-          <span><strong>AutoResearch · Training Forge</strong><small>Salesforce AI Research</small></span>
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research</small></span>
         </div>
         <p>Research claims are shown with their evaluation status. No improvement means no promotion.</p>
       </footer>
