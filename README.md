@@ -6,7 +6,7 @@ development agents from Salesforce AI Research, and for its two sub-projects:
 | Page | URL | What it is |
 |---|---|---|
 | SFR-AutoR&D | <https://sfr-autornd.github.io/> | Mission, shared design (Figure 1 loop), a two-tab summary of the sub-projects, and a placeholder card for future sub-projects. |
-| SFR-AutoR&D-Engineer | <https://sfr-autornd.github.io/engineer/> | Performance research on real code: pandas, SFR-RL, USearch, hnswlib. |
+| SFR-AutoR&D-Engineer | <https://sfr-autornd.github.io/engineer/> | Engineering goals on real code: pandas, SFR-RL, USearch, hnswlib. |
 | SFR-AutoR&D-TrainForge | <https://sfr-autornd.github.io/trainforge/> | Autonomous model training. Copied from Yiran Zhao's `zhaoyiran924/trainforge` repository. |
 
 Static site, no build step:

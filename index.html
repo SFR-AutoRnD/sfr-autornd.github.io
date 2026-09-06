@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SFR-AutoR&amp;D · Salesforce AI Research</title>
-<meta name="description" content="SFR-AutoR&amp;D is the family of autonomous research and development agents from Salesforce AI Research. One home for every sub-project: SFR-AutoR&amp;D-Engineer for performance research on real code and SFR-AutoR&amp;D-TrainForge for autonomous model training.">
+<meta name="description" content="SFR-AutoR&amp;D is the family of autonomous research and development agents from Salesforce AI Research. One home for every sub-project: SFR-AutoR&amp;D-Engineer, which takes an engineering goal on real code and reaches it with proof, and SFR-AutoR&amp;D-TrainForge for autonomous model training.">
 <meta property="og:title" content="SFR-AutoR&amp;D: autonomous research and development from Salesforce AI Research">
 <meta property="og:description" content="Agents that take a real target, run their own experiments, and ship only what they can prove. Home of SFR-AutoR&amp;D-Engineer and SFR-AutoR&amp;D-TrainForge.">
 <meta property="og:type" content="website">
@@ -61,7 +61,7 @@
     <div class="pages">
       <button class="pages-trigger" type="button" aria-expanded="false" aria-controls="pages-menu">Pages <span class="caret" aria-hidden="true">▾</span></button>
       <ul class="pages-menu" id="pages-menu">
-        <li><a href="engineer/">SFR-AutoR&amp;D-Engineer <small>Performance research on real code</small></a></li>
+        <li><a href="engineer/">SFR-AutoR&amp;D-Engineer <small>Engineering goals on real code</small></a></li>
         <li><a href="trainforge/">SFR-AutoR&amp;D-TrainForge <small>Autonomous model training</small></a></li>
       </ul>
     </div>
@@ -83,10 +83,10 @@
     <div class="q-row">
       <article class="q-card reveal" style="--i:0">
         <div class="q-label">01 / Code</div>
-        <h3 class="q-title">Can an agent make production code faster, and prove it?</h3>
+        <h3 class="q-title">Given a goal on production code, can an agent reach it, and prove it?</h3>
         <div class="q-meta"><span>SFR-AutoR&amp;D-Engineer</span><a href="engineer/">View page ↗</a></div>
-        <p>The agent studies mature, heavily optimized codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins it can back with evidence. Seven verified optimizations so far across pandas, USearch, hnswlib, and the SFR-RL stack.</p>
-        <div class="q-test"><small>Test</small>Exact output equality on every patch, and paired benchmarks with confidence bounds.</div>
+        <p>Point it at a codebase and give it a goal: fit a training run in memory, raise throughput, cut latency, keep a pipeline stable. It studies the system, invents its own ideas, runs controlled experiments, and keeps only the changes that reach the goal with evidence. Seven verified results so far across pandas, USearch, hnswlib, and the SFR-RL stack.</p>
+        <div class="q-test"><small>Test</small>Exact output equality on every change, and paired measurements with confidence bounds.</div>
       </article>
       <div class="q-arrow" aria-hidden="true">→</div>
       <article class="q-card reveal" style="--i:1">
@@ -117,7 +117,7 @@
           <span class="kicker">How SFR-AutoR&amp;D works</span>
           <h2>One loop, two targets.</h2>
         </div>
-        <p class="ed-lead reveal" style="--i:1;padding-top:1.2rem">The loop is the same whether the target is a hot path in a production library or a model and its benchmark. Only the gates change shape: exact output checks for code, held-out evaluation for models.</p>
+        <p class="ed-lead reveal" style="--i:1;padding-top:1.2rem">The loop is the same whether the target is an engineering goal on a production codebase or a model and its benchmark. Only the gates change shape: exact output checks for code, held-out evaluation for models.</p>
         <div class="reveal" style="--i:2">
           <svg class="loop-line" viewBox="0 0 440 112" role="img" aria-label="The loop: scope, propose, build, verify, promote. Ideas with weak evidence return to propose.">
             <defs>
@@ -137,7 +137,7 @@
         </div>
       </div>
       <div class="stepper reveal" style="--i:1" aria-label="The SFR-AutoR&amp;D loop">
-        <div class="step" style="--i:0"><i>01</i><div><small>Scope</small><b>Scope the target</b><span class="desc">Study the system and find where the performance or the capability is hiding.</span></div></div>
+        <div class="step" style="--i:0"><i>01</i><div><small>Scope</small><b>Scope the target</b><span class="desc">Study the system and measure the gap between where it stands and the goal.</span></div></div>
         <div class="step" style="--i:1"><i>02</i><div><small>Propose</small><b>Propose ideas</b><span class="desc">Generate many candidate changes, like a researcher working through a hypothesis list.</span></div></div>
         <div class="step" style="--i:2"><i>03</i><div><small>Build</small><b>Build and run</b><span class="desc">Implement each idea and run it against the unmodified baseline in a sandbox.</span></div></div>
         <div class="step" style="--i:3"><i>04</i><div><small>Verify</small><b>Verify and measure</b><span class="desc">Correctness gates and statistics with confidence bounds decide what is real.</span></div></div>
@@ -161,33 +161,33 @@
 
     <div class="board reveal" data-board style="--i:1">
       <div class="board-tabs" role="tablist" aria-label="Sub-projects">
-        <button class="board-tab" type="button" role="tab" id="tab-engineer" aria-controls="panel-engineer" aria-selected="true" tabindex="0"><small>01 / Code</small><b>SFR-AutoR&amp;D-Engineer</b><span>Performance research on real code</span></button>
+        <button class="board-tab" type="button" role="tab" id="tab-engineer" aria-controls="panel-engineer" aria-selected="true" tabindex="0"><small>01 / Code</small><b>SFR-AutoR&amp;D-Engineer</b><span>Engineering goals on real code</span></button>
         <button class="board-tab" type="button" role="tab" id="tab-trainforge" aria-controls="panel-trainforge" aria-selected="false" tabindex="-1"><small>02 / Models</small><b>SFR-AutoR&amp;D-TrainForge</b><span>Autonomous model training</span></button>
       </div>
       <div class="board-stage">
         <section class="board-panel active" id="panel-engineer" role="tabpanel" aria-labelledby="tab-engineer" data-accent="#0176D3" data-hash="engineer">
           <div class="panel-head">
-            <div><small>Sub-project 01 · four codebases, three problem domains</small><h3>SFR-AutoR&amp;D-Engineer</h3></div>
-            <div class="headline-stat"><b>7 verified optimizations</b><span>5 upstream pull requests · correctness verified on every patch</span></div>
+            <div><small>Sub-project 01 · four codebases, three problem domains, one goal at a time</small><h3>SFR-AutoR&amp;D-Engineer</h3></div>
+            <div class="headline-stat"><b>7 goals reached</b><span>7 verified optimizations · 5 upstream pull requests · correctness verified on every change</span></div>
           </div>
           <div class="viz-grid">
             <div class="viz-card">
-              <h4>Throughput gains in open-source libraries</h4>
-              <div class="sub">Best verified speedup per library, exact same outputs</div>
+              <h4>Speed goals in open-source libraries</h4>
+              <div class="sub">Best verified gain per library, with exactly the same outputs</div>
               <div class="gain-row" style="--i:0"><span>pandas · nullable-dtype math</span><div class="gain-track"><div class="gain-fill" style="width:100%" title="pandas: up to 1.84× faster (+84%) on row-wise math over nullable dtypes"></div></div><b>+84%</b></div>
               <div class="gain-row" style="--i:1"><span>USearch · cached norms</span><div class="gain-track"><div class="gain-fill" style="width:20.8%" title="USearch: +17.5% search throughput with cached vector norms"></div></div><b>+17.5%</b></div>
               <div class="gain-row" style="--i:2"><span>hnswlib · visited-list leases</span><div class="gain-track"><div class="gain-fill" style="width:4.9%" title="hnswlib: +4.1% batch-query throughput with worker-scoped visited-list leases"></div></div><b>+4.1%</b></div>
             </div>
             <div class="viz-card">
-              <h4>Inside Salesforce's SFR-RL stack</h4>
-              <div class="sub">Two optimizations in our RL post-training stack, results only</div>
+              <h4>Two goals in Salesforce's SFR-RL stack</h4>
+              <div class="sub">Fit training in memory, then speed up generation. Results only.</div>
               <div class="big-stats">
                 <div class="big-stat"><b>−39%</b><span>peak training memory: runs that crashed now complete 19 stable RL updates</span></div>
                 <div class="big-stat"><b>3.14×</b><span>generation throughput on long-output workloads, with token-identical outputs</span></div>
               </div>
             </div>
           </div>
-          <p class="panel-note"><strong>Every number carries its evidence.</strong> The pandas patches passed 136K exact differential checks with zero mismatches, and every speedup is a paired, multi-seed measurement with confidence bounds.</p>
+          <p class="panel-note"><strong>Every number carries its evidence.</strong> The pandas patches passed 136K exact differential checks with zero mismatches, and every gain is a paired, multi-seed measurement with confidence bounds.</p>
           <div class="panel-actions">
             <a class="btn btn-primary" href="engineer/">Open SFR-AutoR&amp;D-Engineer →</a>
             <a class="btn btn-secondary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">USearch PR ↗</a>
