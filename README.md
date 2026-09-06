@@ -49,6 +49,9 @@ This is the GitHub Pages user site of the `SFR-AutoRnD` organization (repository
 `sfr-autornd.github.io`), served from the **default branch** at the repository
 root. GitHub does not redirect the old `sfr-autoresearch.github.io` address
 after an organization rename, so external links should point at the new host.
+The old address is kept alive by a one-page redirect site in the re-created
+`SFR-Autoresearch` organization (repository `sfr-autoresearch.github.io`),
+which forwards every page here and maps old section links to `/engineer/`.
 
 ## Placeholders still to fill in
 
