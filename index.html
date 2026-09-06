@@ -28,20 +28,14 @@
 
 <!-- ==================== Hero ==================== -->
 <header class="hero-ed" id="top">
-  <div class="kicker reveal" style="--i:0">Salesforce AI Research · Autonomous R&amp;D</div>
-  <p class="byline reveal" style="--i:1">
-    <span class="byline-row"><a href="https://shreypandit.github.io/" target="_blank" rel="noopener">Shrey Pandit</a> · <a href="https://zhaoyiran924.github.io/" target="_blank" rel="noopener">Yiran Zhao</a></span>
-    <span class="byline-row"><a href="https://nxphi47.github.io/" target="_blank" rel="noopener">Xuan-Phi Nguyen</a> · <a href="https://raihanjoty.github.io/" target="_blank" rel="noopener">Shafiq Joty</a></span>
-    <span class="byline-row byline-org">Salesforce AI Research · 2026</span>
-  </p>
-  <h1 class="reveal" style="--i:2">SFR-AutoR&amp;D</h1>
-  <p class="deck reveal" style="--i:3">
+  <h1 class="reveal" style="--i:0">SFR-AutoR&amp;D</h1>
+  <p class="deck reveal" style="--i:1">
     SFR-AutoR&amp;D is the family of autonomous research and development agents from Salesforce AI Research.
     <strong>Research finds what is new. Development ships what is proven.</strong> Each agent takes a real
     target, forms its own hypotheses, runs controlled experiments, and promotes only the candidates that
     survive the evidence. This page is the home for every sub-project, its evidence, and its artifacts.
   </p>
-  <div class="stat-strip reveal" style="--i:4">
+  <div class="stat-strip reveal" style="--i:2">
     <div><b data-count="2">2</b><span>sub-projects</span></div>
     <div><b data-count="4">4</b><span>codebases improved</span></div>
     <div><b data-count="7">7</b><span>vetted optimizations</span></div>
@@ -60,6 +54,7 @@
       <a class="sn-link" href="#projects">Sub-projects</a>
       <a class="sn-link" href="#practice">In practice</a>
       <a class="sn-link" href="#next">What's next</a>
+      <a class="sn-link" href="#team">Team</a>
     </div>
     <div class="pages">
       <button class="pages-trigger" type="button" aria-expanded="false" aria-controls="pages-menu">Pages <span class="caret" aria-hidden="true">▾</span></button>
@@ -273,6 +268,39 @@
     </div>
   </div>
 </section>
+<!-- ==================== Team ==================== -->
+<section id="team" class="ed team">
+  <div class="container">
+    <div class="team-block reveal">
+      <div class="kicker">Salesforce AI Research · Autonomous R&amp;D</div>
+      <div class="authors team-row">
+        <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
+          <img class="author-img" src="trainforge/assets/shrey-pandit.jpg" alt="Shrey Pandit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="author-img author-fallback">SP</div>
+          <span class="author-name">Shrey Pandit</span>
+        </a>
+        <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
+          <img class="author-img" src="trainforge/assets/yiran-zhao.jpg" alt="Yiran Zhao" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="author-img author-fallback">YZ</div>
+          <span class="author-name">Yiran Zhao</span>
+        </a>
+      </div>
+      <div class="authors team-row">
+        <a href="https://nxphi47.github.io/" class="author" target="_blank" rel="noopener">
+          <img class="author-img" src="trainforge/assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="author-img author-fallback">XN</div>
+          <span class="author-name">Xuan-Phi Nguyen</span>
+        </a>
+        <a href="https://raihanjoty.github.io/" class="author" target="_blank" rel="noopener">
+          <img class="author-img" src="trainforge/assets/shafiq-joty.jpg" alt="Shafiq Joty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="author-img author-fallback">SJ</div>
+          <span class="author-name">Shafiq Joty</span>
+        </a>
+      </div>
+      <p class="byline"><span class="byline-row byline-org">Salesforce AI Research · 2026</span></p>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer class="foot-ed">
@@ -354,6 +382,7 @@
   function update(){
     var m=marker(),current=sections[0];
     sections.forEach(function(s){ if(s.getBoundingClientRect().top<=m) current=s; });
+    if(window.innerHeight+window.pageYOffset>=root.scrollHeight-2) current=sections[sections.length-1];
     links.forEach(function(a){
       if(current&&a.getAttribute('href')==='#'+current.id) a.setAttribute('aria-current','location');
       else a.removeAttribute('aria-current');
