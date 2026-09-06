@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Training Forge guided demo</title>
+  <desc id="desc">A three-minute demonstration of autonomous model training from target through verified checkpoint.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#032d60"/>
+      <stop offset=".58" stop-color="#0b5cab"/>
+      <stop offset="1" stop-color="#0176d3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".75" cy=".2" r=".8">
+      <stop offset="0" stop-color="#1b96ff" stop-opacity=".65"/>
+      <stop offset="1" stop-color="#1b96ff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#ffffff" stroke-opacity=".055"/>
+    </pattern>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#001b3c" flood-opacity=".35"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="96" y="92" width="330" height="42" rx="21" fill="#ffffff" fill-opacity=".1" stroke="#ffffff" stroke-opacity=".22"/>
+    <text x="261" y="119" text-anchor="middle" fill="#cde9ff" font-size="14" font-weight="750" letter-spacing="1.8">SALESFORCE AI RESEARCH</text>
+
+    <text x="96" y="230" fill="#ffffff" font-size="26" font-weight="700" letter-spacing="1.8">AUTORESEARCH / TRAINING FORGE</text>
+    <text x="96" y="326" fill="#ffffff" font-size="70" font-weight="730" letter-spacing="-2.5">Watch autonomous training</text>
+    <text x="96" y="404" fill="#ffffff" font-size="70" font-weight="730" letter-spacing="-2.5">from target to verified model.</text>
+    <text x="100" y="468" fill="#dceeff" font-size="24">A three-minute guided run with real updates and frozen evaluation.</text>
+
+    <g filter="url(#shadow)">
+      <circle cx="1320" cy="330" r="112" fill="#ffffff"/>
+      <circle cx="1320" cy="330" r="97" fill="#1b96ff"/>
+      <path d="M1294 278L1374 330L1294 382Z" fill="#ffffff"/>
+    </g>
+
+    <g transform="translate(96 590)">
+      <rect width="1408" height="162" rx="24" fill="#ffffff" fill-opacity=".09" stroke="#ffffff" stroke-opacity=".2"/>
+      <text x="36" y="43" fill="#90d0fe" font-size="13" font-weight="750" letter-spacing="1.7">THE CONTROLLED LOOP</text>
+
+      <rect x="36" y="72" width="210" height="56" rx="14" fill="#ffffff" fill-opacity=".12"/>
+      <text x="141" y="106" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="680">Set target</text>
+      <text x="278" y="107" fill="#90d0fe" font-size="23">&#8594;</text>
+
+      <rect x="318" y="72" width="210" height="56" rx="14" fill="#ffffff" fill-opacity=".12"/>
+      <text x="423" y="106" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="680">Design</text>
+      <text x="560" y="107" fill="#90d0fe" font-size="23">&#8594;</text>
+
+      <rect x="600" y="72" width="210" height="56" rx="14" fill="#ffffff" fill-opacity=".12"/>
+      <text x="705" y="106" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="680">Train</text>
+      <text x="842" y="107" fill="#90d0fe" font-size="23">&#8594;</text>
+
+      <rect x="882" y="72" width="210" height="56" rx="14" fill="#ffffff" fill-opacity=".12"/>
+      <text x="987" y="106" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="680">Evaluate</text>
+      <text x="1124" y="107" fill="#90d0fe" font-size="23">&#8594;</text>
+
+      <rect x="1164" y="72" width="208" height="56" rx="14" fill="#ffffff"/>
+      <text x="1268" y="106" text-anchor="middle" fill="#032d60" font-size="18" font-weight="720">Verify model</text>
+    </g>
+
+    <text x="96" y="822" fill="#dceeff" font-size="18">3:00 guided demo</text>
+    <text x="1504" y="822" text-anchor="end" fill="#dceeff" font-size="18">Wait time removed, not training work</text>
+  </g>
+</svg>

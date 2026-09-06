@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="title desc">
+  <title id="title">Training Forge autonomous training flow</title>
+  <desc id="desc">A baseline model and training target enter an autonomous design, build, train, evaluate and iterate loop. The control plane governs code, compute, checkpoints, evaluation and approvals. The output is the best verified model.</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fcff"/>
+      <stop offset="1" stop-color="#eef7ff"/>
+    </linearGradient>
+    <linearGradient id="engine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b96ff"/>
+      <stop offset="1" stop-color="#0176d3"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#0176d3" stroke-opacity=".045"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#032d60" flood-opacity=".1"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#1b96ff"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="620" rx="34" fill="#ffffff"/>
+  <rect x="28" y="28" width="1544" height="564" rx="30" fill="url(#canvas)" stroke="#b8d5ea" stroke-width="2"/>
+  <rect x="28" y="28" width="1544" height="564" rx="30" fill="url(#grid)"/>
+
+  <g font-family="Arial, sans-serif">
+    <text x="82" y="88" fill="#0176d3" font-size="13" font-weight="750" letter-spacing="1.7">AUTORESEARCH / TRAINING FORGE</text>
+    <text x="82" y="137" fill="#032d60" font-size="42" font-weight="720" letter-spacing="-1.4">Target in. Best verified model out.</text>
+    <text x="82" y="174" fill="#486b8c" font-size="19">The training loop runs autonomously. The control plane stays in charge.</text>
+  </g>
+
+  <path d="M402 320H475" fill="none" stroke="#1b96ff" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M1110 320H1183" fill="none" stroke="#1b96ff" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)" font-family="Arial, sans-serif">
+    <rect x="82" y="231" width="320" height="178" rx="22" fill="#ffffff" stroke="#b8cee0" stroke-width="2"/>
+    <text x="116" y="273" fill="#0176d3" font-size="13" font-weight="750" letter-spacing="1.5">INPUT</text>
+    <text x="116" y="320" fill="#032d60" font-size="25" font-weight="720">Baseline model</text>
+    <text x="116" y="355" fill="#032d60" font-size="25" font-weight="720">+ training target</text>
+    <text x="116" y="385" fill="#486b8c" font-size="15">Define what should improve.</text>
+
+    <rect x="476" y="215" width="634" height="210" rx="25" fill="url(#engine)"/>
+    <text x="516" y="260" fill="#d8efff" font-size="13" font-weight="750" letter-spacing="1.5">AUTONOMOUS LOOP</text>
+    <text x="516" y="310" fill="#ffffff" font-size="32" font-weight="740">Training Forge</text>
+    <text x="516" y="350" fill="#ffffff" font-size="20" font-weight="620">Design   &#8594;   Build   &#8594;   Train   &#8594;   Evaluate   &#8594;   Iterate</text>
+    <text x="516" y="390" fill="#d8efff" font-size="16">Search ideas, generate code, run experiments, and select the best checkpoint.</text>
+
+    <rect x="1184" y="231" width="334" height="178" rx="22" fill="#ffffff" stroke="#69b8f4" stroke-width="2"/>
+    <text x="1218" y="273" fill="#0176d3" font-size="13" font-weight="750" letter-spacing="1.5">OUTPUT</text>
+    <text x="1218" y="320" fill="#032d60" font-size="25" font-weight="720">Best verified model</text>
+    <text x="1218" y="355" fill="#486b8c" font-size="15">Or keep the incumbent when</text>
+    <text x="1218" y="381" fill="#486b8c" font-size="15">no candidate improves.</text>
+  </g>
+
+  <g font-family="Arial, sans-serif">
+    <text x="82" y="475" fill="#0176d3" font-size="13" font-weight="750" letter-spacing="1.5">CONTROLLED THROUGHOUT</text>
+    <rect x="82" y="498" width="1436" height="62" rx="16" fill="#ffffff" stroke="#b8cee0" stroke-width="2"/>
+
+    <circle cx="126" cy="529" r="13" fill="#e4f2ff"/>
+    <path d="M120 529L125 534L133 524" fill="none" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="151" y="535" fill="#032d60" font-size="16" font-weight="650">Validated code</text>
+
+    <circle cx="398" cy="529" r="13" fill="#e4f2ff"/>
+    <path d="M392 529L397 534L405 524" fill="none" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="423" y="535" fill="#032d60" font-size="16" font-weight="650">Bounded compute</text>
+
+    <circle cx="692" cy="529" r="13" fill="#e4f2ff"/>
+    <path d="M686 529L691 534L699 524" fill="none" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="717" y="535" fill="#032d60" font-size="16" font-weight="650">Exact checkpoints</text>
+
+    <circle cx="1000" cy="529" r="13" fill="#e4f2ff"/>
+    <path d="M994 529L999 534L1007 524" fill="none" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1025" y="535" fill="#032d60" font-size="16" font-weight="650">Frozen evaluation</text>
+
+    <circle cx="1284" cy="529" r="13" fill="#e4f2ff"/>
+    <path d="M1278 529L1283 534L1291 524" fill="none" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1309" y="535" fill="#032d60" font-size="16" font-weight="650">Human approval</text>
+  </g>
+</svg>
