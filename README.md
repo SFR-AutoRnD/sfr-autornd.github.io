@@ -15,8 +15,8 @@ Static site, no build step:
   count-up stat strip, a sticky section nav with scroll-spy and a Pages menu,
   three question cards, a dark five-step loop card with a drawn loop line, a
   sub-project switcher (hover, click, or arrow keys; `#engineer` /
-  `#trainforge` deep links) with animated bar charts, and two editorial
-  sections. All styles live in `assets/site.css`; the behaviour is one inline
+  `#trainforge` deep links) with animated bar charts, an editorial
+  "In practice" section, and a Team band with the four authors. All styles live in `assets/site.css`; the behaviour is one inline
   script at the end of the page. Without JavaScript every section and both
   switcher panels are visible; only the motion and the scroll-spy are lost.
   `prefers-reduced-motion` turns the animations off.
