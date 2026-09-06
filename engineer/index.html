@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AutoR&amp;D · Salesforce AI Research</title>
-<meta name="description" content="AutoR&amp;D is an autonomous AI research agent from Salesforce AI Research that studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove: verified wins in pandas, USearch, hnswlib, and Salesforce's internal SFR-RL stack.">
-<meta property="og:title" content="AutoR&amp;D: an AI agent that does performance research on real code">
+<title>SFR-AutoR&amp;D-Engineer · Salesforce AI Research</title>
+<meta name="description" content="SFR-AutoR&amp;D-Engineer is the autonomous performance-research agent in the SFR-AutoR&amp;D family from Salesforce AI Research. It studies real codebases, invents optimization ideas, tests them experimentally, and ships only what it can prove: verified wins in pandas, USearch, hnswlib, and Salesforce's internal SFR-RL stack.">
+<meta property="og:title" content="SFR-AutoR&amp;D-Engineer: an AI agent that does performance research on real code">
 <meta property="og:description" content="Verified speedups in pandas, USearch and hnswlib, and up to 3.1× faster generation with 39% lower peak memory in Salesforce's internal RL stack, all discovered, tested, and proven by an autonomous research agent.">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/svg+xml" href="assets/salesforce.svg">
+<link rel="icon" type="image/svg+xml" href="../assets/salesforce.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -274,20 +274,48 @@
     section{padding:2.6rem 0}
     .container{padding:0 1.2rem}
   }
+
+  /* ---- site nav (shared across the SFR-AutoR&D pages) ---- */
+  .site-nav{
+    position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:.55rem 2rem;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border-color);
+  }
+  .site-nav-brand{display:inline-flex;align-items:center;gap:.55rem;font-family:'Source Serif 4',serif;font-weight:700;font-size:1.05rem;color:var(--sf-navy);text-decoration:none;white-space:nowrap}
+  .site-nav-brand img{height:22px;width:auto}
+  .site-nav-links{display:flex;flex-wrap:wrap;gap:.2rem .35rem;justify-content:flex-end}
+  .site-nav-links a{font-size:.86rem;font-weight:600;color:var(--text-secondary);text-decoration:none;padding:.35rem .7rem;border-radius:8px;white-space:nowrap;transition:background .2s ease,color .2s ease}
+  .site-nav-links a:hover{color:var(--sf-blue-deep);background:rgba(1,118,211,.06)}
+  .site-nav-links a[aria-current=page]{color:var(--sf-blue-deep);box-shadow:inset 0 -2px 0 var(--sf-blue)}
+  @media(max-width:640px){
+    .site-nav{padding:.45rem 1rem}
+    .site-nav-brand{font-size:.98rem}
+    .site-nav-links a{padding:.3rem .5rem;font-size:.82rem}
+    .site-nav-links .long{display:none}
+  }
 </style>
 </head>
 <body>
 <div class="bg-pattern"></div>
 
+<nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
+  <a class="site-nav-brand" href="../"><img src="../assets/salesforce.svg" alt="">SFR-AutoR&amp;D</a>
+  <div class="site-nav-links">
+    <a href="../">Overview</a>
+    <a href="../engineer/" aria-current="page"><span class="long">SFR-AutoR&amp;D-</span>Engineer</a>
+    <a href="../trainforge/"><span class="long">SFR-AutoR&amp;D-</span>TrainForge</a>
+  </div>
+</nav>
+
 <!-- ==================== Hero ==================== -->
 <header class="hero" id="top">
-  <img class="hero-logo" src="assets/salesforce.svg" alt="Salesforce">
-  <div class="hero-eyebrow">Salesforce AI Research</div>
-  <h1>AutoR&amp;D</h1>
+  <img class="hero-logo" src="../assets/salesforce.svg" alt="Salesforce">
+  <div class="hero-eyebrow">SFR-AutoR&amp;D · Salesforce AI Research</div>
+  <h1>SFR-AutoR&amp;D-Engineer</h1>
   <h2>An AI agent that does performance research on real code, and proves it</h2>
 
   <p class="hero-description">
-    Most coding agents write code. AutoR&amp;D does something harder: it studies mature, battle-tested
+    Most coding agents write code. SFR-AutoR&amp;D-Engineer, the engineering branch of the SFR-AutoR&amp;D family, does something harder: it studies mature, battle-tested
     codebases, invents its own optimization ideas, runs controlled experiments, and keeps only the wins
     it can back with evidence. Its first discoveries are already headed upstream.
   </p>
@@ -393,7 +421,7 @@
 <!-- ==================== Overview ==================== -->
 <section id="overview" style="padding-top:1.2rem">
   <div class="container">
-    <h2 class="section-title">Why We Built AutoR&amp;D</h2>
+    <h2 class="section-title">Why We Built SFR-AutoR&amp;D-Engineer</h2>
     <div class="card abstract">
       <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; turning that into a change that is faster and provably equivalent is the hard part.</p>
       <br>
@@ -405,7 +433,7 @@
 <!-- ==================== How it works ==================== -->
 <section id="how" style="padding-top:1.2rem">
   <div class="container">
-    <h2 class="section-title">How AutoR&amp;D Works</h2>
+    <h2 class="section-title">How SFR-AutoR&amp;D-Engineer Works</h2>
 
     <figure class="diagram">
       <svg viewBox="0 0 960 292" role="img" aria-label="AutoR&amp;D loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
@@ -1047,8 +1075,8 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
 </section>
 
 <footer>
-  <img src="assets/salesforce.svg" alt="Salesforce">
-  <p><strong>AutoR&amp;D</strong> · Salesforce AI Research · 2026</p>
+  <img src="../assets/salesforce.svg" alt="Salesforce">
+  <p><strong>SFR-AutoR&amp;D-Engineer</strong> · Salesforce AI Research · 2026</p>
   <p>pandas, USearch, and hnswlib are independent open-source projects; we're grateful to their maintainers and communities. Performance figures are point-in-time measurements on specific hardware and workloads under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</p>
 </footer>
 
