@@ -34,7 +34,6 @@
 .running-facts dd{font-size:.875rem;line-height:1.6;color:var(--text-primary);margin-top:.35rem}
 .idea-card-topline{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;color:var(--text-muted);font-size:.75rem;margin-bottom:.25rem}
 .status{display:inline-flex;padding:.25rem .6rem;border-radius:999px;font-size:.75rem;font-weight:600;color:var(--sf-blue-deep);background:var(--sf-cloud)}
-.details-placeholder{margin-top:auto;border-left:3px solid var(--sf-blue);border-radius:0 8px 8px 0;background:var(--bg-tertiary);padding:.75rem;font-size:.875rem;line-height:1.6;color:var(--text-secondary)}
 .historical-gains{margin-top:.75rem}
 .historical-gains > div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 2rem}
 .historical-gain-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(45px,.6fr) 58px;align-items:center;gap:.75rem;min-width:0}

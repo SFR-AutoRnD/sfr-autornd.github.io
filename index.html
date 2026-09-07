@@ -75,12 +75,9 @@
 <!-- ==================== Two questions ==================== -->
 <section id="mission" class="ed">
   <div class="container">
-    <div class="ed-grid">
-      <div class="ed-head reveal">
-        <span class="kicker">Two sub-projects · one loop</span>
-        <h2>Two questions for autonomous R&amp;D</h2>
-      </div>
-      <p class="ed-lead reveal" style="--i:1">We split autonomous R&amp;D into two questions. Each one is answered by its own agent, with its own page, evidence, and artifacts.</p>
+    <div class="ed-head reveal">
+      <span class="kicker">Two sub-projects · one loop</span>
+      <h2>Two questions for autonomous R&amp;D</h2>
     </div>
 
     <div class="q-row">
@@ -91,21 +88,12 @@
         <p>Point it at a codebase and give it a goal: fit a training run in memory, raise throughput, cut latency, keep a pipeline stable. It studies the system, invents its own ideas, runs controlled experiments, and keeps only the changes that reach the goal with evidence. Seven verified results so far across pandas, USearch, hnswlib, and the SFR-RL stack.</p>
         <div class="q-test"><small>Test</small>Exact output equality on every change, and paired measurements with confidence bounds.</div>
       </article>
-      <div class="q-arrow" aria-hidden="true">→</div>
       <article class="q-card reveal" style="--i:1">
         <div class="q-label">02 / Models</div>
         <h3 class="q-title">Can an agent train a better model, and verify it?</h3>
         <div class="q-meta"><span>SFR-AutoR&amp;D-TrainForge</span><a href="trainforge/">View page ↗</a></div>
         <p>Give it a baseline model and a target. It designs the data, tools, training, and evaluation, writes and validates the code, runs the experiments, and returns the best verified checkpoint. Four training programs are in progress.</p>
         <div class="q-test"><small>Test</small>Held-out evaluation bound to the checkpoint that produced it. Weak evidence keeps the incumbent.</div>
-      </article>
-      <div class="q-arrow" aria-hidden="true">→</div>
-      <article class="q-card next reveal" style="--i:2">
-        <div class="q-label">03 / Next</div>
-        <h3 class="q-title">More sub-projects are in progress</h3>
-        <div class="q-meta"><span>SFR-AutoR&amp;D</span><span class="soft">Coming soon</span></div>
-        <p>The same loop is being pointed at new targets across Salesforce AI Research. Each new sub-project will get its own page here once it clears the same evidence bar.</p>
-        <div class="q-test"><small>Test</small>The same one: evidence first, then promotion.</div>
       </article>
     </div>
   </div>
@@ -154,12 +142,9 @@
 <!-- ==================== Sub-projects ==================== -->
 <section id="projects" class="board-section">
   <div class="container">
-    <div class="ed-grid">
-      <div class="ed-head reveal">
-        <span class="kicker">Sub-projects · the evidence</span>
-        <h2>Where the evidence comes from</h2>
-      </div>
-      <p class="ed-lead reveal" style="--i:1">Each sub-project keeps its full results, figures, and links on its own page. The panels below are the short version.</p>
+    <div class="ed-head reveal">
+      <span class="kicker">Sub-projects · the evidence</span>
+      <h2>Selected results</h2>
     </div>
 
     <div class="board reveal" data-board style="--i:1">
@@ -247,8 +232,6 @@
       </div>
       <div class="ed-prose reveal" style="--i:1">
         <p>An SFR-AutoR&amp;D agent returns <strong>artifacts</strong>: a working patch or a verified checkpoint, bundled with the benchmark record, the correctness checks, and the analysis that justify it. A reviewer can read the evidence before the code, and a maintainer can rerun it.</p>
-        <p>The loop transfers because the discipline transfers. Paired measurements, exact output checks, held-out evaluation, and confidence bounds are the habits a careful research scientist keeps, and they work whether the target is a dataframe kernel, a vector index, an RL stack, or a model under training.</p>
-        <blockquote class="pull">Every result on these pages comes with the tests and measurements that prove it.</blockquote>
       </div>
     </div>
   </div>

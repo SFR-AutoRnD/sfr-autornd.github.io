@@ -5,7 +5,7 @@ development agents from Salesforce AI Research, and for its two sub-projects:
 
 | Page | URL | What it is |
 |---|---|---|
-| SFR-AutoR&D | <https://sfr-autornd.github.io/> | Mission, shared design (Figure 1 loop), a two-tab summary of the sub-projects, and a placeholder card for future sub-projects. |
+| SFR-AutoR&D | <https://sfr-autornd.github.io/> | Two research directions, the shared research loop, and selected results from both sub-projects. |
 | SFR-AutoR&D-Engineer | <https://sfr-autornd.github.io/engineer/> | Engineering goals on real code: pandas, SFR-RL, USearch, hnswlib. |
 | SFR-AutoR&D-TrainForge | <https://sfr-autornd.github.io/trainforge/> | Autonomous model training. Copied from Yiran Zhao's `zhaoyiran924/trainforge` repository. |
 
@@ -13,7 +13,7 @@ Static site, no build step:
 
 - `index.html`: the umbrella page. Editorial layout: byline hero with a
   count-up stat strip, a sticky section nav with scroll-spy and a Pages menu,
-  three question cards, a dark five-step loop card with a drawn loop line, a
+  two question cards, a dark five-step loop card with a drawn loop line, a
   sub-project switcher (hover, click, or arrow keys; `#engineer` /
   `#trainforge` deep links) with animated bar charts, an editorial
   "In practice" section, and a Team band with the four authors. All styles live in `assets/site.css`; the behaviour is one inline

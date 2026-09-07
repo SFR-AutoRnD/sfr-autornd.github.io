@@ -143,15 +143,6 @@
       </div>
     </div>
 
-    <div class="takeaway-box">
-      <h4>💡 In one minute</h4>
-      <ul>
-        <li><strong>AutoR&amp;D closes the full research loop on its own:</strong> point it at a codebase in any language or domain and it forms hypotheses, implements candidates, benchmarks them under strict controls, and promotes only what survives: a patch bundled with its evidence.</li>
-        <li><strong>It found real wins in heavily-optimized open source:</strong> up to 1.84× faster row-wise math on nullable-dtype <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a> frames and 4–28% (up to 64.6%) on other hot pandas operations, plus +17.5% search throughput in <a href="https://github.com/unum-cloud/usearch" target="_blank" rel="noopener">USearch</a> and +4.1% in <a href="https://github.com/nmslib/hnswlib" target="_blank" rel="noopener">hnswlib</a>. Correctness is verified on every patch, and all five are headed upstream as PRs.</li>
-        <li><strong>On our own SFR-RL stack,</strong> it cut peak training memory ~39% (rescuing runs that crashed) and made generation up to 3.14× faster without changing a single output token.</li>
-        <li><strong>When evidence is mixed, it says no to its own ideas</strong>, and negative results are recorded alongside the wins.</li>
-      </ul>
-    </div>
   </div>
 </section>
 
@@ -532,7 +523,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
         <span class="mini-pill blue">Up to 3.14× generation throughput</span>
         <span class="mini-pill green">Token-for-token identical outputs</span>
       </div>
-      <p>The most satisfying test was pointing AutoR&amp;D at our own infrastructure: <strong>SFR-RL</strong>, the reinforcement-learning stack Salesforce AI Research uses to post-train large models. (SFR-RL is internal, so this page covers the results and keeps the recipes in-house.)</p>
+      <p><strong>SFR-RL</strong> is the reinforcement-learning stack Salesforce AI Research uses to post-train large models. We report the results here; implementation details remain internal.</p>
       <h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
       <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update, and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB (an out-of-memory crash) to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <figure class="chart">
@@ -586,10 +577,6 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </svg>
 <figcaption><strong>Figure 7.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
-      <div class="takeaway-box" style="margin-top:1.4rem">
-        <h4>💡 Why it matters</h4>
-        <p>Faster iterations and no more lost runs: our researchers feel this one every day. And because outputs are verified identical, the speedups are free: no accuracy trade-off, no behavioral drift.</p>
-      </div>
     </div>
 
     <!-- USearch -->
