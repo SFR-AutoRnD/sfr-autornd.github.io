@@ -510,12 +510,11 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </div>
 </details>
       <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
-      <!-- MARKETING: replace the three href="XX" below with the three upstream pandas pull request URLs -->
       <div class="pr-row">
-        <a class="btn btn-primary" href="XX">Nullable-dtype reductions PR →</a>
-        <a class="btn btn-primary" href="XX">String-hashing PR →</a>
-        <a class="btn btn-primary" href="XX">Row-wise reductions PR →</a>
-        <small>Created three PRs to the pandas project, one per optimization.</small>
+        <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-axis1-ea-groupby-fastpath" target="_blank" rel="noopener">Nullable-dtype reductions: view code →</a>
+        <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-stringarray-hashing" target="_blank" rel="noopener">String hashing: view code →</a>
+        <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-axis1-numpy-block-fusion" target="_blank" rel="noopener">Row-wise reductions: view code →</a>
+        <small>Source branches for the three pandas optimizations.</small>
       </div>
     </div>
 

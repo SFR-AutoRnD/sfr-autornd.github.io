@@ -71,14 +71,14 @@ The old address is kept alive by a one-page redirect site in the re-created
 `SFR-Autoresearch` organization (repository `sfr-autoresearch.github.io`),
 which forwards every page here and maps old section links to `/engineer/`.
 
-## Placeholders still to fill in
+## Research source links
 
+The pandas buttons in `engineer/index.html` link to implementation branches
+in `ShreyPandit/pandas` and are labeled as code links:
 
-Search `engineer/index.html` for the `MARKETING:` comments:
+- Nullable-dtype reductions: `perf-axis1-ea-groupby-fastpath`
+- String hashing: `perf-stringarray-hashing`
+- Row-wise reductions: `perf-axis1-numpy-block-fusion`
 
-1. **Pull-request links**: the three buttons on the pandas card
-   (nullable-dtype reductions, string hashing, row-wise reductions) still
-   have `href="XX"`; replace each with the upstream PR URL. The hnswlib
-   (nmslib/hnswlib#676) and USearch (unum-cloud/USearch#787) buttons are
-   already linked.
-2. Optionally add a "Corresponding author" line under the affiliation.
+The hnswlib (nmslib/hnswlib#676) and USearch (unum-cloud/USearch#787) buttons
+link to their upstream pull requests.
