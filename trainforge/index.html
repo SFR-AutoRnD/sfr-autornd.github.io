@@ -1,141 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Give SFR-AutoR&amp;D-TrainForge a baseline model and training target; get back the best verified model while budgets, code, checkpoints, and evaluation remain controlled." />
-    <title>SFR-AutoR&amp;D-TrainForge · Salesforce AI Research</title>
-    <link rel="icon" href="assets/salesforce-logo.jpg" />
-    <link rel="stylesheet" href="assets/styles.css?v=20" />
-    <script src="assets/site.js?v=3" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="page-shell">
-      
-      <header class="site-header">
-        <a class="site-brand" href="index.html">
-          <img src="assets/salesforce-logo.jpg" alt="Salesforce" />
-          <span>
-            <strong>SFR-AutoR&amp;D-TrainForge</strong>
-            <small>Salesforce AI Research</small>
-          </span>
-        </a>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a href="index.html#team">Team</a>
-          <a href="index.html#pipeline">Pipeline</a>
-          <a href="index.html#contributions">Contributions</a>
-          <a href="index.html#programs">Runs</a>
-          <a href="index.html#demo">Demo</a>
-          <a class="family-link" href="../">SFR-AutoR&amp;D</a>
-          <a class="family-link" href="../engineer/">SFR-AutoR&amp;D-Engineer</a>
-        </nav>
-      </header>
-    
-      <main id="main-content">
-        <section class="hero">
-          <div class="hero-copy">
-            <p class="eyebrow">Autonomous model training · Salesforce AI Research</p>
-            <h1>Give it a target. Get back the <span>best verified model.</span></h1>
-            <p class="hero-deck">
-              SFR-AutoR&amp;D-TrainForge autonomously designs the data, tools, training, and evaluation;
-              writes and validates the code; runs the experiments; and returns the best
-              verified checkpoint. If nothing improves, it keeps the incumbent and explains why.
-            </p>
-            <div class="hero-actions">
-              <a class="button primary" href="#demo">Watch autonomous training</a>
-              <a class="button secondary" href="#programs">See active training programs</a>
-            </div>
-          </div>
-          <aside class="hero-autotrain-card" aria-label="Autonomous Training Forge loop">
-            <header>
-              <span>Autonomous training</span>
-              <strong>One target. One controlled loop.</strong>
-            </header>
-            <div class="hero-autotrain-flow">
-              <section>
-                <small>Input</small>
-                <strong>Baseline model + target</strong>
-              </section>
-              <i aria-hidden="true">↓</i>
-              <section class="hero-autotrain-engine">
-                <small>Training Forge</small>
-                <strong>Design → Build → Train → Evaluate</strong>
-                <span>Iterate until target or budget</span>
-              </section>
-              <i aria-hidden="true">↓</i>
-              <section>
-                <small>Output</small>
-                <strong>Best verified model</strong>
-                <span>Or preserve the incumbent</span>
-              </section>
-            </div>
-            <div class="hero-autotrain-controls">
-              <small>Control plane</small>
-              <div>
-                <span>Code contract</span>
-                <span>Compute budget</span>
-                <span>Checkpoints</span>
-                <span>Frozen evaluation</span>
-                <span>Human approval</span>
-              </div>
-            </div>
-          </aside>
-        </section>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SFR-AutoR&amp;D-TrainForge · Salesforce AI Research</title>
+<meta name="description" content="TrainForge is the autonomous model-training agent from Salesforce AI Research. Give it a baseline and a target; get back the best verified checkpoint, with controlled compute and evaluation.">
+<link rel="icon" type="image/svg+xml" href="../assets/salesforce.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="../assets/site.js" defer></script>
+<script src="assets/site.js" defer></script>
+</head>
+<body class="has-section-nav">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="bg-pattern"></div>
+<nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
+  <a class="site-nav-brand" href="../"><img src="../assets/salesforce.svg" alt="Salesforce"><span class="site-nav-wordmark"><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+  <div class="site-nav-links">
+    <a href="../">Overview</a>
+    <a href="../engineer/">Engineer</a>
+    <a href="../trainforge/" aria-current="page">TrainForge</a>
+  </div>
+</nav>
 
-        <section class="author-band" id="team">
-          <div class="author-band-heading">
-            <p class="section-kicker">Authors</p>
-            <strong>Salesforce AI Research</strong>
-            <span>2026</span>
-          </div>
-          <div class="author-grid">
-          <a href="https://zhaoyiran924.github.io/" target="_blank" rel="noreferrer">
-            <img src="assets/yiran-zhao.jpg" alt="Yiran Zhao" width="84" height="84" loading="lazy" decoding="async" />
-            <strong>Yiran Zhao</strong>
-          </a>
-        
+<header class="hero article-hero" id="top">
+  <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
+  <h1><span class="project-family">SFR-AutoR&amp;D</span>TrainForge</h1>
+  <h2>Give it a target. Get back the best verified model.</h2>
+  <p class="hero-description">
+    TrainForge brings the Salesforce AI Research loop to model training. It designs the data,
+    tools, training, and evaluation, writes and validates the code, and runs the experiments.
+    You get the best verified checkpoint. If nothing improves, it keeps the incumbent and explains why.
+  </p>
+  <div class="highlight-pills"><div class="pill-row">
+    <span class="pill exact">4 Training Programs</span>
+    <span class="pill scope">4 Enforced Research Gates</span>
+    <span class="pill memory">Checkpoint-Bound Evaluation</span>
+  </div></div>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#demo">Watch the demo →</a>
+    <a class="btn btn-secondary" href="#programs">Explore training programs</a>
+  </div>
+  <div class="authors" id="team">
+    <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="assets/yiran-zhao.jpg" alt="Yiran Zhao" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">YZ</div><span class="author-name">Yiran Zhao</span>
+    </a>
+    <a href="https://nxphi47.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">XN</div><span class="author-name">Xuan-Phi Nguyen</span>
+    </a>
+    <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="assets/shrey-pandit.jpg" alt="Shrey Pandit" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">SP</div><span class="author-name">Shrey Pandit</span>
+    </a>
+    <a href="https://raihanjoty.github.io/" class="author" target="_blank" rel="noopener">
+      <img class="author-img" src="assets/shafiq-joty.jpg" alt="Shafiq Joty" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="author-img author-fallback">SJ</div><span class="author-name">Shafiq Joty</span>
+    </a>
+  </div>
+  <p class="affiliation">Salesforce AI Research</p>
+  <p class="hero-meta">2026</p>
+</header>
 
-          <a href="https://nxphi47.github.io/" target="_blank" rel="noreferrer">
-            <img src="assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" width="84" height="84" loading="lazy" decoding="async" />
-            <strong>Xuan-Phi Nguyen</strong>
-          </a>
-        
+<nav class="section-nav" aria-label="Explore this page">
+  <div class="section-nav-inner">
+    <div class="section-nav-title">TrainForge</div>
+    <div class="section-nav-track">
+      <a class="sn-link" href="#pipeline">How it works</a>
+      <a class="sn-link" href="#contributions">Research gates</a>
+      <a class="sn-link" href="#programs">Training programs</a>
+      <a class="sn-link" href="#demo">Demo</a>
+      <a class="sn-link" href="#team">Team</a>
+    </div>
+  </div>
+</nav>
 
-          <a href="https://shreypandit.github.io/" target="_blank" rel="noreferrer">
-            <img src="assets/shrey-pandit.jpg" alt="Shrey Pandit" width="84" height="84" loading="lazy" decoding="async" />
-            <strong>Shrey Pandit</strong>
-          </a>
-        
-
-          <a href="https://raihanjoty.github.io/" target="_blank" rel="noreferrer">
-            <img src="assets/shafiq-joty.jpg" alt="Shafiq Joty" width="84" height="84" loading="lazy" decoding="async" />
-            <strong>Shafiq Joty</strong>
-          </a>
-        </div>
-        </section>
-
-        <section class="branch-band" aria-labelledby="branches-title">
-          <div>
-            <p class="section-kicker">One research family, two branches</p>
-            <h2 id="branches-title">SFR-AutoR&amp;D works on code and models.</h2>
-          </div>
-          <a href="../engineer/">
-            <span>01</span><strong>SFR-AutoR&amp;D-Engineer</strong><small>Engineering goals on real code</small><i>→</i>
-          </a>
-          <div class="active">
-            <span>02</span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Model-training research</small><i>Here</i>
-          </div>
-        </section>
-
-        <section class="section" id="pipeline">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">How autonomous training works</p>
+<main id="main-content" tabindex="-1">
+        <section class="ed" id="pipeline">
+          <div class="container">
+          <div class="ed-grid section-heading">
+            <div class="ed-head">
+              <p class="kicker">How autonomous training works</p>
               <h2>The loop runs itself. Every handoff stays controlled.</h2>
             </div>
             <p>
-              Training Forge owns the complete pipeline: data, tools, training, and
+              TrainForge owns the complete pipeline: data, tools, training, and
               evaluation. Novelty, implementation fidelity, compute, and promotion
               are enforced as gates.
             </p>
@@ -144,23 +97,26 @@
             <img src="assets/trainforge-pipeline.svg?v=5" alt="A baseline model and training target enter the autonomous Training Forge loop and produce the best verified model while code, compute, checkpoints, evaluation, and approvals remain controlled." />
             <figcaption>Figure 1 · Autonomous training with an explicit control plane.</figcaption>
           </figure>
+          <div class="training-controls"><strong>Every run stays controlled</strong><span>Code contract</span><span>Compute budget</span><span>Checkpoints</span><span>Frozen evaluation</span><span>Human approval</span></div>
+          </div>
         </section>
 
-        <section class="section contribution-section" id="contributions">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Main contributions</p>
+        <section class="ed contribution-section" id="contributions">
+          <div class="container">
+          <div class="ed-grid section-heading">
+            <div class="ed-head">
+              <p class="kicker">Main contributions</p>
               <h2>Autonomous training with research-grade control.</h2>
             </div>
             <p>
-              Training Forge does more than launch jobs. Four enforced mechanisms connect
+              TrainForge does more than launch jobs. Four enforced mechanisms connect
               a research idea to the exact model artifact that may be promoted.
             </p>
           </div>
           <div class="contribution-list">
             <article>
               <span class="contribution-index">01</span>
-              <div><small>Novelty</small><h3>Discover what’s genuinely new</h3></div>
+              <div><small>Novelty</small><h3>Discover new research directions</h3></div>
               <p>Scouts search across research domains while proposer and critic agents challenge every candidate against prior work and run history.</p>
               <strong>search → propose → challenge</strong>
             </article>
@@ -183,17 +139,19 @@
               <strong>evaluate → bind → promote or preserve</strong>
             </article>
           </div>
+          </div>
         </section>
 
-        <section class="section" id="programs">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Runs in progress</p>
-              <h2>What Training Forge is training now.</h2>
+        <section class="ed" id="programs">
+          <div class="container">
+          <div class="ed-grid section-heading">
+            <div class="ed-head">
+              <p class="kicker">Runs in progress</p>
+              <h2>Four programs for autonomous training.</h2>
             </div>
             <p>
-              GPT-OSS includes a compact view of prior harness gains. Other programs remain
-              placeholders until their idea and evaluation details are ready.
+              GPT-OSS reports gains from prior harness experiments. Results for the other
+              three training programs will be shared as their evaluations become available.
             </p>
           </div>
           <div class="program-grid">
@@ -270,7 +228,7 @@
       <article class="running-card">
         
           <div class="idea-card-topline">
-            <span class="status placeholder">Placeholder</span>
+            <span class="status placeholder">Results forthcoming</span>
             <span>Details to follow</span>
           </div>
         
@@ -281,7 +239,7 @@
           <div><dt>Target tasks</dt><dd>Riemann-Bench · Omni-MATH · AIME 2025 · AIME 2026</dd></div>
         </dl>
         
-          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
+          <p class="details-placeholder">Program details and verified results will be shared here as evaluations are completed.</p>
         
       </article>
     
@@ -289,7 +247,7 @@
       <article class="running-card">
         
           <div class="idea-card-topline">
-            <span class="status placeholder">Placeholder</span>
+            <span class="status placeholder">Results forthcoming</span>
             <span>Details to follow</span>
           </div>
         
@@ -300,7 +258,7 @@
           <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
         </dl>
         
-          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
+          <p class="details-placeholder">Program details and verified results will be shared here as evaluations are completed.</p>
         
       </article>
     
@@ -308,7 +266,7 @@
       <article class="running-card">
         
           <div class="idea-card-topline">
-            <span class="status placeholder">Placeholder</span>
+            <span class="status placeholder">Results forthcoming</span>
             <span>Details to follow</span>
           </div>
         
@@ -319,16 +277,18 @@
           <div><dt>Target tasks</dt><dd>PolyMath + PluraMath multilingual math · MMLU-ProX cross-lingual reasoning</dd></div>
         </dl>
         
-          <p class="details-placeholder">Placeholder: current status, compute, ideas, and results will be added later.</p>
+          <p class="details-placeholder">Program details and verified results will be shared here as evaluations are completed.</p>
         
       </article>
     </div>
+          </div>
         </section>
 
-        <section class="section video-section" id="demo">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Guided demonstration</p>
+        <section class="ed video-section" id="demo">
+          <div class="container">
+          <div class="ed-grid section-heading">
+            <div class="ed-head">
+              <p class="kicker">Guided demonstration</p>
               <h2>Three minutes from target to verified adapter.</h2>
             </div>
             <p>The recorded run trims only the waiting time. Training work and evaluation are shown in full.</p>
@@ -347,18 +307,15 @@
             The video presents its recorded demo profile. Fidelity budgets are profile-specific,
             and the frozen contract for a run is authoritative.
           </p>
+          </div>
         </section>
 
-      </main>
-      
-      <footer class="site-footer">
-        <div>
-          <img src="assets/salesforce-logo.jpg" alt="" />
-          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research</small></span>
-        </div>
-        <p>Research claims are shown with their evaluation status. No improvement means no promotion.</p>
-      </footer>
-    
-    </div>
-  </body>
+</main>
+
+<footer class="foot-ed">
+  <div class="footer-brand"><img src="../assets/salesforce.svg" alt="Salesforce"><div><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></div></div>
+  <div class="footer-links"><a href="../">Overview</a><a href="../engineer/">Engineer</a><a href="../trainforge/">TrainForge</a></div>
+  <div class="fine">Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</div>
+</footer>
+</body>
 </html>

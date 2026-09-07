@@ -20,17 +20,23 @@ Static site, no build step:
   script at the end of the page. Without JavaScript every section and both
   switcher panels are visible; only the motion and the scroll-spy are lost.
   `prefers-reduced-motion` turns the animations off.
-- `engineer/index.html`: self-contained (inline styles and inline SVG charts).
-  Its `<style>` block is mirrored verbatim at the top of `assets/site.css`
-  (everything above the "site nav" marker); keep the two in sync when the
-  design system changes. The umbrella components follow below that marker.
+- `assets/site.css`: the shared design system for all three pages, including
+  the Salesforce blue and navy palette, DM Sans headings and body text,
+  navigation, article heroes, buttons, author portraits, and footers.
+  Change shared styles here so the project pages stay consistent.
+- `assets/site.js`: shared sticky-header offsets and section highlighting.
+  Page anchors work without JavaScript, and reduced-motion preferences are
+  respected.
+- `engineer/index.html`: the engineering research article, using the shared
+  stylesheet and navigation script. Technical charts remain inline SVG.
 - `trainforge/`: copied from `zhaoyiran924/trainforge` (commit `a37e93f`,
   "Launch public Training Forge research site"), including the 8.3 MB demo
-  video. Edits on top of the copy: title, brand, branch band and footer renamed
-  to SFR-AutoR&D-TrainForge; header links to `../` and `../engineer/` (class
-  `family-link`, styled in `assets/styles.css`); em-dashes removed from the copy.
-  To resync, re-copy `index.html` and `assets/` from the source repo and
-  re-apply those edits.
+  video. Its presentation now uses the same shared styles and navigation as
+  Overview and Engineer. `trainforge/assets/styles.css` contains only the
+  research-gate rows, training-program cards, gains chart, pipeline, and video
+  components. `trainforge/assets/site.js` pauses the demo in a background tab.
+  When syncing upstream research content, preserve this shared presentation
+  instead of replacing the page and stylesheet wholesale.
 - `assets/salesforce.svg`: Salesforce logo used in the nav, hero, footer, and favicon.
 - `assets/mascot.png`: the Astro, Codey and Einstein illustration shown beside
   the SFR-AutoR&D title on the umbrella page (transparent PNG, 1774 by 887).
@@ -38,10 +44,22 @@ Static site, no build step:
 All links between the three pages are relative, so the site works at any
 host name and from a local checkout.
 
-Author links and photos on the umbrella and Engineer pages point to each
-author's personal website (shreypandit.github.io, nxphi47.github.io,
-zhaoyiran924.github.io, raihanjoty.github.io), with an initials fallback if a
-photo fails to load. The TrainForge page ships its own author photos.
+Author links point to each author's personal website (shreypandit.github.io,
+nxphi47.github.io, zhaoyiran924.github.io, raihanjoty.github.io). All three pages
+use the local portraits in `trainforge/assets/`, with an initials fallback if
+a photo fails to load.
+
+## Local preview
+
+From the repository root, run:
+
+```sh
+python3 -m http.server 8000 --bind 0.0.0.0
+```
+
+Open <http://localhost:8000/>, <http://localhost:8000/engineer/>, and
+<http://localhost:8000/trainforge/>. For a remote checkout, forward port 8000
+to your computer. This is a preview only; starting it does not publish changes.
 
 ## Publishing
 

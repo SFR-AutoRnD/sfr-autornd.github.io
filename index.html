@@ -13,30 +13,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body class="has-section-nav">
+<a class="skip-link" href="#main-content">Skip to content</a>
 <div class="bg-pattern"></div>
 
 <nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
-  <a class="site-nav-brand" href="./"><img src="assets/salesforce.svg" alt="">SFR-AutoR&amp;D</a>
+  <a class="site-nav-brand" href="./"><img src="./assets/salesforce.svg" alt="Salesforce"><span class="site-nav-wordmark"><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
   <div class="site-nav-links">
     <a href="./" aria-current="page">Overview</a>
-    <a href="engineer/"><span class="long">SFR-AutoR&amp;D-</span>Engineer</a>
-    <a href="trainforge/"><span class="long">SFR-AutoR&amp;D-</span>TrainForge</a>
+    <a href="./engineer/">Engineer</a>
+    <a href="./trainforge/">TrainForge</a>
   </div>
 </nav>
 
 <!-- ==================== Hero ==================== -->
 <header class="hero-ed" id="top">
+  <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
   <div class="hero-title-row reveal" style="--i:0">
     <h1>SFR-AutoR&amp;D</h1>
     <img class="hero-mascots" src="assets/mascot.png" width="1774" height="887" alt="Astro, Codey and Einstein working at a laptop" onerror="this.closest('.hero-title-row').classList.add('no-art')">
   </div>
   <p class="deck reveal" style="--i:1">
-    SFR-AutoR&amp;D is the family of autonomous research and development agents from Salesforce AI Research.
-    <strong>Research finds what is new. Development ships what is proven.</strong> Each agent takes a real
-    target, forms its own hypotheses, runs controlled experiments, and promotes only the candidates that
-    survive the evidence. This page is the home for every sub-project, its evidence, and its artifacts.
+    At Salesforce AI Research, we’re building agents that turn research goals into verified
+    improvements in code and models. <strong>Research finds what is new. Development ships what is proven.</strong>
+    Each agent forms its own hypotheses, runs controlled experiments, and keeps only the
+    improvements supported by evidence.
   </p>
   <div class="stat-strip reveal" style="--i:2">
     <div><b data-count="2">2</b><span>sub-projects</span></div>
@@ -68,7 +71,7 @@
   </div>
 </nav>
 
-<main>
+<main id="main-content" tabindex="-1">
 <!-- ==================== Two questions ==================== -->
 <section id="mission" class="ed">
   <div class="container">
@@ -285,8 +288,8 @@
 </main>
 
 <footer class="foot-ed">
-  <div><strong>SFR-AutoR&amp;D</strong> · Salesforce AI Research · 2026</div>
-  <div><a href="engineer/">SFR-AutoR&amp;D-Engineer</a> · <a href="trainforge/">SFR-AutoR&amp;D-TrainForge</a></div>
+  <div class="footer-brand"><img src="./assets/salesforce.svg" alt="Salesforce"><div><strong>SFR-AutoR&amp;D</strong><small>Salesforce AI Research · 2026</small></div></div>
+  <div class="footer-links"><a href="./">Overview</a><a href="./engineer/">Engineer</a><a href="./trainforge/">TrainForge</a></div>
   <div class="fine">Performance figures are point-in-time measurements under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</div>
 </footer>
 
@@ -295,19 +298,6 @@
   var root=document.documentElement;
   root.classList.remove('no-js');
   var reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var siteNav=document.querySelector('.site-nav');
-  var secNav=document.querySelector('.section-nav');
-
-  /* sticky offsets: the section nav sits right under the family nav when that one is sticky */
-  function setOffsets(){
-    var h=0;
-    if(siteNav&&getComputedStyle(siteNav).position==='sticky') h=siteNav.getBoundingClientRect().height;
-    root.style.setProperty('--nav-h',Math.round(h)+'px');
-    if(secNav) root.style.setProperty('--subnav-h',Math.round(secNav.getBoundingClientRect().height)+'px');
-  }
-  setOffsets();
-  window.addEventListener('resize',setOffsets);
-
   /* count-up for the stat strip */
   function countUp(el){
     if(reduce||el.getAttribute('data-done')) return;
@@ -344,51 +334,6 @@
       entries.forEach(function(en){ if(en.isIntersecting){show(en.target);io.unobserve(en.target);} });
     },{rootMargin:'0px 0px -10% 0px',threshold:0.12});
     reveals.forEach(function(el){io.observe(el);});
-  }
-
-  /* section nav: scroll-spy and smooth jumps */
-  var links=[].slice.call(document.querySelectorAll('.section-nav a.sn-link'));
-  var sections=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
-  var track=document.querySelector('.section-nav-track');
-  var frame=null,currentId=null;
-  function marker(){
-    var nav=parseFloat(getComputedStyle(root).getPropertyValue('--nav-h'))||0;
-    return nav+(secNav?secNav.getBoundingClientRect().height:0)+24;
-  }
-  function centerLink(link){
-    if(!track||!link) return;
-    var left=link.offsetLeft-(track.clientWidth-link.offsetWidth)/2;
-    if(track.scrollTo) track.scrollTo({left:Math.max(0,left),behavior:reduce?'auto':'smooth'});
-  }
-  function update(){
-    var m=marker(),current=sections[0];
-    sections.forEach(function(s){ if(s.getBoundingClientRect().top<=m) current=s; });
-    if(window.innerHeight+window.pageYOffset>=root.scrollHeight-2) current=sections[sections.length-1];
-    links.forEach(function(a){
-      if(current&&a.getAttribute('href')==='#'+current.id) a.setAttribute('aria-current','location');
-      else a.removeAttribute('aria-current');
-    });
-    var id=current?current.id:null;
-    if(id!==currentId){
-      currentId=id;
-      centerLink(links.filter(function(a){return a.getAttribute('href')==='#'+id;})[0]);
-    }
-    frame=null;
-  }
-  function req(){ if(!frame) frame=requestAnimationFrame(update); }
-  if(sections.length){
-    window.addEventListener('scroll',req,{passive:true});
-    window.addEventListener('resize',req);
-    links.forEach(function(a){
-      a.addEventListener('click',function(e){
-        var t=document.querySelector(a.getAttribute('href'));
-        if(!t) return;
-        e.preventDefault();
-        t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
-        history.replaceState(null,document.title,location.pathname+location.search);
-      });
-    });
-    update();
   }
 
   /* pages dropdown */
