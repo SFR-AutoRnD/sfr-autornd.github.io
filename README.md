@@ -24,17 +24,24 @@ Static site, no build step:
   the Salesforce blue and navy palette, DM Sans headings and body text,
   navigation, article heroes, buttons, author portraits, and footers.
   Change shared styles here so the project pages stay consistent.
-- `assets/site.js`: shared sticky-header offsets and section highlighting.
+- `assets/site.js`: shared sticky-header offsets, section highlighting, and
+  automatic demo pausing when a browser tab is hidden.
   Page anchors work without JavaScript, and reduced-motion preferences are
   respected.
 - `engineer/index.html`: the engineering research article, using the shared
-  stylesheet and navigation script. Technical charts remain inline SVG.
+  stylesheet and navigation script. Includes the narrated demo after the research
+  findings, linked from the hero and section navigation. Technical charts
+  remain inline SVG.
+- `assets/AutoRD_Leadership_Demo_AI_Voiceover_Final_demo.mp4`: the supplied
+  three-minute Engineer demo, served as an H.264/AAC MP4 with native playback
+  controls. `assets/engineer-demo-poster.jpg` is its opening title frame.
 - `trainforge/`: copied from `zhaoyiran924/trainforge` (commit `a37e93f`,
   "Launch public Training Forge research site"), including the 8.3 MB demo
   video. Its presentation now uses the same shared styles and navigation as
   Overview and Engineer. `trainforge/assets/styles.css` contains only the
-  research-gate rows, training-program cards, gains chart, pipeline, and video
-  components. `trainforge/assets/site.js` pauses the demo in a background tab.
+  research-gate rows, training-program cards, gains chart, and pipeline
+  components. Both project pages share their video-player styling and playback
+  behavior through `assets/site.css` and `assets/site.js`.
   When syncing upstream research content, preserve this shared presentation
   instead of replacing the page and stylesheet wholesale.
 - `assets/salesforce.svg`: Salesforce logo used in the nav, hero, footer, and favicon.

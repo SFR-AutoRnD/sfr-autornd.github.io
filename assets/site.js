@@ -1,4 +1,4 @@
-/* Shared sticky navigation and section highlighting for every research page. */
+/* Shared navigation, section highlighting, and demo playback behavior. */
 (function () {
   const root = document.documentElement;
   const nav = document.querySelector('.site-nav');
@@ -52,5 +52,12 @@
     const observer = new ResizeObserver(setOffsets);
     if (nav) observer.observe(nav);
     if (sectionNav) observer.observe(sectionNav);
+  }
+
+  const videos = Array.from(document.querySelectorAll('video'));
+  if (videos.length) {
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) videos.forEach(video => video.pause());
+    });
   }
 })();

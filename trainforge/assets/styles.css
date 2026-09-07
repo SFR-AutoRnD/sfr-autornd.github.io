@@ -45,9 +45,6 @@
 .historical-gain-row strong{font-size:.875rem;color:var(--sf-blue-deep);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 .historical-gains figcaption{border-top:1px solid var(--border-color);padding-top:1rem;margin-top:1.5rem;font-size:.875rem;line-height:1.65;color:var(--text-muted)}
 
-.video-section{background:rgba(234,245,254,.4)}
-.video-frame{overflow:hidden;border:1px solid var(--border-color);border-radius:16px;background:var(--sf-navy);box-shadow:var(--shadow-md)}
-.video-frame video{display:block;width:100%;aspect-ratio:16 / 9;background:var(--sf-navy)}
 #team{scroll-margin-top:calc(var(--nav-h) + var(--subnav-h) + 20px)}
 
 @media(max-width:900px){
