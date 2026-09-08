@@ -44,6 +44,8 @@
 .historical-gain-track i{display:block;height:100%;border-radius:inherit;background:var(--sf-blue)}
 .historical-gain-row strong{font-size:.875rem;color:var(--sf-blue-deep);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 .historical-gains figcaption{border-top:1px solid var(--border-color);padding-top:1rem;margin-top:1.5rem;font-size:.875rem;line-height:1.65;color:var(--text-muted)}
+.screen-gains > div{grid-template-columns:1fr}
+.screen-gains .historical-gain-row{grid-template-columns:minmax(0,1.25fr) minmax(45px,.7fr) 92px}
 
 #team{scroll-margin-top:calc(var(--nav-h) + var(--subnav-h) + 20px)}
 
@@ -61,6 +63,7 @@
   .running-card,.running-card.has-results{padding:1.25rem}
   .contribution-list article{padding:1.25rem}
   .historical-gain-row{grid-template-columns:minmax(0,1fr) 58px;gap:.35rem .75rem}
+  .screen-gains .historical-gain-row{grid-template-columns:minmax(0,1fr) 92px}
   .historical-gain-label{grid-column:1 / -1}
   .training-controls{padding:1rem}
   .training-controls strong{width:100%}
