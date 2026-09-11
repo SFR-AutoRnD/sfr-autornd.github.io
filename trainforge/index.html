@@ -1,331 +1,768 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6Y6LET8GZD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6Y6LET8GZD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6Y6LET8GZD');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Give AutoResearch Training Forge a baseline model and training target; get back the best verified model while budgets, code, checkpoints, and evaluation remain controlled." />
+    <title>AutoResearch Training Forge · Salesforce AI Research</title>
+    <link rel="icon" href="assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles.css?v=21" />
+    <script src="assets/site.js?v=4" defer></script>
+  </head>
+  <body class="reference-theme has-section-nav">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell">
 
-  gtag('config', 'G-6Y6LET8GZD');
-</script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SFR-AutoR&amp;D-TrainForge · Salesforce AI Research</title>
-<meta name="description" content="TrainForge is the autonomous model-training agent from Salesforce AI Research. Give it a baseline and a target; get back the best verified checkpoint, with controlled compute and evaluation.">
-<link rel="icon" type="image/svg+xml" href="../assets/salesforce.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css">
-<link rel="stylesheet" href="assets/styles.css">
-<script src="../assets/site.js" defer></script>
-</head>
-<body class="has-section-nav">
-<a class="skip-link" href="#main-content">Skip to content</a>
-<div class="bg-pattern"></div>
-<nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
-  <a class="site-nav-brand" href="../"><img src="../assets/salesforce.svg" alt="Salesforce"><span class="site-nav-wordmark"><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
-  <div class="site-nav-links">
-    <a href="../">Overview</a>
-    <a href="../engineer/">Engineer</a>
-    <a href="../trainforge/" aria-current="page">TrainForge</a>
-  </div>
-</nav>
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/">
+          <img src="assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span>
+        </a>
+        <div class="family-nav-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="index.html" aria-current="page">TrainForge</a>
+        </div>
+      </nav>
 
-<header class="hero article-hero" id="top">
-  <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
-  <h1><span class="project-family">SFR-AutoR&amp;D</span>TrainForge</h1>
-  <h2>Give it a target. Get back the best verified model.</h2>
-  <p class="hero-description">
-    TrainForge brings the Salesforce AI Research loop to model training. It designs the data,
-    tools, training, and evaluation, writes and validates the code, and runs the experiments.
-    You get the best verified checkpoint. If nothing improves, it keeps the incumbent and explains why.
-  </p>
-  <div class="highlight-pills"><div class="pill-row">
-    <span class="pill exact">4 Training Programs</span>
-    <span class="pill scope">4 Enforced Research Gates</span>
-    <span class="pill memory">Checkpoint-Bound Evaluation</span>
-  </div></div>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="#demo">Watch the demo →</a>
-    <a class="btn btn-secondary" href="#programs">Explore training programs</a>
-  </div>
-  <div class="authors" id="team">
-    <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="assets/yiran-zhao.jpg" alt="Yiran Zhao" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">YZ</div><span class="author-name">Yiran Zhao</span>
-    </a>
-    <a href="https://nxphi47.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">XN</div><span class="author-name">Xuan-Phi Nguyen</span>
-    </a>
-    <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="assets/shrey-pandit.jpg" alt="Shrey Pandit" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">SP</div><span class="author-name">Shrey Pandit</span>
-    </a>
-    <a href="https://raihanjoty.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="assets/shafiq-joty.jpg" alt="Shafiq Joty" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">SJ</div><span class="author-name">Shafiq Joty</span>
-    </a>
-  </div>
-  <p class="affiliation">Salesforce AI Research</p>
-  <p class="hero-meta">2026</p>
-</header>
+      <header class="reference-hero" id="top">
+        <p class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</p>
+        <h1><span>SFR-AutoR&amp;D</span>TrainForge</h1>
+        <h2>Give it a target. Get back the best verified model.</h2>
+        <p class="hero-description">
+          TrainForge brings the Salesforce AI Research loop to model training. It designs the
+          data, tools, training, and evaluation, writes and validates the code, and runs the
+          experiments. You get the best verified checkpoint. If nothing improves, it keeps the incumbent and explains why.
+        </p>
+        <div class="reference-pills" aria-label="TrainForge highlights">
+          <span>4 Training Programs</span><span>4 Enforced Research Gates</span><span>Checkpoint-Bound Evaluation</span>
+        </div>
+        <div class="reference-actions">
+          <a class="reference-button primary" href="#demo">Watch the demo →</a>
+          <a class="reference-button secondary" href="#programs">Explore training programs</a>
+        </div>
+        <div class="reference-authors" id="team">
+          <a class="reference-author" href="https://zhaoyiran924.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/yiran-zhao.jpg" alt="Yiran Zhao" width="64" height="64" loading="lazy" decoding="async" />
+            <strong>Yiran Zhao</strong>
+          </a>
 
-<nav class="section-nav" aria-label="Explore this page">
-  <div class="section-nav-inner">
-    <div class="section-nav-title">TrainForge</div>
-    <div class="section-nav-track">
-      <a class="sn-link" href="#pipeline">How it works</a>
-      <a class="sn-link" href="#contributions">Research gates</a>
-      <a class="sn-link" href="#programs">Training programs</a>
-      <a class="sn-link" href="#demo">Demo</a>
-      <a class="sn-link" href="#team">Team</a>
-    </div>
-  </div>
-</nav>
 
-<main id="main-content" tabindex="-1">
-        <section class="ed" id="pipeline">
-          <div class="container">
-          <div class="ed-grid section-heading">
-            <div class="ed-head">
-              <p class="kicker">How autonomous training works</p>
-              <h2>The loop runs itself. Every handoff stays controlled.</h2>
-            </div>
-            <p>
-              TrainForge owns the complete pipeline: data, tools, training, and
-              evaluation. Novelty, implementation fidelity, compute, and promotion
-              are enforced as gates.
-            </p>
+          <a class="reference-author" href="https://nxphi47.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" width="64" height="64" loading="lazy" decoding="async" />
+            <strong>Xuan-Phi Nguyen</strong>
+          </a>
+
+
+          <a class="reference-author" href="https://shreypandit.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/shrey-pandit.jpg" alt="Shrey Pandit" width="64" height="64" loading="lazy" decoding="async" />
+            <strong>Shrey Pandit</strong>
+          </a>
+
+
+          <a class="reference-author" href="https://raihanjoty.github.io/" target="_blank" rel="noreferrer">
+            <img src="assets/shafiq-joty.jpg" alt="Shafiq Joty" width="64" height="64" loading="lazy" decoding="async" />
+            <strong>Shafiq Joty</strong>
+          </a>
+        </div>
+        <p class="hero-affiliation">Salesforce AI Research</p>
+        <p class="hero-year">2026</p>
+      </header>
+
+      <nav class="section-nav" aria-label="Explore this page">
+        <div class="section-nav-inner">
+          <strong>TrainForge</strong>
+          <div>
+            <a href="index.html#pipeline">How it works</a>
+            <a href="index.html#contributions">Research gates</a>
+            <a href="index.html#programs">Training programs</a>
+            <a href="index.html#demo">Demo</a>
+            <a href="index.html#team">Team</a>
           </div>
-          <figure class="feature-figure">
-            <img src="assets/trainforge-pipeline.svg?v=5" alt="A baseline model and training target enter the autonomous Training Forge loop and produce the best verified model while code, compute, checkpoints, evaluation, and approvals remain controlled." />
-            <figcaption>Figure 1 · Autonomous training with an explicit control plane.</figcaption>
-          </figure>
-          <div class="training-controls"><strong>Every run stays controlled</strong><span>Code contract</span><span>Compute budget</span><span>Checkpoints</span><span>Frozen evaluation</span><span>Human approval</span></div>
+        </div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+
+        <section class="section" id="pipeline">
+          <div class="reference-container">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">How autonomous training works</p>
+                <h2>The loop runs itself. Every handoff stays controlled.</h2>
+              </div>
+              <p>
+                Training Forge owns the complete pipeline—data, tools, training, and
+                evaluation—while novelty, implementation fidelity, compute, and promotion
+                are enforced as gates.
+              </p>
+            </div>
+            <figure class="feature-figure">
+              <img src="assets/trainforge-pipeline.svg?v=5" alt="A baseline model and training target enter the autonomous Training Forge loop and produce the best verified model while code, compute, checkpoints, evaluation, and approvals remain controlled." />
+              <figcaption>Figure 1 · Autonomous training with an explicit control plane.</figcaption>
+            </figure>
+            <div class="training-controls"><strong>Every run stays controlled</strong><span>Code contract</span><span>Compute budget</span><span>Checkpoints</span><span>Frozen evaluation</span><span>Human approval</span></div>
           </div>
         </section>
 
-        <section class="ed contribution-section" id="contributions">
-          <div class="container">
-          <div class="ed-grid section-heading">
-            <div class="ed-head">
-              <p class="kicker">Main contributions</p>
-              <h2>Autonomous training with research-grade control.</h2>
+        <section class="section contribution-section" id="contributions">
+          <div class="reference-container">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Main contributions</p>
+                <h2>Autonomous training with research-grade control.</h2>
+              </div>
+              <p>
+                Four enforced mechanisms connect a research idea to the exact model artifact that may be promoted.
+              </p>
             </div>
-            <p>
-              Four enforced mechanisms connect a research idea to the exact model
-              artifact that may be promoted.
-            </p>
-          </div>
-          <div class="contribution-list">
-            <article>
-              <span class="contribution-index">01</span>
-              <div><small>Novelty</small><h3>Discover new research directions</h3></div>
-              <p>Scouts search across research domains while proposer and critic agents challenge every candidate against prior work and run history.</p>
-              <strong>search → propose → challenge</strong>
-            </article>
-            <article>
-              <span class="contribution-index">02</span>
-              <div><small>Fidelity</small><h3>Turn ideas into faithful code</h3></div>
-              <p>A frozen contract covers data, tool use, training, and evaluation; structure, live-path, and behavior checks enforce it before training.</p>
-              <strong>contract → code → verify</strong>
-            </article>
-            <article>
-              <span class="contribution-index">03</span>
-              <div><small>Efficiency</small><h3>Focus compute on the strongest ideas</h3></div>
-              <p>A staged funnel rejects weak candidates cheaply, raises fidelity for survivors, and reserves final confirmation for the strongest ideas.</p>
-              <strong>f0 screen → f1 verify → f2 confirm</strong>
-            </article>
-            <article>
-              <span class="contribution-index">04</span>
-              <div><small>Trust</small><h3>Promote only verified gains</h3></div>
-              <p>Every held-out score stays bound to the checkpoint that produced it. Stale, invalid, or non-positive evidence preserves the incumbent.</p>
-              <strong>evaluate → bind → promote or preserve</strong>
-            </article>
-          </div>
+            <div class="contribution-list">
+              <article>
+                <span class="contribution-index">01</span>
+                <div><small>Novelty</small><h3>Discover what’s genuinely new</h3></div>
+                <p>Scouts search across research domains while proposer and critic agents challenge every candidate against prior work and run history.</p>
+                <strong>search → propose → challenge</strong>
+              </article>
+              <article>
+                <span class="contribution-index">02</span>
+                <div><small>Fidelity</small><h3>Turn ideas into faithful code</h3></div>
+                <p>A frozen contract covers data, tool use, training, and evaluation; structure, live-path, and behavior checks enforce it before training.</p>
+                <strong>contract → code → verify</strong>
+              </article>
+              <article>
+                <span class="contribution-index">03</span>
+                <div><small>Efficiency</small><h3>Focus compute on the strongest ideas</h3></div>
+                <p>A staged funnel rejects weak candidates cheaply, raises fidelity for survivors, and reserves final confirmation for the strongest ideas.</p>
+                <strong>f0 screen → f1 verify → f2 confirm</strong>
+              </article>
+              <article>
+                <span class="contribution-index">04</span>
+                <div><small>Trust</small><h3>Promote only verified gains</h3></div>
+                <p>Every held-out score stays bound to the checkpoint that produced it. Stale, invalid, or non-positive evidence preserves the incumbent.</p>
+                <strong>evaluate → bind → promote or preserve</strong>
+              </article>
+            </div>
           </div>
         </section>
 
-        <section class="ed" id="programs">
-          <div class="container">
-          <div class="ed-grid section-heading">
-            <div class="ed-head">
-              <p class="kicker">Runs in progress</p>
-              <h2>Four programs for autonomous training.</h2>
+        <section class="section" id="programs">
+          <div class="reference-container">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Runs in progress</p>
+                <h2>What Training Forge is training now.</h2>
+              </div>
+              <p>
+                Completed measurements are separated from live evaluations. A candidate is promoted only after a checkpoint-bound positive held-out result.
+              </p>
             </div>
-            <p>
-              Current target models and research ideas are shown below. Promotion still
-              requires a checkpoint-bound positive held-out result.
-            </p>
-          </div>
-          <div class="program-grid">
+            <div class="program-grid">
       <article class="running-card has-results">
-        
+
+      <div class="idea-card-topline">
+        <span class="status running">Running</span>
+        <span>Updated 2026-09-08</span>
+      </div>
+
         <p class="running-model-label">Target model</p>
         <h3>GPT-OSS-20B</h3>
         <p class="running-title">Long-Horizon Research Quality</p>
         <dl class="running-facts">
           <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
         </dl>
-        
+
           <figure class="historical-gains">
             <div>
-              <div class="historical-gain-row">
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-byte-evidence-frontier-sft"
+                aria-haspopup="dialog"
+                aria-controls="idea-byte-evidence-frontier-sft"
+                aria-label="View details for Byte Evidence Frontier SFT"
+              >
                 <div class="historical-gain-label">
                   <span>Byte Evidence Frontier SFT</span>
                   <em>Novelty 5/10</em>
                 </div>
                 <div class="historical-gain-track"><i style="width:100.00%"></i></div>
                 <strong>+11 pp</strong>
-              </div>
-            
-              <div class="historical-gain-row">
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-linter-gated-natural-boundary-training"
+                aria-haspopup="dialog"
+                aria-controls="idea-linter-gated-natural-boundary-training"
+                aria-label="View details for Linter-Gated Natural-Boundary Training"
+              >
                 <div class="historical-gain-label">
                   <span>Linter-Gated Natural-Boundary Training</span>
                   <em>Novelty 5/10</em>
                 </div>
                 <div class="historical-gain-track"><i style="width:90.91%"></i></div>
                 <strong>+10 pp</strong>
-              </div>
-            
-              <div class="historical-gain-row">
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-distill-dfa-collision-reset"
+                aria-haspopup="dialog"
+                aria-controls="idea-distill-dfa-collision-reset"
+                aria-label="View details for Distill + DFA + Collision Reset"
+              >
                 <div class="historical-gain-label">
                   <span>Distill + DFA + Collision Reset</span>
                   <em>Novelty 1/10</em>
                 </div>
                 <div class="historical-gain-track"><i style="width:72.73%"></i></div>
                 <strong>+8 pp</strong>
-              </div>
-            
-              <div class="historical-gain-row">
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-verifier-certified-contract-options-conformal-stop"
+                aria-haspopup="dialog"
+                aria-controls="idea-verifier-certified-contract-options-conformal-stop"
+                aria-label="View details for Verifier-Certified Contract Options + Conformal Stop"
+              >
                 <div class="historical-gain-label">
                   <span>Verifier-Certified Contract Options + Conformal Stop</span>
                   <em>Novelty 4/10</em>
                 </div>
                 <div class="historical-gain-track"><i style="width:54.55%"></i></div>
                 <strong>+6 pp</strong>
-              </div>
-            
-              <div class="historical-gain-row">
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-certified-obligation-stutter-quotient-training"
+                aria-haspopup="dialog"
+                aria-controls="idea-certified-obligation-stutter-quotient-training"
+                aria-label="View details for Certified Obligation-Stutter Quotient Training"
+              >
                 <div class="historical-gain-label">
                   <span>Certified Obligation-Stutter Quotient Training</span>
                   <em>Novelty 7/10</em>
                 </div>
                 <div class="historical-gain-track"><i style="width:45.45%"></i></div>
                 <strong>+5 pp</strong>
-              </div>
-            
-              <div class="historical-gain-row">
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-confirmatory-alarm-gated-mpc-distillation"
+                aria-haspopup="dialog"
+                aria-controls="idea-confirmatory-alarm-gated-mpc-distillation"
+                aria-label="View details for Confirmatory Alarm-Gated MPC Distillation"
+              >
                 <div class="historical-gain-label">
                   <span>Confirmatory Alarm-Gated MPC Distillation</span>
                   <em>Novelty 3/10</em>
                 </div>
                 <div class="historical-gain-track"><i style="width:18.18%"></i></div>
                 <strong>+2 pp</strong>
-              </div>
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
             </div>
+            <figcaption>Independent novelty screen: five incremental compositions, one likely prior art, and zero verified novel. Historical scores are not promotion evidence.</figcaption>
           </figure>
-        
+
       </article>
-    
+
 
       <article class="running-card has-screen-results">
-        
-          <div class="idea-card-topline">
-            <span class="status">Running</span>
-          </div>
-        
+
+      <div class="idea-card-topline">
+        <span class="status running">Running</span>
+        <span>Updated 2026-09-08</span>
+      </div>
+
         <p class="running-model-label">Target model</p>
         <h3>Qwen3-4B</h3>
         <p class="running-title">Single-Node Math Training</p>
         <dl class="running-facts">
           <div><dt>Target tasks</dt><dd>Riemann-Bench · Omni-MATH · AIME 2025 · AIME 2026</dd></div>
         </dl>
-        <figure class="historical-gains screen-gains">
-          <div>
-            <div class="historical-gain-row">
-              <div class="historical-gain-label"><span>Mutation-Orbit Provenance DPO</span></div>
-              <div class="historical-gain-track"><i style="width:100%"></i></div>
-              <strong>Target +6 pp</strong>
-            </div>
-          </div>
-        </figure>
-        
-      </article>
-    
 
-      <article class="running-card">
-        
-          <div class="idea-card-topline">
-            <span class="status">Preparing</span>
-          </div>
-        
+          <figure class="historical-gains screen-gains">
+            <div>
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-mutation-orbit-provenance-dpo"
+                aria-haspopup="dialog"
+                aria-controls="idea-mutation-orbit-provenance-dpo"
+                aria-label="View details for Mutation-Orbit Provenance DPO"
+              >
+                <div class="historical-gain-label">
+                  <span>Mutation-Orbit Provenance DPO</span>
+                  <em>24.44% → 24.44% · n=90</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:0.00%"></i></div>
+                <strong>+0.00 pp</strong>
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+            </div>
+            <figcaption>Frozen Math baseline: 25.67% macro accuracy on n=541. The exact-adapter n=90 screen was flat, preliminary, and non-promotional.</figcaption>
+          </figure>
+
+      </article>
+
+
+      <article class="running-card has-screen-results">
+
+      <div class="idea-card-topline">
+        <span class="status running">Running</span>
+        <span>Updated 2026-09-08</span>
+      </div>
+
         <p class="running-model-label">Target model</p>
-        <h3>Qwen3-30B-A3B</h3>
-        <p class="running-title">General-Model Coding Training · 3.3B Active</p>
+        <h3>Qwen3-4B</h3>
+        <p class="running-title">Single-Node Coding Training</p>
         <dl class="running-facts">
           <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
         </dl>
-        
-        
+
+          <figure class="historical-gains screen-gains">
+            <div>
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-canonical-anti-join-boundary-qlora"
+                aria-haspopup="dialog"
+                aria-controls="idea-canonical-anti-join-boundary-qlora"
+                aria-label="View details for Canonical Anti-Join Boundary QLoRA"
+              >
+                <div class="historical-gain-label">
+                  <span>Canonical Anti-Join Boundary QLoRA</span>
+                  <em>0.00% → 0.00% · n=100</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:0.00%"></i></div>
+                <strong>+0.00 pp</strong>
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+
+              <button
+                class="historical-gain-row idea-detail-trigger"
+                type="button"
+                data-dialog-target="idea-scopecap-consumption-training"
+                aria-haspopup="dialog"
+                aria-controls="idea-scopecap-consumption-training"
+                aria-label="View details for ScopeCap Consumption Training"
+              >
+                <div class="historical-gain-label">
+                  <span>ScopeCap Consumption Training</span>
+                  <em>0.00% → 0.00% · n=100</em>
+                </div>
+                <div class="historical-gain-track"><i style="width:0.00%"></i></div>
+                <strong>+0.00 pp</strong>
+                <span class="idea-detail-cue" aria-hidden="true">Details&nbsp;↗</span>
+              </button>
+            </div>
+            <figcaption>Frozen LiveCodeBench Hard baseline: 8.29% pass@1 on n=350. Both exact-adapter n=100 screens were flat, preliminary, and non-promotional.</figcaption>
+          </figure>
+
       </article>
-    
+
 
       <article class="running-card">
-        
-          <div class="idea-card-topline">
-            <span class="status placeholder">Results forthcoming</span>
-          </div>
-        
+
+      <div class="idea-card-topline">
+        <span class="status repairing">Repairing</span>
+        <span>Updated 2026-09-08</span>
+      </div>
+
         <p class="running-model-label">Target model</p>
         <h3>Muse-Glimmer-30B</h3>
         <p class="running-title">Multilingual Reasoning Training</p>
         <dl class="running-facts">
           <div><dt>Target tasks</dt><dd>PolyMath + PluraMath multilingual math · MMLU-ProX cross-lingual reasoning</dd></div>
         </dl>
-        
-        
+
+          <p class="details-placeholder"><strong>No measured result yet.</strong> Four candidate ideas are undergoing off-GPU implementation repair.</p>
+
       </article>
     </div>
           </div>
         </section>
 
-        <section class="ed video-section" id="demo">
-          <div class="container">
-          <div class="ed-grid section-heading">
-            <div class="ed-head">
-              <p class="kicker">Guided demonstration</p>
-              <h2>Three minutes from target to verified adapter.</h2>
+        <section class="section video-section" id="demo">
+          <div class="reference-container">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Guided demonstration</p>
+                <h2>Three minutes from target to verified adapter.</h2>
+              </div>
+              <p>The recorded run removes waiting time, not training work or evaluation.</p>
             </div>
-            <p>The recorded run trims only the waiting time. Training work and evaluation are shown in full.</p>
-          </div>
-          <div class="video-frame">
-            <video controls playsinline preload="metadata" poster="assets/video-poster.svg?v=2">
-              <source src="assets/trainforge-demo.mp4" type="video/mp4" />
-              Your browser does not support embedded video.
-            </video>
-          </div>
-          <p class="figure-note">
-            The successful Qwen3-4B reference run performs 20 real optimizer updates on one
-            H200 and promotes only the adapter reproduced from disk.
-          </p>
-          <p class="figure-note">
-            The video presents its recorded demo profile. Fidelity budgets are profile-specific,
-            and the frozen contract for a run is authoritative.
-          </p>
+            <div class="video-frame">
+              <video controls playsinline preload="metadata" poster="assets/video-poster.svg?v=2">
+                <source src="assets/trainforge-demo.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+              </video>
+            </div>
+            <p class="figure-note">
+              The successful Qwen3-4B reference run performs 20 real optimizer updates on one H200 and promotes only the adapter reproduced from disk.
+            </p>
+            <p class="figure-note">
+              The video presents its recorded demo profile. Fidelity budgets are profile-specific; the frozen contract for a run—not a UI default—is authoritative.
+            </p>
           </div>
         </section>
 
-</main>
+      </main>
 
-<footer class="foot-ed">
-  <div class="footer-brand"><img src="../assets/salesforce.svg" alt="Salesforce"><div><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></div></div>
-  <div class="footer-links"><a href="../">Overview</a><a href="../engineer/">Engineer</a><a href="../trainforge/">TrainForge</a></div>
-  <div class="fine">Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</div>
-</footer>
-</body>
+      <dialog class="idea-detail-dialog" id="idea-byte-evidence-frontier-sft" aria-labelledby="idea-byte-evidence-frontier-sft-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status historical">Historical record</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">GPT-OSS-20B · Long-Horizon Research Quality</p>
+          <h2 id="idea-byte-evidence-frontier-sft-title">Byte Evidence Frontier SFT</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Historical delta</small><strong>+11 pp</strong></div>
+            <div><small>Novelty score</small><strong>5/10</strong></div>
+            <div><small>Novelty verdict</small><strong>Incremental composition</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+            <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+            <div><dt>Program</dt><dd>Long-Horizon Research Quality</dd></div>
+            <div><dt>Evidence status</dt><dd>Historical reference result</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this record establishes</h3>
+            <p>The published snapshot associates this named candidate with a historical +11 pp result and an independent novelty assessment of 5/10 (incremental composition).</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>The public release does not bundle this record’s complete implementation contract, checkpoint fingerprint, frozen evaluation manifest, or raw predictions. Treat it as historical context, not current promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-byte-evidence-frontier-sft">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-linter-gated-natural-boundary-training" aria-labelledby="idea-linter-gated-natural-boundary-training-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status historical">Historical record</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">GPT-OSS-20B · Long-Horizon Research Quality</p>
+          <h2 id="idea-linter-gated-natural-boundary-training-title">Linter-Gated Natural-Boundary Training</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Historical delta</small><strong>+10 pp</strong></div>
+            <div><small>Novelty score</small><strong>5/10</strong></div>
+            <div><small>Novelty verdict</small><strong>Incremental composition</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+            <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+            <div><dt>Program</dt><dd>Long-Horizon Research Quality</dd></div>
+            <div><dt>Evidence status</dt><dd>Historical reference result</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this record establishes</h3>
+            <p>The published snapshot associates this named candidate with a historical +10 pp result and an independent novelty assessment of 5/10 (incremental composition).</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>The public release does not bundle this record’s complete implementation contract, checkpoint fingerprint, frozen evaluation manifest, or raw predictions. Treat it as historical context, not current promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-linter-gated-natural-boundary-training">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-distill-dfa-collision-reset" aria-labelledby="idea-distill-dfa-collision-reset-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status historical">Historical record</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">GPT-OSS-20B · Long-Horizon Research Quality</p>
+          <h2 id="idea-distill-dfa-collision-reset-title">Distill + DFA + Collision Reset</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Historical delta</small><strong>+8 pp</strong></div>
+            <div><small>Novelty score</small><strong>1/10</strong></div>
+            <div><small>Novelty verdict</small><strong>Likely prior art</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+            <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+            <div><dt>Program</dt><dd>Long-Horizon Research Quality</dd></div>
+            <div><dt>Evidence status</dt><dd>Historical reference result</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this record establishes</h3>
+            <p>The published snapshot associates this named candidate with a historical +8 pp result and an independent novelty assessment of 1/10 (likely prior art).</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>The public release does not bundle this record’s complete implementation contract, checkpoint fingerprint, frozen evaluation manifest, or raw predictions. Treat it as historical context, not current promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-distill-dfa-collision-reset">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-verifier-certified-contract-options-conformal-stop" aria-labelledby="idea-verifier-certified-contract-options-conformal-stop-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status historical">Historical record</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">GPT-OSS-20B · Long-Horizon Research Quality</p>
+          <h2 id="idea-verifier-certified-contract-options-conformal-stop-title">Verifier-Certified Contract Options + Conformal Stop</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Historical delta</small><strong>+6 pp</strong></div>
+            <div><small>Novelty score</small><strong>4/10</strong></div>
+            <div><small>Novelty verdict</small><strong>Incremental composition</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+            <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+            <div><dt>Program</dt><dd>Long-Horizon Research Quality</dd></div>
+            <div><dt>Evidence status</dt><dd>Historical reference result</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this record establishes</h3>
+            <p>The published snapshot associates this named candidate with a historical +6 pp result and an independent novelty assessment of 4/10 (incremental composition).</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>The public release does not bundle this record’s complete implementation contract, checkpoint fingerprint, frozen evaluation manifest, or raw predictions. Treat it as historical context, not current promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-verifier-certified-contract-options-conformal-stop">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-certified-obligation-stutter-quotient-training" aria-labelledby="idea-certified-obligation-stutter-quotient-training-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status historical">Historical record</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">GPT-OSS-20B · Long-Horizon Research Quality</p>
+          <h2 id="idea-certified-obligation-stutter-quotient-training-title">Certified Obligation-Stutter Quotient Training</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Historical delta</small><strong>+5 pp</strong></div>
+            <div><small>Novelty score</small><strong>7/10</strong></div>
+            <div><small>Novelty verdict</small><strong>Incremental composition</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+            <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+            <div><dt>Program</dt><dd>Long-Horizon Research Quality</dd></div>
+            <div><dt>Evidence status</dt><dd>Historical reference result</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this record establishes</h3>
+            <p>The published snapshot associates this named candidate with a historical +5 pp result and an independent novelty assessment of 7/10 (incremental composition).</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>The public release does not bundle this record’s complete implementation contract, checkpoint fingerprint, frozen evaluation manifest, or raw predictions. Treat it as historical context, not current promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-certified-obligation-stutter-quotient-training">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-confirmatory-alarm-gated-mpc-distillation" aria-labelledby="idea-confirmatory-alarm-gated-mpc-distillation-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status historical">Historical record</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">GPT-OSS-20B · Long-Horizon Research Quality</p>
+          <h2 id="idea-confirmatory-alarm-gated-mpc-distillation-title">Confirmatory Alarm-Gated MPC Distillation</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Historical delta</small><strong>+2 pp</strong></div>
+            <div><small>Novelty score</small><strong>3/10</strong></div>
+            <div><small>Novelty verdict</small><strong>Incremental composition</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+            <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
+            <div><dt>Program</dt><dd>Long-Horizon Research Quality</dd></div>
+            <div><dt>Evidence status</dt><dd>Historical reference result</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this record establishes</h3>
+            <p>The published snapshot associates this named candidate with a historical +2 pp result and an independent novelty assessment of 3/10 (incremental composition).</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>The public release does not bundle this record’s complete implementation contract, checkpoint fingerprint, frozen evaluation manifest, or raw predictions. Treat it as historical context, not current promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-confirmatory-alarm-gated-mpc-distillation">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-mutation-orbit-provenance-dpo" aria-labelledby="idea-mutation-orbit-provenance-dpo-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status running">Preliminary screen</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">Qwen3-4B · Single-Node Math Training</p>
+          <h2 id="idea-mutation-orbit-provenance-dpo-title">Mutation-Orbit Provenance DPO</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Paired delta</small><strong>+0.00 pp</strong></div>
+            <div><small>Baseline</small><strong>24.44%</strong></div>
+            <div><small>Treatment</small><strong>24.44%</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>Qwen3-4B</dd></div>
+            <div><dt>Target tasks</dt><dd>Riemann-Bench · Omni-MATH · AIME 2025 · AIME 2026</dd></div>
+            <div><dt>Matched sample</dt><dd>n=90</dd></div>
+            <div><dt>Evidence status</dt><dd>Preliminary exact-adapter screen</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this screen establishes</h3>
+            <p>This exact-adapter screen measured 24.44% for the baseline arm and 24.44% for the treatment arm on the same n=90 subset, for a paired delta of +0.00 pp.</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>Frozen Math baseline: 25.67% macro accuracy on n=541. The exact-adapter n=90 screen was flat, preliminary, and non-promotional. This is a preliminary screen and is not promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-mutation-orbit-provenance-dpo">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-canonical-anti-join-boundary-qlora" aria-labelledby="idea-canonical-anti-join-boundary-qlora-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status running">Preliminary screen</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">Qwen3-4B · Single-Node Coding Training</p>
+          <h2 id="idea-canonical-anti-join-boundary-qlora-title">Canonical Anti-Join Boundary QLoRA</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Paired delta</small><strong>+0.00 pp</strong></div>
+            <div><small>Baseline</small><strong>0.00%</strong></div>
+            <div><small>Treatment</small><strong>0.00%</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>Qwen3-4B</dd></div>
+            <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
+            <div><dt>Matched sample</dt><dd>n=100</dd></div>
+            <div><dt>Evidence status</dt><dd>Preliminary exact-adapter screen</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this screen establishes</h3>
+            <p>This exact-adapter screen measured 0.00% for the baseline arm and 0.00% for the treatment arm on the same n=100 subset, for a paired delta of +0.00 pp.</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>Frozen LiveCodeBench Hard baseline: 8.29% pass@1 on n=350. Both exact-adapter n=100 screens were flat, preliminary, and non-promotional. This is a preliminary screen and is not promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-canonical-anti-join-boundary-qlora">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <dialog class="idea-detail-dialog" id="idea-scopecap-consumption-training" aria-labelledby="idea-scopecap-consumption-training-title">
+        <div class="idea-dialog-shell">
+          <div class="idea-dialog-topline">
+            <span class="status running">Preliminary screen</span>
+            <button class="idea-dialog-close" type="button" data-dialog-close aria-label="Close idea details">×</button>
+          </div>
+          <p class="idea-dialog-kicker">Qwen3-4B · Single-Node Coding Training</p>
+          <h2 id="idea-scopecap-consumption-training-title">ScopeCap Consumption Training</h2>
+          <div class="idea-dialog-signals" aria-label="Published result summary">
+            <div><small>Paired delta</small><strong>+0.00 pp</strong></div>
+            <div><small>Baseline</small><strong>0.00%</strong></div>
+            <div><small>Treatment</small><strong>0.00%</strong></div>
+          </div>
+          <dl class="idea-dialog-facts">
+            <div><dt>Target model</dt><dd>Qwen3-4B</dd></div>
+            <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
+            <div><dt>Matched sample</dt><dd>n=100</dd></div>
+            <div><dt>Evidence status</dt><dd>Preliminary exact-adapter screen</dd></div>
+          </dl>
+          <section class="idea-dialog-note">
+            <h3>What this screen establishes</h3>
+            <p>This exact-adapter screen measured 0.00% for the baseline arm and 0.00% for the treatment arm on the same n=100 subset, for a paired delta of +0.00 pp.</p>
+          </section>
+          <section class="idea-dialog-boundary">
+            <h3>Interpretation boundary</h3>
+            <p>Frozen LiveCodeBench Hard baseline: 8.29% pass@1 on n=350. Both exact-adapter n=100 screens were flat, preliminary, and non-promotional. This is a preliminary screen and is not promotion evidence.</p>
+          </section>
+          <div class="idea-dialog-actions">
+            <button class="reference-button primary" type="button" data-dialog-close>Back to programs</button>
+            <a class="idea-dialog-anchor" href="#idea-scopecap-consumption-training">Link to this idea</a>
+          </div>
+        </div>
+      </dialog>
+
+
+      <footer class="reference-footer">
+        <div class="footer-brand">
+          <img src="assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span>
+        </div>
+        <div class="footer-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="index.html">TrainForge</a>
+        </div>
+        <p>Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</p>
+      </footer>
+
+    </div>
+  </body>
 </html>
