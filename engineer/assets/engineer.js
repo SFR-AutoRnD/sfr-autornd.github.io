@@ -71,7 +71,7 @@
   if (!lab) return;
   const studies = {
     hnswlib: {
-      label: 'hnswlib · worker leases', goal: 'Reduce coordination overhead in batch vector search.', finding: '#hnswlib', code: 'https://github.com/nmslib/hnswlib/pull/676',
+      label: 'hnswlib · worker leases', finding: '#hnswlib', code: 'https://github.com/nmslib/hnswlib/pull/676',
       titles: ['Trace the repeated borrowing.', 'Give each worker a longer-lived lease.', 'Put baseline and candidate side by side.', 'Less coordination. A measured gain.'],
       descriptions: [
         'Engineer identifies shared-pool locking around every query. The opportunity is repeated coordination, with search arithmetic left unchanged.',
@@ -86,7 +86,7 @@
       ratio: 1.0412, ratioLabel: '1.041×', comparisonLabel: 'Normalized query throughput', comparisonNote: 'Median across three independent index builds.'
     },
     pandas: {
-      label: 'pandas · nullable buffer views', goal: 'Make nullable row-wise reductions faster without changing their results.', finding: '#pandas-nullable', code: 'https://github.com/pandas-dev/pandas/pull/68422',
+      label: 'pandas · nullable buffer views', finding: '#pandas-nullable', code: 'https://github.com/pandas-dev/pandas/pull/68422',
       titles: ['Find the allocation hiding in the hot path.', 'Change the view, preserve the kernel.', 'Test the idea across the workload matrix.', 'A faster method, with its proof.'],
       descriptions: [
         'Engineer traces row-wise reductions and identifies a throwaway row-label array allocated for every element in the frame.',
@@ -101,7 +101,7 @@
       ratio: 1.38, ratioLabel: '1.38×', comparisonLabel: 'Median reduction speedup', comparisonNote: '40 benchmark cells · four operations · five dtypes · two shapes.'
     },
     usearch: {
-      label: 'USearch · norm caching', goal: 'Run more vector searches on the same core while preserving recall.', finding: '#usearch', code: 'https://github.com/unum-cloud/USearch/pull/787',
+      label: 'USearch · norm caching', finding: '#usearch', code: 'https://github.com/unum-cloud/USearch/pull/787',
       titles: ['Spot the arithmetic that repeats.', 'Calculate once, then reuse.', 'Compare the same search workload.', 'More queries from the same core.'],
       descriptions: [
         'Engineer identifies vector norms recalculated during cosine comparisons, even though stored vectors have not changed.',
@@ -116,7 +116,7 @@
       ratio: 1.1754, ratioLabel: '1.175×', comparisonLabel: 'Normalized query throughput', comparisonNote: 'GCC 11.4 · one pinned core · the same Wiki-1M graph.'
     },
     hashing: {
-      label: 'pandas · native StringArray hashing', goal: 'Speed up counting and duplicate detection while preserving string and NA behavior.', finding: '#pandas-hashing', code: 'https://github.com/pandas-dev/pandas/pull/68423',
+      label: 'pandas · native StringArray hashing', finding: '#pandas-hashing', code: 'https://github.com/pandas-dev/pandas/pull/68423',
       titles: ['Find the work surrounding the kernel.', 'Use the buffer the kernel already accepts.', 'Measure each operation and option.', 'Less adapter work. Verified results.'],
       descriptions: [
         'Engineer identifies mask creation and array conversions around a hash kernel that already accepts StringArray’s backing data.',
@@ -182,7 +182,7 @@
     lab.querySelector('[data-discovery-canvas]').hidden = step > 1;
     lab.querySelector('[data-discovery-experiment]').hidden = step !== 2;
     lab.querySelector('[data-discovery-proof]').hidden = step !== 3;
-    setText('study-label', study.label); setText('study-goal', study.goal);
+    setText('study-label', study.label);
     setText('study-title', study.titles[step]); setText('study-description', study.descriptions[step]);
     setText('study-handoff', handoffs[step]);
     setText('proof-value', study.value); setText('proof-unit', study.unit); setText('proof-scope', study.scope);

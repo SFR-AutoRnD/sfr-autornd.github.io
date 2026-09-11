@@ -22,9 +22,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css?v=visual-nav-3">
-<link rel="stylesheet" href="assets/engineer.css?v=section-tabs-1">
+<link rel="stylesheet" href="assets/engineer.css?v=research-lab-8">
 <script src="../assets/site.js?v=section-nav-2" defer></script>
-<script src="assets/engineer.js?v=pandas-pr-links-6" defer></script>
+<script src="assets/engineer.js?v=research-lab-8" defer></script>
 </head>
 <body class="has-section-nav engineer-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -98,7 +98,6 @@
 <section id="how" class="engineer-lab-section">
   <div class="container">
     <div class="engineer-section-head">
-      <p class="engineer-kicker">From a bottleneck to a better method</p>
       <h2>Inside the research lab</h2>
       <p>Watch Engineer turn a performance goal into a hypothesis, a controlled experiment, and a verified improvement.</p>
     </div>
@@ -111,7 +110,6 @@
         <button type="button" data-study-choice="hashing" aria-pressed="false" aria-controls="discovery-story"><b>pandas</b><span>String hashing</span></button>
       </div>
 
-      <div class="process-goal"><span>Research goal</span><strong data-study-goal>Reduce coordination overhead in batch vector search.</strong></div>
       <div class="discovery-steps" data-discovery-steps role="group" aria-label="Follow the research process" hidden>
         <button type="button" data-study-step="before" aria-pressed="true" aria-controls="discovery-story"><span class="story-step-number">1</span><span><small>Locate expensive work</small><b>Inspect</b></span></button>
         <button type="button" data-study-step="after" aria-pressed="false" aria-controls="discovery-story"><span class="story-step-number">2</span><span><small>Propose a new method</small><b>Hypothesize</b></span></button>
@@ -209,10 +207,10 @@
     <p class="findings-intro">We aimed AutoR&amp;D at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
 
     <div class="findings-picker" data-findings-picker role="group" aria-label="Explore results by project" hidden>
-      <button type="button" data-finding-choice="pandas" aria-pressed="true" aria-controls="pandas"><span class="finding-project-name">pandas <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>up to</small><strong>1.84×</strong></span><span class="finding-gain-label">faster nullable reductions</span></button>
-      <button type="button" data-finding-choice="sfr-rl" aria-pressed="false" aria-controls="sfr-rl"><span class="finding-project-name">Salesforce SFR-RL <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>up to</small><strong>3.14×</strong></span><span class="finding-gain-label">generation throughput</span></button>
-      <button type="button" data-finding-choice="usearch" aria-pressed="false" aria-controls="usearch"><span class="finding-project-name">USearch <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>GCC 11.4</small><strong>+17.5%</strong></span><span class="finding-gain-label">more queries / second</span></button>
-      <button type="button" data-finding-choice="hnswlib" aria-pressed="false" aria-controls="hnswlib"><span class="finding-project-name">hnswlib <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>median</small><strong>+4.1%</strong></span><span class="finding-gain-label">more queries / second</span></button>
+      <button type="button" data-finding-choice="pandas" aria-pressed="true" aria-controls="pandas"><span class="finding-project-name">pandas <span aria-hidden="true">↗</span></span><span class="finding-count">3 optimizations</span><span class="finding-gain"><small>up to</small><strong>1.84×</strong></span><span class="finding-gain-label">faster nullable reductions</span></button>
+      <button type="button" data-finding-choice="sfr-rl" aria-pressed="false" aria-controls="sfr-rl"><span class="finding-project-name">Salesforce SFR-RL <span aria-hidden="true">↗</span></span><span class="finding-count">2 optimizations</span><span class="finding-gain"><small>up to</small><strong>3.14×</strong></span><span class="finding-gain-label">generation throughput</span></button>
+      <button type="button" data-finding-choice="usearch" aria-pressed="false" aria-controls="usearch"><span class="finding-project-name">USearch <span aria-hidden="true">↗</span></span><span class="finding-count">1 optimization</span><span class="finding-gain"><small>GCC 11.4</small><strong>+17.5%</strong></span><span class="finding-gain-label">more queries / second</span></button>
+      <button type="button" data-finding-choice="hnswlib" aria-pressed="false" aria-controls="hnswlib"><span class="finding-project-name">hnswlib <span aria-hidden="true">↗</span></span><span class="finding-count">1 optimization</span><span class="finding-gain"><small>median</small><strong>+4.1%</strong></span><span class="finding-gain-label">more queries / second</span></button>
     </div>
 
     <!-- pandas -->
@@ -224,6 +222,14 @@
           <h3>pandas: three speedups in the workhorse of data science</h3>
         </div>
       </div>
+      <div class="optimization-picker" data-optimization-picker role="group" aria-labelledby="pandas-optimization-heading" hidden>
+        <h4 id="pandas-optimization-heading">Explore 3 optimizations</h4>
+        <div class="optimization-options">
+          <button type="button" data-optimization-choice="pandas-opt-nullable" aria-pressed="true" aria-controls="pandas-opt-nullable"><span class="optimization-number" aria-hidden="true">01</span><span class="optimization-copy"><b>Nullable reductions</b><small>Row-wise math with missing values</small></span><span class="optimization-action"><span class="optimization-idle">View finding →</span><span class="optimization-active">✓ Viewing</span></span></button>
+          <button type="button" data-optimization-choice="pandas-opt-hashing" aria-pressed="false" aria-controls="pandas-opt-hashing"><span class="optimization-number" aria-hidden="true">02</span><span class="optimization-copy"><b>String hashing</b><small>Count values and find duplicates</small></span><span class="optimization-action"><span class="optimization-idle">View finding →</span><span class="optimization-active">✓ Viewing</span></span></button>
+          <button type="button" data-optimization-choice="pandas-opt-numeric" aria-pressed="false" aria-controls="pandas-opt-numeric"><span class="optimization-number" aria-hidden="true">03</span><span class="optimization-copy"><b>Numeric frames</b><small>Row-wise math across NumPy blocks</small></span><span class="optimization-action"><span class="optimization-idle">View finding →</span><span class="optimization-active">✓ Viewing</span></span></button>
+        </div>
+      </div>
       <div class="badge-row">
         <span class="mini-pill blue">Up to 1.84× on nullable dtypes</span>
         <span class="mini-pill blue">4–28% faster primary workloads</span>
@@ -232,7 +238,6 @@
       </div>
       <p>pandas must handle every data type, missing-value convention, and memory layout, and that generality leaves an opening: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
 
-<div class="optimization-picker" data-optimization-picker role="group" aria-label="Choose a pandas optimization" hidden><button type="button" data-optimization-choice="pandas-opt-nullable" aria-pressed="true" aria-controls="pandas-opt-nullable"><span>01</span>Nullable reductions</button><button type="button" data-optimization-choice="pandas-opt-hashing" aria-pressed="false" aria-controls="pandas-opt-hashing"><span>02</span>String hashing</button><button type="button" data-optimization-choice="pandas-opt-numeric" aria-pressed="false" aria-controls="pandas-opt-numeric"><span>03</span>Numeric frames</button></div>
 <section class="finding-optimization" data-optimization-panel id="pandas-opt-nullable"><h4 class="opt-head" id="pandas-nullable"><span>Optimization 1</span>Row-wise math on nullable dtypes</h4>
       <p>pandas' nullable integer, float, and boolean columns, including their Arrow-backed variants, take their own route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element, a throwaway array as large as the frame itself, just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
 <div class="duo">
@@ -491,6 +496,13 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
           <h3>SFR-RL: taming memory and speed in our own RL stack</h3>
         </div>
       </div>
+      <div class="optimization-picker" data-optimization-picker role="group" aria-labelledby="sfr-rl-optimization-heading" hidden>
+        <h4 id="sfr-rl-optimization-heading">Explore 2 optimizations</h4>
+        <div class="optimization-options optimization-options-pair">
+          <button type="button" data-optimization-choice="sfr-rl-opt-memory" aria-pressed="true" aria-controls="sfr-rl-opt-memory"><span class="optimization-number" aria-hidden="true">01</span><span class="optimization-copy"><b>Training memory</b><small>Bound peak memory during RL training</small></span><span class="optimization-action"><span class="optimization-idle">View finding →</span><span class="optimization-active">✓ Viewing</span></span></button>
+          <button type="button" data-optimization-choice="sfr-rl-opt-generation" aria-pressed="false" aria-controls="sfr-rl-opt-generation"><span class="optimization-number" aria-hidden="true">02</span><span class="optimization-copy"><b>Token generation</b><small>Generate more tokens per second</small></span><span class="optimization-action"><span class="optimization-idle">View finding →</span><span class="optimization-active">✓ Viewing</span></span></button>
+        </div>
+      </div>
       <div class="badge-row">
         <span class="mini-pill blue">−39% peak training memory</span>
         <span class="mini-pill blue">Up to 3.14× generation throughput</span>
@@ -498,7 +510,6 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
       </div>
       <p><strong>SFR-RL</strong> is the reinforcement-learning stack Salesforce AI Research uses to post-train large models. We report the results here; implementation details remain internal.</p>
 
-<div class="optimization-picker" data-optimization-picker role="group" aria-label="Choose a sfr-rl optimization" hidden><button type="button" data-optimization-choice="sfr-rl-opt-memory" aria-pressed="true" aria-controls="sfr-rl-opt-memory"><span>01</span>Training memory</button><button type="button" data-optimization-choice="sfr-rl-opt-generation" aria-pressed="false" aria-controls="sfr-rl-opt-generation"><span>02</span>Token generation</button></div>
 <section class="finding-optimization" data-optimization-panel id="sfr-rl-opt-memory"><h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
       <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update, and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB (an out-of-memory crash) to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <figure class="chart">
@@ -672,8 +683,8 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
 </div>
 </details>
       <div class="pr-row">
-        <a class="btn btn-primary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">View the pull request →</a>
-        <small>Created a PR to the USearch project.</small>
+        <a class="btn btn-primary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">Cached vector norms · PR #787 ↗</a>
+        <small>Upstream pull request for the USearch optimization.</small>
       </div>
     </article>
 
@@ -753,8 +764,8 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
 </div>
 </details>
       <div class="pr-row">
-        <a class="btn btn-primary" href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">View the pull request →</a>
-        <small>Created a PR to the hnswlib project.</small>
+        <a class="btn btn-primary" href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">Worker-scoped leases · PR #676 ↗</a>
+        <small>Upstream pull request for the hnswlib optimization.</small>
       </div>
     </article>
 
