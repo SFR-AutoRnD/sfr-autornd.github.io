@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=editorial-1">
 <script src="assets/site.js" defer></script>
 </head>
 <body class="has-section-nav">
@@ -39,28 +39,34 @@
 
 <!-- ==================== Hero ==================== -->
 <header class="hero-ed" id="top">
-  <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
-  <div class="hero-title-row reveal" style="--i:0">
-    <h1>SFR-AutoR&amp;D</h1>
-    <img class="hero-mascots" src="assets/mascot.png" width="1774" height="887" alt="Astro, Codey and Einstein working at a laptop" onerror="this.closest('.hero-title-row').classList.add('no-art')">
-  </div>
-  <div class="deck reveal" style="--i:1">
-    <p>What if an AI agent could take an R&amp;D goal, <strong>discover a new algorithm or method</strong>,
-      implement it, run controlled experiments, and keep only what actually works?</p>
-    <p>That’s what we’re building at Salesforce AI Research: specialized R&amp;D agents that go
-      beyond fixing code or optimizing implementations. They <strong>form hypotheses, invent
-      new methods, test competing ideas, and validate improvements through evidence</strong>.</p>
-    <p>Research discovers what is new; development turns what is proven into something real.
-      The agents connect the two through a continuous loop of <strong>algorithmic discovery,
-      experimentation, verification, and refinement</strong>. The goal is a tighter loop from
-      <strong>scientific discovery to verified engineering progress</strong>.</p>
-  </div>
-  <div class="stat-strip reveal" style="--i:2">
-    <div><b data-count="2">2</b><span>sub-projects</span></div>
-    <div><b data-count="4">4</b><span>codebases improved</span></div>
-    <div><b data-count="7">7</b><span>vetted optimizations</span></div>
-    <div><b data-count="5">5</b><span>upstream PRs</span></div>
-    <div><b data-count="4">4</b><span>training programs</span></div>
+  <div class="hero-ed-inner">
+    <div class="hero-title-row reveal" style="--i:0">
+      <div>
+        <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
+        <h1>SFR-AutoR&amp;D</h1>
+      </div>
+      <img class="hero-mascots" src="assets/mascot.png" width="1774" height="887" alt="Astro, Codey and Einstein working at a laptop" onerror="this.closest('.hero-title-row').classList.add('no-art')">
+    </div>
+    <div class="deck reveal" style="--i:1">
+      <p class="hero-question">What if an AI agent could take an R&amp;D goal, <strong>discover a new algorithm or method</strong>,
+        implement it, run controlled experiments, and keep only what actually works?</p>
+      <div class="hero-copy-columns">
+        <p>That’s what we’re building at Salesforce AI Research: specialized R&amp;D agents that go
+          beyond fixing code or optimizing implementations. They <strong>form hypotheses, invent
+          new methods, test competing ideas, and validate improvements through evidence</strong>.</p>
+        <p>Research discovers what is new; development turns what is proven into something real.
+          The agents connect the two through a continuous loop of <strong>algorithmic discovery,
+          experimentation, verification, and refinement</strong>.</p>
+      </div>
+      <p class="hero-goal">The goal is a tighter loop from <strong>scientific discovery to verified engineering progress</strong>.</p>
+    </div>
+    <div class="stat-strip reveal" style="--i:2">
+      <div><b data-count="2">2</b><span>sub-projects</span></div>
+      <div><b data-count="4">4</b><span>codebases improved</span></div>
+      <div><b data-count="7">7</b><span>vetted optimizations</span></div>
+      <div><b data-count="5">5</b><span>upstream PRs</span></div>
+      <div><b data-count="4">4</b><span>training programs</span></div>
+    </div>
   </div>
 </header>
 
