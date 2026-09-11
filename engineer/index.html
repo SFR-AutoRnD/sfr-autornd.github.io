@@ -22,9 +22,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="assets/engineer.css?v=research-showcase-5">
 <script src="../assets/site.js" defer></script>
+<script src="assets/engineer.js?v=research-showcase-5" defer></script>
 </head>
-<body class="has-section-nav">
+<body class="has-section-nav engineer-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div class="bg-pattern"></div>
 
@@ -38,67 +40,52 @@
 </nav>
 
 <!-- ==================== Hero ==================== -->
-<header class="hero article-hero" id="top">
-  <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
-  <h1><span class="project-family">SFR-AutoR&amp;D</span>Engineer</h1>
-  <h2>Performance research on real code, backed by evidence.</h2>
-
-  <p class="hero-description">
-    Developed at Salesforce AI Research, Engineer studies mature codebases, proposes its own
-    optimizations, and runs controlled experiments to verify every improvement. From open-source
-    libraries to our SFR-RL training stack, it keeps only the changes it can back with evidence.
-  </p>
-
-  <div class="highlight-pills">
-    <div class="pill-row">
-      <span class="pill scope">4 Codebases · 3 Domains · 7 Optimizations</span>
-      <span class="pill pandas">pandas: Up to 1.84× Faster</span>
-      <span class="pill speed">SFR-RL: Up to 3.14× Faster Generation</span>
+<header class="engineer-hero" id="top">
+  <div class="container">
+    <div class="engineer-hero-grid">
+      <div class="engineer-intro">
+        <div class="engineer-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
+        <h1><span>SFR-AutoR&amp;D</span>Engineer</h1>
+        <h2>Performance research on real code,<br>backed by evidence.</h2>
+        <p>Engineer studies mature codebases, invents optimization ideas, and runs controlled experiments to verify each improvement. From open-source libraries to Salesforce’s SFR-RL stack, it keeps the changes it can back with evidence.</p>
+        <div class="engineer-hero-actions"><a class="btn btn-primary" href="#how">See the research unfold <span aria-hidden="true">↓</span></a><a class="engineer-text-link" href="#findings">Explore the findings <span aria-hidden="true">↗</span></a></div>
+      </div>
     </div>
-    <div class="pill-row">
-      <span class="pill memory">SFR-RL: 39% Lower Peak Memory</span>
-      <span class="pill search">USearch: +17.5% Faster Search</span>
-      <span class="pill exact">Correctness Verified on Every Patch</span>
-      <span class="pill oss">5 Open-Source PRs</span>
+    <div class="engineer-byline">
+      <div class="authors">
+<a class="author" href="https://shreypandit.github.io/" rel="noopener" target="_blank">
+<img alt="Shrey Pandit" class="author-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" src="../trainforge/assets/shrey-pandit.jpg"/>
+<div class="author-img author-fallback">SP</div>
+<span class="author-name">Shrey Pandit</span>
+</a>
+<a class="author" href="https://nxphi47.github.io/" rel="noopener" target="_blank">
+<img alt="Xuan-Phi Nguyen" class="author-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" src="../trainforge/assets/xuan-phi-nguyen.jpg"/>
+<div class="author-img author-fallback">XN</div>
+<span class="author-name">Xuan-Phi Nguyen</span>
+</a>
+<a class="author" href="https://zhaoyiran924.github.io/" rel="noopener" target="_blank">
+<img alt="Yiran Zhao" class="author-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" src="../trainforge/assets/yiran-zhao.jpg"/>
+<div class="author-img author-fallback">YZ</div>
+<span class="author-name">Yiran Zhao</span>
+</a>
+<a class="author" href="https://raihanjoty.github.io/" rel="noopener" target="_blank">
+<img alt="Shafiq Joty" class="author-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" src="../trainforge/assets/shafiq-joty.jpg"/>
+<div class="author-img author-fallback">SJ</div>
+<span class="author-name">Shafiq Joty</span>
+</a>
+</div>
+      <a class="engineer-demo-link" href="#demo"><span class="demo-play" aria-hidden="true">▶</span><span>Watch the narrated demo<small>3 minutes · after the findings</small></span></a>
     </div>
   </div>
-
-
-  <div class="hero-actions"><a class="btn btn-primary" href="#findings">Explore the findings →</a><a class="btn btn-secondary" href="#demo">Watch the demo</a></div>
-
-  <div class="authors">
-    <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="../trainforge/assets/shrey-pandit.jpg" alt="Shrey Pandit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">SP</div>
-      <span class="author-name">Shrey Pandit</span>
-    </a>
-    <a href="https://nxphi47.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="../trainforge/assets/xuan-phi-nguyen.jpg" alt="Xuan-Phi Nguyen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">XN</div>
-      <span class="author-name">Xuan-Phi Nguyen</span>
-    </a>
-    <a href="https://zhaoyiran924.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="../trainforge/assets/yiran-zhao.jpg" alt="Yiran Zhao" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">YZ</div>
-      <span class="author-name">Yiran Zhao</span>
-    </a>
-    <a href="https://raihanjoty.github.io/" class="author" target="_blank" rel="noopener">
-      <img class="author-img" src="../trainforge/assets/shafiq-joty.jpg" alt="Shafiq Joty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="author-img author-fallback">SJ</div>
-      <span class="author-name">Shafiq Joty</span>
-    </a>
-  </div>
-  <p class="affiliation">Salesforce AI Research</p>
-  <p class="hero-meta">2026</p>
 </header>
+
 
 <nav class="section-nav" aria-label="Explore this page">
   <div class="section-nav-inner">
     <div class="section-nav-title">Engineer</div>
     <div class="section-nav-track">
-      <a class="sn-link" href="#takeaways">Key takeaways</a>
-      <a class="sn-link" href="#overview">Overview</a>
-      <a class="sn-link" href="#how">How it works</a>
+      <a class="sn-link" href="#how">Inside the research lab</a>
+      <a class="sn-link" href="#overview">Why Engineer</a>
       <a class="sn-link" href="#findings">Findings</a>
       <a class="sn-link" href="#demo">Demo</a>
       <a class="sn-link" href="#next">What’s next</a>
@@ -108,51 +95,98 @@
 
 <main id="main-content" tabindex="-1">
 
-<!-- ==================== Key takeaways ==================== -->
-<section id="takeaways" class="ed">
+<!-- ==================== Interactive research walkthrough ==================== -->
+<section id="how" class="engineer-lab-section">
   <div class="container">
-    <h2 class="section-title">Key Takeaways</h2>
-
-    <div class="breadth">
-      <h3>One agent, very different problems</h3>
-      <p>AutoR&amp;D isn't tuned to one codebase or one language. The same research loop found real, verified wins in four unrelated systems, each with its own stack, its own performance model, and its own definition of "correct".</p>
-      <div class="domain-grid">
-        <div class="domain"><span class="domain-icon">🐼</span><b>Dataframes</b><span>pandas · Python, NumPy &amp; Arrow · allocation and dispatch on hot kernels</span></div>
-        <div class="domain"><span class="domain-icon">🧠</span><b>LLM training &amp; serving</b><span>SFR-RL · PyTorch, multi-GPU · memory bounds and decode throughput</span></div>
-        <div class="domain"><span class="domain-icon">🔍</span><b>Vector search</b><span>USearch &amp; hnswlib · C++ · redundant arithmetic and lock contention in query hot paths</span></div>
-      </div>
-      <div class="breadth-stats">
-        <div><b>4</b><span>codebases</span></div>
-        <div><b>3</b><span>problem domains</span></div>
-        <div><b>7</b><span>vetted optimizations</span></div>
-        <div><b>5</b><span>upstream PRs</span></div>
-        <div><b>100%</b><span>correctness verified</span></div>
-      </div>
+    <div class="engineer-section-head">
+      <p class="engineer-kicker">From a bottleneck to a better method</p>
+      <h2>Inside the research lab</h2>
+      <p>Watch Engineer turn a performance goal into a hypothesis, a controlled experiment, and a verified improvement.</p>
     </div>
 
-    <div class="results-grid">
-      <div class="result-card">
-        <div class="result-value">+64.6%</div>
-        <div class="result-label">Best pandas Speedup</div>
-        <div class="result-detail">Row-wise ops on fragmented frames</div>
+    <div class="discovery-lab" data-discovery-lab data-study="hnswlib" data-step="before" data-playing="false">
+      <div class="discovery-picker" data-discovery-picker role="group" aria-label="Choose an Engineer discovery" hidden>
+        <button type="button" data-study-choice="hnswlib" aria-pressed="true" aria-controls="discovery-story"><b>hnswlib</b><span>Worker leases</span></button>
+        <button type="button" data-study-choice="pandas" aria-pressed="false" aria-controls="discovery-story"><b>pandas</b><span>Buffer views</span></button>
+        <button type="button" data-study-choice="usearch" aria-pressed="false" aria-controls="discovery-story"><b>USearch</b><span>Norm caching</span></button>
+        <button type="button" data-study-choice="hashing" aria-pressed="false" aria-controls="discovery-story"><b>pandas</b><span>String hashing</span></button>
       </div>
-      <div class="result-card">
-        <div class="result-value">136K</div>
-        <div class="result-label">Correctness Checks</div>
-        <div class="result-detail">Exact differential tests on the pandas patches, zero mismatches</div>
-      </div>
-      <div class="result-card">
-        <div class="result-value">3.14×</div>
-        <div class="result-label">Faster Generation</div>
-        <div class="result-detail">SFR-RL serving, token-identical outputs</div>
-      </div>
-      <div class="result-card">
-        <div class="result-value">−39%</div>
-        <div class="result-label">Peak Training Memory</div>
-        <div class="result-detail">OOM crashes → 19 stable RL updates</div>
-      </div>
-    </div>
 
+      <div class="process-goal"><span>Research goal</span><strong data-study-goal>Reduce coordination overhead in batch vector search.</strong></div>
+      <div class="discovery-steps" data-discovery-steps role="group" aria-label="Follow the research process" hidden>
+        <button type="button" data-study-step="before" aria-pressed="true" aria-controls="discovery-story"><span class="story-step-number">1</span><span><small>Locate expensive work</small><b>Inspect</b></span></button>
+        <button type="button" data-study-step="after" aria-pressed="false" aria-controls="discovery-story"><span class="story-step-number">2</span><span><small>Propose a new method</small><b>Hypothesize</b></span></button>
+        <button type="button" data-study-step="experiment" aria-pressed="false" aria-controls="discovery-story"><span class="story-step-number">3</span><span><small>Run a fair comparison</small><b>Experiment</b></span></button>
+        <button type="button" data-study-step="evidence" aria-pressed="false" aria-controls="discovery-story"><span class="story-step-number">4</span><span><small>Keep what holds up</small><b>Verify &amp; deliver</b></span></button>
+      </div>
+
+      <div class="discovery-story" id="discovery-story">
+        <header class="story-heading">
+          <div class="story-eyebrow"><span>An Engineer discovery</span><span data-study-label>hnswlib · worker leases</span></div>
+          <h3 data-study-title>A shared lock, for every query.</h3>
+          <p data-study-description>Each query borrows and returns scratch memory through a shared pool. A batch repeats the same coordination thousands of times.</p>
+        </header>
+
+        <div class="discovery-canvas" data-discovery-canvas>
+          <div class="study-visual lease-visual" data-study-visual="hnswlib" role="img" aria-label="Before: each query borrows scratch memory from a shared pool and returns it afterward.">
+            <div class="visual-context">One worker · a query batch</div>
+            <div class="lease-queries" aria-hidden="true"><span>Query 1</span><span>Query 2</span><span>Query 3</span></div>
+            <svg class="lease-wires" viewBox="0 0 600 90" preserveAspectRatio="none" aria-hidden="true">
+              <defs><marker id="lease-arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L6 4L1 7"/></marker></defs>
+              <g class="mechanism-before" marker-end="url(#lease-arrow)"><path d="M90 4V84"/><path d="M110 84V4"/><path d="M290 4V84"/><path d="M310 84V4"/><path d="M490 4V84"/><path d="M510 84V4"/></g>
+              <g class="mechanism-after"><path d="M100 4V36Q100 44 108 44H492Q500 44 500 36V4M300 4V84"/><circle cx="300" cy="44" r="4"/><circle cx="300" cy="84" r="3"/></g>
+            </svg>
+            <div class="lease-resource" aria-hidden="true"><span class="before-label">Shared scratch pool · borrow / return for every query</span><span class="after-label">One worker-scoped lease · reuse across the batch</span></div>
+            <p class="visual-caption"><span class="before-label">The repeated work is coordination at the pool.</span><span class="after-label">Each query still starts with fresh visited state.</span></p>
+          </div>
+
+          <div class="study-visual buffer-visual" data-study-visual="pandas" role="img" aria-label="Before: data and mask buffers require a large temporary row-label array before the grouped reduction kernel." hidden>
+            <div class="visual-context">Nullable-dtype reductions · the same numerical kernel</div>
+            <div class="buffer-route" aria-hidden="true">
+              <div class="buffer-source"><span class="diagram-label">Existing data + mask</span><div class="data-grid"><i>8</i><i>3</i><i>5</i><i>2</i><i>6</i><i class="missing-cell">NA</i><i>4</i><i>9</i><i>7</i><i>1</i><i>5</i><i>3</i></div><small>Buffers stay in place</small></div>
+              <span class="diagram-arrow">→</span>
+              <div class="buffer-middle"><span class="diagram-label before-label">Temporary row labels</span><span class="diagram-label after-label">A compatible view</span><div class="row-label-grid before-label"><i>0</i><i>0</i><i>0</i><i>0</i><i>1</i><i>1</i><i>1</i><i>1</i><i>2</i><i>2</i><i>2</i><i>2</i></div><div class="buffer-view after-label"><span>data.view</span><span>mask.view</span></div><small class="before-label">One label per element</small><small class="after-label">No large label array</small></div>
+              <span class="diagram-arrow">→</span>
+              <div class="kernel-block"><span class="kernel-symbol">∑</span><b>Grouped kernel</b><small>Same reduction order</small></div>
+            </div>
+            <p class="visual-caption"><span class="before-label">The intermediate row-label array grows with the full frame.</span><span class="after-label">The kernel reads a different view of the existing buffers.</span></p>
+          </div>
+
+          <div class="study-visual norm-visual" data-study-visual="usearch" role="img" aria-label="Before: every cosine comparison calculates vector lengths again." hidden>
+            <div class="visual-context">Cosine distance · the same graph traversal</div>
+            <div class="norm-route" aria-hidden="true">
+              <div class="query-vector"><span class="vector-symbol">q</span><b>Query vector</b><small class="before-label">Norm recomputed</small><small class="after-label">Norm computed once</small></div>
+              <svg class="norm-fan" viewBox="0 0 100 210" preserveAspectRatio="none"><path d="M2 105H28Q36 105 36 97V35Q36 27 44 27H98M36 105H98M36 105V175Q36 183 44 183H98"/><circle cx="36" cy="105" r="4"/></svg>
+              <div class="vector-comparisons"><div><b>Vector A</b><span class="before-label">Compute norms again</span><span class="after-label">Read cached norm</span></div><div><b>Vector B</b><span class="before-label">Compute norms again</span><span class="after-label">Read cached norm</span></div><div><b>Vector C</b><span class="before-label">Compute norms again</span><span class="after-label">Read cached norm</span></div></div>
+            </div>
+            <p class="visual-caption"><span class="before-label">Stored vector lengths do not change between comparisons.</span><span class="after-label">Four extra bytes per stored vector remove repeated norm calculations.</span></p>
+          </div>
+
+          <div class="study-visual hashing-visual" data-study-visual="hashing" role="img" aria-label="Before: missing-value masks and array conversions surround an existing hash kernel." hidden>
+            <div class="visual-context">StringArray · counting and detecting duplicates</div>
+            <div class="hash-route" aria-hidden="true"><div class="string-buffer"><span class="diagram-label">Backing array</span><span>“alpha”</span><span>“beta”</span><span>“alpha”</span><span class="missing-token">pd.NA</span></div><span class="diagram-arrow">→</span><div class="hash-adapter"><span class="before-label"><b>Adapter work</b><small>Build an NA mask<br> or convert the array</small></span><span class="after-label"><b>Direct access</b><small>Use the backing array<br> under a checked guard</small></span></div><span class="diagram-arrow">→</span><div class="kernel-block"><span class="kernel-symbol">#</span><b>Existing hash kernel</b><small>Same hashing rules</small></div></div>
+            <p class="visual-caption"><span class="before-label">The kernel already accepts the array that StringArray stores.</span><span class="after-label">The original path remains for options outside the fast-path guard.</span></p>
+          </div>
+        </div>
+
+        <div class="discovery-experiment" data-discovery-experiment hidden>
+          <div class="experiment-pairing"><span class="experiment-label">Same workload. Same hardware.</span><div class="paired-round"><span>Run order A</span><b>Baseline</b><i aria-hidden="true">→</i><b>Candidate</b></div><div class="paired-round"><span>Run order B</span><b>Candidate</b><i aria-hidden="true">→</i><b>Baseline</b></div><p>Alternate the order to reduce measurement bias. Keep the evidence from every comparison.</p></div>
+          <div class="experiment-comparison" data-experiment-comparison><span class="experiment-label" data-comparison-label>Normalized query throughput</span><div class="comparison-row"><span>Baseline <b>1.00×</b></span><div class="comparison-track"><i data-comparison-baseline style="width:96.04%"></i></div></div><div class="comparison-row"><span>Candidate <b data-comparison-ratio>1.041×</b></span><div class="comparison-track"><i class="candidate-bar"></i></div></div><p data-comparison-note>Median across three independent index builds.</p></div>
+          <div class="hashing-comparison" data-hashing-comparison hidden><span class="experiment-label">Reported improvement by operation</span><div><span>value_counts</span><b>4.4%</b></div><div><span>duplicated · keep first</span><b>9.6%</b></div><div><span>duplicated · keep last</span><b>12.2%</b></div><div><span>duplicated · keep neither</span><b>8.7%</b></div><p>One million values · matched input and options.</p></div>
+        </div>
+
+        <div class="discovery-proof" data-discovery-proof hidden>
+          <div class="proof-outcome"><span>Measured improvement</span><strong data-proof-value>+4.1%</strong><b data-proof-unit>more queries / second</b><p data-proof-scope>Median across three independently built indexes.</p></div>
+          <div class="proof-checks"><div><span aria-hidden="true">✓</span><p><b>Correctness verified</b><span data-proof-correctness>Identical output hashes; fresh scratch state and ownership checked.</span></p></div><div><span aria-hidden="true">↔</span><p><b>Evidence retained</b><span data-proof-measurement>All timed repetitions retained across independent index builds.</span></p></div></div>
+        </div>
+
+        <div class="process-handoff"><span>What this step produces</span><strong data-study-handoff>Bottleneck + correctness contract</strong><span class="handoff-arrow" aria-hidden="true">→</span></div>
+
+        <footer class="story-footer"><span>Illustrated research process · reported measurements</span><div><a href="#hnswlib" data-study-finding>Read the finding <span aria-hidden="true">↗</span></a><a href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener" data-study-code>View implementation <span aria-hidden="true">↗</span></a></div></footer>
+      </div>
+      <div class="discovery-navigation" data-discovery-navigation hidden><button type="button" data-study-previous disabled>← Back</button><div class="process-playback"><span data-study-progress>Step 1 of 4</span><button type="button" data-study-autoplay aria-pressed="true" aria-label="Pause automatic research walkthrough"><span class="autoplay-icon" aria-hidden="true">Ⅱ</span><span data-autoplay-label>Auto</span></button></div><button type="button" data-study-next>Follow the hypothesis →</button></div>
+      <span class="engineer-sr-only" data-study-announcement role="status" aria-live="polite" aria-atomic="true"></span>
+    </div>
   </div>
 </section>
 
@@ -168,97 +202,22 @@
   </div>
 </section>
 
-<!-- ==================== How it works ==================== -->
-<section id="how" class="ed">
-  <div class="container">
-    <h2 class="section-title">How SFR-AutoR&amp;D-Engineer Works</h2>
-
-    <figure class="diagram">
-      <svg viewBox="0 0 960 292" role="img" aria-label="AutoR&amp;D loop: scope the target, propose ideas, run experiments, verify and decide; failed ideas loop back, and convincing evidence produces a vetted artifact" font-family="'DM Sans',system-ui,sans-serif">
-        <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#8ab7e8"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="8" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="34" cy="62" r="12" fill="#0176D3"/><text x="34" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">1</text>
-          <text x="54" y="67" font-size="14.5" font-weight="700" fill="#032D60">Scope the target</text>
-          <text x="24" y="96" font-size="11.5" fill="#475569">Studies the codebase and finds</text>
-          <text x="24" y="112" font-size="11.5" fill="#475569">where performance is hiding</text>
-        </g>
-        <g>
-          <rect x="240" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="266" cy="62" r="12" fill="#0176D3"/><text x="266" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">2</text>
-          <text x="286" y="67" font-size="14.5" font-weight="700" fill="#032D60">Propose ideas</text>
-          <text x="256" y="96" font-size="11.5" fill="#475569">Generates many candidate</text>
-          <text x="256" y="112" font-size="11.5" fill="#475569">optimizations, like a researcher</text>
-        </g>
-        <g>
-          <rect x="472" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="498" cy="62" r="12" fill="#0176D3"/><text x="498" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">3</text>
-          <text x="518" y="67" font-size="14.5" font-weight="700" fill="#032D60">Run experiments</text>
-          <text x="488" y="96" font-size="11.5" fill="#475569">Implements each idea and</text>
-          <text x="488" y="112" font-size="11.5" fill="#475569">benchmarks it in a sandbox</text>
-        </g>
-        <g>
-          <rect x="704" y="36" width="200" height="96" rx="12" fill="#EAF5FE" stroke="#bcd9f5"/>
-          <circle cx="730" cy="62" r="12" fill="#0176D3"/><text x="730" y="66.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">4</text>
-          <text x="750" y="67" font-size="14.5" font-weight="700" fill="#032D60">Verify &amp; decide</text>
-          <text x="720" y="96" font-size="11.5" fill="#475569">Statistical and correctness</text>
-          <text x="720" y="112" font-size="11.5" fill="#475569">gates; only real wins survive</text>
-        </g>
-        <line x1="208" y1="84" x2="234" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
-        <line x1="440" y1="84" x2="466" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
-        <line x1="672" y1="84" x2="698" y2="84" stroke="#8ab7e8" stroke-width="2" marker-end="url(#arr)"/>
-        <path d="M744,132 V168 H340 V142" fill="none" stroke="#8ab7e8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
-        <text x="520" y="162" text-anchor="middle" font-size="11" fill="#94a3b8">not convincing? reject, learn, try the next idea</text>
-        <line x1="790" y1="132" x2="790" y2="178" stroke="#7fc08f" stroke-width="2" marker-end="url(#arr)"/>
-        <text x="798" y="161" text-anchor="start" font-size="11" fill="#2E844A">evidence clears the bar</text>
-        <g>
-          <rect x="620" y="184" width="284" height="84" rx="12" fill="#EBF7E6" stroke="#abd9a0"/>
-          <text x="644" y="215" font-size="14.5" font-weight="700" fill="#032D60">✓ Vetted artifact</text>
-          <text x="644" y="238" font-size="11.5" fill="#475569">A working patch, benchmark evidence,</text>
-          <text x="644" y="254" font-size="11.5" fill="#475569">and a technical report</text>
-        </g>
-      </svg>
-      <figcaption><strong>Figure 1.</strong> The AutoR&amp;D loop. Ideas are cheap; the loop exists to kill the bad ones. Only candidates that clear both performance and correctness gates become artifacts.</figcaption>
-    </figure>
-
-    <div class="contributions-grid">
-      <div class="contribution-card">
-        <div class="contribution-icon">🧪</div>
-        <h3>Built, Run, and Measured</h3>
-        <p>Every candidate is built, run, and measured against the unmodified baseline: same hardware, same inputs, paired runs in alternating order across multiple seeds, so noise cancels out.</p>
-      </div>
-      <div class="contribution-card">
-        <div class="contribution-icon">✓</div>
-        <h3>Correctness Is a Gate</h3>
-        <p>Patched and unpatched systems are fed identical inputs and compared exactly: hashes, dtypes, edge cases down to the sign of a floating-point zero. Any observable change means automatic rejection.</p>
-      </div>
-      <div class="contribution-card">
-        <div class="contribution-icon">📊</div>
-        <h3>Statistics Before Headlines</h3>
-        <p>Every reported number carries confidence bounds from repeated measurements. A flashy median with a shaky interval doesn't get promoted, no matter how good it looks.</p>
-      </div>
-      <div class="contribution-card">
-        <div class="contribution-icon">🚫</div>
-        <h3>It Rejects Its Own Ideas</h3>
-        <p>One clever kernel rewrite showed a small win in one phase and a regression in another. AutoR&amp;D flagged the mixed evidence and held it back itself. Negative results are recorded too.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <!-- ==================== Findings ==================== -->
 <section id="findings" class="ed">
   <div class="container">
+    <span id="takeaways" class="findings-alias" aria-hidden="true"></span>
     <h2 class="section-title">What It Found</h2>
-    <p style="text-align:center;max-width:760px;margin:-.8rem auto 2rem;color:var(--text-secondary)">We aimed AutoR&amp;D at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
+    <p class="findings-intro">We aimed AutoR&amp;D at three heavily used, heavily optimized open-source libraries (pandas, USearch, and hnswlib) plus one of our own production systems. It found something real in all four.</p>
+
+    <div class="findings-picker" data-findings-picker role="group" aria-label="Explore results by project" hidden>
+      <button type="button" data-finding-choice="pandas" aria-pressed="true" aria-controls="pandas"><span class="finding-project-name">pandas <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>up to</small><strong>1.84×</strong></span><span class="finding-gain-label">faster nullable reductions</span></button>
+      <button type="button" data-finding-choice="sfr-rl" aria-pressed="false" aria-controls="sfr-rl"><span class="finding-project-name">Salesforce SFR-RL <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>up to</small><strong>3.14×</strong></span><span class="finding-gain-label">generation throughput</span></button>
+      <button type="button" data-finding-choice="usearch" aria-pressed="false" aria-controls="usearch"><span class="finding-project-name">USearch <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>GCC 11.4</small><strong>+17.5%</strong></span><span class="finding-gain-label">more queries / second</span></button>
+      <button type="button" data-finding-choice="hnswlib" aria-pressed="false" aria-controls="hnswlib"><span class="finding-project-name">hnswlib <span aria-hidden="true">↗</span></span><span class="finding-gain"><small>median</small><strong>+4.1%</strong></span><span class="finding-gain-label">more queries / second</span></button>
+    </div>
 
     <!-- pandas -->
-    <div class="card disc" id="pandas">
+    <article class="card disc finding-study" data-finding-panel id="pandas">
       <div class="disc-head">
         <div class="disc-badge">1</div>
         <div>
@@ -273,7 +232,9 @@
         <span class="mini-pill green">136K checks, 0 mismatches</span>
       </div>
       <p>pandas must handle every data type, missing-value convention, and memory layout, and that generality leaves an opening: hot operations sometimes do conversion, masking, and copying work even when the data is <em>already</em> in ideal form. AutoR&amp;D's answer: <strong>check first, then take the express lane</strong>. A narrowly guarded fast path serves data whose layout qualifies; everything else falls through to pandas' unchanged general implementation.</p>
-      <h4 class="opt-head"><span>Optimization 1</span>Row-wise math on nullable dtypes</h4>
+
+<div class="optimization-picker" data-optimization-picker role="group" aria-label="Choose a pandas optimization" hidden><button type="button" data-optimization-choice="pandas-opt-nullable" aria-pressed="true" aria-controls="pandas-opt-nullable"><span>01</span>Nullable reductions</button><button type="button" data-optimization-choice="pandas-opt-hashing" aria-pressed="false" aria-controls="pandas-opt-hashing"><span>02</span>String hashing</button><button type="button" data-optimization-choice="pandas-opt-numeric" aria-pressed="false" aria-controls="pandas-opt-numeric"><span>03</span>Numeric frames</button></div>
+<section class="finding-optimization" data-optimization-panel id="pandas-opt-nullable"><h4 class="opt-head" id="pandas-nullable"><span>Optimization 1</span>Row-wise math on nullable dtypes</h4>
       <p>pandas' nullable integer, float, and boolean columns, including their Arrow-backed variants, take their own route for row-wise <code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code>: the frame is flattened and run through the groupby kernels, which meant first building a "row label" for every single element, a throwaway array as large as the frame itself, just to tell the kernel which row each value belongs to. AutoR&amp;D's patch views the existing data and mask buffers in the layout the kernel already expects and reduces with a single group, so that label array is never allocated and the kernels and reduction order stay exactly as they were. Across pandas' own 40-cell benchmark that's <strong>1.22–1.84× faster (median 1.38×)</strong> with every confidence interval above parity, and <strong>12–15% lower peak memory</strong> on a 10-million-element frame.</p>
 <div class="duo">
 <figure class="chart">
@@ -381,7 +342,8 @@ def _groupby_op_axis1(self, *, how, nrows, ncols, min_count, skipna, **kwargs):
 </ul>
 </div>
 </details>
-      <h4 class="opt-head"><span>Optimization 2</span>Counting and de-duplicating strings</h4>
+      </section>
+<section class="finding-optimization" data-optimization-panel id="pandas-opt-hashing"><h4 class="opt-head" id="pandas-hashing"><span>Optimization 2</span>Counting and de-duplicating strings</h4>
       <p>For nullable string columns, <code>duplicated()</code> and <code>value_counts()</code> now hand their backing array straight to pandas' own hashing kernel: <strong>4.4–12.2% faster</strong> on million-value workloads, with peak memory for <code>value_counts</code> down by about a third. Total change: a 28-line diff.</p>
       <figure class="chart">
 <svg viewBox="0 0 560 258" role="img" aria-label="pandas string-hashing speedups on one-million-value workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -441,7 +403,8 @@ def value_counts(self, dropna=True):
 </ul>
 </div>
 </details>
-      <h4 class="opt-head"><span>Optimization 3</span>Row-wise math on numeric frames</h4>
+      </section>
+<section class="finding-optimization" data-optimization-panel id="pandas-opt-numeric"><h4 class="opt-head"><span>Optimization 3</span>Row-wise math on numeric frames</h4>
       <p><code>sum</code>, <code>prod</code>, <code>min</code>, and <code>max</code> across rows used to allocate fresh intermediate arrays for every internal block; the patch folds blocks into one reused accumulator. That's <strong>12–28% faster</strong> on a typical 100,000-row mixed frame, and up to <strong>64.6%</strong> on the fragmented frames real pipelines accumulate.</p>
       <div class="legend" aria-hidden="true">
         <span><i style="background:#0176D3"></i>Typical mixed frame (100K rows)</span>
@@ -510,6 +473,7 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </ul>
 </div>
 </details>
+</section>
       <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
       <div class="pr-row">
         <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-axis1-ea-groupby-fastpath" target="_blank" rel="noopener">Nullable-dtype reductions: view code →</a>
@@ -517,10 +481,10 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
         <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-axis1-numpy-block-fusion" target="_blank" rel="noopener">Row-wise reductions: view code →</a>
         <small>Source branches for the three pandas optimizations.</small>
       </div>
-    </div>
+    </article>
 
     <!-- SFR-RL -->
-    <div class="card disc" id="sfr-rl">
+    <article class="card disc finding-study" data-finding-panel id="sfr-rl">
       <div class="disc-head">
         <div class="disc-badge">2</div>
         <div>
@@ -534,7 +498,9 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
         <span class="mini-pill green">Token-for-token identical outputs</span>
       </div>
       <p><strong>SFR-RL</strong> is the reinforcement-learning stack Salesforce AI Research uses to post-train large models. We report the results here; implementation details remain internal.</p>
-      <h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
+
+<div class="optimization-picker" data-optimization-picker role="group" aria-label="Choose a sfr-rl optimization" hidden><button type="button" data-optimization-choice="sfr-rl-opt-memory" aria-pressed="true" aria-controls="sfr-rl-opt-memory"><span>01</span>Training memory</button><button type="button" data-optimization-choice="sfr-rl-opt-generation" aria-pressed="false" aria-controls="sfr-rl-opt-generation"><span>02</span>Token generation</button></div>
+<section class="finding-optimization" data-optimization-panel id="sfr-rl-opt-memory"><h4 class="opt-head"><span>Optimization 1</span>Memory: from roulette to guarantees</h4>
       <p>In RL training the model generates its own training data, so each step's memory footprint is drawn fresh every update, and one unlucky draw can blow past GPU memory late in an expensive run. AutoR&amp;D's improvements make peak memory <strong>predictable and bounded by configuration</strong>: on a demanding long-context workload, peak memory fell from <strong>128.5 GiB (an out-of-memory crash) to a stable 78.6 GiB</strong> across 19 consecutive updates, with the training computation itself unchanged.</p>
       <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Peak training memory before and after AutoR&amp;D's fixes" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -558,7 +524,8 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </svg>
 <figcaption><strong>Figure 6.</strong> Peak trainer memory on the same long-context RL workload. The baseline, already using every standard memory-saving technique, ran out of memory on its first big step.</figcaption>
 </figure>
-      <h4 class="opt-head"><span>Optimization 2</span>Throughput: the same answers, three times faster</h4>
+      </section>
+<section class="finding-optimization" data-optimization-panel id="sfr-rl-opt-generation"><h4 class="opt-head"><span>Optimization 2</span>Throughput: the same answers, three times faster</h4>
       <p>On the serving side of the loop, AutoR&amp;D cut median time per generated token by <strong>60–69%</strong> across four workload types, up to <strong>3.14× baseline throughput</strong> on long-output workloads, with the accelerated path verified to produce <strong>exactly the same tokens</strong>, request by request, in every confirmation run.</p>
       <figure class="chart">
 <svg viewBox="0 0 480 268" role="img" aria-label="Reduction in per-token generation latency across four serving workloads" font-family="'DM Sans',system-ui,sans-serif" preserveAspectRatio="xMidYMid meet">
@@ -587,10 +554,11 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </svg>
 <figcaption><strong>Figure 7.</strong> Median reduction in time per generated token across four serving workload types, with generated text verified identical.</figcaption>
 </figure>
-    </div>
+    </section>
+</article>
 
     <!-- USearch -->
-    <div class="card disc" id="usearch">
+    <article class="card disc finding-study" data-finding-panel id="usearch">
       <div class="disc-head">
         <div class="disc-badge">3</div>
         <div>
@@ -708,10 +676,10 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
         <a class="btn btn-primary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">View the pull request →</a>
         <small>Created a PR to the USearch project.</small>
       </div>
-    </div>
+    </article>
 
     <!-- hnswlib -->
-    <div class="card disc" id="hnswlib">
+    <article class="card disc finding-study" data-finding-panel id="hnswlib">
       <div class="disc-head">
         <div class="disc-badge">4</div>
         <div>
@@ -789,9 +757,9 @@ auto result = index-&gt;searchKnnWithVisitedList(query, k, vl, filter);
         <a class="btn btn-primary" href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">View the pull request →</a>
         <small>Created a PR to the hnswlib project.</small>
       </div>
-    </div>
+    </article>
 
-    
+
   </div>
 </section>
 

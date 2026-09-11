@@ -22,9 +22,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=editorial-1">
+<link rel="stylesheet" href="assets/home.css?v=research-guide-3">
 <script src="assets/site.js" defer></script>
+<script src="assets/home.js?v=research-guide-3" defer></script>
 </head>
-<body class="has-section-nav">
+<body class="has-section-nav home-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div class="bg-pattern"></div>
 
@@ -60,13 +62,6 @@
       </div>
       <p class="hero-goal">The goal is a tighter loop from <strong>scientific discovery to verified engineering progress</strong>.</p>
     </div>
-    <div class="stat-strip reveal" style="--i:2">
-      <div><b data-count="2">2</b><span>sub-projects</span></div>
-      <div><b data-count="4">4</b><span>codebases improved</span></div>
-      <div><b data-count="7">7</b><span>vetted optimizations</span></div>
-      <div><b data-count="5">5</b><span>upstream PRs</span></div>
-      <div><b data-count="4">4</b><span>training programs</span></div>
-    </div>
   </div>
 </header>
 
@@ -75,10 +70,9 @@
   <div class="section-nav-inner">
     <div class="section-nav-title">Explore</div>
     <div class="section-nav-track">
-      <a class="sn-link" href="#mission">Two questions</a>
-      <a class="sn-link" href="#how">How it works</a>
-      <a class="sn-link" href="#projects">Sub-projects</a>
-      <a class="sn-link" href="#practice">In practice</a>
+      <a class="sn-link" href="#how">The research loop</a>
+      <a class="sn-link" href="#agents">Meet the agents</a>
+      <a class="sn-link" href="#practice">For Salesforce</a>
       <a class="sn-link" href="#team">Team</a>
     </div>
     <div class="pages">
@@ -92,167 +86,182 @@
 </nav>
 
 <main id="main-content" tabindex="-1">
-<!-- ==================== Two questions ==================== -->
-<section id="mission" class="ed">
+<!-- ==================== The research loop ==================== -->
+<section id="how" class="home-section research-section">
   <div class="container">
-    <div class="ed-head reveal">
-      <span class="kicker">Two sub-projects · one loop</span>
-      <h2>Two questions for autonomous R&amp;D</h2>
-    </div>
-
-    <div class="q-row">
-      <article class="q-card reveal" style="--i:0">
-        <div class="q-label">01 / Code</div>
-        <h3 class="q-title">Given a goal on production code, can an agent reach it, and prove it?</h3>
-        <div class="q-meta"><span>SFR-AutoR&amp;D-Engineer</span><a href="engineer/">View page ↗</a></div>
-        <p>Point it at a codebase and give it a goal: fit a training run in memory, raise throughput, cut latency, keep a pipeline stable. It studies the system, invents its own ideas, runs controlled experiments, and keeps only the changes that reach the goal with evidence. Seven verified results so far across pandas, USearch, hnswlib, and the SFR-RL stack.</p>
-        <div class="q-test"><small>Test</small>Exact output equality on every change, and paired measurements with confidence bounds.</div>
-      </article>
-      <article class="q-card reveal" style="--i:1">
-        <div class="q-label">02 / Models</div>
-        <h3 class="q-title">Can an agent train a better model, and verify it?</h3>
-        <div class="q-meta"><span>SFR-AutoR&amp;D-TrainForge</span><a href="trainforge/">View page ↗</a></div>
-        <p>Give it a baseline model and a target. It designs the data, tools, training, and evaluation, writes and validates the code, runs the experiments, and returns the best verified checkpoint. Four training programs are in progress.</p>
-        <div class="q-test"><small>Test</small>Held-out evaluation bound to the checkpoint that produced it. Weak evidence keeps the incumbent.</div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== How it works ==================== -->
-<section id="how" class="ed">
-  <div class="container">
-    <div class="ed-grid">
+    <div class="home-section-head reveal">
       <div>
-        <div class="ed-head reveal">
-          <span class="kicker">How SFR-AutoR&amp;D works</span>
-          <h2>One loop, two targets.</h2>
+        <p class="home-kicker">From a question to a verified result</p>
+        <h2>How SFR-AutoR&amp;D works</h2>
+        <p class="research-intro">Start with a goal, a system, and a budget. The agent develops a method, tests it, and uses the evidence to decide what comes next.</p>
+      </div>
+    </div>
+
+    <div class="research-loop" data-research-loop data-phase="discover" data-running="false" aria-label="An animated research loop from a research goal to verified progress">
+      <div class="loop-diagram" id="research-cycle">
+        <div class="loop-io loop-input">
+          <div class="io-heading"><span class="io-label">Input</span><span class="io-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="14" cy="18" r="10"/><circle cx="14" cy="18" r="5"/><path d="m14 18 13-13m-6 0h6v6"/></svg></span></div>
+          <h3>A research goal</h3>
+          <p>What could work better?</p>
+          <div class="goal-brief">
+            <div><span>System</span><b>Repository or model</b></div>
+            <div><span>Target</span><b>A measurable gain</b></div>
+            <div><span>Bounds</span><b>Budget &amp; constraints</b></div>
+          </div>
         </div>
-        <p class="ed-lead reveal" style="--i:1;padding-top:1.2rem">The loop is the same whether the target is an engineering goal on a production codebase or a model and its benchmark. Only the gates change shape: exact output checks for code, held-out evaluation for models.</p>
-        <div class="reveal" style="--i:2">
-          <svg class="loop-line" viewBox="0 0 440 112" role="img" aria-label="The loop: scope, propose, build, verify, promote. Ideas with weak evidence return to propose.">
+
+        <svg class="loop-connector connector-input" viewBox="0 0 36 24" aria-hidden="true"><path class="connector-track" d="M2 12h29m-7-7 7 7-7 7"/><path class="connector-signal" d="M2 12h29" pathLength="100"/></svg>
+
+        <div class="research-orbit">
+          <svg class="orbit-wires" viewBox="0 0 520 400" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <marker id="ll-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DD7A01"/></marker>
+              <marker id="research-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="m2 1 6 4-6 4" fill="none" stroke="#9bc7eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
             </defs>
-            <path class="ll-main" d="M22,44 H418" pathLength="1"/>
-            <path class="ll-back" d="M318,52 C318,100 122,100 122,60" pathLength="1" marker-end="url(#ll-arrow)"/>
-            <g>
-              <circle cx="22" cy="44" r="6" style="--i:0"/><text x="22" y="26" text-anchor="middle">Scope</text>
-              <circle cx="122" cy="44" r="6" style="--i:1"/><text x="122" y="26" text-anchor="middle">Propose</text>
-              <circle cx="220" cy="44" r="6" style="--i:2"/><text x="220" y="26" text-anchor="middle">Build</text>
-              <circle cx="318" cy="44" r="6" style="--i:3"/><text x="318" y="26" text-anchor="middle">Verify</text>
-              <circle cx="418" cy="44" r="6" style="--i:4"/><text x="418" y="26" text-anchor="middle">Promote</text>
-            </g>
-            <text class="ll-note" x="220" y="106" text-anchor="middle">weak evidence: back to propose, lesson recorded</text>
+            <circle class="orbit-guide" cx="260" cy="200" r="114"/>
+            <path class="orbit-wire" d="M322 51C383 66 425 109 447 147" marker-end="url(#research-arrow)"/>
+            <path class="orbit-wire" d="M450 251C426 304 383 336 322 352" marker-end="url(#research-arrow)"/>
+            <path class="orbit-wire" d="M198 352C137 338 93 306 70 251" marker-end="url(#research-arrow)"/>
+            <path class="orbit-wire" d="M70 149C93 98 139 64 198 51" marker-end="url(#research-arrow)"/>
+            <path class="orbit-signal signal-discover" d="M322 51C383 66 425 109 447 147" pathLength="100"/>
+            <path class="orbit-signal signal-build" d="M450 251C426 304 383 336 322 352" pathLength="100"/>
+            <path class="orbit-signal signal-evaluate" d="M198 352C137 338 93 306 70 251" pathLength="100"/>
+            <path class="orbit-signal signal-learn" d="M70 149C93 98 139 64 198 51" pathLength="100"/>
           </svg>
+
+          <div class="orbit-core">
+            <img src="assets/salesforce.svg" width="94" height="66" alt="Salesforce">
+            <strong>SFR-AutoR&amp;D</strong>
+            <span>Autonomous R&amp;D</span>
+          </div>
+
+          <button class="orbit-node node-discover" type="button" data-loop-phase="discover" aria-pressed="true" aria-controls="loop-step-guide">
+            <svg class="node-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="13" cy="13" r="8"/><path d="m19 19 8 8"/><path class="discover-scan" d="M8 13h10"/></svg><span>Discover</span>
+          </button>
+          <button class="orbit-node node-build" type="button" data-loop-phase="build" aria-pressed="false" aria-controls="loop-step-guide">
+            <svg class="node-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="m10 8-8 8 8 8m12-16 8 8-8 8"/><path class="build-stroke" d="m19 5-6 22"/></svg><span>Build</span>
+          </button>
+          <button class="orbit-node node-evaluate" type="button" data-loop-phase="evaluate" aria-pressed="false" aria-controls="loop-step-guide">
+            <svg class="node-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 29h26"/><rect class="evaluate-bar bar-one" x="5" y="19" width="4" height="7" rx="1"/><rect class="evaluate-bar bar-two" x="14" y="12" width="4" height="14" rx="1"/><rect class="evaluate-bar bar-three" x="23" y="5" width="4" height="21" rx="1"/></svg><span>Evaluate</span>
+          </button>
+          <button class="orbit-node node-learn" type="button" data-loop-phase="learn" aria-pressed="false" aria-controls="loop-step-guide">
+            <svg class="node-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 22v-2c-7-5-5-15 5-15s12 10 5 15v2m-10 3h10m-8 4h6m-3-8v-8m-4-2 4 3 4-3"/><g class="learn-rays"><path d="M16 0v2M2 12H0m32 0h-2M4 3l2 2m20 0 2-2"/></g></svg><span>Learn</span>
+          </button>
+        </div>
+
+        <svg class="loop-connector connector-output" viewBox="0 0 36 24" aria-hidden="true"><path class="connector-track" d="M2 12h29m-7-7 7 7-7 7"/><path class="connector-signal" d="M2 12h29" pathLength="100"/></svg>
+
+        <div class="loop-io loop-output">
+          <div class="io-heading"><span class="io-label">Output</span><span class="io-icon output-seal" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path class="verified-check" d="m10 16 4 4 8-9"/></svg></span></div>
+          <h3>Verified progress</h3>
+          <p>A better solution, with proof.</p>
+          <ul class="artifact-list">
+            <li><span aria-hidden="true">✓</span> A new method</li>
+            <li><span aria-hidden="true">✓</span> Patch or checkpoint</li>
+            <li><span aria-hidden="true">✓</span> Reproducible evidence</li>
+          </ul>
         </div>
       </div>
-      <div class="stepper reveal" style="--i:1" aria-label="The SFR-AutoR&amp;D loop">
-        <div class="step" style="--i:0"><i>01</i><div><small>Scope</small><b>Scope the target</b><span class="desc">Study the system and measure the gap between where it stands and the goal.</span></div></div>
-        <div class="step" style="--i:1"><i>02</i><div><small>Propose</small><b>Propose ideas</b><span class="desc">Generate many candidate changes, like a researcher working through a hypothesis list.</span></div></div>
-        <div class="step" style="--i:2"><i>03</i><div><small>Build</small><b>Build and run</b><span class="desc">Implement each idea and run it against the unmodified baseline in a sandbox.</span></div></div>
-        <div class="step" style="--i:3"><i>04</i><div><small>Verify</small><b>Verify and measure</b><span class="desc">Correctness gates and statistics with confidence bounds decide what is real.</span></div></div>
-        <div class="step" style="--i:4"><i>05</i><div><small>Promote</small><b>Promote or preserve</b><span class="desc">A vetted artifact ships with its evidence. Anything weaker keeps the incumbent.</span></div></div>
-        <div class="stepper-foot"><i>↺</i><span>Only candidates that clear every gate become artifacts. The rest loop back as recorded lessons for the next hypothesis.</span></div>
+
+      <div class="loop-feedback" aria-hidden="true">
+        <svg viewBox="0 0 1000 34" preserveAspectRatio="none"><path class="feedback-wire" d="M922 1v9q0 18-18 18H96q-18 0-18-18V1"/><path class="feedback-signal" d="M922 1v9q0 18-18 18H96q-18 0-18-18V1" pathLength="100"/><path class="feedback-arrow" d="m72 7 6-6 6 6"/></svg>
+        <span>Every experiment informs the next</span>
       </div>
+
+      <div class="loop-guide" id="loop-step-guide" role="group" aria-label="Explore the four research steps">
+        <button class="step-guide" type="button" data-loop-phase="discover" aria-pressed="true" aria-controls="research-cycle">
+          <span class="step-guide-heading"><span class="step-guide-number">01</span><strong>Discover</strong><span class="step-guide-trace" aria-hidden="true">↗</span></span>
+          <span class="step-guide-question">What is worth trying?</span>
+          <span class="step-guide-description">Study the system, its bottlenecks, and prior research. Form a new, testable hypothesis about what could improve.</span>
+          <span class="step-guide-handoff"><small>Take forward</small><span>A hypothesis + experiment plan</span></span>
+        </button>
+        <button class="step-guide" type="button" data-loop-phase="build" aria-pressed="false" aria-controls="research-cycle">
+          <span class="step-guide-heading"><span class="step-guide-number">02</span><strong>Build</strong><span class="step-guide-trace" aria-hidden="true">↗</span></span>
+          <span class="step-guide-question">How can we try the idea?</span>
+          <span class="step-guide-description">Implement the proposed method and prepare a controlled experiment, with a baseline and a clear evaluation setup.</span>
+          <span class="step-guide-handoff"><small>Take forward</small><span>A candidate patch or training setup</span></span>
+        </button>
+        <button class="step-guide" type="button" data-loop-phase="evaluate" aria-pressed="false" aria-controls="research-cycle">
+          <span class="step-guide-heading"><span class="step-guide-number">03</span><strong>Evaluate</strong><span class="step-guide-trace" aria-hidden="true">↗</span></span>
+          <span class="step-guide-question">Does it actually improve?</span>
+          <span class="step-guide-description">Compare the candidate with the baseline under the same conditions. Measure the gain and check correctness or model quality.</span>
+          <span class="step-guide-handoff"><small>Take forward</small><span>Measurements + validation evidence</span></span>
+        </button>
+        <button class="step-guide" type="button" data-loop-phase="learn" aria-pressed="false" aria-controls="research-cycle">
+          <span class="step-guide-heading"><span class="step-guide-number">04</span><strong>Learn</strong><span class="step-guide-trace" aria-hidden="true">↗</span></span>
+          <span class="step-guide-question">What should happen next?</span>
+          <span class="step-guide-description">Keep supported improvements and record unsuccessful ideas. Use both to refine the next hypothesis; without a verified gain, keep the baseline.</span>
+          <span class="step-guide-handoff"><small>Take forward</small><span>A verified result or a better hypothesis</span></span>
+        </button>
+      </div>
+      <span class="loop-announcement" role="status" aria-live="polite" aria-atomic="true" data-loop-announcement></span>
     </div>
   </div>
 </section>
 
-<!-- ==================== Sub-projects ==================== -->
-<section id="projects" class="board-section">
+<!-- ==================== The agents and their work ==================== -->
+<section id="agents" class="home-section agents-section">
   <div class="container">
-    <div class="ed-head reveal">
-      <span class="kicker">Sub-projects · the evidence</span>
-      <h2>Selected results</h2>
+    <span id="mission" class="section-alias" aria-hidden="true"></span><span id="projects" class="section-alias" aria-hidden="true"></span>
+    <div class="home-section-head agents-heading reveal">
+      <div><p class="home-kicker">Meet the agents</p><h2>Today, we’re introducing<br><span>two specialized R&amp;D agents.</span></h2></div>
     </div>
 
-    <div class="board reveal" data-board style="--i:1">
-      <div class="board-tabs" role="tablist" aria-label="Sub-projects">
-        <button class="board-tab" type="button" role="tab" id="tab-engineer" aria-controls="panel-engineer" aria-selected="true" tabindex="0"><small>01 / Code</small><b>SFR-AutoR&amp;D-Engineer</b><span>Engineering goals on real code</span></button>
-        <button class="board-tab" type="button" role="tab" id="tab-trainforge" aria-controls="panel-trainforge" aria-selected="false" tabindex="-1"><small>02 / Models</small><b>SFR-AutoR&amp;D-TrainForge</b><span>Autonomous model training</span></button>
-      </div>
-      <div class="board-stage">
-        <section class="board-panel active" id="panel-engineer" role="tabpanel" aria-labelledby="tab-engineer" data-accent="#0176D3" data-hash="engineer">
-          <div class="panel-head">
-            <div><small>Sub-project 01 · four codebases, three problem domains, one goal at a time</small><h3>SFR-AutoR&amp;D-Engineer</h3></div>
-            <div class="headline-stat"><b>7 goals reached</b><span>7 verified optimizations · 5 upstream pull requests · correctness verified on every change</span></div>
-          </div>
-          <div class="viz-grid">
-            <div class="viz-card">
-              <h4>Speed goals in open-source libraries</h4>
-              <div class="sub">Best verified gain per library, with exactly the same outputs</div>
-              <div class="gain-row" style="--i:0"><span>pandas · nullable-dtype math</span><div class="gain-track"><div class="gain-fill" style="width:100%" title="pandas: up to 1.84× faster (+84%) on row-wise math over nullable dtypes"></div></div><b>+84%</b></div>
-              <div class="gain-row" style="--i:1"><span>USearch · cached norms</span><div class="gain-track"><div class="gain-fill" style="width:20.8%" title="USearch: +17.5% search throughput with cached vector norms"></div></div><b>+17.5%</b></div>
-              <div class="gain-row" style="--i:2"><span>hnswlib · visited-list leases</span><div class="gain-track"><div class="gain-fill" style="width:4.9%" title="hnswlib: +4.1% batch-query throughput with worker-scoped visited-list leases"></div></div><b>+4.1%</b></div>
-            </div>
-            <div class="viz-card">
-              <h4>Two goals in Salesforce's SFR-RL stack</h4>
-              <div class="sub">Fit training in memory, then speed up generation. Results only.</div>
-              <div class="big-stats">
-                <div class="big-stat"><b>−39%</b><span>peak training memory: runs that crashed now complete 19 stable RL updates</span></div>
-                <div class="big-stat"><b>3.14×</b><span>generation throughput on long-output workloads, with token-identical outputs</span></div>
-              </div>
-            </div>
-          </div>
-          <p class="panel-note"><strong>Every number carries its evidence.</strong> The pandas patches passed 136K exact differential checks with zero mismatches, and every gain is a paired, multi-seed measurement with confidence bounds.</p>
-          <div class="panel-actions">
-            <a class="btn btn-primary" href="engineer/">Open SFR-AutoR&amp;D-Engineer →</a>
-            <a class="btn btn-secondary" href="https://github.com/unum-cloud/USearch/pull/787" target="_blank" rel="noopener">USearch PR ↗</a>
-            <a class="btn btn-secondary" href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener">hnswlib PR ↗</a>
-          </div>
-        </section>
+    <div class="agent-showcases">
+      <article class="agent-showcase engineer-showcase" id="engineer">
+        <header class="agent-header">
+          <div><span class="agent-family">SFR-AutoR&amp;D</span><h3>Engineer</h3></div>
+          <a class="agent-page-link" href="engineer/">Explore Engineer <span aria-hidden="true">↗</span></a>
+        </header>
+        <p class="agent-summary">Discover better methods. Implement them. Prove the improvement.</p>
+        <div class="agent-flow">
+          <div class="agent-port"><span>Input</span><strong>Repository + research goal</strong><small>System, target &amp; constraints</small></div>
+          <svg class="agent-flow-arrow" viewBox="0 0 32 24" aria-hidden="true"><path d="M2 12h26m-7-7 7 7-7 7"/></svg>
+          <div class="agent-port agent-port-output"><span>Output</span><strong>Verified implementation</strong><small>Patch + benchmark evidence</small></div>
+        </div>
+        <div class="agent-evidence">
+          <h4>Research that made a measurable difference</h4>
+          <a class="evidence-row" href="engineer/#pandas"><span class="evidence-project"><b>pandas</b><small>Nullable-dtype reductions</small></span><span class="evidence-value"><small>up to</small><strong>1.84×</strong><em>faster reductions</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+          <a class="evidence-row evidence-row-pair" href="engineer/#sfr-rl">
+            <span class="evidence-project"><b>Salesforce SFR-RL</b><small>Two improvements · separate workloads</small></span><span class="evidence-arrow" aria-hidden="true">↗</span>
+            <span class="evidence-pair"><span class="evidence-value"><small>Serving · up to</small><strong>3.14×</strong><em>generated tokens / second</em></span><span class="evidence-value"><small>Training</small><strong>−39%</strong><em>peak training memory</em></span></span>
+          </a>
+          <a class="evidence-row" href="engineer/#usearch"><span class="evidence-project"><b>USearch</b><small>Single-core · GCC 11 · 1M vectors</small></span><span class="evidence-value"><strong>+17.5%</strong><em>more queries / second</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+          <a class="evidence-row" href="engineer/#hnswlib"><span class="evidence-project"><b>hnswlib</b><small>Median across 3 index builds</small></span><span class="evidence-value"><strong>+4.1%</strong><em>more queries / second</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+          <p class="evidence-note">Gains are measured against each workload’s baseline. Open a result for its setup, correctness checks, and benchmark evidence.</p>
+        </div>
+      </article>
 
-        <section class="board-panel" id="panel-trainforge" role="tabpanel" aria-labelledby="tab-trainforge" data-accent="#0B827C" data-hash="trainforge">
-          <div class="panel-head">
-            <div><small>Sub-project 02 · four training programs</small><h3>SFR-AutoR&amp;D-TrainForge</h3></div>
-            <div class="headline-stat"><b>+11 pp best gain</b><span>GPT-OSS-20B · long-horizon research quality</span></div>
-          </div>
-          <div class="viz-grid">
-            <div class="viz-card">
-              <h4>GPT-OSS-20B: prior harness gains</h4>
-              <div class="sub">Percentage-point gains by idea</div>
-              <div class="gain-row" style="--i:0"><span>Byte Evidence Frontier SFT</span><div class="gain-track"><div class="gain-fill" style="width:100%" title="Byte Evidence Frontier SFT: +11 pp"></div></div><b>+11 pp</b></div>
-              <div class="gain-row" style="--i:1"><span>Linter-Gated Natural-Boundary Training</span><div class="gain-track"><div class="gain-fill" style="width:90.9%" title="Linter-Gated Natural-Boundary Training: +10 pp"></div></div><b>+10 pp</b></div>
-              <div class="gain-row" style="--i:2"><span>Distill + DFA + Collision Reset</span><div class="gain-track"><div class="gain-fill" style="width:72.7%" title="Distill + DFA + Collision Reset: +8 pp"></div></div><b>+8 pp</b></div>
-              <div class="gain-row" style="--i:3"><span>Verifier-certified options + conformal stop</span><div class="gain-track"><div class="gain-fill" style="width:54.5%" title="Verifier-Certified Contract Options + Conformal Stop: +6 pp"></div></div><b>+6 pp</b></div>
-              <div class="gain-row" style="--i:4"><span>Certified Obligation-Stutter Quotient Training</span><div class="gain-track"><div class="gain-fill" style="width:45.5%" title="Certified Obligation-Stutter Quotient Training: +5 pp"></div></div><b>+5 pp</b></div>
-              <div class="gain-row" style="--i:5"><span>Confirmatory Alarm-Gated MPC Distillation</span><div class="gain-track"><div class="gain-fill" style="width:18.2%" title="Confirmatory Alarm-Gated MPC Distillation: +2 pp"></div></div><b>+2 pp</b></div>
-            </div>
-            <div class="viz-card">
-              <h4>Training programs</h4>
-              <div class="sub">Target model · target tasks</div>
-              <ul class="fact-list">
-                <li><b>GPT-OSS-20B</b><span>Long-horizon research quality: FRAMES, GAIA, HLE, BrowseComp</span></li>
-                <li><b>Qwen3-4B</b><span>Single-node math training: Riemann-Bench, Omni-MATH, AIME 2025 and 2026</span></li>
-                <li><b>Qwen3-4B</b><span>Single-node coding training: LiveCodeBench Hard, SWE-bench Live</span></li>
-                <li><b>Muse-Glimmer-30B</b><span>Multilingual reasoning: PolyMath, PluraMath, MMLU-ProX</span></li>
-              </ul>
-            </div>
-          </div>
-          <p class="panel-note"><strong>Four enforced gates:</strong> novelty (scouts, proposers, and critics), fidelity (a frozen specification checked before training), efficiency (a staged funnel), and trust (held-out scores bound to checkpoints). If nothing improves, it keeps the incumbent and explains why.</p>
-          <div class="panel-actions">
-            <a class="btn btn-primary" href="trainforge/">Open SFR-AutoR&amp;D-TrainForge →</a>
-            <a class="btn btn-secondary" href="trainforge/#demo">Watch the demo</a>
-          </div>
-        </section>
-      </div>
+      <article class="agent-showcase trainforge-showcase" id="trainforge">
+        <header class="agent-header">
+          <div><span class="agent-family">SFR-AutoR&amp;D</span><h3>TrainForge</h3></div>
+          <a class="agent-page-link" href="trainforge/">Explore TrainForge <span aria-hidden="true">↗</span></a>
+        </header>
+        <p class="agent-summary">Invent training methods. Run the experiments. Keep the best model.</p>
+        <div class="agent-flow">
+          <div class="agent-port"><span>Input</span><strong>Baseline model + target</strong><small>Task, evaluation &amp; compute budget</small></div>
+          <svg class="agent-flow-arrow" viewBox="0 0 32 24" aria-hidden="true"><path d="M2 12h26m-7-7 7 7-7 7"/></svg>
+          <div class="agent-port agent-port-output"><span>Output</span><strong>Best verified checkpoint</strong><small>Model + evaluation record</small></div>
+        </div>
+        <div class="agent-evidence">
+          <h4>From training ideas to evaluated checkpoints</h4>
+          <a class="evidence-row" href="trainforge/#programs"><span class="evidence-project"><b>GPT-OSS-20B</b><small>Research quality · prior harness experiments</small></span><span class="evidence-value"><small>up to</small><strong>+11</strong><em>percentage points</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+          <a class="evidence-row" href="trainforge/#demo"><span class="evidence-project"><b>Qwen3-4B · end-to-end demo</b><small>One H200 · adapter reproduced from disk</small></span><span class="evidence-value"><strong>20</strong><em>optimizer updates</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+          <div class="training-programs"><span class="programs-label">Training programs in progress</span><div><span>Research</span><span>Math</span><span>Coding</span><span>Multilingual reasoning</span></div></div>
+          <p class="evidence-note">The gain of up to 11 percentage points comes from prior harness experiments. Other program results are forthcoming. If no candidate improves, the baseline stays.</p>
+        </div>
+      </article>
     </div>
-    <p class="board-hint">Hover, click, or use ← → to move between sub-projects.</p>
   </div>
 </section>
 
-<!-- ==================== In practice ==================== -->
-<section id="practice" class="ed">
+<!-- ==================== What it means for Salesforce ==================== -->
+<section id="practice" class="home-section practice-section">
   <div class="container">
-    <div class="ed-grid">
-      <div class="ed-head reveal">
-        <span class="kicker">Implications</span>
-        <h2>What this means in practice</h2>
-      </div>
-      <div class="ed-prose reveal" style="--i:1">
-        <p>An SFR-AutoR&amp;D agent returns <strong>artifacts</strong>: a working patch or a verified checkpoint, bundled with the benchmark record, the correctness checks, and the analysis that justify it. A reviewer can read the evidence before the code, and a maintainer can rerun it.</p>
-      </div>
+    <div class="home-section-head reveal"><div><p class="home-kicker">From research to real systems</p><h2>What it means in practice<br>and for Salesforce.</h2></div><img src="assets/salesforce.svg" width="96" height="68" alt="Salesforce"></div>
+    <div class="practice-outcomes">
+      <article><span class="outcome-marker" aria-hidden="true">01</span><h3>More room for discovery</h3><p>Explore competing algorithms and methods, with a clear path from each hypothesis to an experiment.</p></article>
+      <article><span class="outcome-marker" aria-hidden="true">02</span><h3>Make compute go further</h3><p>Improve the training and serving systems behind Salesforce AI Research, with gains measured against a baseline.</p></article>
+      <article><span class="outcome-marker" aria-hidden="true">03</span><h3>Evidence teams can build on</h3><p>Review a working patch or checkpoint together with the measurements and checks that justify it.</p></article>
     </div>
   </div>
 </section>
@@ -296,130 +305,6 @@
   <div class="fine">Performance figures are point-in-time measurements under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</div>
 </footer>
 
-<script>
-(function(){
-  var root=document.documentElement;
-  root.classList.remove('no-js');
-  var reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  /* count-up for the stat strip */
-  function countUp(el){
-    if(reduce||el.getAttribute('data-done')) return;
-    el.setAttribute('data-done','1');
-    var target=parseInt(el.getAttribute('data-count'),10);
-    if(isNaN(target)) return;
-    var start=null,dur=900;
-    function step(ts){
-      if(start===null) start=ts;
-      var p=Math.min(1,(ts-start)/dur), e=1-Math.pow(1-p,3);
-      el.textContent=Math.round(target*e);
-      if(p<1) requestAnimationFrame(step); else el.textContent=target;
-    }
-    requestAnimationFrame(step);
-  }
 
-  /* scroll reveal */
-  var reveals=[].slice.call(document.querySelectorAll('.reveal'));
-  function restartBars(scope){
-    if(reduce) return;
-    [].slice.call(scope.querySelectorAll('.board-panel.active .gain-fill')).forEach(function(el){
-      el.style.animation='none'; void el.offsetWidth; el.style.animation='';
-    });
-  }
-  function show(el){
-    el.classList.add('is-visible');
-    [].slice.call(el.querySelectorAll('[data-count]')).forEach(countUp);
-    if(el.hasAttribute('data-board')) restartBars(el);
-  }
-  if(reduce||!('IntersectionObserver' in window)){
-    reveals.forEach(function(el){el.classList.add('is-visible');});
-  }else{
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting){show(en.target);io.unobserve(en.target);} });
-    },{rootMargin:'0px 0px -10% 0px',threshold:0.12});
-    reveals.forEach(function(el){io.observe(el);});
-  }
-
-  /* pages dropdown */
-  var trig=document.querySelector('.pages-trigger'),menu=document.querySelector('.pages-menu');
-  if(trig&&menu){
-    menu.hidden=true;
-    var closeMenu=function(){trig.setAttribute('aria-expanded','false');menu.hidden=true;};
-    var openMenu=function(){trig.setAttribute('aria-expanded','true');menu.hidden=false;};
-    trig.addEventListener('click',function(e){e.stopPropagation(); if(menu.hidden) openMenu(); else closeMenu();});
-    menu.addEventListener('click',function(e){e.stopPropagation();});
-    document.addEventListener('click',closeMenu);
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
-  }
-
-  /* sub-project switcher: hover, click, arrow keys, hash */
-  var board=document.querySelector('[data-board]');
-  if(board){
-    var tabs=[].slice.call(board.querySelectorAll('.board-tab'));
-    var panels=[].slice.call(board.querySelectorAll('.board-panel'));
-    var stage=board.querySelector('.board-stage');
-    var active=0;
-    /* pin the stage to the taller panel so switching never moves the tabs under the pointer */
-    function measureStage(){
-      if(!stage) return;
-      var max=0;
-      panels.forEach(function(p){
-        var wasHidden=p.hidden;
-        if(wasHidden){ p.hidden=false; p.style.visibility='hidden'; p.style.position='absolute'; p.style.width=stage.clientWidth+'px'; }
-        max=Math.max(max,p.offsetHeight);
-        if(wasHidden){ p.hidden=true; p.style.visibility=''; p.style.position=''; p.style.width=''; }
-      });
-      stage.style.minHeight=max?max+'px':'';
-    }
-    function select(i,focus,writeHash){
-      i=Math.max(0,Math.min(tabs.length-1,i));
-      active=i;
-      tabs.forEach(function(t,k){
-        var on=k===i;
-        t.setAttribute('aria-selected',on?'true':'false');
-        t.tabIndex=on?0:-1;
-      });
-      panels.forEach(function(p,k){
-        var on=k===i;
-        p.hidden=!on;
-        p.classList.toggle('active',on);
-        if(on) restartBars(board);
-      });
-      board.style.setProperty('--board-accent',panels[i].getAttribute('data-accent')||'');
-      if(focus){ try{tabs[i].focus({preventScroll:true});}catch(err){tabs[i].focus();} }
-      if(writeHash) history.replaceState(null,document.title,'#'+panels[i].getAttribute('data-hash'));
-    }
-    tabs.forEach(function(t,k){
-      t.addEventListener('pointermove',function(e){
-        /* a real mouse movement over a tab switches to it; the stage height is pinned so switching never shifts the tabs */
-        if((e.pointerType&&e.pointerType!=='mouse')||active===k) return;
-        select(k,false,false);
-      });
-      t.addEventListener('click',function(){select(k,false,true);});
-      t.addEventListener('keydown',function(e){
-        if(e.key==='Home'){e.preventDefault();select(0,true,true);return;}
-        if(e.key==='End'){e.preventDefault();select(tabs.length-1,true,true);return;}
-        var d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];
-        if(!d) return;
-        e.preventDefault();
-        select(active+d,true,true);
-      });
-    });
-    var stageTimer=null;
-    window.addEventListener('resize',function(){ clearTimeout(stageTimer); stageTimer=setTimeout(measureStage,120); });
-    function fromHash(scroll){
-      var h=location.hash.replace('#','');
-      var k=panels.map(function(p){return p.getAttribute('data-hash');}).indexOf(h);
-      if(k<0) return false;
-      select(k,false,false);
-      if(scroll){ var sec=document.getElementById('projects'); if(sec) sec.scrollIntoView({block:'start'}); }
-      return true;
-    }
-    measureStage();
-    if(!fromHash(true)) select(0,false,false);
-    window.addEventListener('hashchange',function(){fromHash(true);});
-    window.addEventListener('load',measureStage);
-  }
-})();
-</script>
 </body>
 </html>
