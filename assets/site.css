@@ -311,8 +311,9 @@
   .hero-title-row h1{margin:0}
   .hero-mascots{display:block;width:min(330px,84vw);height:auto;filter:drop-shadow(0 12px 28px rgba(3,45,96,.14))}
   .hero-title-row.no-art .hero-mascots{display:none}
-  .deck{font-family:var(--font-display);font-size:clamp(1.06rem,2vw,1.18rem);line-height:1.8;color:var(--text-primary);max-width:800px}
-  .deck strong{color:var(--sf-navy)}
+  .hero-ed .deck{font-family:var(--font-body);font-size:1.0625rem;line-height:1.7;color:var(--text-secondary);width:100%;max-width:940px;text-align:left}
+  .hero-ed .deck p + p{margin-top:.8rem}
+  .hero-ed .deck strong{color:var(--sf-navy);font-weight:600}
   .stat-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2rem;margin-top:2.1rem;padding:.95rem 0;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);width:100%;max-width:940px}
   .stat-strip div{display:flex;align-items:baseline;gap:.45rem}
   .stat-strip b{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--sf-blue-deep);font-variant-numeric:tabular-nums;min-width:1.1ch;text-align:right}
@@ -521,6 +522,7 @@
     .container{padding:0 1.25rem}
     .hero,.hero-ed{padding:2.75rem 1.25rem 2.25rem}
     .hero-ed h1{font-size:clamp(2.3rem,9vw,3.5rem)}
+    .hero-ed .deck{font-size:1rem}
     .hero-title-row{gap:1rem}
     .hero-mascots{width:240px}
     .hero .authors,.team .authors{gap:1.25rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
