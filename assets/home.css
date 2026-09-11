@@ -216,6 +216,11 @@
   }
 }
 .home-page .team{padding:2.75rem 0}
+.home-page .team .authors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.75rem 2rem;max-width:840px;margin:0 auto}
+.home-page .team .author-img{width:112px;height:112px;border-width:4px;margin-bottom:.85rem;box-shadow:0 8px 24px rgba(3,45,96,.1)}
+.home-page .team .author-fallback{font-size:2rem}
+.home-page .team .author-name{font-size:1rem;line-height:1.5}
+.home-page .team .byline{margin-top:1.5rem}
 
 @media(min-width:1600px){.home-page .hero-ed h1{font-size:4.875rem}}
 @media(max-width:1050px){
@@ -294,6 +299,8 @@
   .practice-section .home-section-head{align-items:flex-start}
   .practice-section .home-section-head img{width:58px;margin-top:1.25rem}
   .practice-section h2 > span{display:inline}
+  .home-page .team .authors{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.75rem 1rem}
+  .home-page .team .author-img{width:96px;height:96px}
 }
 @media(max-width:460px){
   .loop-guide{grid-template-columns:minmax(0,1fr);gap:.65rem}
