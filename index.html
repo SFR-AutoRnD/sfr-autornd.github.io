@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=visual-nav-3">
-<link rel="stylesheet" href="assets/home.css?v=agent-palettes-3">
+<link rel="stylesheet" href="assets/home.css?v=practice-use-cases-1">
 <script src="assets/site.js?v=section-nav-2" defer></script>
 <script src="assets/home.js?v=section-nav-2" defer></script>
 </head>
@@ -279,13 +279,28 @@
 </section>
 
 <!-- ==================== What it means for Salesforce ==================== -->
-<section id="practice" class="home-section practice-section">
+<section id="practice" class="home-section practice-section" aria-labelledby="practice-heading">
   <div class="container">
-    <div class="home-section-head reveal"><div><h2>What it means in practice<br>and for Salesforce.</h2></div><img src="assets/salesforce.svg" width="96" height="68" alt="Salesforce"></div>
+    <div class="home-section-head reveal"><div><h2 id="practice-heading">What it means in practice <span>and for Salesforce.</span></h2></div><img src="assets/salesforce.svg" width="96" height="68" alt="Salesforce"></div>
     <div class="practice-outcomes">
-      <article><span class="outcome-marker" aria-hidden="true">01</span><h3>More room for discovery</h3><p>Explore competing algorithms and methods, with a clear path from each hypothesis to an experiment.</p></article>
-      <article><span class="outcome-marker" aria-hidden="true">02</span><h3>Make compute go further</h3><p>Improve the training and serving systems behind Salesforce AI Research, with gains measured against a baseline.</p></article>
-      <article><span class="outcome-marker" aria-hidden="true">03</span><h3>Evidence teams can build on</h3><p>Review a working patch or checkpoint together with the measurements and checks that justify it.</p></article>
+      <article class="use-case use-case-engineer" aria-labelledby="use-case-engineer-heading">
+        <div class="use-case-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="assets/ui-icons.svg#agents"/></svg></div>
+        <h3 id="use-case-engineer-heading">Improve codebases and solutions</h3>
+        <p>Use <strong>AutoR&amp;D-Engineer</strong> to discover and implement better algorithms in existing systems, from data pipelines to retrieval engines. Validate gains in speed and memory efficiency while preserving correctness.</p>
+        <div class="use-case-result"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#shield"/></svg><div><span>Output</span><strong>Verified improvements</strong></div></div>
+      </article>
+      <article class="use-case use-case-trainforge" aria-labelledby="use-case-trainforge-heading">
+        <div class="use-case-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="assets/ui-icons.svg#chart"/></svg></div>
+        <h3 id="use-case-trainforge-heading">Train better models</h3>
+        <p>Use <strong>AutoR&amp;D-TrainForge</strong> to explore training methods and optimizers through controlled experiments. Identify what improves model quality and training efficiency within a defined compute budget.</p>
+        <div class="use-case-result"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#shield"/></svg><div><span>Output</span><strong>Validated training methods</strong></div></div>
+      </article>
+      <article class="use-case use-case-research" aria-labelledby="use-case-research-heading">
+        <div class="use-case-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="assets/ui-icons.svg#idea"/></svg></div>
+        <h3 id="use-case-research-heading">Advance scientific discovery in AI Research</h3>
+        <p>Use <strong>AutoR&amp;D</strong> to explore open research questions, form hypotheses, and develop new algorithms and methods. Help Salesforce AI Research turn promising ideas into reproducible findings that inform the next experiment.</p>
+        <div class="use-case-result"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#shield"/></svg><div><span>Output</span><strong>Reproducible discoveries</strong></div></div>
+      </article>
     </div>
   </div>
 </section>
