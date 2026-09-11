@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Distill only the first causally beneficial strategy switch from bounded groups of counterfactual research trajectories." />
+    <title>First Beneficial Strategy-Switch Distillation · Training Forge</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span>
+        </a>
+        <div class="family-nav-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html" aria-current="page">TrainForge</a>
+        </div>
+      </nav>
+
+      <main id="main-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Training Forge</a><span>→</span><a href="../index.html#ideas">Ideas</a><span>→</span><strong>idea-01-219a</strong>
+        </nav>
+        <section class="idea-hero">
+          <div>
+            <div class="idea-card-topline">
+              <span class="status negative">No promotion</span>
+              <span>AutoResearch-generated candidate · training</span>
+            </div>
+            <h1>First Beneficial Strategy-Switch Distillation</h1>
+            <p>Distill only the first causally beneficial strategy switch from bounded groups of counterfactual research trajectories.</p>
+            <dl class="record-facts detail-record-facts">
+              <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
+              <div><dt>Target task</dt><dd>Long-horizon research quality screen</dd></div>
+              <div><dt>Current result</dt><dd>24% → 22% on frozen n=100</dd></div>
+              <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
+            </dl>
+          </div>
+          <aside class="decision-card negative">
+            <span>Decision</span>
+            <strong>Preserve the incumbent</strong>
+            <div><b>-2.0 pp</b><small>treatment − baseline</small></div>
+            <p><b>Evidence source</b>Live quality-monitor snapshot; raw remote result bundle not included</p>
+          </aside>
+        </section>
+
+        <section class="detail-section hypothesis">
+          <p class="section-kicker">Research hypothesis</p>
+          <blockquote>Supervising the first strategy switch that causally improves a trajectory should teach the model when to abandon an unproductive research path.</blockquote>
+        </section>
+
+        <section class="detail-section">
+          <div class="detail-heading">
+            <div><p class="section-kicker">Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
+            <p>The implementation contract covers all four surfaces.</p>
+          </div>
+          <div class="pipeline-detail-grid">
+            <article><span>01</span><h3>Data design</h3><p>Eight-rollout groups containing bounded counterfactual conditions around candidate strategy switches.</p></article>
+            <article><span>02</span><h3>Tool use</h3><p>The underlying research-tool environment is held fixed so the experiment isolates supervision of the switch.</p></article>
+            <article><span>03</span><h3>Training design</h3><p>Span-level distillation masks the prompt, fetched pages, and unrelated turns; only the selected beneficial switch contributes to the objective.</p></article>
+            <article><span>04</span><h3>Evaluation design</h3><p>Frozen n=100 quality screen against the untouched incumbent, evaluated from the saved global-step-20 checkpoint.</p></article>
+          </div>
+        </section>
+
+        <section class="detail-section result-layout">
+          <div>
+            <p class="section-kicker">Evaluation result</p>
+            <h2>No promotion</h2>
+            <p class="result-copy">The treatment was compared with its declared baseline on the frozen held-out set. The decision follows the measured sign of the result.</p>
+          </div>
+
+      <figure class="result-figure">
+        <div class="result-row">
+          <span>Baseline</span>
+          <div><i style="width:68.57%"></i></div>
+          <strong>24.0%</strong>
+        </div>
+        <div class="result-row treatment">
+          <span>Treatment</span>
+          <div><i style="width:62.86%"></i></div>
+          <strong>22.0%</strong>
+        </div>
+        <figcaption>Frozen held-out evaluation · n=100</figcaption>
+      </figure>
+
+        </section>
+
+        <section class="detail-section two-column">
+          <div>
+            <p class="section-kicker">Fidelity and evaluation controls</p>
+            <h2>What had to remain true</h2>
+            <ul class="check-list"><li>Counterfactual conditions fit inside each eight-rollout group</li><li>Only the selected assistant span receives supervision</li><li>Checkpoint identity is bound to evaluation</li><li>Non-positive held-out evidence cannot trigger promotion</li></ul>
+          </div>
+          <div>
+            <p class="section-kicker">Recorded evidence</p>
+            <h2>What this record contains</h2>
+            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>24/100 baseline → 22/100 treatment</dd></div><div><dt>Difference</dt><dd>−2.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Novelty review</dt><dd>Insufficient evidence; no novelty claim</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
+          </div>
+        </section>
+
+        <section class="detail-section caveat-box">
+          <div><p class="section-kicker">Interpretation boundary</p><h2>What this result does not claim</h2></div>
+          <ul><li>The treatment underperformed on this screen; the result does not establish that strategy-switch distillation is generally ineffective.</li><li>The public title is a descriptive rendering of the authored mechanism associated with idea-01-219a.</li><li>This draft preserves the quality-monitor record, but the remote predictions, weight fingerprint, and results.json are not yet bundled as a standalone publication artifact.</li></ul>
+        </section>
+
+        <nav class="idea-pagination" aria-label="Other ideas">
+          <a href="target-only-attention-lora.html"><small>Previous idea</small><strong>← Target-only Attention LoRA</strong></a>
+          <a href="../index.html#ideas"><small>Overview</small><strong>All ideas</strong></a>
+          <a href="trajectory-bound-lead-promotion.html"><small>Next idea</small><strong>Trajectory-Bound Lead Promotion Tool →</strong></a>
+        </nav>
+      </main>
+
+      <footer class="reference-footer">
+        <div class="footer-brand">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span>
+        </div>
+        <div class="footer-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html">TrainForge</a>
+        </div>
+        <p>Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</p>
+      </footer>
+
+    </div>
+  </body>
+</html>

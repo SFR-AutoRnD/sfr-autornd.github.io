@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6Y6LET8GZD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6Y6LET8GZD');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Replace a potentially misleading function name with an anonymous symbol, then let the policy optionally query a source-sealed behavioral capsule built from one frozen identifier-only prior." />
+    <title>Extensional Name Capsule · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span>
+        </a>
+        <div class="family-nav-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html" aria-current="page">TrainForge</a>
+        </div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#ideas">Idea notebooks</a><span>→</span><strong>idea-02-48ca</strong>
+        </nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline">
+                <span class="status repairing">Implementation tested</span>
+                <span>Tool-use intervention</span>
+              </div>
+              <p class="research-article-kicker">Qwen3.5-35B-A3B · Generated counterfactual coding tasks · pinned qwen35 code harness</p>
+              <h1>Extensional Name Capsule</h1>
+              <p class="research-article-deck">Replace a potentially misleading function name with an anonymous symbol, then let the policy optionally query a source-sealed behavioral capsule built from one frozen identifier-only prior.</p>
+            </div>
+            <aside class="evidence-boundary-card">
+              <span>Evidence boundary</span>
+              <strong>Hash-bound implementation and behavioral tests; no F0 checkpoint</strong>
+              <dl>
+                <div><dt>Novelty</dt><dd>3.57/10</dd></div>
+                <div><dt>Scope</dt><dd>F0 only; not eligible for F1 or promotion</dd></div>
+              </dl>
+            </aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Diagnosis</p>
+            <h2>The observed failure signal</h2>
+            <p>The coding diagnostic showed that familiar names and conventional contracts can compete with public assertions. That finding is diagnostic only: it does not prove a single cause for every failed task.</p><p>The idea asks a narrower causal question. Can useful information carried by a name be converted from an unavoidable prompt feature into optional, fallible evidence that the solver may accept or reject?</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Causal hypothesis</p>
+            <h2>What the experiment changes</h2>
+            <blockquote>A familiar name will be easier to reject when its influence arrives as optional executable input-output predictions instead of being inseparable from the solver&#x27;s prompt representation.</blockquote>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading">
+              <div><p class="section-kicker">03 · Executable design</p><h2>From data to tools to training.</h2></div>
+              <p>The four surfaces below are part of the same contract. A result is interpretable only if each surface remains bound to the run.</p>
+            </div>
+            <div class="research-pipeline-grid">
+              <article><span>Data</span><h3>What the model learns from</h3><p>ENC-DSL-CF generates typed Python-function specifications from a ground-truth DSL. The plan contains 4,800 base training specifications rendered as 14,400 identifier variants, 800 validation specifications rendered as 2,400 variants, and 1,600 synthetic held-out specifications rendered as 4,800 variants. AST hashes, identifier roots, composition signatures, literal pools, probe pools, and hidden-test seeds are split and audited for overlap.</p></article>
+              <article><span>Tools</span><h3>What the policy can do</h3><p>The policy sees exactly one optional networkless tool, name_capsule, with at most one call in the native plan. Before solver inference, a frozen Qwen model generates one prior program from only the identifier and signature. The host executes it on permitted public inputs and seals the source. The tool returns only sanitized cached behavior—never the name, source, arbitrary files, hidden tests, search, network, or a Python shell.</p></article>
+              <article><span>Training</span><h3>What updates the weights</h3><p>The authored plan uses rank-16 LoRA. It first proposes 600 steps of execution-verified SFT across true-capsule, disabled-capsule, and raw-name modes, followed by a 60-update execution-grounded RL stage. The native F0 interface separately pins an eight-GPU, 60-update treatment run. Because those two layers are not yet reconciled into a completed checkpoint, the page does not claim training occurred.</p></article>
+              <article><span>Evaluation</span><h3>What decides the outcome</h3><p>Evaluate through a hash-pinned qwen-coder manifest in a network-disabled sandbox. Primary comparisons separate anonymization alone, name plus real capsule, and anonymized prompts with aligned, disabled, or permuted capsule outputs. Report executable correctness, capsule adoption errors, call cost, and performance by helpful, misleading, nondiscriminative, invalid, and timeout strata.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">04 · Causal controls</p>
+              <h2>What must stay fixed</h2>
+              <ul class="check-list"><li>One frozen identifier-only prior per item; no resampling or best-of selection</li><li>Structural anonymization before tokenization, with taint checks over prompts, tool messages, and errors</li><li>Identical student initialization, optimizer, data order, decoding, reward, sandbox, and held-out rows</li><li>Capsule outputs are observations only—not SFT targets, reward labels, repair targets, or candidate selectors</li><li>Missing capsule data produces a typed error and cannot fall back to another tool</li></ul>
+            </div>
+            <div>
+              <p class="section-kicker">05 · Ablations</p>
+              <h2>What could explain the effect</h2>
+              <ul class="number-list"><li>Anonymization only with an unavailable capsule</li><li>Original name plus the real capsule</li><li>Type-compatible permuted capsules to control for extra tokens and tool-call practice</li><li>Fixed capsule with an unrelated identifier swap to detect hidden lexical dependence</li><li>All-zero capsules to catch constant-output and ignored-index shortcuts</li></ul>
+            </div>
+          </section>
+
+          <section class="research-section novelty-story">
+            <div>
+              <p class="section-kicker">06 · Novelty review</p>
+              <h2>Likely prior art · exploratory incremental</h2>
+              <p>The wrapper gives name-derived behavior a new provenance and authority boundary, but the novelty reviewer judged selective opaque-tool use itself to be established.</p>
+            </div>
+            <dl>
+              <div><dt>Independent score</dt><dd>3.57/10</dd></div>
+              <div><dt>Nearest work</dt><dd>Toolformer and execution-grounded code feedback</dd></div>
+              <div><dt>Permitted ladder stage</dt><dd>F0 only; not eligible for F1 or promotion</dd></div>
+            </dl>
+          </section>
+
+          <section class="research-section live-evidence-grid">
+            <div>
+              <p class="section-kicker">07 · Current state</p>
+              <h2>What has actually happened</h2>
+              <div class="status-timeline"><p>A substantial implementation exists with a frozen contract, native execution interface, hash inventory, and behavioral-test suite.</p><p>No Qwen checkpoint or matched F0 result was found. The evidence is implementation-level, not performance-level.</p><p>The authored 600-step-plus-60-update plan and the native 60-update F0 interface must be reconciled before compute is allocated.</p></div>
+            </div>
+            <div>
+              <p class="section-kicker">Artifact ledger</p>
+              <h2>Inspectable evidence</h2>
+              <dl class="evidence-list"><div><dt>Frozen idea contract</dt><dd>Contract SHA-256 35bfb771…</dd></div><div><dt>Implementation binding</dt><dd>Qwen3.5-35B-A3B native marker with file and behavioral-test hashes</dd></div><div><dt>Data scale</dt><dd>14,400 train · 2,400 validation · 4,800 synthetic held-out variants planned</dd></div><div><dt>Frozen evaluator</dt><dd>qwen-coder manifest SHA-256 116d2286…</dd></div><div><dt>Checkpoint evidence</dt><dd>None yet; training and gain are not claimed</dd></div></dl>
+            </div>
+          </section>
+
+          <section class="research-section caveat-box">
+            <div><p class="section-kicker">08 · Failure modes</p><h2>How this idea could be wrong</h2></div>
+            <ul><li>The frozen name-conditioned prior may be uninformative or actively misleading.</li><li>Anonymizing the identifier changes the input channel, so gains must be separated from anonymization alone.</li><li>The capsule may become an authority shortcut unless shuffled, disabled, and misleading strata are enforced.</li><li>The current training-plan mismatch is an admission blocker, not a harmless configuration detail.</li></ul>
+          </section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other idea notebooks">
+          <a href="answer-anchored-exit-hazard-reweighting.html"><small>Previous notebook</small><strong>← Answer-Anchored Exit-Hazard Reweighting</strong></a>
+          <a href="../index.html#ideas"><small>Overview</small><strong>All idea notebooks</strong></a>
+          <a href="target-only-attention-lora.html"><small>Next notebook</small><strong>Target-only Attention LoRA →</strong></a>
+        </nav>
+      </main>
+
+      <footer class="reference-footer">
+        <div class="footer-brand">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span>
+        </div>
+        <div class="footer-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html">TrainForge</a>
+        </div>
+        <p>Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</p>
+      </footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6Y6LET8GZD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6Y6LET8GZD');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Reweight verified answer and stopping tokens so the model learns to preserve a correct answer and finish, while a small pre-answer EOS hazard penalizes drifting into the 32K response cap." />
+    <title>Answer-Anchored Exit-Hazard Reweighting · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span>
+        </a>
+        <div class="family-nav-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html" aria-current="page">TrainForge</a>
+        </div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#ideas">Idea notebooks</a><span>→</span><strong>idea-fqm-answer-anchored-exit-hazard-f0-v2</strong>
+        </nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline">
+                <span class="status running">Trained · evaluating</span>
+                <span>Training objective</span>
+              </div>
+              <p class="research-article-kicker">Qwen3-4B · Omni-MATH · AIME 2025 · AIME 2026</p>
+              <h1>Answer-Anchored Exit-Hazard Reweighting</h1>
+              <p class="research-article-deck">Reweight verified answer and stopping tokens so the model learns to preserve a correct answer and finish, while a small pre-answer EOS hazard penalizes drifting into the 32K response cap.</p>
+            </div>
+            <aside class="evidence-boundary-card">
+              <span>Evidence boundary</span>
+              <strong>Matched arms trained; frozen paired evaluation in progress</strong>
+              <dl>
+                <div><dt>Novelty</dt><dd>4.00/10</dd></div>
+                <div><dt>Scope</dt><dd>Exploratory F0 only; F1 and promotion disabled</dd></div>
+              </dl>
+            </aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Diagnosis</p>
+            <h2>The observed failure signal</h2>
+            <p>The frozen Qwen3-4B target diagnostic scored 138/300 overall: 105/240 on Omni-MATH, 15/30 on AIME 2025, and 18/30 on AIME 2026.</p><p>Sixty-two responses reached the 32K cap. Only 4/62 cap-hit responses were correct, compared with 134/238 non-cap responses. This 49.85-point association motivated the experiment, but the contract explicitly treats it as correlation—not proof that truncation caused the errors.</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Causal hypothesis</p>
+            <h2>What the experiment changes</h2>
+            <blockquote>If verified final-answer tokens and terminal EOS receive more learning weight, and premature EOS probability immediately before the answer receives a small bounded penalty, Qwen3-4B may serialize a correct answer before exhausting its response budget without sacrificing full-solution accuracy.</blockquote>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading">
+              <div><p class="section-kicker">03 · Executable design</p><h2>From data to tools to training.</h2></div>
+              <p>The four surfaces below are part of the same contract. A result is interpretable only if each surface remains bound to the run.</p>
+            </div>
+            <div class="research-pipeline-grid">
+              <article><span>Data</span><h3>What the model learns from</h3><p>Use 480 distinct, tokenizer-eligible Hendrycks-MATH training rows sampled without replacement from 6,784 admissible fit rows. The 700-row upstream diagnostic pool and all target-evaluation material are excluded. Exact and near-overlap checks are also run against the frozen 541-prompt evaluation inventory.</p></article>
+              <article><span>Tools</span><h3>What the policy can do</h3><p>No inference-time tools. The evaluated model has no Python, search, retrieval, or external action. This experiment isolates a token-level training objective rather than adding capabilities at evaluation time.</p></article>
+              <article><span>Training</span><h3>What updates the weights</h3><p>Train matched control and treatment LoRA adapters for 60 optimizer updates each, using rank 32, alpha 64, dropout 0, AdamW at 1e-4, bf16, gradient clipping at 1, and eight problems per update. Both arms compute identical loss components. In treatment only, verified final-answer anchor and terminal EOS labels receive normalized total weight 2.0, plus a bounded 0.1·mean p(EOS) term over at most 32 deterministic pre-anchor positions.</p></article>
+              <article><span>Evaluation</span><h3>What decides the outcome</h3><p>Reload both step-60 adapters and run the same frozen 300-row target set: 240 Omni-MATH, 30 AIME 2025, and 30 AIME 2026. Decoding uses temperature 0, an 8K prompt cap, a 32K response cap, and a 40,960-token model context. The scorer, row order, prompts, and seed are identical between arms.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">04 · Causal controls</p>
+              <h2>What must stay fixed</h2>
+              <ul class="check-list"><li>Same initial Qwen3-4B parameter fingerprint for both arms</li><li>Same 480 rows, order, tokenizer output, optimizer, seed, and checkpoint cadence</li><li>Both arms compute every loss component; only the treatment scale changes from 0 to 1</li><li>Evaluation rows and labels are unavailable to training</li><li>No interim one-arm subset is reported as a treatment effect</li></ul>
+            </div>
+            <div>
+              <p class="section-kicker">05 · Ablations</p>
+              <h2>What could explain the effect</h2>
+              <ul class="number-list"><li>Primary matched control: ordinary token-mean response SFT</li><li>Treatment: answer-anchor weighting plus bounded pre-answer exit hazard</li><li>This one-seed F0 does not yet separate anchor-only from hazard-only effects; that decomposition is reserved for a follow-up if the matched result is promising</li></ul>
+            </div>
+          </section>
+
+          <section class="research-section novelty-story">
+            <div>
+              <p class="section-kicker">06 · Novelty review</p>
+              <h2>Incremental performance-track idea</h2>
+              <p>The run tests whether a narrowly targeted objective helps this model and workload. It does not claim a new general learning principle.</p>
+            </div>
+            <dl>
+              <div><dt>Independent score</dt><dd>4.00/10</dd></div>
+              <div><dt>Nearest work</dt><dd>Length-aware and answer-weighted supervised fine-tuning</dd></div>
+              <div><dt>Permitted ladder stage</dt><dd>Exploratory F0 only; F1 and promotion disabled</dd></div>
+            </dl>
+          </section>
+
+          <section class="research-section live-evidence-grid">
+            <div>
+              <p class="section-kicker">07 · Current state</p>
+              <h2>What has actually happened</h2>
+              <div class="status-timeline"><p>Both control and treatment completed all 60/60 optimizer updates and emitted independent training receipts.</p><p>The frozen paired evaluation is still running. Until both 300-row arms complete and merge, there is no valid score, delta, or promotion decision.</p><p>This is a real trained F0—not a smoke test—but it remains a one-seed exploratory experiment.</p></div>
+            </div>
+            <div>
+              <p class="section-kicker">Artifact ledger</p>
+              <h2>Inspectable evidence</h2>
+              <dl class="evidence-list"><div><dt>Scientific contract</dt><dd>SHA-256 0250e9cd…</dd></div><div><dt>Real-data manifest</dt><dd>Hendrycks-MATH revision 21a563… · manifest 0db7bf18…</dd></div><div><dt>Matched training</dt><dd>60 updates per arm · control receipt ac69b54e… · treatment receipt 68217dd9…</dd></div><div><dt>Evaluation manifest</dt><dd>300 frozen target rows · manifest 439a911e…</dd></div><div><dt>Promotion state</dt><dd>Disabled until complete matched evidence exists</dd></div></dl>
+            </div>
+          </section>
+
+          <section class="research-section caveat-box">
+            <div><p class="section-kicker">08 · Failure modes</p><h2>How this idea could be wrong</h2></div>
+            <ul><li>The cap-hit association may reflect harder problems rather than harmful delayed publication.</li><li>Extra EOS pressure could shorten reasoning before the model reaches a correct answer.</li><li>A one-seed F0 can estimate direction but cannot establish robustness.</li><li>Without anchor-only and hazard-only arms, a positive result would not yet isolate which component mattered.</li></ul>
+          </section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other idea notebooks">
+          <a href="dfa-option-termination.html"><small>Previous notebook</small><strong>← Option-Termination Shaping via DFA State</strong></a>
+          <a href="../index.html#ideas"><small>Overview</small><strong>All idea notebooks</strong></a>
+          <a href="extensional-name-capsule.html"><small>Next notebook</small><strong>Extensional Name Capsule →</strong></a>
+        </nav>
+      </main>
+
+      <footer class="reference-footer">
+        <div class="footer-brand">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span>
+        </div>
+        <div class="footer-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html">TrainForge</a>
+        </div>
+        <p>Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</p>
+      </footer>
+
+    </div>
+  </body>
+</html>

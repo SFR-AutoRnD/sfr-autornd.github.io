@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A bounded rank-8 LoRA adapter teaches Qwen3-4B four opaque research-tool routes while leaving the base weights unchanged." />
+    <title>Target-only Attention LoRA · Training Forge</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span>
+        </a>
+        <div class="family-nav-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html" aria-current="page">TrainForge</a>
+        </div>
+      </nav>
+
+      <main id="main-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Training Forge</a><span>→</span><a href="../index.html#ideas">Ideas</a><span>→</span><strong>mini-targeted-lora</strong>
+        </nav>
+        <section class="idea-hero">
+          <div>
+            <div class="idea-card-topline">
+              <span class="status positive">Promoted</span>
+              <span>Guided reference execution</span>
+            </div>
+            <h1>Target-only Attention LoRA</h1>
+            <p>A bounded rank-8 LoRA adapter teaches Qwen3-4B four opaque research-tool routes while leaving the base weights unchanged.</p>
+            <dl class="record-facts detail-record-facts">
+              <div><dt>Target model</dt><dd>Qwen3-4B</dd></div>
+              <div><dt>Target task</dt><dd>Exact-match research-tool routing</dd></div>
+              <div><dt>Current result</dt><dd>22.5% → 29.2% on frozen n=120</dd></div>
+              <div><dt>Compute</dt><dd>One H200 · 20 effective updates</dd></div>
+            </dl>
+          </div>
+          <aside class="decision-card positive">
+            <span>Decision</span>
+            <strong>Promote the exact evaluated adapter</strong>
+            <div><b>+6.7 pp</b><small>treatment − baseline</small></div>
+            <p><b>Evidence source</b>Recorded demo run with documented provenance</p>
+          </aside>
+        </section>
+
+        <section class="detail-section hypothesis">
+          <p class="section-kicker">Research hypothesis</p>
+          <blockquote>Masked target-only supervision through LoRA on the attention projections can improve frozen exact-match route accuracy without modifying the base model.</blockquote>
+        </section>
+
+        <section class="detail-section">
+          <div class="detail-heading">
+            <div><p class="section-kicker">Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
+            <p>The implementation contract covers all four surfaces.</p>
+          </div>
+          <div class="pipeline-detail-grid">
+            <article><span>01</span><h3>Data design</h3><p>A fixed routing task with target-token supervision and a frozen 120-example held-out split.</p></article>
+            <article><span>02</span><h3>Tool use</h3><p>Four internal research-tool route codes; no evaluator access during training.</p></article>
+            <article><span>03</span><h3>Training design</h3><p>Qwen3-4B, rank-8 LoRA on q/k/v/o projections, target-only cross-entropy, 20 effective updates on one H200.</p></article>
+            <article><span>04</span><h3>Evaluation design</h3><p>Reload the saved adapter, rerun the frozen held-out set, and require the reloaded score to reproduce the in-memory result.</p></article>
+          </div>
+        </section>
+
+        <section class="detail-section result-layout">
+          <div>
+            <p class="section-kicker">Evaluation result</p>
+            <h2>Promoted</h2>
+            <p class="result-copy">The treatment was compared with its declared baseline on the frozen held-out set. The decision follows the measured sign of the result.</p>
+          </div>
+
+      <figure class="result-figure">
+        <div class="result-row">
+          <span>Baseline</span>
+          <div><i style="width:64.29%"></i></div>
+          <strong>22.5%</strong>
+        </div>
+        <div class="result-row treatment">
+          <span>Treatment</span>
+          <div><i style="width:83.43%"></i></div>
+          <strong>29.2%</strong>
+        </div>
+        <figcaption>Frozen held-out evaluation · n=120</figcaption>
+      </figure>
+
+        </section>
+
+        <section class="detail-section two-column">
+          <div>
+            <p class="section-kicker">Fidelity and evaluation controls</p>
+            <h2>What had to remain true</h2>
+            <ul class="check-list"><li>Frozen held-out split before training</li><li>Prompt tokens masked from the training objective</li><li>Full-parameter training forbidden by the executable contract</li><li>Saved adapter reloaded before the promotion decision</li></ul>
+          </div>
+          <div>
+            <p class="section-kicker">Recorded evidence</p>
+            <h2>What this record contains</h2>
+            <dl class="evidence-list"><div><dt>Observed counts</dt><dd>27/120 baseline → 35/120 treatment</dd></div><div><dt>Checkpoint decision</dt><dd>Promoted</dd></div><div><dt>Compute</dt><dd>One H200 · 20 effective updates</dd></div><div><dt>Provenance</dt><dd>Recorded round 1 · llm_e5f7b769e191</dd></div></dl>
+          </div>
+        </section>
+
+        <section class="detail-section caveat-box">
+          <div><p class="section-kicker">Interpretation boundary</p><h2>What this result does not claim</h2></div>
+          <ul><li>This is the reliable guided platform demonstration, not a claim that AutoResearch autonomously discovered a novel training algorithm.</li><li>The intentionally narrow routing task demonstrates the end-to-end evidence contract; it is not a general research benchmark.</li><li>The recorded demo documents 20 effective updates; the current standalone LLM engine defaults to 40, so the frozen run contract—not a software default—is authoritative.</li></ul>
+        </section>
+
+        <nav class="idea-pagination" aria-label="Other ideas">
+          <a href="extensional-name-capsule.html"><small>Previous idea</small><strong>← Extensional Name Capsule</strong></a>
+          <a href="../index.html#ideas"><small>Overview</small><strong>All ideas</strong></a>
+          <a href="strategy-switch-distillation.html"><small>Next idea</small><strong>First Beneficial Strategy-Switch Distillation →</strong></a>
+        </nav>
+      </main>
+
+      <footer class="reference-footer">
+        <div class="footer-brand">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span>
+        </div>
+        <div class="footer-links">
+          <a href="https://sfr-autornd.github.io/">Overview</a>
+          <a href="https://sfr-autornd.github.io/engineer/">Engineer</a>
+          <a href="../index.html">TrainForge</a>
+        </div>
+        <p>Research claims are shown with their evaluation status. No improvement means no promotion. © 2026 Salesforce, Inc.</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
