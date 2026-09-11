@@ -21,10 +21,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=editorial-1">
-<link rel="stylesheet" href="assets/home.css?v=research-guide-3">
-<script src="assets/site.js" defer></script>
-<script src="assets/home.js?v=research-guide-3" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=visual-nav-3">
+<link rel="stylesheet" href="assets/home.css?v=agent-palettes-3">
+<script src="assets/site.js?v=section-nav-2" defer></script>
+<script src="assets/home.js?v=section-nav-2" defer></script>
 </head>
 <body class="has-section-nav home-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -44,7 +44,6 @@
   <div class="hero-ed-inner">
     <div class="hero-title-row reveal" style="--i:0">
       <div>
-        <div class="hero-eyebrow">Salesforce AI Research · Autonomous R&amp;D</div>
         <h1>SFR-AutoR&amp;D</h1>
       </div>
       <img class="hero-mascots" src="assets/mascot.png" width="1774" height="887" alt="Astro, Codey and Einstein working at a laptop" onerror="this.closest('.hero-title-row').classList.add('no-art')">
@@ -70,17 +69,10 @@
   <div class="section-nav-inner">
     <div class="section-nav-title">Explore</div>
     <div class="section-nav-track">
-      <a class="sn-link" href="#how">The research loop</a>
-      <a class="sn-link" href="#agents">Meet the agents</a>
-      <a class="sn-link" href="#practice">For Salesforce</a>
-      <a class="sn-link" href="#team">Team</a>
-    </div>
-    <div class="pages">
-      <button class="pages-trigger" type="button" aria-expanded="false" aria-controls="pages-menu">Pages <span class="caret" aria-hidden="true">▾</span></button>
-      <ul class="pages-menu" id="pages-menu">
-        <li><a href="engineer/">SFR-AutoR&amp;D-Engineer <small>Engineering goals on real code</small></a></li>
-        <li><a href="trainforge/">SFR-AutoR&amp;D-TrainForge <small>Autonomous model training</small></a></li>
-      </ul>
+      <a class="sn-link" href="#how"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#loop"/></svg>The research loop</a>
+      <a class="sn-link" href="#agents"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#agents"/></svg>Meet the agents</a>
+      <a class="sn-link" href="#practice"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#impact"/></svg>Impact</a>
+      <a class="sn-link" href="#team"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/ui-icons.svg#team"/></svg>Team</a>
     </div>
   </div>
 </nav>
@@ -91,9 +83,8 @@
   <div class="container">
     <div class="home-section-head reveal">
       <div>
-        <p class="home-kicker">From a question to a verified result</p>
         <h2>How SFR-AutoR&amp;D works</h2>
-        <p class="research-intro">Start with a goal, a system, and a budget. The agent develops a method, tests it, and uses the evidence to decide what comes next.</p>
+        <p class="research-intro">Start with an R&amp;D goal, an artifact to work on, and a budget. The agent develops a method, tests it, and uses the evidence to decide what comes next.</p>
       </div>
     </div>
 
@@ -104,7 +95,7 @@
           <h3>A research goal</h3>
           <p>What could work better?</p>
           <div class="goal-brief">
-            <div><span>System</span><b>Repository or model</b></div>
+            <div><span>Artifact</span><b>Repository or model</b></div>
             <div><span>Target</span><b>A measurable gain</b></div>
             <div><span>Bounds</span><b>Budget &amp; constraints</b></div>
           </div>
@@ -203,7 +194,7 @@
   <div class="container">
     <span id="mission" class="section-alias" aria-hidden="true"></span><span id="projects" class="section-alias" aria-hidden="true"></span>
     <div class="home-section-head agents-heading reveal">
-      <div><p class="home-kicker">Meet the agents</p><h2>Today, we’re introducing<br><span>two specialized R&amp;D agents.</span></h2></div>
+      <div><h2>Today, we’re introducing <span>two specialized R&amp;D agents.</span></h2></div>
     </div>
 
     <div class="agent-showcases">
@@ -214,19 +205,36 @@
         </header>
         <p class="agent-summary">Discover better methods. Implement them. Prove the improvement.</p>
         <div class="agent-flow">
-          <div class="agent-port"><span>Input</span><strong>Repository + research goal</strong><small>System, target &amp; constraints</small></div>
-          <svg class="agent-flow-arrow" viewBox="0 0 32 24" aria-hidden="true"><path d="M2 12h26m-7-7 7 7-7 7"/></svg>
-          <div class="agent-port agent-port-output"><span>Output</span><strong>Verified implementation</strong><small>Patch + benchmark evidence</small></div>
+          <svg class="agent-flow-wires" viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true"><path class="flow-wire" d="M0 32H155m90 0h155"/><path class="flow-signal" d="M0 32H155" pathLength="100"/><path class="flow-signal flow-signal-out" d="M245 32H400" pathLength="100"/><path class="flow-wire" d="m145 27 10 5-10 5m245-10 10 5-10 5"/></svg>
+          <div class="agent-port">
+            <span>Input</span>
+            <svg class="artifact-visual" viewBox="0 0 88 76" aria-hidden="true"><rect class="artifact-paper" x="8" y="8" width="64" height="56" rx="7"/><path class="artifact-rule" d="M8 24h64"/><g class="artifact-dot"><circle cx="17" cy="16" r="2"/><circle cx="24" cy="16" r="2"/><circle cx="31" cy="16" r="2"/></g><path class="artifact-ink" d="m29 34-8 9 8 9m17-18 8 9-8 9m-7-21-5 23"/><circle class="artifact-badge" cx="72" cy="60" r="11"/><circle class="artifact-ink" cx="72" cy="60" r="5"/><path class="artifact-ink" d="m72 60 7-7"/></svg>
+            <strong>Repository + research goal</strong><small>System, target &amp; constraints</small>
+          </div>
+          <div class="agent-method"><span class="agent-core" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="assets/ui-icons.svg#loop"/></svg></span><b>Engineer</b></div>
+          <div class="agent-port agent-port-output">
+            <span>Output</span>
+            <svg class="artifact-visual" viewBox="0 0 88 76" aria-hidden="true"><rect class="artifact-paper" x="12" y="8" width="55" height="58" rx="7"/><path class="artifact-rule" d="M23 20h25m-25 7h16"/><path class="artifact-ink" d="M23 37h16m-8-8v16m16-10h10M23 56V50m10 6v-9m10 9V43"/><circle class="artifact-badge" cx="68" cy="58" r="13"/><path class="artifact-check" d="m62 58 4 4 8-9"/></svg>
+            <strong>Verified implementation</strong><small>Patch + benchmark evidence</small>
+          </div>
+          <div class="agent-flow-caption"><span>Discover</span><span aria-hidden="true">→</span><span>Build</span><span aria-hidden="true">→</span><span>Verify</span></div>
         </div>
         <div class="agent-evidence">
-          <h4>Research that made a measurable difference</h4>
-          <a class="evidence-row" href="engineer/#pandas"><span class="evidence-project"><b>pandas</b><small>Nullable-dtype reductions</small></span><span class="evidence-value"><small>up to</small><strong>1.84×</strong><em>faster reductions</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
-          <a class="evidence-row evidence-row-pair" href="engineer/#sfr-rl">
-            <span class="evidence-project"><b>Salesforce SFR-RL</b><small>Two improvements · separate workloads</small></span><span class="evidence-arrow" aria-hidden="true">↗</span>
-            <span class="evidence-pair"><span class="evidence-value"><small>Serving · up to</small><strong>3.14×</strong><em>generated tokens / second</em></span><span class="evidence-value"><small>Training</small><strong>−39%</strong><em>peak training memory</em></span></span>
-          </a>
-          <a class="evidence-row" href="engineer/#usearch"><span class="evidence-project"><b>USearch</b><small>Single-core · GCC 11 · 1M vectors</small></span><span class="evidence-value"><strong>+17.5%</strong><em>more queries / second</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
-          <a class="evidence-row" href="engineer/#hnswlib"><span class="evidence-project"><b>hnswlib</b><small>Median across 3 index builds</small></span><span class="evidence-value"><strong>+4.1%</strong><em>more queries / second</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+          <h4>Research highlights</h4>
+          <div class="agent-evidence-bands">
+            <a class="evidence-row" href="engineer/#pandas"><span class="evidence-project"><b>pandas</b><small>Nullable-dtype reductions</small></span><span class="evidence-value"><small>up to</small><strong>1.84×</strong><em>faster reductions</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+            <a class="evidence-row evidence-row-pair" href="engineer/#sfr-rl">
+              <span class="evidence-project"><b>Salesforce SFR-RL</b><small>Two improvements · separate workloads</small></span><span class="evidence-arrow" aria-hidden="true">↗</span>
+              <span class="evidence-pair"><span class="evidence-value"><small>Serving · up to</small><strong>3.14×</strong><em>generated tokens / second</em></span><span class="evidence-value"><small>Training</small><strong>−39%</strong><em>peak training memory</em></span></span>
+            </a>
+            <div class="evidence-context">
+              <h5>Vector search</h5>
+              <div class="evidence-context-grid">
+                <a class="evidence-mini" href="engineer/#usearch"><span class="evidence-project"><b>USearch</b><small>Single-core · GCC 11 · 1M vectors</small></span><span class="evidence-value"><strong>+17.5%</strong><em>more queries / second</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+                <a class="evidence-mini" href="engineer/#hnswlib"><span class="evidence-project"><b>hnswlib</b><small>Median across 3 index builds</small></span><span class="evidence-value"><strong>+4.1%</strong><em>more queries / second</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
           <p class="evidence-note">Gains are measured against each workload’s baseline. Open a result for its setup, correctness checks, and benchmark evidence.</p>
         </div>
       </article>
@@ -238,15 +246,33 @@
         </header>
         <p class="agent-summary">Invent training methods. Run the experiments. Keep the best model.</p>
         <div class="agent-flow">
-          <div class="agent-port"><span>Input</span><strong>Baseline model + target</strong><small>Task, evaluation &amp; compute budget</small></div>
-          <svg class="agent-flow-arrow" viewBox="0 0 32 24" aria-hidden="true"><path d="M2 12h26m-7-7 7 7-7 7"/></svg>
-          <div class="agent-port agent-port-output"><span>Output</span><strong>Best verified checkpoint</strong><small>Model + evaluation record</small></div>
+          <svg class="agent-flow-wires" viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true"><path class="flow-wire" d="M0 32H155m90 0h155"/><path class="flow-signal" d="M0 32H155" pathLength="100"/><path class="flow-signal flow-signal-out" d="M245 32H400" pathLength="100"/><path class="flow-wire" d="m145 27 10 5-10 5m245-10 10 5-10 5"/></svg>
+          <div class="agent-port">
+            <span>Input</span>
+            <svg class="artifact-visual" viewBox="0 0 88 76" aria-hidden="true"><rect class="artifact-paper" x="8" y="8" width="64" height="56" rx="7"/><path class="artifact-rule" d="m23 23 19 15-19 15m0-30 38 30m-38 0 38-30M42 38l19-15m-19 15 19 15"/><g class="artifact-node"><circle cx="23" cy="23" r="5"/><circle cx="23" cy="53" r="5"/><circle cx="42" cy="38" r="6"/><circle cx="61" cy="23" r="5"/><circle cx="61" cy="53" r="5"/></g><circle class="artifact-badge" cx="72" cy="60" r="11"/><circle class="artifact-ink" cx="72" cy="60" r="5"/><path class="artifact-ink" d="m72 60 7-7"/></svg>
+            <strong>Baseline model + target</strong><small>Task, evaluation &amp; compute budget</small>
+          </div>
+          <div class="agent-method"><span class="agent-core" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="assets/ui-icons.svg#loop"/></svg></span><b>TrainForge</b></div>
+          <div class="agent-port agent-port-output">
+            <span>Output</span>
+            <svg class="artifact-visual" viewBox="0 0 88 76" aria-hidden="true"><path class="artifact-layer" d="m12 44 30-14 30 14-30 15z"/><path class="artifact-layer" d="m12 32 30-14 30 14-30 15z"/><path class="artifact-paper" d="m12 20 30-14 30 14-30 15z"/><path class="artifact-ink" d="m33 20 9-4 9 4-9 4z"/><circle class="artifact-badge" cx="68" cy="58" r="13"/><path class="artifact-check" d="m62 58 4 4 8-9"/></svg>
+            <strong>Best verified checkpoint</strong><small>Model + evaluation record</small>
+          </div>
+          <div class="agent-flow-caption"><span>Design</span><span aria-hidden="true">→</span><span>Train</span><span aria-hidden="true">→</span><span>Evaluate</span></div>
         </div>
         <div class="agent-evidence">
-          <h4>From training ideas to evaluated checkpoints</h4>
-          <a class="evidence-row" href="trainforge/#programs"><span class="evidence-project"><b>GPT-OSS-20B</b><small>Research quality · prior harness experiments</small></span><span class="evidence-value"><small>up to</small><strong>+11</strong><em>percentage points</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
-          <a class="evidence-row" href="trainforge/#demo"><span class="evidence-project"><b>Qwen3-4B · end-to-end demo</b><small>One H200 · adapter reproduced from disk</small></span><span class="evidence-value"><strong>20</strong><em>optimizer updates</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
-          <div class="training-programs"><span class="programs-label">Training programs in progress</span><div><span>Research</span><span>Math</span><span>Coding</span><span>Multilingual reasoning</span></div></div>
+          <h4>Research highlights</h4>
+          <div class="agent-evidence-bands">
+            <a class="evidence-row" href="trainforge/#programs"><span class="evidence-project"><b>GPT-OSS-20B</b><small>Research quality · prior harness experiments</small></span><span class="evidence-value"><small>up to</small><strong>+11</strong><em>percentage points</em></span><span class="evidence-arrow" aria-hidden="true">↗</span></a>
+            <a class="evidence-row evidence-row-pair" href="trainforge/#demo">
+              <span class="evidence-project"><b>Qwen3-4B · end-to-end demo</b><small>Demonstrated run · adapter reproduced from disk</small></span><span class="evidence-arrow" aria-hidden="true">↗</span>
+              <span class="evidence-pair"><span class="evidence-value"><small>Training</small><strong>20</strong><em>optimizer updates</em></span><span class="evidence-value"><small>Compute</small><strong>1 H200</strong><em>GPU</em></span></span>
+            </a>
+            <div class="evidence-context">
+              <h5>Training programs in progress</h5>
+              <div class="program-grid"><span>Research</span><span>Math</span><span>Coding</span><span>Multilingual reasoning</span></div>
+            </div>
+          </div>
           <p class="evidence-note">The gain of up to 11 percentage points comes from prior harness experiments. Other program results are forthcoming. If no candidate improves, the baseline stays.</p>
         </div>
       </article>
@@ -270,7 +296,6 @@
 <section id="team" class="ed team">
   <div class="container">
     <div class="team-block reveal">
-      <div class="kicker">Salesforce AI Research · Autonomous R&amp;D</div>
       <div class="authors team-row">
         <a href="https://shreypandit.github.io/" class="author" target="_blank" rel="noopener">
           <img class="author-img" src="trainforge/assets/shrey-pandit.jpg" alt="Shrey Pandit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">

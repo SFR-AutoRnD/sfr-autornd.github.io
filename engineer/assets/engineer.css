@@ -3,13 +3,12 @@
 .engineer-hero{padding:2.8rem 0 1.4rem;background:linear-gradient(135deg,#fff 50%,#eef7ff)}
 .engineer-hero-grid{display:block}
 .engineer-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);column-gap:3.5rem;align-items:center}
-.engineer-intro .engineer-eyebrow{grid-column:1/-1}
-.engineer-intro h1{grid-column:1;grid-row:2}
-.engineer-intro h2{grid-column:1;grid-row:3}
-.engineer-intro > p{grid-column:2;grid-row:2}
-.engineer-hero-actions{grid-column:2;grid-row:3}
-.engineer-eyebrow,.engineer-kicker{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-blue-deep);line-height:1.5}
-.engineer-intro h1{font-size:clamp(3.5rem,7vw,5.25rem);line-height:1.04;letter-spacing:-.055em;color:var(--eng-ink);font-weight:700;margin:.9rem 0 1rem}
+.engineer-intro h1{grid-column:1;grid-row:1}
+.engineer-intro h2{grid-column:1;grid-row:2}
+.engineer-intro > p{grid-column:2;grid-row:1}
+.engineer-hero-actions{grid-column:2;grid-row:2}
+.engineer-kicker{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-blue-deep);line-height:1.5}
+.engineer-intro h1{font-size:clamp(3.5rem,7vw,5.25rem);line-height:1.04;letter-spacing:-.055em;color:var(--eng-ink);font-weight:700;margin:0 0 1rem}
 .engineer-intro h1 > span{display:block;font-size:1.125rem;font-weight:500;letter-spacing:.01em;margin-bottom:.55rem;color:var(--sf-blue-deep)}
 .engineer-intro h2{font-size:1.375rem;line-height:1.45;letter-spacing:-.025em;font-weight:500;color:var(--eng-ink);margin-bottom:1rem}
 .engineer-intro > p{font-size:1rem;line-height:1.8;color:var(--text-secondary);max-width:620px;margin:0}
@@ -26,8 +25,6 @@
 .engineer-demo-link small{display:block;font-size:.75rem;font-weight:400;color:var(--text-muted);margin-top:.15rem}
 .demo-play{display:grid;place-items:center;width:32px;height:32px;border:1px solid #bddcf3;border-radius:50%;font-size:.65rem;padding-left:2px;background:#f3faff}
 .engineer-page .section-nav-title{display:none}
-.engineer-page .section-nav a.sn-link{font-weight:500;font-size:.8125rem}
-.engineer-page .section-nav .sn-link:first-child{padding-left:0;margin-right:.6rem}
 .engineer-page .ed{padding:3.1rem 0}
 .engineer-page .section-title{font-size:2rem;line-height:1.25;margin-bottom:1.65rem;letter-spacing:-.035em}
 

@@ -18,33 +18,6 @@
   }
   document.documentElement.classList.remove('no-js');
 
-  const menuTrigger = document.querySelector('.pages-trigger');
-  const menu = document.querySelector('.pages-menu');
-  if (menuTrigger && menu) {
-    const closeMenu = () => {
-      menu.hidden = true;
-      menuTrigger.setAttribute('aria-expanded', 'false');
-    };
-    closeMenu();
-    menuTrigger.addEventListener('click', () => {
-      const open = menu.hidden;
-      menu.hidden = !open;
-      menuTrigger.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', event => {
-      if (!menu.contains(event.target) && !menuTrigger.contains(event.target)) closeMenu();
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key !== 'Escape' || menu.hidden) return;
-      const returnFocus = menu.contains(document.activeElement);
-      closeMenu();
-      if (returnFocus) menuTrigger.focus();
-    });
-    menu.addEventListener('click', event => {
-      if (event.target.closest('a')) closeMenu();
-    });
-  }
-
   const loop = document.querySelector('[data-research-loop]');
   if (!loop) return;
 
