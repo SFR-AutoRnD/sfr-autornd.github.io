@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="../assets/site.css?v=visual-nav-3">
 <link rel="stylesheet" href="assets/engineer.css?v=section-tabs-1">
 <script src="../assets/site.js?v=section-nav-2" defer></script>
-<script src="assets/engineer.js?v=research-showcase-5" defer></script>
+<script src="assets/engineer.js?v=pandas-pr-links-6" defer></script>
 </head>
 <body class="has-section-nav engineer-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -181,7 +181,7 @@
 
         <div class="process-handoff"><span>What this step produces</span><strong data-study-handoff>Bottleneck + correctness contract</strong><span class="handoff-arrow" aria-hidden="true">→</span></div>
 
-        <footer class="story-footer"><span>Illustrated research process · reported measurements</span><div><a href="#hnswlib" data-study-finding>Read the finding <span aria-hidden="true">↗</span></a><a href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener" data-study-code>View implementation <span aria-hidden="true">↗</span></a></div></footer>
+        <footer class="story-footer"><span>Illustrated research process · reported measurements</span><div><a href="#hnswlib" data-study-finding>Read the finding <span aria-hidden="true">↗</span></a><a href="https://github.com/nmslib/hnswlib/pull/676" target="_blank" rel="noopener" data-study-code>View pull request <span aria-hidden="true">↗</span></a></div></footer>
       </div>
       <div class="discovery-navigation" data-discovery-navigation hidden><button type="button" data-study-previous disabled>← Back</button><div class="process-playback"><span data-study-progress>Step 1 of 4</span><button type="button" data-study-autoplay aria-pressed="true" aria-label="Pause automatic research walkthrough"><span class="autoplay-icon" aria-hidden="true">Ⅱ</span><span data-autoplay-label>Auto</span></button></div><button type="button" data-study-next>Follow the hypothesis →</button></div>
       <span class="engineer-sr-only" data-study-announcement role="status" aria-live="polite" aria-atomic="true"></span>
@@ -475,10 +475,10 @@ elif _can_fuse_axis1_into(vals, result, ufunc):
 </section>
       <p style="margin-top:1.6rem">The verification is what makes this upstream-ready: <strong>1,910 differential test cases</strong> for the first two patches and <strong>134,064 more</strong> for the nullable-dtype patch, each comparing patched and unpatched pandas on identical inputs, from Unicode and emoji to integer overflow, infinities, <code>min_count</code> edge cases, and the sign bit of zero. <strong>Every output matched exactly</strong>, and anything unusual simply takes the original code path.</p>
       <div class="pr-row">
-        <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-axis1-ea-groupby-fastpath" target="_blank" rel="noopener">Nullable-dtype reductions: view code →</a>
-        <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-stringarray-hashing" target="_blank" rel="noopener">String hashing: view code →</a>
-        <a class="btn btn-primary" href="https://github.com/ShreyPandit/pandas/tree/perf-axis1-numpy-block-fusion" target="_blank" rel="noopener">Row-wise reductions: view code →</a>
-        <small>Source branches for the three pandas optimizations.</small>
+        <a class="btn btn-primary" href="https://github.com/pandas-dev/pandas/pull/68422" target="_blank" rel="noopener">Nullable-dtype reductions · PR #68422 ↗</a>
+        <a class="btn btn-primary" href="https://github.com/pandas-dev/pandas/pull/68423" target="_blank" rel="noopener">String hashing · PR #68423 ↗</a>
+        <a class="btn btn-primary" href="https://github.com/pandas-dev/pandas/pull/68424" target="_blank" rel="noopener">Row-wise reductions · PR #68424 ↗</a>
+        <small>Upstream pull requests for the three pandas optimizations.</small>
       </div>
     </article>
 

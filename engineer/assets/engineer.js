@@ -86,7 +86,7 @@
       ratio: 1.0412, ratioLabel: '1.041×', comparisonLabel: 'Normalized query throughput', comparisonNote: 'Median across three independent index builds.'
     },
     pandas: {
-      label: 'pandas · nullable buffer views', goal: 'Make nullable row-wise reductions faster without changing their results.', finding: '#pandas-nullable', code: 'https://github.com/ShreyPandit/pandas/tree/perf-axis1-ea-groupby-fastpath',
+      label: 'pandas · nullable buffer views', goal: 'Make nullable row-wise reductions faster without changing their results.', finding: '#pandas-nullable', code: 'https://github.com/pandas-dev/pandas/pull/68422',
       titles: ['Find the allocation hiding in the hot path.', 'Change the view, preserve the kernel.', 'Test the idea across the workload matrix.', 'A faster method, with its proof.'],
       descriptions: [
         'Engineer traces row-wise reductions and identifies a throwaway row-label array allocated for every element in the frame.',
@@ -116,7 +116,7 @@
       ratio: 1.1754, ratioLabel: '1.175×', comparisonLabel: 'Normalized query throughput', comparisonNote: 'GCC 11.4 · one pinned core · the same Wiki-1M graph.'
     },
     hashing: {
-      label: 'pandas · native StringArray hashing', goal: 'Speed up counting and duplicate detection while preserving string and NA behavior.', finding: '#pandas-hashing', code: 'https://github.com/ShreyPandit/pandas/tree/perf-stringarray-hashing',
+      label: 'pandas · native StringArray hashing', goal: 'Speed up counting and duplicate detection while preserving string and NA behavior.', finding: '#pandas-hashing', code: 'https://github.com/pandas-dev/pandas/pull/68423',
       titles: ['Find the work surrounding the kernel.', 'Use the buffer the kernel already accepts.', 'Measure each operation and option.', 'Less adapter work. Verified results.'],
       descriptions: [
         'Engineer identifies mask creation and array conversions around a hash kernel that already accepts StringArray’s backing data.',
