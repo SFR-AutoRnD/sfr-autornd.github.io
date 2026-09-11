@@ -143,8 +143,6 @@
 .flow-wire{stroke:var(--agent-drawing);stroke-width:1.6}
 .flow-signal{stroke:var(--agent-signal);stroke-width:2.2;stroke-dasharray:12 88;animation:agent-transfer 4.8s linear infinite}
 .flow-signal-out{animation-delay:2.4s}
-.agent-flow-caption{grid-column:1/-1;display:flex;justify-content:center;align-items:center;gap:.65rem;margin-top:.55rem;padding-top:.75rem;border-top:1px solid var(--agent-line);font-size:.75rem;font-weight:500;line-height:1.5;color:var(--agent-accent)}
-.agent-flow-caption [aria-hidden]{color:var(--agent-signal)}
 @keyframes agent-orbit{to{transform:rotate(360deg)}}
 @keyframes agent-transfer{0%{stroke-dashoffset:100;opacity:0}10%,85%{opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 .agent-evidence{display:flex;flex-direction:column;flex:1;margin-top:1.5rem}
@@ -290,7 +288,6 @@
   .agent-core svg{width:23px;height:23px}
   .agent-method b{margin:0}
   .agent-flow-wires{display:none}
-  .agent-flow-caption{margin-top:.1rem}
   .evidence-row{grid-template-columns:minmax(0,1fr) minmax(105px,auto) 10px;gap:.5rem}
   .evidence-row-pair{grid-template-columns:minmax(0,1fr) 10px}
   .evidence-value em{max-width:115px}
