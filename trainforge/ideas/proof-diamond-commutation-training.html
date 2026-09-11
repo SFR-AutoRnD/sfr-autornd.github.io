@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A Qwen3-4B hard-math training hypothesis that aligns representations after verifier-certified commuting proof steps." />
+    <title>Proof-Diamond Commutation Training · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>Qwen3-4B Math hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Strong novelty hypothesis</span><span>External review pending</span></div>
+              <p class="research-article-kicker">Qwen3-4B · hard-math training</p>
+              <h1>Proof-Diamond Commutation Training</h1>
+              <p class="research-article-deck">Equivalent proof orders should close to the same internal state.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Internal novelty screen</span><strong>8.4/10 · confidence 0.66</strong><dl><div><dt>Status</dt><dd>Research hypothesis; not external proof</dd></div><div><dt>Core intervention</dt><dd>Representation closure across certified commuting proof paths</dd></div><div><dt>Inference</dt><dd>Ordinary text generation; no added tools</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>A proof can branch without changing what is known.</h2>
+            <p>Some proof steps depend on one another; reversing them is invalid. Other steps operate on independent facts, so applying step <em>a</em> then <em>b</em> or <em>b</em> then <em>a</em> reaches the same mathematical state. A linear reference solution exposes only one of those legal paths.</p>
+            <blockquote>When two proof steps genuinely commute, train both sequences to close at the same representation—and contrast them with a nearby order that violates a real dependency.</blockquote>
+            <p>The method uses proof structure as supervision without requiring a proof graph or verifier during deployment.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Exact novelty delta</p><h2>Certified commuting squares become the learning unit.</h2>
+            <p>Prior work permutes order-insensitive predicates, models reasoning DAGs, or rewards diverse complete trajectories. The proposed delta combines three constraints in a decoder-only informal-math model: verifier-certified commuting proof diamonds, representation closure after the two legal paths, and a matched invalid-edge contrast.</p>
+            <p>The 8.4 score is an internal hypothesis screen, with lower confidence because natural-language proofs may hide dependencies. It must not be described as verified novelty before external review.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Find diamonds before allocating a training run.</h2></div><p>The admission audit is part of the method: insufficient or ambiguous diamonds stop the experiment.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Freeze candidate proofs</h3><p>Search a category-balanced set of at most 160 Hendrycks-MATH Level 4–5 training solutions. The compute-matched baseline uses exactly the same selected rows.</p></article>
+              <article><span>02</span><h3>Infer dependencies</h3><p>Segment atomic steps and estimate symbol read/write sets. Propose a pair only when neither step consumes a fact introduced exclusively by the other.</p></article>
+              <article><span>03</span><h3>Replay both paths</h3><p>Symbolically apply <em>a</em> then <em>b</em> and <em>b</em> then <em>a</em>. Admit the pair only if both paths are legal and terminate in the same normalized state.</p></article>
+              <article><span>04</span><h3>Audit coverage</h3><p>Require at least 120 certified diamonds from 80 problems and manually inspect 30 with zero dependency or semantic errors. Otherwise, do not train.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Two valid orders, one closure state.</h2><p>Use ordinary cross entropy on both legal linearizations. Add <code>Lclosure = 1 − cos(hab, hba)</code> after the diamond closes, plus a local ranking loss preferring a legal ordering over one verifier-certified dependency violation.</p><p>Start with closure weight 0.05 and ranking weight 0.1 so the base language objective remains dominant.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Make the structural loss auditable.</h2><ul class="check-list"><li>Qwen3-4B LoRA rank 32, alpha 64, dropout 0, bf16</li><li>20 AdamW updates; batches of four problems containing both legal paths</li><li>Same rows, order, seed, tokens, and forward-pass count in control</li><li>Segmentation, graph, replay, adapter, and checkpoint identities hash-bound</li><li>32K response budget inside a 40,960-token context</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>Return to ordinary generation.</h2><ul class="number-list"><li>Reload the adapter on the unchanged Qwen3-4B base</li><li>Generate one normal solution with standard decoding</li><li>Add no Python, search, retrieval, calculator, proof graph, or verifier</li><li>Do not expose hidden-state or dependency labels to the model</li></ul></div>
+            <div><p class="section-kicker">07 · Closest work</p><h2>The mechanism-level comparison set.</h2><ul class="check-list"><li><a href="https://arxiv.org/abs/2405.17893">Prolog Generation and Permutation</a> permutes order-insensitive executable predicates</li><li><a href="https://arxiv.org/abs/2510.19842">DAG-Math</a> represents chains of thought as DAGs for evaluation</li><li><a href="https://arxiv.org/abs/2410.20147">GFlowNet for Diverse Mathematical Reasoning</a> rewards diverse complete solutions</li><li><a href="https://arxiv.org/abs/2602.04391">Trajectory Fusion</a> combines incorrect and correct trajectories</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="diamond-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="diamond-result-title">Reserved for a complete held-out readout.</h2><p>Numbers remain blank until a matched run, uncertainty analysis, and immutable artifact receipt are complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Held-out boundary</h3><p>Freeze the admitted diamonds, dependency extractor, closure layer, adapter, and scorer before opening disjoint target samples. No target labels guide construction or repair.</p></div><div><h3>Generation contract</h3><p>Temperature 0, 8K prompt allowance, 32K response allowance, and 40,960-token context. Record exact model, adapter, dataset, code, scorer, request, prediction, and run identities.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Failure modes</p><h2>The most distinctive idea also has the hardest admission gate.</h2></div><ul><li>Natural-language steps may depend on unstated facts that symbol read/write sets miss.</li><li>True commuting diamonds may be too sparse in hard proofs to support training.</li><li>Forcing hidden-state agreement can erase useful path-specific information.</li><li>The invalid ordering may contain superficial cues that make ranking too easy.</li><li>External review may find an equivalent commutation loss and lower the novelty assessment.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other Qwen Math hypotheses"><a href="verifier-quotiented-equation-orbit-likelihood.html"><small>Previous hypothesis</small><strong>← Equation Orbit Likelihood</strong></a><a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence</strong></a><a href="counterfactual-obligation-gated-training.html"><small>Feasibility-first hypothesis</small><strong>Obligation-Gated Training →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Novelty hypotheses remain provisional until external review and measured evidence are complete. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

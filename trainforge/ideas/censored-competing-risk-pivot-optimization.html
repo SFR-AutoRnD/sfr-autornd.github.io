@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Training-method notebook for Censored Competing-Risk Pivot Optimization on GPT-OSS-20B, covering event construction, censoring-aware supervision, policy updates, and controls." />
+    <title>Censored Competing-Risk Pivot Optimization · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>idea-05-beba</strong></nav>
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status positive">Training method</span><span>GPT-OSS-20B · budgeted research control</span></div>
+              <p class="research-article-kicker">FRAMES · Official GAIA · HLE · BrowseComp</p>
+              <h1>Censored Competing-Risk Pivot Optimization</h1>
+              <p class="research-article-deck">Train pivot timing without pretending that every budget-exhausted trajectory made a wrong choice. “Exploit the current anchor” and “switch research field” are modeled as competing events; unfinished trajectories are right-censored.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card">
+              <span>Method at a glance</span>
+              <strong>Separate observed decisions from unobserved futures.</strong>
+              <dl>
+                <div><dt>Training unit</dt><dd>Budget-indexed decision state</dd></div>
+                <div><dt>Outcomes</dt><dd>Exploit · switch · censored</dd></div>
+              </dl>
+            </aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Training problem</p>
+            <h2>A capped trajectory hides what would have happened next.</h2>
+            <p>When a tool budget expires, the log records neither successful anchor exploitation nor a productive field switch. Broadcasting terminal failure backward converts this missing future into a negative label for every earlier decision.</p>
+            <p>This method treats pivot learning as a time-to-event problem. It preserves three distinct states: an observed exploit event, an observed switch event, and a trajectory that ended while the next decision was still unknown.</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Learning principle</p>
+            <h2>Do not invent a terminal label for censored work.</h2>
+            <blockquote>Learn separate hazards for exploiting the current evidence anchor and switching fields, while allowing budget exhaustion to end observation without becoming either event.</blockquote>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading">
+              <div><p class="section-kicker">03 · Training recipe</p><h2>Turn each trajectory into a competing-risk record.</h2></div>
+              <p>Event labels must come from environment-visible transitions, not a model’s account of its own strategy.</p>
+            </div>
+            <div class="research-pipeline-grid">
+              <article><span>State timeline</span><h3>Index every research decision</h3><p>Retain tool-call time, remaining budget, current evidence anchor, field identifier, next action, and the first later verified event. The same event detector and time convention must be used across every training arm.</p></article>
+              <article><span>Event construction</span><h3>Make exploit and switch exclusive</h3><p>An exploit event means the trajectory successfully acts within the current evidence anchor; a switch event means it leaves for a distinct research field. Once the first event occurs, the record leaves the risk set.</p></article>
+              <article><span>Censoring</span><h3>Stop observation without assigning failure</h3><p>If the declared budget ends before either event is observed, mark the record right-censored at that time. The unknown next event contributes no fabricated exploit or switch label.</p></article>
+              <article><span>Objective</span><h3>Fit cause-specific decision hazards</h3><p>Estimate separate exploit and switch terms over states still at risk, with a survival term while neither event occurs. Use bounded, logged censoring-aware weights rather than broadcasting one terminal reward through the trace.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">04 · Update sequence</p>
+              <h2>From raw trace to pivot supervision</h2>
+              <ol class="number-list">
+                <li>Reconstruct the anchor and field state at each eligible tool decision.</li>
+                <li>Scan forward to the first environment-verified exploit or switch event.</li>
+                <li>If neither occurs, close the observation as censored at budget exhaustion.</li>
+                <li>Build the at-risk set up to the observed event or censoring time.</li>
+                <li>Compute separate exploit, switch, and no-event contributions.</li>
+                <li>Use the resulting censoring-aware signal on the local stay-versus-switch action span.</li>
+              </ol>
+            </div>
+            <div>
+              <p class="section-kicker">05 · Policy update</p>
+              <h2>Credit only the decision the event can identify</h2>
+              <ul class="check-list">
+                <li>Exploit evidence affects the current-anchor action signal.</li>
+                <li>Switch evidence affects the field-pivot action signal.</li>
+                <li>Censored endings contribute exposure time, not a negative event.</li>
+                <li>Weights are clipped or bounded under the declared run contract.</li>
+                <li>The exact mapping from hazard signal to token loss is logged for fidelity review.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">06 · Deployment behavior</p>
+              <h2>The annotation pipeline is training-only</h2>
+              <ul class="check-list">
+                <li>The trained model keeps the existing research tool interface.</li>
+                <li>No event annotator is called during inference.</li>
+                <li>No survival-analysis service is added to the runtime path.</li>
+                <li>Pivot behavior is carried by the updated policy.</li>
+                <li>Runtime budget accounting remains environment-owned.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="section-kicker">07 · Controls and fidelity</p>
+              <h2>Prove the gain is not label leakage or extra compute</h2>
+              <ul class="number-list">
+                <li>Match trajectories, checkpoint, order, examples, and update budget.</li>
+                <li>Keep exploit and switch definitions mutually exclusive and frozen.</li>
+                <li>Ablate censoring-aware weights against terminal-failure broadcasting.</li>
+                <li>Publish weight distributions and effective sample size.</li>
+                <li>Current behavioral evidence does not yet prove the authored event pipeline ran faithfully.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="result-reserve">
+            <div>
+              <p class="section-kicker">08 · Result record</p>
+              <h2>Positive descriptive held-out screen</h2>
+              <p>One checkpoint-bound final-heldout screen was scored with the GPT-5-mini judge.</p>
+            </div>
+            <dl class="result-slot-grid">
+              <div class="result-slot"><dt>Baseline</dt><dd>18%</dd></div>
+              <div class="result-slot"><dt>Trained checkpoint</dt><dd>22%</dd></div>
+              <div class="result-slot"><dt>Delta</dt><dd>+4 pp</dd></div>
+            </dl>
+          </section>
+
+          <details class="method-provenance">
+            <summary>Recorded artifact identifiers · raw bundle not published</summary>
+            <div class="method-provenance-body">
+              <div><h3>Data and lineage</h3><p>Held-out manifest: 4dfaf32e…<br />Queue lineage: 095e1089…</p></div>
+              <div><h3>Bound artifacts</h3><p>Result: 6ef4b2ed…<br />Audit: 49bee6c8…<br />Predictions: 83b53844…</p></div>
+            </div>
+          </details>
+
+          <section class="research-section caveat-box">
+            <div><p class="section-kicker">09 · Implementation checklist</p><h2>What must be inspectable in a faithful run</h2></div>
+            <ul>
+              <li>Publish event definitions with positive and boundary-case examples.</li>
+              <li>Verify that exhaustion produces a censored record, never a failed-event label.</li>
+              <li>Trace censoring weights into the exact policy-loss terms they modify.</li>
+              <li>Keep performance, mechanism fidelity, and novelty as separate records.</li>
+            </ul>
+          </section>
+        </article>
+        <nav class="idea-pagination" aria-label="Other GPT-OSS ideas"><a href="transport-certified-boundary-distillation.html"><small>Previous GPT idea</small><strong>← Transport-Certified Boundary Distillation</strong></a><a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence</strong></a><a href="answer-anchor-reweighting.html"><small>Next program</small><strong>Qwen Answer-Anchor Reweighting →</strong></a></nav>
+      </main>
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Training method, performance, and mechanism attribution are reported separately. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

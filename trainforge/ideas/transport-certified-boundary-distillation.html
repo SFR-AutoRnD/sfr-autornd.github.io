@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Training-method notebook for Transport-Certified Boundary Distillation on GPT-OSS-20B, covering perturbation certificates, obligation gates, span supervision, and controls." />
+    <title>Transport-Certified Boundary Distillation · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>idea-01-1d2e</strong></nav>
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status positive">Training method</span><span>GPT-OSS-20B · selective distillation</span></div>
+              <p class="research-article-kicker">FRAMES · Official GAIA · HLE · BrowseComp</p>
+              <h1>Transport-Certified Boundary Distillation</h1>
+              <p class="research-article-deck">Distill a research decision only when its advantage survives answer-preserving changes to the surrounding web context and its essential claims are bound to obligations owned outside the model.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card">
+              <span>Method at a glance</span>
+              <strong>Certificate first; supervision second.</strong>
+              <dl>
+                <div><dt>Supervision unit</dt><dd>Boundary-local action span</dd></div>
+                <div><dt>Admission rule</dt><dd>Transport gate + obligation gate</dd></div>
+              </dl>
+            </aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Training problem</p>
+            <h2>Whole-trajectory distillation can copy a lucky accident.</h2>
+            <p>A teacher action may look useful because one page, ordering, or incidental snippet happened to appear in its rollout. Cloning the whole trace then transfers the surrounding accident along with the decision.</p>
+            <p>This method narrows supervision to a local decision boundary and asks whether the decision remains useful when non-essential parts of the evidence context change.</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Learning principle</p>
+            <h2>Teach decisions that transport.</h2>
+            <blockquote>A boundary action earns a distillation target only when its advantage stays positive across controlled, answer-preserving web perturbations and its essential claims discharge verifier-owned obligations.</blockquote>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading">
+              <div><p class="section-kicker">03 · Training recipe</p><h2>Compile a sparse set of certified teaching spans.</h2></div>
+              <p>The certifier decides which spans may train the policy; it does not rewrite the target action.</p>
+            </div>
+            <div class="research-pipeline-grid">
+              <article><span>Candidate boundaries</span><h3>Cut the trajectory at a real decision</h3><p>Extract local segments around a search, fetch, pivot, or answer-commit decision. Retain the pre-decision state, chosen action, necessary continuation, tool observations, and downstream advantage needed to replay the boundary.</p></article>
+              <article><span>Context pairs</span><h3>Create answer-preserving perturbations</h3><p>Construct alternate accessible web contexts that preserve the task answer while changing incidental ordering or evidence presentation. Every perturbation and its preservation check must be recorded outside the policy.</p></article>
+              <article><span>Transport gate</span><h3>Recompute the local advantage</h3><p>Replay the candidate decision in each paired context. Admit it only when the positive direction survives the declared perturbation set; do not average away a failed context after admission.</p></article>
+              <article><span>Obligation gate</span><h3>Bind essential claims externally</h3><p>An environment-owned ledger marks required claims as open, supported, or discharged. A model-authored assertion cannot close its own obligation or make an otherwise unsupported span eligible.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">04 · Update sequence</p>
+              <h2>From rollout to one masked update</h2>
+              <ol class="number-list">
+                <li>Locate a teacher decision with positive local advantage.</li>
+                <li>Generate the declared answer-preserving context variants.</li>
+                <li>Replay the same boundary action and recompute its advantage in every variant.</li>
+                <li>Collect the essential claims introduced by the local continuation.</li>
+                <li>Require both transport stability and verifier-owned obligation discharge.</li>
+                <li>Apply distillation loss only to the admitted action span and necessary continuation.</li>
+              </ol>
+            </div>
+            <div>
+              <p class="section-kicker">05 · Objective and masking</p>
+              <h2>Rejected context receives no imitation loss</h2>
+              <ul class="check-list">
+                <li>The token mask is zero outside the certified local span.</li>
+                <li>A failed transport check removes the full candidate span.</li>
+                <li>An unresolved essential claim also removes the span.</li>
+                <li>Accepted examples can retain a bounded advantage weight.</li>
+                <li>Admission rates and rejection reasons are logged per boundary type.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">06 · Training-time components</p>
+              <h2>Auxiliary machinery stays outside deployment</h2>
+              <ul class="check-list">
+                <li>Teacher rollouts supply candidate decisions.</li>
+                <li>A perturbation generator supplies paired contexts.</li>
+                <li>An advantage runner replays the local boundary.</li>
+                <li>An external verifier owns the obligation ledger.</li>
+                <li>The trained policy deploys with its ordinary search and fetch tools.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="section-kicker">07 · Controls and fidelity</p>
+              <h2>Separate selective supervision from extra compute</h2>
+              <ul class="number-list">
+                <li>Match source trajectories, checkpoint, examples, and update budget.</li>
+                <li>Compare certified masking against unfiltered local distillation.</li>
+                <li>Verify answer preservation without target-label leakage.</li>
+                <li>Audit that obligation state is immutable to the policy.</li>
+                <li>Current behavioral evidence does not yet prove the authored gates ran faithfully.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="result-reserve">
+            <div>
+              <p class="section-kicker">08 · Result record</p>
+              <h2>Positive descriptive held-out screen</h2>
+              <p>One checkpoint-bound final-heldout screen was scored with the GPT-5-mini judge.</p>
+            </div>
+            <dl class="result-slot-grid">
+              <div class="result-slot"><dt>Baseline</dt><dd>16%</dd></div>
+              <div class="result-slot"><dt>Trained checkpoint</dt><dd>23%</dd></div>
+              <div class="result-slot"><dt>Delta</dt><dd>+7 pp</dd></div>
+            </dl>
+          </section>
+
+          <details class="method-provenance">
+            <summary>Recorded artifact identifiers · raw bundle not published</summary>
+            <div class="method-provenance-body">
+              <div><h3>Data and lineage</h3><p>Held-out manifest: 4dfaf32e…<br />Queue lineage: c0855f81…</p></div>
+              <div><h3>Bound artifacts</h3><p>Result: 57ddc23c…<br />Audit: 30b72d20…<br />Predictions: d7b7ddf2…</p></div>
+            </div>
+          </details>
+
+          <section class="research-section caveat-box">
+            <div><p class="section-kicker">09 · Implementation checklist</p><h2>What must be inspectable in a faithful run</h2></div>
+            <ul>
+              <li>Publish perturbation types, preservation checks, and pass rates.</li>
+              <li>Expose the exact token mask for sampled accepted and rejected boundaries.</li>
+              <li>Show which external obligation closed each essential claim.</li>
+              <li>Keep performance, mechanism fidelity, and novelty as separate records.</li>
+            </ul>
+          </section>
+        </article>
+        <nav class="idea-pagination" aria-label="Other GPT-OSS ideas"><a href="serp-quotient-policy-optimization.html"><small>Previous GPT idea</small><strong>← SERP-Quotient Policy Optimization</strong></a><a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence</strong></a><a href="censored-competing-risk-pivot-optimization.html"><small>Next GPT idea</small><strong>Censored Competing-Risk Pivot →</strong></a></nav>
+      </main>
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Training method, performance, and mechanism attribution are reported separately. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

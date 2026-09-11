@@ -17,8 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/styles.css?v=21" />
-    <script src="assets/site.js?v=4" defer></script>
+    <link rel="stylesheet" href="assets/styles.css?v=23" />
+    <script src="assets/site.js?v=5" defer></script>
   </head>
   <body class="reference-theme has-section-nav">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -87,8 +87,7 @@
           <div>
             <a href="index.html#pipeline">How it works</a>
             <a href="index.html#contributions">Research gates</a>
-            <a href="index.html#programs">Training programs</a>
-            <a href="index.html#ideas">Idea notebooks</a>
+            <a href="index.html#programs">Programs &amp; evidence</a>
             <a href="index.html#demo">Demo</a>
             <a href="index.html#team">Team</a>
           </div>
@@ -146,7 +145,7 @@
                 <span class="contribution-index">03</span>
                 <div><small>Efficiency</small><h3>Focus compute on the strongest ideas</h3></div>
                 <p>A staged funnel rejects weak candidates cheaply, raises fidelity for survivors, and reserves final confirmation for the strongest ideas.</p>
-                <strong>f0 screen → f1 verify → f2 confirm</strong>
+                <strong>screen → verify → confirm</strong>
               </article>
               <article>
                 <span class="contribution-index">04</span>
@@ -159,14 +158,18 @@
         </section>
 
         <section class="section" id="programs">
+          <span id="ideas" aria-hidden="true"></span>
           <div class="reference-container">
             <div class="section-heading">
               <div>
-                <p class="section-kicker">Runs in progress</p>
-                <h2>What Training Forge is training now.</h2>
+                <p class="section-kicker">Programs &amp; evidence notebooks</p>
+                <h2>One model, one evidence stream.</h2>
               </div>
               <p>
-                Completed measurements are separated from live evaluations. A candidate is promoted only after a checkpoint-bound positive held-out result.
+                Each program keeps its live state and detailed training-method notebooks
+                together. Open an idea for its data construction, supervision signal,
+                update rule, controls, and deployment behavior. A quiet result slot is
+                reserved for numbers when the evidence is complete.
               </p>
             </div>
             <div class="program-grid">
@@ -184,88 +187,22 @@
           <div><dt>Target tasks</dt><dd>FRAMES · Official GAIA · HLE · BrowseComp</dd></div>
         </dl>
 
-          <figure class="historical-gains">
-            <div>
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Byte Evidence Frontier SFT</span>
-                  <em>Novelty 5/10</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:100.00%"></i></div>
-                <strong>+11 pp</strong>
-                <span class="idea-detail-cue">Historical snapshot</span>
-              </div>
-
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Linter-Gated Natural-Boundary Training</span>
-                  <em>Novelty 5/10</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:90.91%"></i></div>
-                <strong>+10 pp</strong>
-                <span class="idea-detail-cue">Historical snapshot</span>
-              </div>
-
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Distill + DFA + Collision Reset</span>
-                  <em>Novelty 1/10</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:72.73%"></i></div>
-                <strong>+8 pp</strong>
-                <span class="idea-detail-cue">Historical snapshot</span>
-              </div>
-
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Verifier-Certified Contract Options + Conformal Stop</span>
-                  <em>Novelty 4/10</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:54.55%"></i></div>
-                <strong>+6 pp</strong>
-                <span class="idea-detail-cue">Historical snapshot</span>
-              </div>
-
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Certified Obligation-Stutter Quotient Training</span>
-                  <em>Novelty 7/10</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:45.45%"></i></div>
-                <strong>+5 pp</strong>
-                <span class="idea-detail-cue">Historical snapshot</span>
-              </div>
-
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Confirmatory Alarm-Gated MPC Distillation</span>
-                  <em>Novelty 3/10</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:18.18%"></i></div>
-                <strong>+2 pp</strong>
-                <span class="idea-detail-cue">Historical snapshot</span>
-              </div>
-            </div>
-            <figcaption>Independent novelty screen: five incremental compositions, one likely prior art, and zero verified novel. Historical scores are not promotion evidence.</figcaption>
-          </figure>
-
-
       <div class="program-notebook">
-        <p>Evidence-backed idea notebooks</p>
+        <p>Current training-method notebooks</p>
 
-          <a class="program-notebook-row" href="ideas/strategy-switch-distillation.html">
-            <span><strong>First Beneficial Strategy-Switch Distillation</strong><small>Live quality-monitor snapshot; raw remote result bundle not included</small></span>
-            <em>No promotion</em><b aria-hidden="true">→</b>
+          <a class="program-notebook-row" href="ideas/serp-quotient-policy-optimization.html">
+            <span><strong>SERP-Quotient Policy Optimization</strong><small>Group result-equivalent queries before assigning policy credit</small></span>
+            <em>+17 pp</em><b aria-hidden="true">→</b>
           </a>
 
-          <a class="program-notebook-row" href="ideas/trajectory-bound-lead-promotion.html">
-            <span><strong>Trajectory-Bound Lead Promotion Tool</strong><small>Live quality-monitor snapshot; raw remote result bundle not included</small></span>
-            <em>No promotion</em><b aria-hidden="true">→</b>
+          <a class="program-notebook-row" href="ideas/transport-certified-boundary-distillation.html">
+            <span><strong>Transport-Certified Boundary Distillation</strong><small>Distill only perturbation-stable, obligation-bound decisions</small></span>
+            <em>+7 pp</em><b aria-hidden="true">→</b>
           </a>
 
-          <a class="program-notebook-row" href="ideas/dfa-option-termination.html">
-            <span><strong>Option-Termination Shaping via DFA State</strong><small>Live quality-monitor snapshot; raw remote result bundle not included</small></span>
-            <em>No promotion</em><b aria-hidden="true">→</b>
+          <a class="program-notebook-row" href="ideas/censored-competing-risk-pivot-optimization.html">
+            <span><strong>Censored Competing-Risk Pivot Optimization</strong><small>Learn exploit-versus-switch decisions without treating budget censoring as failure</small></span>
+            <em>+4 pp</em><b aria-hidden="true">→</b>
           </a>
 
       </div>
@@ -273,7 +210,7 @@
       </article>
 
 
-      <article class="running-card has-screen-results">
+      <article class="running-card has-results">
 
       <div class="idea-card-topline">
         <span class="status running">Running</span>
@@ -287,28 +224,22 @@
           <div><dt>Target tasks</dt><dd>Riemann-Bench · Omni-MATH · AIME 2025 · AIME 2026</dd></div>
         </dl>
 
-          <figure class="historical-gains screen-gains">
-            <div>
-              <div class="historical-gain-row">
-                <div class="historical-gain-label">
-                  <span>Mutation-Orbit Provenance DPO</span>
-                  <em>24.44% → 24.44% · n=90</em>
-                </div>
-                <div class="historical-gain-track"><i style="width:0.00%"></i></div>
-                <strong>+0.00 pp</strong>
-                <span class="idea-detail-cue">Measured screen</span>
-              </div>
-            </div>
-            <figcaption>Frozen Math baseline: 25.67% macro accuracy on n=541. The exact-adapter n=90 screen was flat, preliminary, and non-promotional.</figcaption>
-          </figure>
-
-
       <div class="program-notebook">
-        <p>Evidence-backed idea notebooks</p>
+        <p>Three trained hard-MATH methods</p>
+
+          <a class="program-notebook-row" href="ideas/answer-anchor-reweighting.html">
+            <span><strong>Answer-Anchor Reweighting</strong><small>Double-weight verified answer and terminal-stop labels</small></span>
+            <em>−4.44 pp</em><b aria-hidden="true">→</b>
+          </a>
+
+          <a class="program-notebook-row" href="ideas/exit-hazard-suppression.html">
+            <span><strong>Premature-Exit Hazard Suppression</strong><small>Penalize EOS probability at bounded pre-answer positions</small></span>
+            <em>−3.33 pp</em><b aria-hidden="true">→</b>
+          </a>
 
           <a class="program-notebook-row" href="ideas/answer-anchored-exit-hazard-reweighting.html">
-            <span><strong>Answer-Anchored Exit-Hazard Reweighting</strong><small>Matched arms trained; frozen paired evaluation in progress</small></span>
-            <em>Trained · evaluating</em><b aria-hidden="true">→</b>
+            <span><strong>Combined Answer Anchor + Exit Hazard</strong><small>Factorial combination of answer protection and stopping control</small></span>
+            <em>−4.44 pp</em><b aria-hidden="true">→</b>
           </a>
 
       </div>
@@ -316,7 +247,7 @@
       </article>
 
 
-      <article class="running-card">
+      <article class="running-card has-results">
 
       <div class="idea-card-topline">
         <span class="status running">Running</span>
@@ -330,14 +261,24 @@
           <div><dt>Target tasks</dt><dd>LiveCodeBench Hard · SWE-bench Live</dd></div>
         </dl>
 
-          <p class="details-placeholder"><strong>No measured result yet.</strong> The code diagnostic has 243/250 valid unique responses. Extensional Name Capsule has a hash-bound implementation and behavioral-test suite, but no training checkpoint or F0 result exists yet.</p>
+          <p class="details-placeholder"><strong>Matched training runtime under repair.</strong> The executable-mutant pool has 92 verified tasks, 633 preference pairs, and four mutation families. The latest eight-rank launch completed model and optimizer initialization, then exposed a gradient-checkpointing mismatch at the first backward pass. No optimizer update was recorded; a repaired backward path is under independent audit.</p>
 
 
       <div class="program-notebook">
-        <p>Evidence-backed idea notebooks</p>
+        <p>Current training-method notebooks</p>
+
+          <a class="program-notebook-row" href="ideas/counterfactual-token-vetoes.html">
+            <span><strong>Counterfactual Token Vetoes</strong><small>Localize negative credit with executable repair certificates</small></span>
+            <em>New design · novelty review pending</em><b aria-hidden="true">→</b>
+          </a>
+
+          <a class="program-notebook-row" href="ideas/matched-failure-signature-coverage-dpo.html">
+            <span><strong>Matched Failure-Signature Coverage DPO</strong><small>Allocate execution-killed negatives by distinct failure coverage</small></span>
+            <em>Runtime repair</em><b aria-hidden="true">→</b>
+          </a>
 
           <a class="program-notebook-row" href="ideas/extensional-name-capsule.html">
-            <span><strong>Extensional Name Capsule</strong><small>Hash-bound implementation and behavioral tests; no F0 checkpoint</small></span>
+            <span><strong>Extensional Name Capsule</strong><small>Behavioral capsule supervision with a frozen tool contract</small></span>
             <em>Implementation tested</em><b aria-hidden="true">→</b>
           </a>
 
@@ -346,7 +287,7 @@
       </article>
 
 
-      <article class="running-card">
+      <article class="running-card has-results">
 
       <div class="idea-card-topline">
         <span class="status repairing">Repairing</span>
@@ -363,162 +304,6 @@
           <p class="details-placeholder"><strong>No measured result yet.</strong> Four candidate ideas are undergoing off-GPU implementation repair.</p>
 
 
-      </article>
-    </div>
-          </div>
-        </section>
-
-        <section class="section notebook-section" id="ideas">
-          <div class="reference-container">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Evidence-backed research notebook</p>
-                <h2>Open the mechanism, not just the score.</h2>
-              </div>
-              <p>
-                Every article separates the diagnosis, data, action space, optimization,
-                controls, evaluation, novelty review, and present evidence boundary.
-                Proposal-only ideas are not presented as trained results.
-              </p>
-            </div>
-            <div class="notebook-grid">
-      <article class="notebook-card">
-        <div class="idea-card-topline">
-          <span class="status running">Trained · evaluating</span>
-          <span>idea-fqm-answer-anchored-exit-hazard-f0-v2</span>
-        </div>
-        <p class="notebook-card-kicker">Qwen3-4B · Training objective</p>
-        <h3>Answer-Anchored Exit-Hazard Reweighting</h3>
-        <p>Reweight verified answer and stopping tokens so the model learns to preserve a correct answer and finish, while a small pre-answer EOS hazard penalizes drifting into the 32K response cap.</p>
-        <dl class="notebook-card-facts">
-          <div><dt>Evidence level</dt><dd>Matched arms trained; frozen paired evaluation in progress</dd></div>
-          <div><dt>Novelty review</dt><dd>4.00/10 · Incremental performance-track idea</dd></div>
-        </dl>
-        <a class="notebook-card-link" href="ideas/answer-anchored-exit-hazard-reweighting.html">
-          Read data, tools, training, and evaluation <span aria-hidden="true">→</span>
-        </a>
-      </article>
-
-
-      <article class="notebook-card">
-        <div class="idea-card-topline">
-          <span class="status repairing">Implementation tested</span>
-          <span>idea-02-48ca</span>
-        </div>
-        <p class="notebook-card-kicker">Qwen3.5-35B-A3B · Tool-use intervention</p>
-        <h3>Extensional Name Capsule</h3>
-        <p>Replace a potentially misleading function name with an anonymous symbol, then let the policy optionally query a source-sealed behavioral capsule built from one frozen identifier-only prior.</p>
-        <dl class="notebook-card-facts">
-          <div><dt>Evidence level</dt><dd>Hash-bound implementation and behavioral tests; no F0 checkpoint</dd></div>
-          <div><dt>Novelty review</dt><dd>3.57/10 · Likely prior art · exploratory incremental</dd></div>
-        </dl>
-        <a class="notebook-card-link" href="ideas/extensional-name-capsule.html">
-          Read data, tools, training, and evaluation <span aria-hidden="true">→</span>
-        </a>
-      </article>
-
-
-      <article class="idea-card">
-        <div class="idea-card-topline">
-          <span class="status positive">Promoted</span>
-          <span>mini-targeted-lora</span>
-        </div>
-        <h3>Target-only Attention LoRA</h3>
-        <p>A bounded rank-8 LoRA adapter teaches Qwen3-4B four opaque research-tool routes while leaving the base weights unchanged.</p>
-        <dl class="record-facts">
-          <div><dt>Target model</dt><dd>Qwen3-4B</dd></div>
-          <div><dt>Target task</dt><dd>Exact-match research-tool routing</dd></div>
-          <div><dt>Current result</dt><dd>22.5% → 29.2% on frozen n=120</dd></div>
-          <div><dt>Compute</dt><dd>One H200 · 20 effective updates</dd></div>
-        </dl>
-        <p class="idea-card-source"><strong>Evidence source</strong>Recorded demo run with documented provenance</p>
-        <div class="idea-card-result">
-          <span><small>Baseline</small><strong>22.5%</strong></span>
-          <span aria-hidden="true">→</span>
-          <span><small>Treatment</small><strong>29.2%</strong></span>
-          <span class="delta positive">+6.7 pp</span>
-        </div>
-        <a class="text-link" href="ideas/target-only-attention-lora.html">
-          Read the full idea and evaluation <span aria-hidden="true">→</span>
-        </a>
-      </article>
-
-
-      <article class="idea-card">
-        <div class="idea-card-topline">
-          <span class="status negative">No promotion</span>
-          <span>idea-01-219a</span>
-        </div>
-        <h3>First Beneficial Strategy-Switch Distillation</h3>
-        <p>Distill only the first causally beneficial strategy switch from bounded groups of counterfactual research trajectories.</p>
-        <dl class="record-facts">
-          <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
-          <div><dt>Target task</dt><dd>Long-horizon research quality screen</dd></div>
-          <div><dt>Current result</dt><dd>24% → 22% on frozen n=100</dd></div>
-          <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
-        </dl>
-        <p class="idea-card-source"><strong>Evidence source</strong>Live quality-monitor snapshot; raw remote result bundle not included</p>
-        <div class="idea-card-result">
-          <span><small>Baseline</small><strong>24.0%</strong></span>
-          <span aria-hidden="true">→</span>
-          <span><small>Treatment</small><strong>22.0%</strong></span>
-          <span class="delta negative">-2.0 pp</span>
-        </div>
-        <a class="text-link" href="ideas/strategy-switch-distillation.html">
-          Read the full idea and evaluation <span aria-hidden="true">→</span>
-        </a>
-      </article>
-
-
-      <article class="idea-card">
-        <div class="idea-card-topline">
-          <span class="status negative">No promotion</span>
-          <span>idea-05-59ec</span>
-        </div>
-        <h3>Trajectory-Bound Lead Promotion Tool</h3>
-        <p>Turn a recently observed scholarly lead into a temporary action only after provenance and targeted-fetch confirmation.</p>
-        <dl class="record-facts">
-          <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
-          <div><dt>Target task</dt><dd>Long-horizon scholarly research</dd></div>
-          <div><dt>Current result</dt><dd>20% → 17% on frozen n=100</dd></div>
-          <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
-        </dl>
-        <p class="idea-card-source"><strong>Evidence source</strong>Live quality-monitor snapshot; raw remote result bundle not included</p>
-        <div class="idea-card-result">
-          <span><small>Baseline</small><strong>20.0%</strong></span>
-          <span aria-hidden="true">→</span>
-          <span><small>Treatment</small><strong>17.0%</strong></span>
-          <span class="delta negative">-3.0 pp</span>
-        </div>
-        <a class="text-link" href="ideas/trajectory-bound-lead-promotion.html">
-          Read the full idea and evaluation <span aria-hidden="true">→</span>
-        </a>
-      </article>
-
-
-      <article class="idea-card">
-        <div class="idea-card-topline">
-          <span class="status negative">No promotion</span>
-          <span>idea-exp-02ccd</span>
-        </div>
-        <h3>Option-Termination Shaping via DFA State</h3>
-        <p>Represent the research plan as a finite-state controller and shape transitions toward valid subgoal completion.</p>
-        <dl class="record-facts">
-          <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
-          <div><dt>Target task</dt><dd>Long-horizon research control</dd></div>
-          <div><dt>Current result</dt><dd>24% → 19% on frozen n=100</dd></div>
-          <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
-        </dl>
-        <p class="idea-card-source"><strong>Evidence source</strong>Live quality-monitor snapshot; raw remote result bundle not included</p>
-        <div class="idea-card-result">
-          <span><small>Baseline</small><strong>24.0%</strong></span>
-          <span aria-hidden="true">→</span>
-          <span><small>Treatment</small><strong>19.0%</strong></span>
-          <span class="delta negative">-5.0 pp</span>
-        </div>
-        <a class="text-link" href="ideas/dfa-option-termination.html">
-          Read the full idea and evaluation <span aria-hidden="true">→</span>
-        </a>
       </article>
     </div>
           </div>

@@ -6,7 +6,7 @@
     <meta name="description" content="Distill only the first causally beneficial strategy switch from bounded groups of counterfactual research trajectories." />
     <title>First Beneficial Strategy-Switch Distillation · Training Forge</title>
     <link rel="icon" href="../assets/salesforce-logo.jpg" />
-    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
     <script src="../assets/site.js?v=5" defer></script>
   </head>
   <body class="reference-theme">
@@ -41,8 +41,8 @@
             <dl class="record-facts detail-record-facts">
               <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
               <div><dt>Target task</dt><dd>Long-horizon research quality screen</dd></div>
-              <div><dt>Current result</dt><dd>24% → 22% on frozen n=100</dd></div>
-              <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
+              <div><dt>Current result</dt><dd>24% → 22% on the frozen held-out screen</dd></div>
+              <div><dt>Compute</dt><dd>Training checkpoint · 20 effective updates</dd></div>
             </dl>
           </div>
           <aside class="decision-card negative">
@@ -54,26 +54,26 @@
         </section>
 
         <section class="detail-section hypothesis">
-          <p class="section-kicker">Research hypothesis</p>
+          <p class="section-kicker">01 · Research hypothesis</p>
           <blockquote>Supervising the first strategy switch that causally improves a trajectory should teach the model when to abandon an unproductive research path.</blockquote>
         </section>
 
         <section class="detail-section">
           <div class="detail-heading">
-            <div><p class="section-kicker">Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
+            <div><p class="section-kicker">02 · Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
             <p>The implementation contract covers all four surfaces.</p>
           </div>
           <div class="pipeline-detail-grid">
             <article><span>01</span><h3>Data design</h3><p>Eight-rollout groups containing bounded counterfactual conditions around candidate strategy switches.</p></article>
             <article><span>02</span><h3>Tool use</h3><p>The underlying research-tool environment is held fixed so the experiment isolates supervision of the switch.</p></article>
             <article><span>03</span><h3>Training design</h3><p>Span-level distillation masks the prompt, fetched pages, and unrelated turns; only the selected beneficial switch contributes to the objective.</p></article>
-            <article><span>04</span><h3>Evaluation design</h3><p>Frozen n=100 quality screen against the untouched incumbent, evaluated from the saved global-step-20 checkpoint.</p></article>
+            <article><span>04</span><h3>Evaluation design</h3><p>Frozen quality screen against the untouched incumbent, evaluated from the saved global-step-20 checkpoint.</p></article>
           </div>
         </section>
 
         <section class="detail-section result-layout">
           <div>
-            <p class="section-kicker">Evaluation result</p>
+            <p class="section-kicker">03 · Evaluation result</p>
             <h2>No promotion</h2>
             <p class="result-copy">The treatment was compared with its declared baseline on the frozen held-out set. The decision follows the measured sign of the result.</p>
           </div>
@@ -89,26 +89,26 @@
           <div><i style="width:62.86%"></i></div>
           <strong>22.0%</strong>
         </div>
-        <figcaption>Frozen held-out evaluation · n=100</figcaption>
+        <figcaption>Frozen held-out evaluation</figcaption>
       </figure>
 
         </section>
 
         <section class="detail-section two-column">
           <div>
-            <p class="section-kicker">Fidelity and evaluation controls</p>
+            <p class="section-kicker">04 · Fidelity and evaluation controls</p>
             <h2>What had to remain true</h2>
             <ul class="check-list"><li>Counterfactual conditions fit inside each eight-rollout group</li><li>Only the selected assistant span receives supervision</li><li>Checkpoint identity is bound to evaluation</li><li>Non-positive held-out evidence cannot trigger promotion</li></ul>
           </div>
           <div>
-            <p class="section-kicker">Recorded evidence</p>
+            <p class="section-kicker">05 · Recorded evidence</p>
             <h2>What this record contains</h2>
-            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>24/100 baseline → 22/100 treatment</dd></div><div><dt>Difference</dt><dd>−2.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Novelty review</dt><dd>Insufficient evidence; no novelty claim</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
+            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>24% baseline → 22% treatment</dd></div><div><dt>Difference</dt><dd>−2.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Novelty review</dt><dd>Insufficient evidence; no novelty claim</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
           </div>
         </section>
 
         <section class="detail-section caveat-box">
-          <div><p class="section-kicker">Interpretation boundary</p><h2>What this result does not claim</h2></div>
+          <div><p class="section-kicker">06 · Interpretation boundary</p><h2>What this result does not claim</h2></div>
           <ul><li>The treatment underperformed on this screen; the result does not establish that strategy-switch distillation is generally ineffective.</li><li>The public title is a descriptive rendering of the authored mechanism associated with idea-01-219a.</li><li>This draft preserves the quality-monitor record, but the remote predictions, weight fingerprint, and results.json are not yet bundled as a standalone publication artifact.</li></ul>
         </section>
 

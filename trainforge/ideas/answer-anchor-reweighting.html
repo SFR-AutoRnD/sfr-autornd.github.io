@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The Qwen3-4B Answer-Anchor Reweighting training method: data construction, answer-span supervision, weighted objective, optimizer recipe, controls, and deployment behavior." />
+    <title>Answer-Anchor Reweighting · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/">
+          <img src="../assets/salesforce-logo.jpg" alt="Salesforce" />
+          <span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span>
+        </a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>hard-math-2×2 · answer_anchor</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Training complete</span><span>Qwen3-4B · objective design</span></div>
+              <p class="research-article-kicker">Omni-MATH · AIME 2025 · AIME 2026</p>
+              <h1>Answer-Anchor Reweighting</h1>
+              <p class="research-article-deck">Teach the model to protect the verified final answer and terminal stop by assigning those labels twice the normalized learning weight, without adding an inference-time tool or changing the training examples.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Training method</span><strong>Protect the verified answer tokens inside a long solution.</strong><dl><div><dt>Supervision</dt><dd>Final-answer span + terminal stop</dd></div><div><dt>Objective change</dt><dd>Normalized total weight 1.0 → 2.0</dd></div><div><dt>Inference</dt><dd>No new tools or decoding rule</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Diagnosis</p><h2>Correct answers are often never published.</h2>
+            <p>On the frozen 300-problem target diagnostic, Qwen3-4B answered 138 correctly. Sixty-two generations reached the 32K response limit; only 4/62 cap-hit responses were correct, versus 134/238 responses that stopped before the cap.</p>
+            <p>This is a strong association, not a causal conclusion. The answer-anchor arm tests one narrow explanation: the ordinary token-average objective may underweight the few tokens that serialize the final answer after a long derivation.</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Causal hypothesis</p><h2>Protect the answer without forcing an early stop.</h2>
+            <blockquote>Upweighting only verified final-answer and terminal-EOS labels should improve exact-answer publication while preserving the model’s freedom to reason for as long as the problem requires.</blockquote>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Training recipe</p><h2>Four steps from hard problem to weighted update.</h2></div><p>The intervention changes only the loss assigned to a verified answer boundary.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Build the hard-data schedule</h3><p>Sample 160 distinct Hendrycks-MATH Level 4–5 rows from 2,593 tokenizer-eligible examples. Balance 14 category-by-level strata at 11–12 rows each and exclude every diagnostic or target row.</p></article>
+              <article><span>02</span><h3>Locate the answer boundary</h3><p>Tokenize the complete worked solution, then derive a deterministic mask for the verified final-answer span and terminal EOS. If the boundary cannot be located, fail closed instead of guessing.</p></article>
+              <article><span>03</span><h3>Normalize anchor weight</h3><p>Keep ordinary response-token cross entropy, but rescale the answer-span and terminal-stop labels so their normalized total contribution is 2.0. All other response labels retain ordinary weight.</p></article>
+              <article><span>04</span><h3>Update a matched adapter</h3><p>Run 20 AdamW updates with eight problems per update, bf16 LoRA rank 32, alpha 64, dropout 0, learning rate 1e-4, and gradient clipping at 1. The exit-hazard scale remains zero.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Matched controls</p><h2>Only one training knob moves.</h2><ul class="check-list"><li>Initial model fingerprint, 160 rows, order, tokens, seed, and optimizer stay identical</li><li>Every arm computes every loss component</li><li>Only the answer-anchor scale changes from 0 to 1</li><li>Held-out labels remain unavailable to training</li><li>Checkpoint and adapter identities are hash-bound</li></ul></div>
+            <div><p class="section-kicker">05 · Deployment behavior</p><h2>No inference-time scaffolding.</h2><ul class="number-list"><li>The adapter reloads on the unchanged Qwen3-4B base</li><li>No Python, search, retrieval, calculator, or verifier is added</li><li>No forced early stop or answer extractor changes generation</li><li>The learned token distribution is the entire intervention</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="answer-anchor-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="answer-anchor-result-title">Measured hard-90 screen: negative.</h2><p>On 30 Omni-MATH, 30 AIME 2025, and 30 AIME 2026 problems, the trained arm underperformed the matched ordinary-SFT control. This single screen estimates direction; it is not a promotion result.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Control</dt><dd>27/90 · 30.00%</dd></div><div class="result-slot"><dt>Method</dt><dd>23/90 · 25.56%</dd></div><div class="result-slot"><dt>Delta</dt><dd>−4.44 pp</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Run provenance and evaluation protocol</summary><div class="method-provenance-body"><div><h3>Training artifacts</h3><p>Scientific contract d84cd22e… · schedule 7877b1d5… · training receipt 4861af66… · adapter 0b9ca96e…</p></div><div><h3>Held-out protocol</h3><p>Thirty Omni-MATH, thirty AIME 2025, and thirty AIME 2026 problems; temperature 0; 8K prompt, 32K response, and 40,960-token context. Request 117f880e…</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">06 · Failure modes</p><h2>How this idea could fail</h2></div><ul><li>The 32K cap may merely identify harder problems, so anchor weighting may not improve reasoning.</li><li>Extra weight on a wrong or poorly delimited answer span can amplify label noise.</li><li>The model may learn terse answer publication without improving the mathematical derivation.</li><li>One training seed and 90 held-out problems estimate direction, not robustness.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other Qwen Math arms"><a href="../index.html#programs"><small>Overview</small><strong>← Programs &amp; evidence</strong></a><a href="exit-hazard-suppression.html"><small>Next Qwen arm</small><strong>Premature-Exit Hazard Suppression →</strong></a><a href="answer-anchored-exit-hazard-reweighting.html"><small>Combined arm</small><strong>Answer Anchor + Exit Hazard →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Research claims are shown with their evaluation status. No complete evidence means no promotion. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

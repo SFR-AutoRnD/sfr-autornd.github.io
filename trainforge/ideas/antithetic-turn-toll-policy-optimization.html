@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A GPT-OSS-20B research-training hypothesis that estimates the causal value of each search action with balanced random tool prices." />
+    <title>Antithetic Turn-Toll Policy Optimization · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>GPT-OSS research hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Strong novelty hypothesis</span><span>External review pending</span></div>
+              <p class="research-article-kicker">GPT-OSS-20B · long-horizon research training</p>
+              <h1>Antithetic Turn-Toll Policy Optimization</h1>
+              <p class="research-article-deck">Measure when another search action earns its cost instead of imposing one budget before the research begins.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Independent internal screen</span><strong>8.4/10 · confidence 0.71</strong><dl><div><dt>Status</dt><dd>Research hypothesis; external novelty review pending</dd></div><div><dt>Core intervention</dt><dd>Balanced random tool prices inside each episode</dd></div><div><dt>Tool surface</dt><dd>Unchanged search, browser, and research tools</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>Price search turns to reveal their marginal value.</h2>
+            <p>Long-horizon agents can stop before finding decisive evidence or continue spending calls after the answer is already supported. A single prompt-level budget cannot identify which state made one additional tool action worthwhile.</p>
+            <blockquote>Expose the same task to opposite, balanced price sequences and use the induced variation to learn an evidence-conditional search-versus-answer policy.</blockquote>
+            <p>Each schedule contains the same total offered price mass. Its antithetic partner reverses expensive and cheap turns, separating the timing of cost from global task difficulty.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Exact novelty delta</p><h2>A randomized price process inside a live research trajectory.</h2>
+            <p>Existing compute-control methods sample token budgets, truncate reasoning, summarize partial work, or allocate compute once per input. This proposal randomizes the price of individual search actions during the episode and uses price-induced behavior to estimate late-turn value.</p>
+            <p>The internal novelty case rests on three pieces together: antithetic price schedules with fixed total mass, a preregistered price-to-action first-stage gate, and causal value credit inside a live web policy. External review may still identify a direct equivalent.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Long tasks where the stop/search decision matters.</h2></div><p>Training tasks are fresh, human-audited, exact-answer-verifiable, and disjoint from every official evaluation item and evidence chain.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Build the task pool</h3><p>Use 160 tasks balanced across multi-source synthesis, mixed-tool investigation, expert lookup/computation, and entangled web identification.</p></article>
+              <article><span>02</span><h3>Require real horizon</h3><p>Retain tasks only when base-model pilots need a median of at least 10 tool turns and preserve a material tail reaching 24–32 turns.</p></article>
+              <article><span>03</span><h3>Pair the prices</h3><p>Draw a balanced 32-turn schedule with sixteen 0.5-cost and sixteen 1.5-cost slots; pair it with the exact complement <code>2 − Zt</code>.</p></article>
+              <article><span>04</span><h3>Enforce the budget</h3><p>A search or browse action consumes its current toll. The final-answer action is free. Apply the same hard virtual budget to treatment and control.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Constrain cost; learn state-dependent value.</h2><p><code>J(θ, λ) = Eθ[Y − λ(Σt ZtDt − B)]</code></p><p><code>λ ← [λ + ηλ(E[C] − B)]+</code></p><p><code>v̂(s) = Cov(Zt,Y | φ(st)) / Cov(Zt,Dt | φ(st))</code></p><p>Use <code>v̂</code> only when price materially changes the probability of searching. Dense turn reward is the clipped value-minus-price signal; terminal exact correctness remains authoritative.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Antithetic and compute matched.</h2><ul class="check-list"><li>GPT-OSS-20B with unchanged Harmony roles and tool schemas</li><li>Exactly 20 optimizer updates and eight unique task groups per update</li><li>Four trajectory slots: two independently seeded antithetic pairs</li><li>Control gets four unit-price schedules and the same rollout quota</li><li>Identical optimizer-visible tokens, task IDs, seeds, and LoRA settings</li><li>Maximum 32 tool turns; no token-level classification reward</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>Train with prices; serve without them.</h2><ul class="number-list"><li>Reload the adapter on the unchanged GPT-OSS-20B base</li><li>Use the native search/browser tool contract</li><li>Remove randomized toll messages at evaluation and deployment</li><li>Do not add a scheduler, model head, callable tool, or special token</li></ul></div>
+            <div><p class="section-kicker">07 · Closest work</p><h2>What this must beat and differ from.</h2><ul class="check-list"><li><a href="https://arxiv.org/abs/2505.13438">AnytimeReasoner / BRPO</a> trains across sampled reasoning budgets</li><li><a href="https://arxiv.org/abs/2604.14853">Adaptive Test-Time Compute via CPO</a> allocates compute adaptively</li><li><a href="https://arxiv.org/abs/1705.10528">Constrained Policy Optimization</a> supplies the general constraint framework</li><li><a href="https://arxiv.org/abs/2508.07976">ASearcher</a> demonstrates very long search horizons</li><li><a href="https://arxiv.org/abs/2602.19526">Search-R1++</a> documents search-reward and optimization failure modes</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="turn-toll-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="turn-toll-result-title">Reserved for a complete held-out readout.</h2><p>Numbers remain blank until matched training, artifact reload, the native-price evaluation, and uncertainty analysis are complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Primary readout</h3><p>Evaluate under native, unmodified search at 8-, 16-, 24-, and 32-call budgets. Report official accuracy, area under the accuracy-versus-call curve, stop calibration, duplicate calls, domain coverage, tokens, and latency.</p></div><div><h3>Required ablations</h3><p>Compare randomized versus fixed prices, antithetic versus independent prices, learned dual versus fixed penalty, causal value credit versus cost-only reward, and visible versus hidden price metadata.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Failure modes</p><h2>Reasons to reject the mechanism.</h2></div><ul><li>Prices may fail to move the search decision, producing a weak first stage.</li><li>Prices can alter downstream budgets directly, violating a simple instrumental interpretation.</li><li>The policy may answer prematurely or overfit to artificial toll text.</li><li>State bins may be too noisy for stable marginal-value estimates.</li><li>A fixed-cost, compute-matched control may perform just as well.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other GPT-OSS hypotheses"><a href="cross-fitted-source-intervention-policy-optimization.html"><small>Previous hypothesis</small><strong>← Source Intervention</strong></a><a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence</strong></a><a href="dyadic-interaction-credit.html"><small>Next hypothesis</small><strong>Dyadic Credit →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Novelty hypotheses remain provisional until external review and measured evidence are complete. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

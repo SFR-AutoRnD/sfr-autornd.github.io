@@ -6,7 +6,7 @@
     <meta name="description" content="A bounded rank-8 LoRA adapter teaches Qwen3-4B four opaque research-tool routes while leaving the base weights unchanged." />
     <title>Target-only Attention LoRA · Training Forge</title>
     <link rel="icon" href="../assets/salesforce-logo.jpg" />
-    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
     <script src="../assets/site.js?v=5" defer></script>
   </head>
   <body class="reference-theme">
@@ -54,13 +54,13 @@
         </section>
 
         <section class="detail-section hypothesis">
-          <p class="section-kicker">Research hypothesis</p>
+          <p class="section-kicker">01 · Research hypothesis</p>
           <blockquote>Masked target-only supervision through LoRA on the attention projections can improve frozen exact-match route accuracy without modifying the base model.</blockquote>
         </section>
 
         <section class="detail-section">
           <div class="detail-heading">
-            <div><p class="section-kicker">Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
+            <div><p class="section-kicker">02 · Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
             <p>The implementation contract covers all four surfaces.</p>
           </div>
           <div class="pipeline-detail-grid">
@@ -73,7 +73,7 @@
 
         <section class="detail-section result-layout">
           <div>
-            <p class="section-kicker">Evaluation result</p>
+            <p class="section-kicker">03 · Evaluation result</p>
             <h2>Promoted</h2>
             <p class="result-copy">The treatment was compared with its declared baseline on the frozen held-out set. The decision follows the measured sign of the result.</p>
           </div>
@@ -96,19 +96,19 @@
 
         <section class="detail-section two-column">
           <div>
-            <p class="section-kicker">Fidelity and evaluation controls</p>
+            <p class="section-kicker">04 · Fidelity and evaluation controls</p>
             <h2>What had to remain true</h2>
             <ul class="check-list"><li>Frozen held-out split before training</li><li>Prompt tokens masked from the training objective</li><li>Full-parameter training forbidden by the executable contract</li><li>Saved adapter reloaded before the promotion decision</li></ul>
           </div>
           <div>
-            <p class="section-kicker">Recorded evidence</p>
+            <p class="section-kicker">05 · Recorded evidence</p>
             <h2>What this record contains</h2>
             <dl class="evidence-list"><div><dt>Observed counts</dt><dd>27/120 baseline → 35/120 treatment</dd></div><div><dt>Checkpoint decision</dt><dd>Promoted</dd></div><div><dt>Compute</dt><dd>One H200 · 20 effective updates</dd></div><div><dt>Provenance</dt><dd>Recorded round 1 · llm_e5f7b769e191</dd></div></dl>
           </div>
         </section>
 
         <section class="detail-section caveat-box">
-          <div><p class="section-kicker">Interpretation boundary</p><h2>What this result does not claim</h2></div>
+          <div><p class="section-kicker">06 · Interpretation boundary</p><h2>What this result does not claim</h2></div>
           <ul><li>This is the reliable guided platform demonstration, not a claim that AutoResearch autonomously discovered a novel training algorithm.</li><li>The intentionally narrow routing task demonstrates the end-to-end evidence contract; it is not a general research benchmark.</li><li>The recorded demo documents 20 effective updates; the current standalone LLM engine defaults to 40, so the frozen run contract—not a software default—is authoritative.</li></ul>
         </section>
 

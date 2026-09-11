@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The Matched Failure-Signature Coverage DPO training method for Qwen3.5-35B-A3B: executable mutant data, coverage allocation, matched controls, and deployment behavior." />
+    <title>Matched Failure-Signature Coverage DPO · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>Qwen3.5 Code method</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status repairing">Runtime repair</span><span>Training evidence pending</span></div>
+              <p class="research-article-kicker">Qwen3.5-35B-A3B · coding training</p>
+              <h1>Matched Failure-Signature Coverage DPO</h1>
+              <p class="research-article-deck">Choose executable negative programs for the distinct failures they expose, then compare that allocation against a compute-matched uniform control.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Scientific status</span><strong>Executable method · incremental idea</strong><dl><div><dt>Verified pool</dt><dd>92 tasks · 633 killed mutants · 4 edit families</dd></div><div><dt>Intervention</dt><dd>Failure-signature coverage allocation</dd></div><div><dt>Inference</dt><dd>Ordinary code generation; no added tool</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>Hard negatives should cover different ways code can fail.</h2>
+            <p>Executable-mutant preference training often samples any incorrect program that a public test kills. That treats ten mutants failing the same check as ten equally useful lessons, even when another mutant would expose a different semantic weakness.</p>
+            <blockquote>Hold the task, correct program, batch slot, and optimizer budget fixed; change only how the rejected program is allocated from one verified mutant pool.</blockquote>
+            <p>The treatment greedily adds the mutant with the largest new coverage of <strong>(AST mutation family, failed-check index)</strong>. The control draws killed mutants uniformly with a fixed seed. Because both arms use the same verified pool and matched schedule, the comparison isolates the allocation rule instead of the generic benefit of executable negatives.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Research position</p><h2>A performance-first, incremental hypothesis.</h2>
+            <p>DPO, mutation testing, hard-negative mining, and submodular coverage are established ideas. The narrow contribution is their controlled combination: marginal failure-signature coverage versus seeded uniform allocation under an identical executable pool and optimizer schedule.</p>
+            <p>The two-pass internal review scored the proposal 3.4 and 4.0. It is therefore presented as an honest incremental method worth measuring—not as a verified-novel result.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>From source programs to a frozen preference pool.</h2></div><p>Target and preflight rows are excluded from fitting before any mutant is generated.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Fix the eligible tasks</h3><p>Start from 120 MBPP-sanitized training rows and remove the eight manifest-bound diagnostic and complete-fitting exclusions, leaving 112 eligible source tasks.</p></article>
+              <article><span>02</span><h3>Verify the references</h3><p>In a networkless sandbox, require each reference program to compile and pass every listed public training check. A task enters the pool only after that executable proof.</p></article>
+              <article><span>03</span><h3>Create bounded mutants</h3><p>Enumerate four frozen single-site AST edit families. Retain only loading programs killed by at least one public check; the sealed pool contains 633 pairs across 92 tasks.</p></article>
+              <article><span>04</span><h3>Freeze both allocations</h3><p>Build a seeded-uniform control and a coverage-greedy treatment from the same pool, then bind each arm to an immutable 480-slot schedule.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Ordinary DPO; a different rejected-example curriculum.</h2><p><code>z = β[(log πθ(y+) − log πθ(y−)) − (log πref(y+) − log πref(y−))]</code></p><p><code>L = −log σ(z)</code></p><p>The correct reference program is <code>y+</code>; an execution-killed mutant is <code>y−</code>. The loss is identical in both arms. Only the frozen negative allocation changes.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Matched down to the global slot.</h2><ul class="check-list"><li>Qwen3.5-35B-A3B with rank-16, alpha-32 all-linear LoRA</li><li>BF16 ZeRO-3 over eight GPUs; learning rate 5×10⁻⁵</li><li>Exactly 60 optimizer updates and global batch eight per arm</li><li>Same task, prompt, correct program, order, seed, and 480 batch slots</li><li>Independent starts from the same unadapted base</li><li>Immutable checkpoints and telemetry at updates 20, 40, and 60</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>The mutation machinery disappears.</h2><ul class="number-list"><li>Reload the selected adapter on the unchanged Qwen3.5-35B-A3B base</li><li>Generate ordinary source code through the existing interface</li><li>Add no mutation engine, test feedback, verifier, search, or Python tool at inference</li><li>Keep the 32K response allowance inside a 40,960-token training context</li></ul></div>
+            <div><p class="section-kicker">07 · What would falsify it?</p><h2>Coverage must beat the matched control.</h2><ul class="check-list"><li>The treatment is flat or worse than uniform allocation</li><li>Coverage gains concentrate in one mutation family or a few source tasks</li><li>The adapter improves public-style checks but not independently held-out code</li><li>Any row, schedule, checkpoint, or scorer identity fails its frozen receipt</li><li>Runtime errors prevent all 60 evidenced updates in either arm</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="coverage-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="coverage-result-title">Reserved for a complete matched readout.</h2><p>The result remains blank until both adapters reload independently and the paired artifact receipt is complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Frozen populations</h3><p>Use 100 historically exposed LiveCodeBench-Hard diagnostic rows plus disjoint 75-row HumanEval and 75-row MBPP preflight samples. Keep the remaining 250 LiveCodeBench-Hard rows untouched.</p></div><div><h3>Evidence binding</h3><p>Report per-dataset paired deltas, task-bootstrap uncertainty, McNemar discordances, generation errors, and scorer-infrastructure errors. Bind every prediction to its model, adapter, data, request, and scorer fingerprint.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Current blocker</p><h2>The method is ready; the first backward pass is being repaired.</h2></div><ul><li>The latest live launch initialized the full eight-rank model, ZeRO-3 optimizer, and matched schedule, then stopped at the first backward pass on a gradient-checkpoint tensor-shape mismatch.</li><li>No optimizer update or evaluation score is claimed from that attempt.</li><li>The repaired checkpointing path is versioned and must pass an independent eight-rank backward probe before a fresh launch.</li><li>All failed-run evidence remains preserved; no result directory is reused.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other Qwen Code notebooks"><a href="../index.html#programs"><small>Overview</small><strong>← Programs &amp; evidence</strong></a><a href="extensional-name-capsule.html"><small>Other Code method</small><strong>Extensional Name Capsule →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Method descriptions and provisional hypotheses are separated from measured evidence. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

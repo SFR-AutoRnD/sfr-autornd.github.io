@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A GPT-OSS-20B research-training hypothesis that uses randomized source availability to learn causal evidence reliance and rerouting." />
+    <title>Cross-Fitted Source-Intervention Policy Optimization · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>GPT-OSS research hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Strong novelty hypothesis</span><span>External review pending</span></div>
+              <p class="research-article-kicker">GPT-OSS-20B · long-horizon research training</p>
+              <h1>Cross-Fitted Source-Intervention Policy Optimization</h1>
+              <p class="research-article-deck">Learn which evidence changed the answer—not which citation merely looks supportive afterward.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Independent internal screen</span><strong>8.8/10 · confidence 0.66</strong><dl><div><dt>Status</dt><dd>Research hypothesis; external novelty review pending</dd></div><div><dt>Core intervention</dt><dd>Cross-fitted source discovery plus randomized source visibility</dd></div><div><dt>Tool surface</dt><dd>Unchanged search, browser, and research tools</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>Turn source reliance into a causal training signal.</h2>
+            <p>A correct research answer can carry plausible citations while depending on an unsupported clue, one publisher ecosystem, or parametric memory. Citation correctness therefore does not establish that the cited evidence caused the answer.</p>
+            <blockquote>Randomly alter which independent source family is reachable, measure the resulting answer change, and reward reliable use or rerouting only when the intervention actually moves evidence acquisition.</blockquote>
+            <p>The method separates discovery from falsification across publisher-owner folds. Its dense credit is derived from upstream access interventions; the final answer remains scored by exact task outcome.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Exact novelty delta</p><h2>From attribution after retrieval to intervention before retrieval.</h2>
+            <p>Prior work audits whether an answer is supported, attributes predictions to retrieved documents, or rewards provenance. The proposed object is different: a cross-fitted instrumental estimate of causal source reliance inside a live multi-turn research policy, with explicit redundant-source rerouting and insufficient-evidence strata.</p>
+            <p>The internal screen found no reviewed primary method combining randomized pre-retrieval availability, independent publisher folds, a first-stage instrument gate, and policy optimization over 10–32-turn research traces. That is a provisional assessment, not proof of priority.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Fresh web tasks, independent source ecosystems, no benchmark leakage.</h2></div><p>Official FRAMES, GAIA, HLE, and BrowseComp questions, answers, entity chains, and URL sets remain outside training and method selection.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Author fresh tasks</h3><p>Create 160 human-audited, exact-answer-verifiable research tasks balanced across multi-source synthesis, mixed tools, expert lookup, and entangled identification.</p></article>
+              <article><span>02</span><h3>Freeze source identity</h3><p>Record URL, fetch time, content hash, publisher ownership, and syndication relationships for 4–8 live pages spanning at least three owner clusters.</p></article>
+              <article><span>03</span><h3>Cross-fit discovery</h3><p>Hash-split owner clusters into folds A and B. Discover on A and verify on B, then reverse the direction, keeping folds independent.</p></article>
+              <article><span>04</span><h3>Randomize access</h3><p>Within the verification fold, boost or slot-preserving suppress one decisive source family. Keep only interventions that change acquisition by at least the preregistered first-stage threshold.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Credit evidence only under a strong instrument.</h2><p><code>ρ̂d = [E(Y|Zd=+1) − E(Y|Zd=−1)] / [E(Ed|Zd=+1) − E(Ed|Zd=−1)]</code></p><p><code>use ρ̂d only when |ΔEd| ≥ 0.20</code></p><p>Assign the stop-gradient estimate to the first acquisition turn for source family <code>d</code>, then zero-sum normalize across the trajectory before adding it to terminal exact-outcome advantage.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Dose-matched policy optimization.</h2><ul class="check-list"><li>GPT-OSS-20B with the validated LoRA and Reinforce++ stack</li><li>Exactly 20 optimizer updates, eight unique task groups per update</li><li>Four trajectory slots: two fold directions × boost/suppress</li><li>Control sees the same masks and pages with hash-permuted intervention labels</li><li>Identical task IDs, seeds, rollout slots, optimizer-visible tokens, and adapter settings</li><li>Maximum 32 tool turns; exact-answer/outcome reward only</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>No new inference machinery.</h2><ul class="number-list"><li>Reload the adapter on the unchanged GPT-OSS-20B base</li><li>Use the existing Harmony roles and search/browser schemas</li><li>Add no token, model head, callable tool, source gate, or intervention at inference</li><li>Run ordinary native web search; the randomized visibility mechanism is training-only</li></ul></div>
+            <div><p class="section-kicker">07 · Closest work</p><h2>Where the mechanism must distinguish itself.</h2><ul class="check-list"><li><a href="https://arxiv.org/abs/2412.18004">Correctness is not Faithfulness</a> audits support versus answer correctness</li><li><a href="https://arxiv.org/abs/2604.25313">Faithfulness-QA</a> probes evidence faithfulness</li><li><a href="https://arxiv.org/abs/2507.04480">Source Attribution in RAG</a> attributes outputs to retrieved documents</li><li><a href="https://arxiv.org/abs/2607.11172">STAMP</a> assigns provenance-aware research credit</li><li><a href="https://arxiv.org/abs/2504.03160">DeepResearcher</a> trains agents on real web interaction</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="source-intervention-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="source-intervention-result-title">Reserved for a complete held-out readout.</h2><p>Numbers remain blank until the matched run, artifact reload, uncertainty analysis, and frozen benchmark evaluation are complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Primary readout</h3><p>Use official scorers and report accuracy/pass@1, tool calls, generated tokens, and latency. Separately report redundant-source rerouting, singleton-source abstention, citation support, and instrument strength on a frozen fresh-web set.</p></div><div><h3>Required ablations</h3><p>Remove cross-fitting, randomization, first-stage gating, ownership clustering, and fresh-fact filtering one at a time. A placebo-shuffled intervention must not reproduce the treatment effect.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Failure modes</p><h2>Reasons to stop the claim.</h2></div><ul><li>The visibility assignment may be a weak instrument.</li><li>Publisher syndication may masquerade as independent corroboration.</li><li>Rank perturbations may affect outcomes through mechanisms other than source acquisition.</li><li>The model may learn blanket distrust, over-abstention, or domain reputation shortcuts.</li><li>Live-source churn may invalidate supposedly matched trajectories.</li><li>A placebo intervention performing similarly would defeat the causal interpretation.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other GPT-OSS hypotheses"><a href="../index.html#programs"><small>Overview</small><strong>← Programs &amp; evidence</strong></a><a href="antithetic-turn-toll-policy-optimization.html"><small>Next hypothesis</small><strong>Antithetic Turn Toll →</strong></a><a href="dyadic-interaction-credit.html"><small>Interaction hypothesis</small><strong>Dyadic Credit →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Novelty hypotheses remain provisional until external review and measured evidence are complete. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

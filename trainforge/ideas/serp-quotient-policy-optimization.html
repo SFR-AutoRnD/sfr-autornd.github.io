@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Training-method notebook for SERP-Quotient Policy Optimization on GPT-OSS-20B, covering trajectory data, quotient construction, supervision, updates, and controls." />
+    <title>SERP-Quotient Policy Optimization · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>idea-03-b3f2</strong></nav>
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status positive">Training method</span><span>GPT-OSS-20B · query policy</span></div>
+              <p class="research-article-kicker">FRAMES · Official GAIA · HLE · BrowseComp</p>
+              <h1>SERP-Quotient Policy Optimization</h1>
+              <p class="research-article-deck">Train the policy on distinct search-result frontiers instead of distinct query strings. Queries that retrieve the same ranked evidence share one optimization unit, preventing paraphrases from repeatedly consuming exploration credit.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card">
+              <span>Method at a glance</span>
+              <strong>Pool query probability before applying the learning signal.</strong>
+              <dl>
+                <div><dt>Optimization unit</dt><dd>SERP-equivalence class</dd></div>
+                <div><dt>Runtime tools</dt><dd>Unchanged search and fetch</dd></div>
+              </dl>
+            </aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Training problem</p>
+            <h2>Different strings can buy the same evidence.</h2>
+            <p>A research agent can appear to explore while issuing lexical variants that expose the same ranked results. A string-level objective treats every variant as a separate action, so one unproductive result neighborhood can receive repeated credit and occupy a large share of the tool budget.</p>
+            <p>This method changes the unit that receives credit. The model still writes ordinary search queries, but training identifies queries by the evidence frontier returned by the environment.</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Learning principle</p>
+            <h2>Optimize result-space exploration, not paraphrase volume.</h2>
+            <blockquote>When two queries return the same observed search frontier, their probability mass should be pooled and updated once at the class level.</blockquote>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading">
+              <div><p class="section-kicker">03 · Training recipe</p><h2>Build a quotient action space from real tool observations.</h2></div>
+              <p>The quotient exists in the training pipeline; the deployed model continues to emit normal query text.</p>
+            </div>
+            <div class="research-pipeline-grid">
+              <article><span>Trajectory data</span><h3>Keep the search boundary intact</h3><p>Each record retains the model state before search, the emitted query, returned result identifiers and ordering, later fetches, remaining tool budget, and the trajectory outcome. Equivalence comes from environment observations rather than a language-model similarity judgment.</p></article>
+              <article><span>Class construction</span><h3>Canonicalize the observed frontier</h3><p>Derive a stable signature from the returned result set and ranking, then assign queries with the same signature to one class. The signature rule, normalization, and collision handling belong in the run contract so classes can be reconstructed exactly.</p></article>
+              <article><span>Supervision</span><h3>Attach credit to the class</h3><p>Compute the learning signal from the downstream trajectory, then bind it to the observed result class. Member queries do not receive separate exploration rewards merely because their strings differ.</p></article>
+              <article><span>Objective</span><h3>Pool policy mass before the update</h3><p>Aggregate the probability of all member queries into one quotient-action probability and optimize that pooled mass. The token-level path remains differentiable through the member queries while the credit decision is made at class level.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">04 · Update sequence</p>
+              <h2>One training batch, step by step</h2>
+              <ol class="number-list">
+                <li>Sample matched research trajectories with complete search responses.</li>
+                <li>Locate each search decision and reconstruct its observed SERP signature.</li>
+                <li>Group query actions that map to the same signature within the declared comparison scope.</li>
+                <li>Aggregate their policy mass and assign the downstream advantage once.</li>
+                <li>Backpropagate the quotient-level loss through the query tokens.</li>
+                <li>Log both class mass and member-query mass for later fidelity checks.</li>
+              </ol>
+            </div>
+            <div>
+              <p class="section-kicker">05 · Deployment behavior</p>
+              <h2>No new inference-time tool</h2>
+              <ul class="check-list">
+                <li>The model emits a standard search query.</li>
+                <li>The search and fetch interfaces remain unchanged.</li>
+                <li>No semantic-query classifier is required at runtime.</li>
+                <li>The intervention is carried by the trained policy weights.</li>
+                <li>Tool budgets and evidence verification stay independent of the quotient loss.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div>
+              <p class="section-kicker">06 · Causal controls</p>
+              <h2>Isolate the quotient update</h2>
+              <ul class="check-list">
+                <li>Use identical trajectory rows, order, checkpoint, and update budget.</li>
+                <li>Keep search, fetch, verifier, and tool-call limits fixed.</li>
+                <li>Compare against string-level credit on the same actions.</li>
+                <li>Never use target answers to construct a result class.</li>
+                <li>Bind every saved checkpoint to its class-builder configuration.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="section-kicker">07 · Fidelity boundary</p>
+              <h2>The authored mechanism still needs code-level proof</h2>
+              <ul class="number-list">
+                <li>Confirm that live code pools probability at the result-class level.</li>
+                <li>Confirm that class signatures use recorded SERP content only.</li>
+                <li>Inspect collision and singleton-class rates.</li>
+                <li>Formal novelty inventory currently places the method near prior search-space-compression work.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="result-reserve">
+            <div>
+              <p class="section-kicker">08 · Result record</p>
+              <h2>Positive descriptive held-out screen</h2>
+              <p>One checkpoint-bound final-heldout screen was scored with the GPT-5-mini judge.</p>
+            </div>
+            <dl class="result-slot-grid">
+              <div class="result-slot"><dt>Baseline</dt><dd>8%</dd></div>
+              <div class="result-slot"><dt>Trained checkpoint</dt><dd>25%</dd></div>
+              <div class="result-slot"><dt>Delta</dt><dd>+17 pp</dd></div>
+            </dl>
+          </section>
+
+          <details class="method-provenance">
+            <summary>Recorded artifact identifiers · raw bundle not published</summary>
+            <div class="method-provenance-body">
+              <div><h3>Data and lineage</h3><p>Held-out manifest: 4dfaf32e…<br />Queue lineage: fa716287…</p></div>
+              <div><h3>Bound artifacts</h3><p>Result: f7c8d7c7…<br />Audit: efba309e…<br />Predictions: 906153f2…</p></div>
+            </div>
+          </details>
+
+          <section class="research-section caveat-box">
+            <div><p class="section-kicker">09 · Implementation checklist</p><h2>What must be true before attributing an effect to the method</h2></div>
+            <ul>
+              <li>Publish the exact signature construction and class statistics.</li>
+              <li>Trace a sample gradient from pooled class mass back to its member queries.</li>
+              <li>Show examples where lexical reformulations collapse and genuinely new frontiers remain separate.</li>
+              <li>Keep performance, mechanism fidelity, and novelty as separate records.</li>
+            </ul>
+          </section>
+        </article>
+        <nav class="idea-pagination" aria-label="Other GPT-OSS ideas"><a href="../index.html#programs"><small>Overview</small><strong>← Programs &amp; evidence</strong></a><a href="transport-certified-boundary-distillation.html"><small>Next GPT idea</small><strong>Transport-Certified Boundary Distillation →</strong></a><a href="censored-competing-risk-pivot-optimization.html"><small>Third GPT idea</small><strong>Censored Competing-Risk Pivot →</strong></a></nav>
+      </main>
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Training method, performance, and mechanism attribution are reported separately. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

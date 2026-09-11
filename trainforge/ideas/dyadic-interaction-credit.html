@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A GPT-OSS-20B research-training hypothesis that estimates causal credit for interacting multi-turn research subroutines." />
+    <title>Dyadic Interaction Credit · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>GPT-OSS research hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Strong novelty hypothesis</span><span>External review pending</span></div>
+              <p class="research-article-kicker">GPT-OSS-20B · long-horizon research training</p>
+              <h1>Dyadic Interaction Credit</h1>
+              <p class="research-article-deck">Credit the research subroutine—the query, clue, and verification span—not an isolated turn that only works in context.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Independent internal screen</span><strong>8.2/10 · confidence 0.57</strong><dl><div><dt>Status</dt><dd>Research hypothesis; external novelty review pending</dd></div><div><dt>Core intervention</dt><dd>Counterfactual perturbations of nested multi-turn intervals</dd></div><div><dt>Tool surface</dt><dd>Unchanged search, browser, and research tools</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>Research credit is often non-additive.</h2>
+            <p>A discriminative query can be useless without the later page choice; the page choice can look useless without the final corroboration. Scoring individual turns independently can erase this interaction or assign the whole outcome to the last visible step.</p>
+            <blockquote>Intervene on contiguous research spans, decompose their causal outcome effects across a dyadic hierarchy, and redistribute only the interaction-preserving credit.</blockquote>
+            <p>The method treats a multi-turn subroutine as the unit of intervention, then maps its value back to optimizer-visible turns while preserving total trajectory advantage.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Exact novelty delta</p><h2>Counterfactual interval credit with explicit interaction residuals.</h2>
+            <p>Existing approaches use gold-answer likelihood changes, provenance exposure, one-step interventions, Monte Carlo Shapley values, or generic replay. The proposed delta is a structured set of causal interventions on nested, contiguous research intervals plus an exact Möbius residual that isolates non-additive span interactions.</p>
+            <p>A marginal-matched shuffled-credit control receives the same sampled trajectories and credit histogram. This directly addresses the risk that an apparent credit-assignment gain is merely extra effective training dose.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Replay real research from immutable tool checkpoints.</h2></div><p>Every branch uses real web responses. Training excludes all official evaluation prompts, answers, evidence graphs, and URL sets.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Run the root</h3><p>Collect a research trajectory of at most 32 tool turns and preserve an exact Harmony checkpoint after every tool observation.</p></article>
+              <article><span>02</span><h3>Build the interval tree</h3><p>Partition tool turns into the whole trajectory, two halves, and four quarters: seven nested intervals with preregistered boundaries.</p></article>
+              <article><span>03</span><h3>Intervene</h3><p>Restart before interval <code>I</code>, resample exactly <code>|I|</code> decisions under the current policy and equal local quota, then continue on-policy to a terminal answer.</p></article>
+              <article><span>04</span><h3>Verify comparability</h3><p>Keep a branch only when common-prefix page hashes are unchanged and both root and branch receive exact binary outcome scores.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Recover hierarchical interaction credit.</h2><p><code>VI = Yroot − YI</code></p><p><code>ψI = VI − VI,L − VI,R</code></p><p><code>ct = Vleaf(t)/|leaf(t)| + ΣI⊃leaf(t) ψI/|I|</code></p><p>The construction preserves <code>Σt ct = Vroot</code>. Center turn credits before adding them to terminal Reinforce++ advantage so the method redistributes credit without changing its mean.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Eight slots in both arms.</h2><ul class="check-list"><li>GPT-OSS-20B with the validated LoRA and agentic rollout stack</li><li>Exactly 20 optimizer updates and eight unique task groups per update</li><li>One root plus seven interval interventions per prompt</li><li>Control generates all eight and receives a deterministic within-trajectory credit permutation</li><li>Identical task IDs, seeds, rollout tokens, masks, examples, and optimizer steps</li><li>Maximum 32 tool turns; terminal exact outcome remains authoritative</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>All branching disappears after training.</h2><ul class="number-list"><li>Reload the adapter on unchanged GPT-OSS-20B</li><li>Use ordinary Harmony messages and native research tools</li><li>Add no interval tree, branch runner, reward head, token, or tool at inference</li><li>Preserve the original 32-turn serving contract</li></ul></div>
+            <div><p class="section-kicker">07 · Closest work</p><h2>The occupied territory around the hypothesis.</h2><ul class="check-list"><li><a href="https://arxiv.org/abs/2607.13988">TRACE</a> uses answer-likelihood-derived turn credit</li><li><a href="https://arxiv.org/abs/2607.11172">STAMP</a> uses provenance-aware trajectory credit</li><li><a href="https://arxiv.org/abs/2606.08275">Causal Agent Replay</a> intervenes on agent steps</li><li><a href="https://arxiv.org/abs/2607.16999">Counterfactual Shapley Credit Assignment</a> attributes individual components</li><li><a href="https://arxiv.org/abs/2608.19760">Credit Without Ground Truth</a> warns about hidden effective-dose confounding</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="dyadic-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="dyadic-result-title">Reserved for a complete held-out readout.</h2><p>Numbers remain blank until the planted-interaction validation, matched training, artifact reload, and frozen benchmark evaluation are complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Pre-training falsification</h3><p>Use a planted-interaction task where success requires two separated search subroutines. The causal method must localize their containing interval more strongly than the shuffled-credit control.</p></div><div><h3>Required readout</h3><p>Report official accuracy and long-horizon strata at 10–15, 16–23, and 24–32 tool turns, plus interval-versus-step, residual-versus-raw, tree-depth, shuffled-credit, and page-hash ablations.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Failure modes</p><h2>Reasons to reject the causal story.</h2></div><ul><li>Live-web drift may make replay branches incomparable.</li><li>Resampling an interval may change too much downstream state for a local interpretation.</li><li>Binary outcomes may be too sparse for stable interaction residuals.</li><li>The eight-slot branch cost may dominate its benefit.</li><li>Credit magnitudes may become unstable under rare branch flips.</li><li>Failure on the planted-interaction validation blocks the training claim.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other GPT-OSS hypotheses"><a href="cross-fitted-source-intervention-policy-optimization.html"><small>Source hypothesis</small><strong>← Source Intervention</strong></a><a href="antithetic-turn-toll-policy-optimization.html"><small>Previous hypothesis</small><strong>Antithetic Turn Toll</strong></a><a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Novelty hypotheses remain provisional until external review and measured evidence are complete. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

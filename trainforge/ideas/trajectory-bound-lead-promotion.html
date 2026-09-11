@@ -6,7 +6,7 @@
     <meta name="description" content="Turn a recently observed scholarly lead into a temporary action only after provenance and targeted-fetch confirmation." />
     <title>Trajectory-Bound Lead Promotion Tool · Training Forge</title>
     <link rel="icon" href="../assets/salesforce-logo.jpg" />
-    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
     <script src="../assets/site.js?v=5" defer></script>
   </head>
   <body class="reference-theme">
@@ -41,8 +41,8 @@
             <dl class="record-facts detail-record-facts">
               <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
               <div><dt>Target task</dt><dd>Long-horizon scholarly research</dd></div>
-              <div><dt>Current result</dt><dd>20% → 17% on frozen n=100</dd></div>
-              <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
+              <div><dt>Current result</dt><dd>20% → 17% on the frozen held-out screen</dd></div>
+              <div><dt>Compute</dt><dd>Training checkpoint · 20 effective updates</dd></div>
             </dl>
           </div>
           <aside class="decision-card negative">
@@ -54,26 +54,26 @@
         </section>
 
         <section class="detail-section hypothesis">
-          <p class="section-kicker">Research hypothesis</p>
+          <p class="section-kicker">01 · Research hypothesis</p>
           <blockquote>Binding lead promotion to exact recent observations should reduce lead abandonment and identifier fabrication without rewarding the tool call itself.</blockquote>
         </section>
 
         <section class="detail-section">
           <div class="detail-heading">
-            <div><p class="section-kicker">Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
+            <div><p class="section-kicker">02 · Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
             <p>The implementation contract covers all four surfaces.</p>
           </div>
           <div class="pipeline-detail-grid">
             <article><span>01</span><h3>Data design</h3><p>Assistant trajectories containing recent evidence-bearing observations, resolver candidates, and explicit confirmation outcomes.</p></article>
             <article><span>02</span><h3>Tool use</h3><p>Crossref and OpenAlex resolve candidates; fetch_url must confirm the selected DOI or URL before it becomes evidence.</p></article>
             <article><span>03</span><h3>Training design</h3><p>Outcome-only, assistant-only SFT after confirmation. Unobserved, expired, or candidate-only leads receive zero weight.</p></article>
-            <article><span>04</span><h3>Evaluation design</h3><p>Compute-matched LoRA arms on the frozen n=100 screen, evaluated from the treatment checkpoint rather than a served-model label.</p></article>
+            <article><span>04</span><h3>Evaluation design</h3><p>Compute-matched LoRA arms on the frozen held-out screen, evaluated from the treatment checkpoint rather than a served-model label.</p></article>
           </div>
         </section>
 
         <section class="detail-section result-layout">
           <div>
-            <p class="section-kicker">Evaluation result</p>
+            <p class="section-kicker">03 · Evaluation result</p>
             <h2>No promotion</h2>
             <p class="result-copy">The treatment was compared with its declared baseline on the frozen held-out set. The decision follows the measured sign of the result.</p>
           </div>
@@ -89,26 +89,26 @@
           <div><i style="width:48.57%"></i></div>
           <strong>17.0%</strong>
         </div>
-        <figcaption>Frozen held-out evaluation · n=100</figcaption>
+        <figcaption>Frozen held-out evaluation</figcaption>
       </figure>
 
         </section>
 
         <section class="detail-section two-column">
           <div>
-            <p class="section-kicker">Fidelity and evaluation controls</p>
+            <p class="section-kicker">04 · Fidelity and evaluation controls</p>
             <h2>What had to remain true</h2>
             <ul class="check-list"><li>Lead must be an exact substring of one of the two latest evidence-bearing tool outputs</li><li>Lead time-to-live is at most two tool turns</li><li>Resolver candidates are not evidence</li><li>Calling the lead tool has no intrinsic reward</li></ul>
           </div>
           <div>
-            <p class="section-kicker">Recorded evidence</p>
+            <p class="section-kicker">05 · Recorded evidence</p>
             <h2>What this record contains</h2>
-            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>20/100 baseline → 17/100 treatment</dd></div><div><dt>Difference</dt><dd>−3.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Contract</dt><dd>contracts/59ec_claim_contract.json</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
+            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>20% baseline → 17% treatment</dd></div><div><dt>Difference</dt><dd>−3.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Contract</dt><dd>contracts/59ec_claim_contract.json</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
           </div>
         </section>
 
         <section class="detail-section caveat-box">
-          <div><p class="section-kicker">Interpretation boundary</p><h2>What this result does not claim</h2></div>
+          <div><p class="section-kicker">06 · Interpretation boundary</p><h2>What this result does not claim</h2></div>
           <ul><li>The authored provenance constraints are present in the local claim contract, but the monitored treatment did not beat the incumbent.</li><li>Novelty evidence was insufficient at the time of this snapshot, so the page makes no novelty claim.</li><li>This draft preserves the quality-monitor record, but the remote predictions, weight fingerprint, and results.json are not yet bundled as a standalone publication artifact.</li></ul>
         </section>
 

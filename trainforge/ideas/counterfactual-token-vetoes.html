@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Counterfactual Token Vetoes for Qwen3.5-35B-A3B: local negative credit derived from executable repair certificates." />
+    <title>Counterfactual Token Vetoes · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>Qwen3.5 Code hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">New design</span><span>Novelty review pending</span></div>
+              <p class="research-article-kicker">Qwen3.5-35B-A3B · coding training</p>
+              <h1>Counterfactual Token Vetoes</h1>
+              <p class="research-article-deck">Use an executable repair certificate to place negative credit on the first code decision whose replacement is sufficient to remove a failure.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Scientific status</span><strong>Generated hypothesis · not yet measured</strong><dl><div><dt>Learned object</dt><dd>Context-specific token veto</dd></div><div><dt>Evidence source</dt><dd>Runnable counterfactual repair</dd></div><div><dt>Inference</dt><dd>Ordinary code generation</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose diagnostic-story">
+            <p class="section-kicker">01 · Diagnosis</p><h2>Whole-program rejection spreads blame too broadly.</h2>
+            <p>A failing program can contain thousands of correct tokens and one consequential decision. Sequence-level preference or unlikelihood training can suppress harmless shared code while giving only diffuse pressure to the token that actually changed behavior.</p>
+            <p>The target diagnostic also contains long completions, so indiscriminate negative credit becomes more severe as the amount of correct shared prefix grows.</p>
+          </section>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">02 · Hypothesis and novelty delta</p><h2>Admit a veto only when execution localizes the counterfactual.</h2>
+            <blockquote>If one AST replacement turns a runnable failure into a passing repair, and the two programs share the complete token prefix before that edit, the first divergent decision is a defensible target for local negative credit.</blockquote>
+            <p>Token-level unlikelihood and execution-filtered code training are established. The proposed delta is their causal admission rule: the negative token is accepted only through a runnable repair certificate, a shared-prefix condition, and independently generated distinguishing inputs. This mechanism is under literature review; novelty is not yet verified.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Build local certificates without target leakage.</h2></div><p>Training examples are rejected rather than truncated when they exceed the 8K prompt, 32K response, or 40,960-token total contract.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Author independent references</h3><p>Start from newly authored, self-contained programming tasks with two independently implemented reference solutions. Exclude MBPP, MBPP+, target tasks, and semantic near-duplicates.</p></article>
+              <article><span>02</span><h3>Generate bounded replacements</h3><p>Apply a preregistered library of single-site AST replacements. Retain only mutants that load and execute in a networkless sandbox.</p></article>
+              <article><span>03</span><h3>Find distinguishing inputs</h3><p>Search for ordinary inputs on which the failing and repaired programs disagree, then minimize the witness while requiring both references to agree on the correct output.</p></article>
+              <article><span>04</span><h3>Freeze the certificate</h3><p>Bind the task, programs, AST edit, shared token prefix, witness inputs, outputs, seeds, and source hashes before any optimizer update.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Training objective</p><h2>Positive sequence learning plus one localized veto.</h2><p><code>L = −log πθ(c+|p) − λγ log(1 − πθ(a|p,u))</code></p><p><code>u</code> is the shared prefix, <code>a</code> the first divergent token in the failing program, and <code>γ</code> the fraction of independently generated witnesses repaired by the replacement. The veto is omitted unless the corresponding correct token differs and the certificate passes.</p></div>
+            <div><p class="section-kicker">05 · Matched controls and contract</p><h2>Separate localization from extra training dose.</h2><ul class="check-list"><li>Compare against equal-update ordinary SFT</li><li>Compare against sequence-level unlikelihood on the identical program pairs</li><li>Ablate the certificate while preserving pair count and loss mass</li><li>Freeze router parameters; adapt Qwen3.5-35B-A3B with LoRA</li><li>Select on disjoint development tasks, then freeze the adapter</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>The repair machinery disappears after training.</h2><ul class="number-list"><li>Reload the selected adapter on the unchanged base model</li><li>Generate code through the ordinary specification-to-code interface</li><li>Add no tests, repair loop, Python tool, verifier, retrieval, or search</li><li>Keep the existing 32K response allowance</li></ul></div>
+            <div><p class="section-kicker">What would falsify it?</p><h2>Localization must beat its matched alternatives.</h2><ul class="check-list"><li>Local vetoes are flat or worse on independent pass@1</li><li>Benefits disappear when loss mass is compute-matched</li><li>Witnesses encode stylistic or task-family shortcuts</li><li>Single replacements fail to cover distributed semantic bugs</li><li>The novelty review finds an equivalent execution-certified local-credit method</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="token-veto-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="token-veto-result-title">Not measured yet.</h2><p>This new candidate has a complete method hypothesis but no trained checkpoint. Result fields remain empty until matched adapters reload and a held-out receipt is complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Control</dt><dd>—</dd></div><div class="result-slot"><dt>Method</dt><dd>—</dd></div><div class="result-slot"><dt>Delta</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Generation and evidence provenance</summary><div class="method-provenance-body"><div><h3>Idea receipt</h3><p>Generated 2026-09-11 in the execution-grounded Qwen Code campaign. Candidate ID aff93159c1aa · campaign state e4700cb0… · 32K response contract.</p></div><div><h3>Closest-work boundary</h3><p>Nearest families identified so far: token unlikelihood training and execution-filtered SelfCodeAlign-style supervision. External search and expert review remain required before any novelty claim.</p></div></div></details>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other Qwen Code notebooks"><a href="../index.html#programs"><small>Overview</small><strong>← Programs &amp; evidence</strong></a><a href="matched-failure-signature-coverage-dpo.html"><small>Running Code method</small><strong>Failure-Signature Coverage →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Method descriptions and provisional hypotheses are separated from measured evidence. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

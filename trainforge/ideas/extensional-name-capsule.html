@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
     <script src="../assets/site.js?v=5" defer></script>
   </head>
   <body class="reference-theme notebook-article-theme">
@@ -39,7 +39,7 @@
 
       <main id="main-content" tabindex="-1">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#ideas">Idea notebooks</a><span>→</span><strong>idea-02-48ca</strong>
+          <a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>idea-02-48ca</strong>
         </nav>
 
         <article class="research-article">
@@ -55,10 +55,10 @@
             </div>
             <aside class="evidence-boundary-card">
               <span>Evidence boundary</span>
-              <strong>Hash-bound implementation and behavioral tests; no F0 checkpoint</strong>
+              <strong>Hash-bound implementation and behavioral tests; no training checkpoint</strong>
               <dl>
                 <div><dt>Novelty</dt><dd>3.57/10</dd></div>
-                <div><dt>Scope</dt><dd>F0 only; not eligible for F1 or promotion</dd></div>
+                <div><dt>Scope</dt><dd>Implementation-stage research candidate</dd></div>
               </dl>
             </aside>
           </header>
@@ -83,7 +83,7 @@
             <div class="research-pipeline-grid">
               <article><span>Data</span><h3>What the model learns from</h3><p>ENC-DSL-CF generates typed Python-function specifications from a ground-truth DSL. The plan contains 4,800 base training specifications rendered as 14,400 identifier variants, 800 validation specifications rendered as 2,400 variants, and 1,600 synthetic held-out specifications rendered as 4,800 variants. AST hashes, identifier roots, composition signatures, literal pools, probe pools, and hidden-test seeds are split and audited for overlap.</p></article>
               <article><span>Tools</span><h3>What the policy can do</h3><p>The policy sees exactly one optional networkless tool, name_capsule, with at most one call in the native plan. Before solver inference, a frozen Qwen model generates one prior program from only the identifier and signature. The host executes it on permitted public inputs and seals the source. The tool returns only sanitized cached behavior—never the name, source, arbitrary files, hidden tests, search, network, or a Python shell.</p></article>
-              <article><span>Training</span><h3>What updates the weights</h3><p>The authored plan uses rank-16 LoRA. It first proposes 600 steps of execution-verified SFT across true-capsule, disabled-capsule, and raw-name modes, followed by a 60-update execution-grounded RL stage. The native F0 interface separately pins an eight-GPU, 60-update treatment run. Because those two layers are not yet reconciled into a completed checkpoint, the page does not claim training occurred.</p></article>
+              <article><span>Training</span><h3>What updates the weights</h3><p>The authored plan uses rank-16 LoRA. It first proposes 600 steps of execution-verified SFT across true-capsule, disabled-capsule, and raw-name modes, followed by a 60-update execution-grounded RL stage. The native interface separately pins an eight-GPU, 60-update treatment run. Because those two layers are not yet reconciled into a completed checkpoint, the page does not claim training occurred.</p></article>
               <article><span>Evaluation</span><h3>What decides the outcome</h3><p>Evaluate through a hash-pinned qwen-coder manifest in a network-disabled sandbox. Primary comparisons separate anonymization alone, name plus real capsule, and anonymized prompts with aligned, disabled, or permuted capsule outputs. Report executable correctness, capsule adoption errors, call cost, and performance by helpful, misleading, nondiscriminative, invalid, and timeout strata.</p></article>
             </div>
           </section>
@@ -110,7 +110,7 @@
             <dl>
               <div><dt>Independent score</dt><dd>3.57/10</dd></div>
               <div><dt>Nearest work</dt><dd>Toolformer and execution-grounded code feedback</dd></div>
-              <div><dt>Permitted ladder stage</dt><dd>F0 only; not eligible for F1 or promotion</dd></div>
+              <div><dt>Current stage</dt><dd>Implementation validation; training not yet admitted</dd></div>
             </dl>
           </section>
 
@@ -118,7 +118,7 @@
             <div>
               <p class="section-kicker">07 · Current state</p>
               <h2>What has actually happened</h2>
-              <div class="status-timeline"><p>A substantial implementation exists with a frozen contract, native execution interface, hash inventory, and behavioral-test suite.</p><p>No Qwen checkpoint or matched F0 result was found. The evidence is implementation-level, not performance-level.</p><p>The authored 600-step-plus-60-update plan and the native 60-update F0 interface must be reconciled before compute is allocated.</p></div>
+              <div class="status-timeline"><p>A substantial implementation exists with a frozen contract, native execution interface, hash inventory, and behavioral-test suite.</p><p>No Qwen checkpoint or matched result was found. The evidence is implementation-level, not performance-level.</p><p>The authored 600-step-plus-60-update plan and the native 60-update interface must be reconciled before compute is allocated.</p></div>
             </div>
             <div>
               <p class="section-kicker">Artifact ledger</p>
@@ -135,7 +135,7 @@
 
         <nav class="idea-pagination" aria-label="Other idea notebooks">
           <a href="answer-anchored-exit-hazard-reweighting.html"><small>Previous notebook</small><strong>← Answer-Anchored Exit-Hazard Reweighting</strong></a>
-          <a href="../index.html#ideas"><small>Overview</small><strong>All idea notebooks</strong></a>
+          <a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence</strong></a>
           <a href="target-only-attention-lora.html"><small>Next notebook</small><strong>Target-only Attention LoRA →</strong></a>
         </nav>
       </main>

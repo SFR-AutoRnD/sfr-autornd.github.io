@@ -6,7 +6,7 @@
     <meta name="description" content="Represent the research plan as a finite-state controller and shape transitions toward valid subgoal completion." />
     <title>Option-Termination Shaping via DFA State · Training Forge</title>
     <link rel="icon" href="../assets/salesforce-logo.jpg" />
-    <link rel="stylesheet" href="../assets/styles.css?v=22" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
     <script src="../assets/site.js?v=5" defer></script>
   </head>
   <body class="reference-theme">
@@ -41,8 +41,8 @@
             <dl class="record-facts detail-record-facts">
               <div><dt>Target model</dt><dd>GPT-OSS-20B</dd></div>
               <div><dt>Target task</dt><dd>Long-horizon research control</dd></div>
-              <div><dt>Current result</dt><dd>24% → 19% on frozen n=100</dd></div>
-              <div><dt>Compute</dt><dd>F0 checkpoint · 20 effective updates</dd></div>
+              <div><dt>Current result</dt><dd>24% → 19% on the frozen held-out screen</dd></div>
+              <div><dt>Compute</dt><dd>Training checkpoint · 20 effective updates</dd></div>
             </dl>
           </div>
           <aside class="decision-card negative">
@@ -54,26 +54,26 @@
         </section>
 
         <section class="detail-section hypothesis">
-          <p class="section-kicker">Research hypothesis</p>
+          <p class="section-kicker">01 · Research hypothesis</p>
           <blockquote>Potential-based shaping over authenticated DFA state can teach a research agent when to continue, switch, or terminate an option without changing the terminal objective.</blockquote>
         </section>
 
         <section class="detail-section">
           <div class="detail-heading">
-            <div><p class="section-kicker">Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
+            <div><p class="section-kicker">02 · Complete idea</p><h2>Data, tools, training, and evaluation</h2></div>
             <p>The implementation contract covers all four surfaces.</p>
           </div>
           <div class="pipeline-detail-grid">
             <article><span>01</span><h3>Data design</h3><p>Research trajectories annotated with typed events, subgoal identifiers, and authenticated controller-state transitions.</p></article>
             <article><span>02</span><h3>Tool use</h3><p>Search, fetch, cite, and synthesize options consume an explicit global tool budget.</p></article>
             <article><span>03</span><h3>Training design</h3><p>DFA-potential and option-termination shaping augment the authored objective while canonical tool history is preserved.</p></article>
-            <article><span>04</span><h3>Evaluation design</h3><p>Frozen n=100 held-out quality screen from the saved global-step-20 checkpoint.</p></article>
+            <article><span>04</span><h3>Evaluation design</h3><p>Frozen held-out quality screen from the saved global-step-20 checkpoint.</p></article>
           </div>
         </section>
 
         <section class="detail-section result-layout">
           <div>
-            <p class="section-kicker">Evaluation result</p>
+            <p class="section-kicker">03 · Evaluation result</p>
             <h2>No promotion</h2>
             <p class="result-copy">The treatment was compared with its declared baseline on the frozen held-out set. The decision follows the measured sign of the result.</p>
           </div>
@@ -89,26 +89,26 @@
           <div><i style="width:54.29%"></i></div>
           <strong>19.0%</strong>
         </div>
-        <figcaption>Frozen held-out evaluation · n=100</figcaption>
+        <figcaption>Frozen held-out evaluation</figcaption>
       </figure>
 
         </section>
 
         <section class="detail-section two-column">
           <div>
-            <p class="section-kicker">Fidelity and evaluation controls</p>
+            <p class="section-kicker">04 · Fidelity and evaluation controls</p>
             <h2>What had to remain true</h2>
             <ul class="check-list"><li>State transitions require typed, valid events</li><li>External calls consume the ordinary global budget</li><li>Tool history is normalized before objective rendering</li><li>The terminal evaluation remains frozen</li></ul>
           </div>
           <div>
-            <p class="section-kicker">Recorded evidence</p>
+            <p class="section-kicker">05 · Recorded evidence</p>
             <h2>What this record contains</h2>
-            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>24/100 baseline → 19/100 treatment</dd></div><div><dt>Difference</dt><dd>−5.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Implementation</dt><dd>idea-exp-02ccd · dfa_option_controller</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
+            <dl class="evidence-list"><div><dt>Held-out result</dt><dd>24% baseline → 19% treatment</dd></div><div><dt>Difference</dt><dd>−5.0 percentage points</dd></div><div><dt>Checkpoint</dt><dd>global_step_20</dd></div><div><dt>Implementation</dt><dd>idea-exp-02ccd · dfa_option_controller</dd></div><div><dt>Snapshot</dt><dd>2026-09-03 · cohort 70493b463e3b</dd></div></dl>
           </div>
         </section>
 
         <section class="detail-section caveat-box">
-          <div><p class="section-kicker">Interpretation boundary</p><h2>What this result does not claim</h2></div>
+          <div><p class="section-kicker">06 · Interpretation boundary</p><h2>What this result does not claim</h2></div>
           <ul><li>This single screen rejected the checkpoint; it does not isolate which controller component caused the regression.</li><li>Novelty review returned insufficient evidence, so no novelty claim is made.</li><li>This draft preserves the quality-monitor record, but the remote predictions, weight fingerprint, and results.json are not yet bundled as a standalone publication artifact.</li></ul>
         </section>
 

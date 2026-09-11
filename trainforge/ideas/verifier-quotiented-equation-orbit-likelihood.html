@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A Qwen3-4B hard-math training hypothesis that marginalizes likelihood over verifier-certified equivalent equation renderings." />
+    <title>Verifier-Quotiented Equation Orbit Likelihood · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>Qwen3-4B Math hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Strong novelty hypothesis</span><span>External review pending</span></div>
+              <p class="research-article-kicker">Qwen3-4B · hard-math training</p>
+              <h1>Verifier-Quotiented Equation Orbit Likelihood</h1>
+              <p class="research-article-deck">Train on the equation, not its typography.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Internal novelty screen</span><strong>8.2/10 · confidence 0.72</strong><dl><div><dt>Status</dt><dd>Research hypothesis; not external proof</dd></div><div><dt>Core intervention</dt><dd>Set-valued supervision over certified equivalent equations</dd></div><div><dt>Inference</dt><dd>Ordinary text generation; no added tools</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>One mathematical state has many correct strings.</h2>
+            <p>A reference solution commits to one arbitrary rendering of an equation. Factorization, expansion, fraction combination, equality-side swaps, sign normalization, and commutative reorderings can express the same mathematical state, yet ordinary cross entropy treats every unchosen form as lost probability mass.</p>
+            <blockquote>For a certified equation window, supervise the equivalence class as one target instead of forcing the model to imitate one typography.</blockquote>
+            <p>Prose, connective reasoning, and the final answer remain under ordinary token-level supervision. Only a narrow, symbolically certified equation span becomes set-valued.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Exact novelty delta</p><h2>Likelihood on a quotient class inside a free-form solution.</h2>
+            <p>Diverse-trajectory fine-tuning learns from multiple correct samples, and robustness work evaluates equivalent formulations. The proposed delta is to define a single supervised object as a quotient class under certified algebraic rewrites and marginalize its likelihood inside an otherwise autoregressive hard-math response.</p>
+            <p>The 8.2 score is an internal screen of that precise mechanism. It remains a hypothesis until external reviewers confirm that the same objective has not already been published.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Build small certified orbits, then fail closed.</h2></div><p>Training uses real Hendrycks-MATH Level 4–5 solutions only; Omni-MATH and AIME remain outside construction and selection.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Freeze the rows</h3><p>Select 160 unique problems, stratified by category and level, before transformation. Bind the exact row IDs and exclude every diagnostic and target item.</p></article>
+              <article><span>02</span><h3>Choose one window</h3><p>Parse one equation span per problem. Reject ambiguous LaTeX, implicit-domain expressions, and windows that cannot round-trip through the symbolic representation.</p></article>
+              <article><span>03</span><h3>Generate the orbit</h3><p>Create two to four equivalents using bounded factor/expand, fraction, equality-side, sign, or commutative rewrites. Keep alternatives within a narrow token-length band.</p></article>
+              <article><span>04</span><h3>Certify coverage</h3><p>Require exact equivalence and declared-domain checks, at least 160 spans from 80 problems, and a 30-span manual audit with zero semantic errors.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Sum probability before taking the log.</h2><p><code>Lorbit = −log((1/K) Σj Pθ(y(j) | x))</code></p><p>Here <code>y(j)</code> is one certified rendering in an orbit of size <code>K</code>. The loss rewards total probability assigned to the mathematical equivalence class; ordinary cross entropy remains on prose and final-answer tokens.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Match examples and actual compute.</h2><ul class="check-list"><li>Qwen3-4B LoRA rank 32, alpha 64, dropout 0, bf16</li><li>AdamW near 1e−4 for 20–30 real optimizer updates</li><li>Canonical control uses identical rows, order, seed, and forward-pass count</li><li>Transform set, parser, data, model, and adapter identities are hash-bound</li><li>32K response budget inside a 40,960-token context</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>No quotient machinery at inference.</h2><ul class="number-list"><li>Reload the adapter on the unchanged Qwen3-4B base</li><li>Generate one normal text solution with standard decoding</li><li>Add no Python, symbolic algebra, search, retrieval, or verifier</li><li>Keep the existing answer parser and task interface</li></ul></div>
+            <div><p class="section-kicker">07 · Closest work</p><h2>Adjacent mechanisms the claim must clear.</h2><ul class="check-list"><li><a href="https://arxiv.org/abs/2506.03763">ClozeMath</a> predicts masked equations but does not marginalize equivalent renderings</li><li><a href="https://arxiv.org/abs/2308.01825">Scaling Relationships for Rejection Sampling Fine-Tuning</a> studies diverse correct trajectories</li><li><a href="https://arxiv.org/abs/2607.20520">Representation Robustness Under Executable Reasoning Constraints</a> tests equivalent formulations as perturbations</li><li><a href="https://arxiv.org/abs/2408.07081">MathBridge</a> addresses language–LaTeX translation ambiguity</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="orbit-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="orbit-result-title">Reserved for a complete held-out readout.</h2><p>Numbers remain blank until a matched run, uncertainty analysis, and immutable artifact receipt are complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Held-out boundary</h3><p>Freeze the transformation inventory, parser, orbit set, adapter, and scorer before opening disjoint targets. Target items and labels cannot influence construction, admission, or repair.</p></div><div><h3>Generation contract</h3><p>Temperature 0, 8K prompt allowance, 32K response allowance, and 40,960-token context. Record exact model, adapter, dataset, code, scorer, request, prediction, and run identities.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Failure modes</p><h2>Every rewrite is a possible source of leakage or noise.</h2></div><ul><li>A parser can silently change scope, precedence, or the meaning of a LaTeX expression.</li><li>Algebraic equivalence may fail under hidden domain assumptions.</li><li>Marginalization can prefer shorter renderings for tokenization rather than mathematical reasons.</li><li>Certified coverage may be too sparse to justify training.</li><li>External review may identify an equivalent set-likelihood method and lower the novelty assessment.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other Qwen Math hypotheses"><a href="counterfactual-obligation-gated-training.html"><small>Feasibility-first hypothesis</small><strong>← Obligation-Gated Training</strong></a><a href="../index.html#programs"><small>Overview</small><strong>Programs &amp; evidence</strong></a><a href="proof-diamond-commutation-training.html"><small>Next hypothesis</small><strong>Proof-Diamond Training →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Novelty hypotheses remain provisional until external review and measured evidence are complete. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>

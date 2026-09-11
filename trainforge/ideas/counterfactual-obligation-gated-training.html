@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A Qwen3-4B hard-math training hypothesis that contrasts legal and illegal uses of the same algebraic operation." />
+    <title>Counterfactual Obligation-Gated Training · TrainForge Research Notebook</title>
+    <link rel="icon" href="../assets/salesforce-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles.css?v=23" />
+    <script src="../assets/site.js?v=5" defer></script>
+  </head>
+  <body class="reference-theme notebook-article-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="page-shell detail-shell">
+      <nav class="family-nav" aria-label="SFR-AutoR&amp;D sites">
+        <a class="family-nav-brand external-link" href="https://sfr-autornd.github.io/"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+        <div class="family-nav-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html" aria-current="page">TrainForge</a></div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">TrainForge</a><span>→</span><a href="../index.html#programs">Programs &amp; evidence</a><span>→</span><strong>Qwen3-4B Math hypothesis</strong></nav>
+
+        <article class="research-article">
+          <header class="research-article-hero">
+            <div class="research-article-title">
+              <div class="idea-card-topline"><span class="status running">Strong novelty hypothesis</span><span>External review pending</span></div>
+              <p class="research-article-kicker">Qwen3-4B · hard-math training</p>
+              <h1>Counterfactual Obligation-Gated Training</h1>
+              <p class="research-article-deck">Learn an operation’s boundary of validity, not just its surface pattern.</p>
+            </div>
+            <aside class="evidence-boundary-card method-summary-card"><span>Internal novelty screen</span><strong>8.0/10 · confidence 0.69</strong><dl><div><dt>Status</dt><dd>Research hypothesis; not external proof</dd></div><div><dt>Core intervention</dt><dd>Matched legal and illegal contexts for the same operator</dd></div><div><dt>Inference</dt><dd>Ordinary text generation; no added tools</dd></div></dl></aside>
+          </header>
+
+          <section class="research-prose hypothesis-story">
+            <p class="section-kicker">01 · Thesis</p><h2>Make legality—not frequency—the supervised signal.</h2>
+            <p>Worked solutions repeatedly divide, cancel, square, take roots, apply logarithms, and simplify modular expressions. Standard next-token training rewards the visible operation, but does not isolate the premise that made it legal.</p>
+            <blockquote>The same local operation should receive opposite preferences when its mathematical obligation is established and when that obligation is false or unresolved.</blockquote>
+            <p>The method constructs a matched crossover pair for each admitted operation. One context proves the needed condition and permits <strong>APPLY</strong>; the other withholds or violates exactly that condition and requires <strong>DEFER/CHECK</strong>. This prevents the easy shortcut of teaching the model to become globally more cautious.</p>
+          </section>
+
+          <section class="research-prose novelty-story">
+            <p class="section-kicker">02 · Exact novelty delta</p><h2>A local difference-in-differences intervention.</h2>
+            <p>Process supervision and critical-token weighting can identify consequential reasoning steps. The proposed delta is narrower: intervene on the side condition while holding the local operator fixed, then optimize the crossover in likelihood between legal and illegal contexts.</p>
+            <p>The internal screen considers that combination—same-operator matched interventions plus a difference-in-differences objective—a strong novelty hypothesis. The score is not a publication claim; an independent external search and expert review may still find equivalent prior work.</p>
+          </section>
+
+          <section class="research-section">
+            <div class="detail-heading"><div><p class="section-kicker">03 · Real-data construction</p><h2>Four fail-closed steps from proof to matched gate.</h2></div><p>No Omni-MATH or AIME item is used to construct, select, or tune the training pairs.</p></div>
+            <div class="training-sequence">
+              <article><span>01</span><h3>Fix the hard corpus</h3><p>Choose 160 unique Hendrycks-MATH Level 4–5 training problems, enriched for checkable operations while retaining category balance and excluding every held-out target row.</p></article>
+              <article><span>02</span><h3>Extract obligations</h3><p>Locate divide/cancel nonzero conditions, sign and extraneous-root conditions, log and square-root domains, and modular invertibility or coprimality requirements.</p></article>
+              <article><span>03</span><h3>Build the crossover</h3><p>Keep the operator and nearby language fixed. Establish the premise in the legal arm; withhold it or substitute an exactly invalid parameter in the paired arm.</p></article>
+              <article><span>04</span><h3>Certify before training</h3><p>Require exact symbolic checks, at least 100 pairs from 70 problems, and a 40-pair manual audit with at least 95% legality correctness and no malformed context.</p></article>
+            </div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">04 · Objective</p><h2>Reward sensitivity to the premise.</h2><p><code>dL = log P(APPLY | legal) − log P(DEFER | legal)</code></p><p><code>dI = log P(DEFER | illegal) − log P(APPLY | illegal)</code></p><p><code>Lgate = −log σ(dL + dI − margin)</code></p><p>Canonical solution cross entropy remains active. Add one certified gate pair per problem with an initial gate weight of 0.1.</p></div>
+            <div><p class="section-kicker">05 · Training contract</p><h2>Small, matched, and reloadable.</h2><ul class="check-list"><li>Qwen3-4B LoRA rank 32, alpha 64, dropout 0, bf16</li><li>AdamW near 1e−4 for 20–30 real optimizer updates</li><li>Same rows, order, seed, token budget, and forward-pass count in control</li><li>Checkpoint, adapter, data, and code identities hash-bound</li><li>32K response budget inside a 40,960-token context</li></ul></div>
+          </section>
+
+          <section class="research-section research-two-column">
+            <div><p class="section-kicker">06 · Deployment</p><h2>The intervention ends at training time.</h2><ul class="number-list"><li>Reload the adapter on the unchanged Qwen3-4B base</li><li>Use standard text decoding and the existing answer parser</li><li>Add no Python, search, retrieval, calculator, or verifier</li><li>Add no special APPLY/DEFER interface at inference</li></ul></div>
+            <div><p class="section-kicker">07 · Closest work</p><h2>Where the hypothesis must distinguish itself.</h2><ul class="check-list"><li><a href="https://arxiv.org/abs/2603.19514">Learning to Disprove</a> removes theorem hypotheses for formal counterexamples</li><li><a href="https://arxiv.org/abs/2411.19943">Critical Tokens Matter</a> identifies outcome-critical tokens using rollouts</li><li><a href="https://arxiv.org/abs/2510.10974">Critical Token Fine-Tuning</a> uses counterfactual perturbations</li><li><a href="https://arxiv.org/abs/2305.20050">Let’s Verify Step by Step</a> provides process supervision</li><li><a href="https://arxiv.org/abs/2510.08517">CaRT</a> constructs counterfactual termination pairs</li></ul></div>
+          </section>
+
+          <section class="result-reserve" aria-labelledby="obligation-result-title">
+            <div><p class="section-kicker">Result record</p><h2 id="obligation-result-title">Reserved for a complete held-out readout.</h2><p>Numbers remain blank until a matched run, uncertainty analysis, and immutable artifact receipt are complete.</p></div>
+            <dl class="result-slot-grid"><div class="result-slot"><dt>Held-out score</dt><dd>—</dd></div><div class="result-slot"><dt>95% CI</dt><dd>—</dd></div><div class="result-slot"><dt>Artifact receipt</dt><dd>—</dd></div></dl>
+          </section>
+
+          <details class="method-provenance"><summary>Evaluation and provenance protocol</summary><div class="method-provenance-body"><div><h3>Held-out boundary</h3><p>Use only frozen, disjoint target samples after the adapter and scoring contract are sealed. Never use target labels for pair construction, selection, repair, or early stopping.</p></div><div><h3>Generation contract</h3><p>Temperature 0, 8K prompt allowance, 32K response allowance, and 40,960-token context. Record model, adapter, dataset, scorer, request, predictions, and run identities.</p></div></div></details>
+
+          <section class="research-section caveat-box"><div><p class="section-kicker">08 · Failure modes</p><h2>Reasons to stop before or after training.</h2></div><ul><li>Deleting a premise may make the prose unnatural and create an easy stylistic cue.</li><li>Exact checks may cover too few operation classes to support a useful adapter.</li><li>The model may learn excessive caution and defer operations that are actually legal.</li><li>A gain on the construction families may not transfer to diverse held-out hard math.</li><li>External review may identify equivalent paired-legality training and lower the novelty assessment.</li></ul></section>
+        </article>
+
+        <nav class="idea-pagination" aria-label="Other Qwen Math hypotheses"><a href="../index.html#programs"><small>Overview</small><strong>← Programs &amp; evidence</strong></a><a href="verifier-quotiented-equation-orbit-likelihood.html"><small>Next hypothesis</small><strong>Equation Orbit Likelihood →</strong></a><a href="proof-diamond-commutation-training.html"><small>Distinctive hypothesis</small><strong>Proof-Diamond Training →</strong></a></nav>
+      </main>
+
+      <footer class="reference-footer"><div class="footer-brand"><img src="../assets/salesforce-logo.jpg" alt="Salesforce" /><span><strong>SFR-AutoR&amp;D-TrainForge</strong><small>Salesforce AI Research · 2026</small></span></div><div class="footer-links"><a href="https://sfr-autornd.github.io/">Overview</a><a href="https://sfr-autornd.github.io/engineer/">Engineer</a><a href="../index.html">TrainForge</a></div><p>Novelty hypotheses remain provisional until external review and measured evidence are complete. © 2026 Salesforce, Inc.</p></footer>
+    </div>
+  </body>
+</html>
