@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6Y6LET8GZD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6Y6LET8GZD');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoInfra</title>
+<meta name="description" content="AutoInfra is SFR's scalable training service for parallel post-training experiments, connecting TrainForge to shared GPU capacity and the next model version.">
+<meta property="og:title" content="AutoInfra · Salesforce AI Research">
+<meta property="og:description" content="See how AutoInfra carries parallel TrainForge experiments from request to shared GPU workers, saved results, and the next model version.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../assets/salesforce.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="assets/styles.css?v=27">
+<script src="../assets/site.js" defer></script>
+<script src="assets/training-service.js?v=11" defer></script>
+</head>
+<body class="has-section-nav tinker-page autoinfra-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="bg-pattern"></div>
+
+<nav class="site-nav" aria-label="SFR-AutoR&amp;D sites">
+  <a class="site-nav-brand" href="../"><img src="../assets/salesforce.svg" alt="Salesforce"><span class="site-nav-wordmark"><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+  <div class="site-nav-links">
+    <a href="../">Overview</a>
+    <a href="../engineer/">Engineer</a>
+    <a href="../trainforge/">TrainForge</a>
+    <a href="../training_service/" aria-current="page">AutoInfra</a>
+  </div>
+</nav>
+
+<header class="ts-hero" id="top">
+  <div class="ts-hero-copy reveal" style="--i:0">
+    <p class="kicker">SFR · AUTOINFRA</p>
+    <h1 class="parallel-hero-title">Infrastructure for rapid, parallel experimentation.</h1>
+    <p class="ts-hero-lead"><a href="../trainforge/">TrainForge</a> decides what to try. AutoInfra carries each experiment from request to result across shared GPU capacity.</p>
+    <div class="ts-hero-actions">
+      <a class="btn btn-primary" href="#loop">See RSI loop <span aria-hidden="true">↓</span></a>
+      <a class="btn btn-secondary" href="#scale">See parallel scaling</a>
+    </div>
+  </div>
+
+  <div class="hero-system reveal" style="--i:1" role="img" aria-label="TrainForge sends an experiment to AutoInfra. AutoInfra places it on an elastic GPU worker and saves its run history and checkpoints.">
+    <div class="hero-grid" aria-hidden="true">
+      <div class="hero-node hero-client"><span class="node-icon loop-icon"><i></i><i></i><i></i></span><small>Experiment loop</small><strong>TrainForge</strong></div>
+      <div class="hero-link hero-link-a"><i class="travel-dot request-dot"></i></div>
+      <div class="hero-node hero-service-node"><span class="node-icon service-icon"><i></i><i></i><i></i></span><small>Training infrastructure</small><strong>AutoInfra</strong></div>
+      <div class="hero-link hero-link-b"><i class="travel-dot work-dot"></i></div>
+      <div class="hero-node hero-gpu"><span class="node-icon chip-icon"><i></i></span><small>Elastic capacity</small><strong>GPU workers</strong></div>
+      <div class="hero-store hero-store-a"><span></span><small>Run history</small></div>
+      <div class="hero-store hero-store-b"><span></span><small>Checkpoints</small></div>
+      <svg class="hero-arrows" viewBox="0 0 760 360" preserveAspectRatio="none"><path class="store-path path-status" d="M380 176 C380 228 292 236 292 286" /><path class="store-path path-checkpoint" d="M626 176 C626 236 518 232 518 286" /></svg>
+    </div>
+    <div class="hero-legend" aria-hidden="true"><span><i class="legend-request"></i>experiment</span><span><i class="legend-result"></i>result</span><span><i class="legend-state"></i>saved progress</span></div>
+  </div>
+</header>
+
+<nav class="section-nav" aria-label="Explore AutoInfra">
+  <div class="section-nav-inner"><div class="section-nav-title">AutoInfra</div><div class="section-nav-track"><a class="sn-link" href="#system">Overview</a><a class="sn-link" href="#scale">Scaling</a><a class="sn-link" href="#loop">RSI loop</a><a class="sn-link" href="#efficiency">Efficiency</a></div></div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+  <section class="story-section" id="system">
+    <div class="reading-column reveal">
+      <p class="kicker">Why AutoInfra</p>
+      <h2>Shared infrastructure for parallel research.</h2>
+      <p>We built <a href="https://www.salesforce.com/blog/efficient-rl-training-agentic-era/" target="_blank" rel="noopener noreferrer">SFR-RL</a> as an integrated framework for efficient reinforcement learning. As <a href="../trainforge/">TrainForge</a> began running many experiments in parallel, we separated resource management from the research loop so each run could scale independently. Inspired by <a href="https://thinkingmachines.ai/tinker/" target="_blank" rel="noopener noreferrer">Tinker</a>, we built SFR-AutoInfra: a shared training API that lets TrainForge and researchers launch runs, compare results, and test new data, learning algorithms, curricula, and training schedules.</p>
+    </div>
+
+    <figure class="api-story-figure wide-figure reveal" style="--i:1" data-api-story>
+      <figcaption class="figure-heading"><span class="figure-number">Figure 1</span><div><h3>A complete training loop through one API</h3><p>Create a client, generate completions, train on the results, apply an optimizer step, and save the updated model.</p></div><div class="figure-controls"><button class="control-button api-replay" type="button" aria-label="Replay API lifecycle animation"><span class="api-replay-mark" aria-hidden="true">↻</span><span>Replay</span></button></div></figcaption>
+      <div class="api-story-map api-phase-create" data-api-map role="img" aria-label="A user creates a training or inference client through the Tinker-compatible AutoInfra API. Tokens are sent for generation and completions with log probabilities return. Training packets return loss values, optimizer steps return gradient norms, and updated model state is saved as a checkpoint.">
+        <div class="api-story-note api-note-enter">
+          <div><span data-api-note-label>Client setup</span><strong data-api-note-title>Create a training or inference client.</strong><p data-api-note-copy>AutoInfra assigns GPU capacity for the selected model and workload.</p></div>
+          <div class="api-story-progress" aria-hidden="true"><i class="is-active"></i><i></i><i></i><i></i><i></i></div>
+        </div>
+
+        <svg class="api-story-routes api-story-desktop-routes" viewBox="0 0 1100 560" preserveAspectRatio="none" aria-hidden="true">
+          <defs><marker id="apiStoryArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker><marker id="apiStoryReturnArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker><marker id="apiStorySaveArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker></defs>
+          <path class="api-story-route api-outbound-route" d="M220 220 C295 220 335 205 420 205" marker-end="url(#apiStoryArrow)"/><path class="api-story-route api-outbound-route" d="M660 205 C735 205 755 215 835 215" marker-end="url(#apiStoryArrow)"/>
+          <path class="api-story-route api-return-route" d="M835 310 C755 310 735 325 660 325" marker-end="url(#apiStoryReturnArrow)"/><path class="api-story-route api-return-route" d="M420 325 C335 325 295 310 220 310" marker-end="url(#apiStoryReturnArrow)"/>
+          <path class="api-story-route api-save-route" d="M940 365 C940 375 940 384 940 395" marker-end="url(#apiStorySaveArrow)"/>
+
+          <g class="api-motion api-motion-create"><circle class="api-request-dot" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M220 220 C295 220 335 205 420 205"/></circle><circle class="api-request-dot" r="5"><animateMotion begin="-1.1s" dur="2.5s" repeatCount="indefinite" path="M660 205 C735 205 755 215 835 215"/></circle></g>
+          <g class="api-motion api-motion-generate"><circle class="api-request-dot" r="5"><animateMotion dur="2.1s" repeatCount="indefinite" path="M220 220 C295 220 335 205 420 205"/></circle><circle class="api-request-dot" r="5"><animateMotion begin="-.7s" dur="2.1s" repeatCount="indefinite" path="M220 220 C295 220 335 205 420 205"/></circle><circle class="api-request-dot" r="5"><animateMotion begin="-1.1s" dur="2.2s" repeatCount="indefinite" path="M660 205 C735 205 755 215 835 215"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-.4s" dur="2.3s" repeatCount="indefinite" path="M835 310 C755 310 735 325 660 325"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-1.5s" dur="2.4s" repeatCount="indefinite" path="M420 325 C335 325 295 310 220 310"/></circle></g>
+          <g class="api-motion api-motion-forward"><circle class="api-training-dot" r="6"><animateMotion dur="2.4s" repeatCount="indefinite" path="M220 220 C295 220 335 205 420 205"/></circle><circle class="api-training-dot" r="6"><animateMotion begin="-1.2s" dur="2.5s" repeatCount="indefinite" path="M660 205 C735 205 755 215 835 215"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-.8s" dur="2.5s" repeatCount="indefinite" path="M835 310 C755 310 735 325 660 325"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-1.7s" dur="2.5s" repeatCount="indefinite" path="M420 325 C335 325 295 310 220 310"/></circle></g>
+          <g class="api-motion api-motion-optim"><circle class="api-update-dot" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M220 220 C295 220 335 205 420 205"/></circle><circle class="api-update-dot" r="5"><animateMotion begin="-1.1s" dur="2.4s" repeatCount="indefinite" path="M660 205 C735 205 755 215 835 215"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-.7s" dur="2.5s" repeatCount="indefinite" path="M835 310 C755 310 735 325 660 325"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-1.6s" dur="2.5s" repeatCount="indefinite" path="M420 325 C335 325 295 310 220 310"/></circle></g>
+          <g class="api-motion api-motion-save"><circle class="api-save-dot" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M220 220 C295 220 335 205 420 205"/></circle><circle class="api-save-dot" r="5"><animateMotion begin="-1.1s" dur="2.4s" repeatCount="indefinite" path="M660 205 C735 205 755 215 835 215"/></circle><circle class="api-save-dot" r="6"><animateMotion begin="-.5s" dur="2s" repeatCount="indefinite" path="M940 365 C940 375 940 384 940 395"/></circle></g>
+        </svg>
+
+        <svg class="api-story-routes api-story-mobile-routes" viewBox="0 0 390 900" preserveAspectRatio="none" aria-hidden="true">
+          <defs><marker id="apiStoryMobileArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker><marker id="apiStoryMobileReturnArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker><marker id="apiStoryMobileSaveArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker></defs>
+          <path class="api-story-route api-outbound-route" d="M165 260 V360" marker-end="url(#apiStoryMobileArrow)"/><path class="api-story-route api-outbound-route" d="M165 515 V620" marker-end="url(#apiStoryMobileArrow)"/>
+          <path class="api-story-route api-return-route" d="M225 620 V515" marker-end="url(#apiStoryMobileReturnArrow)"/><path class="api-story-route api-return-route" d="M225 360 V260" marker-end="url(#apiStoryMobileReturnArrow)"/>
+          <path class="api-story-route api-save-route" d="M195 785 V800" marker-end="url(#apiStoryMobileSaveArrow)"/>
+          <g class="api-motion api-motion-create"><circle class="api-request-dot" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M165 260 V360"/></circle><circle class="api-request-dot" r="5"><animateMotion begin="-1.1s" dur="2.5s" repeatCount="indefinite" path="M165 515 V620"/></circle></g>
+          <g class="api-motion api-motion-generate"><circle class="api-request-dot" r="5"><animateMotion dur="2.1s" repeatCount="indefinite" path="M165 260 V360"/></circle><circle class="api-request-dot" r="5"><animateMotion begin="-.7s" dur="2.1s" repeatCount="indefinite" path="M165 260 V360"/></circle><circle class="api-request-dot" r="5"><animateMotion begin="-1.1s" dur="2.2s" repeatCount="indefinite" path="M165 515 V620"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-.4s" dur="2.3s" repeatCount="indefinite" path="M225 620 V515"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-1.5s" dur="2.4s" repeatCount="indefinite" path="M225 360 V260"/></circle></g>
+          <g class="api-motion api-motion-forward"><circle class="api-training-dot" r="6"><animateMotion dur="2.4s" repeatCount="indefinite" path="M165 260 V360"/></circle><circle class="api-training-dot" r="6"><animateMotion begin="-1.2s" dur="2.5s" repeatCount="indefinite" path="M165 515 V620"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-.8s" dur="2.5s" repeatCount="indefinite" path="M225 620 V515"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-1.7s" dur="2.5s" repeatCount="indefinite" path="M225 360 V260"/></circle></g>
+          <g class="api-motion api-motion-optim"><circle class="api-update-dot" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M165 260 V360"/></circle><circle class="api-update-dot" r="5"><animateMotion begin="-1.1s" dur="2.4s" repeatCount="indefinite" path="M165 515 V620"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-.7s" dur="2.5s" repeatCount="indefinite" path="M225 620 V515"/></circle><circle class="api-return-dot" r="5"><animateMotion begin="-1.6s" dur="2.5s" repeatCount="indefinite" path="M225 360 V260"/></circle></g>
+          <g class="api-motion api-motion-save"><circle class="api-save-dot" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M165 260 V360"/></circle><circle class="api-save-dot" r="5"><animateMotion begin="-1.1s" dur="2.4s" repeatCount="indefinite" path="M165 515 V620"/></circle><circle class="api-save-dot" r="6"><animateMotion begin="-.5s" dur="2s" repeatCount="indefinite" path="M195 785 V800"/></circle></g>
+        </svg>
+
+        <article class="api-story-card api-user-card"><span class="api-user-icon" aria-hidden="true"><i></i><i></i><i></i></span><small>User</small><strong>Experiment script</strong><span>Prompts · examples · updates</span></article>
+        <article class="api-story-card api-service-card"><small>Shared interface</small><strong>AutoInfra API</strong><b>Tinker-compatible</b><span>Launch · track · retrieve</span><div class="api-service-pulse" aria-hidden="true"><i></i><i></i><i></i></div></article>
+        <article class="api-story-card api-worker-card"><div><small>Elastic capacity</small><strong>GPU worker</strong></div><span class="api-worker-state" data-api-worker-state>Allocating</span><div class="ticket-gpu-row eight api-gpu-row" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><b data-api-worker-detail>Client capacity</b></article>
+        <article class="api-checkpoint-card"><span aria-hidden="true"></span><div><small>Saved model</small><strong>ckpt-1</strong></div></article>
+        <code class="api-route-label api-call-label api-label-enter" data-api-call>.create_client()</code><code class="api-route-label api-return-label api-label-enter" data-api-return></code>
+      </div>
+    </figure>
+  </section>
+
+  <section class="story-section scaling-section" id="scale">
+    <div class="reading-column reveal">
+      <p class="kicker">Scaling and parallelism</p><h2>Many experiments, one responsive service.</h2><p>AutoInfra keeps request handling separate from GPU execution. As users submit different workloads, workers are created, assigned, reused, and released without slowing the entry path.</p>
+    </div>
+    <figure class="ticket-figure wide-figure reveal" style="--i:2" data-ticket-flow>
+      <figcaption class="figure-heading"><span class="figure-number">Figure 5</span><div><h3>Fast coordination, distributed data movement</h3><p>Lightweight commands travel through a fast, high-concurrency lane, while distributed workers process larger payloads through the database.</p></div><div class="figure-controls"><button class="control-button ticket-toggle" type="button" aria-label="Pause command and payload animation"><span class="pause-mark" aria-hidden="true"></span><span class="control-label">Pause</span></button></div></figcaption>
+      <div class="ticket-map ticket-phase-one" data-ticket-map role="img" aria-label="Users 1, 2, and 3 send colored request streams into the gateway. The gateway sends lightweight commands to the orchestrator and writes request data to the persistent database. The orchestrator assigns each stream to a worker. Worker A stays active for User 1. Worker B appears for User 2, then is reused by User 3. Both workers pull payloads and update the database directly.">
+
+        <svg class="ticket-routes ticket-desktop-routes" viewBox="0 0 1100 600" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="ticketMetaArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="ticketDataArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="ticketUpdateArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+          </defs>
+          <path class="ticket-route ticket-user-route" d="M165 100 C198 100 188 260 215 260"/><path class="ticket-route ticket-user-route" d="M165 300 H215"/><path class="ticket-route ticket-user-route" d="M165 500 C198 500 188 340 215 340"/>
+          <path class="ticket-route ticket-meta-route" d="M350 260 C390 260 390 150 430 150" marker-end="url(#ticketMetaArrow)"/>
+          <path class="ticket-route ticket-meta-route" d="M575 125 C690 125 760 120 875 120" marker-end="url(#ticketMetaArrow)"/>
+          <path class="ticket-route ticket-meta-route ticket-worker-b-route" d="M575 175 C690 175 760 400 875 400" marker-end="url(#ticketMetaArrow)"/>
+          <path class="ticket-route ticket-data-route" d="M350 325 C395 325 390 405 430 405" marker-end="url(#ticketDataArrow)"/>
+          <path class="ticket-route ticket-poll-route" d="M430 475 C388 475 395 365 350 365" marker-end="url(#ticketUpdateArrow)"/>
+          <path class="ticket-route ticket-data-route" d="M575 405 H640"/><path class="ticket-route ticket-data-route" d="M640 405 C720 405 755 175 875 175" marker-end="url(#ticketDataArrow)"/><path class="ticket-route ticket-data-route ticket-worker-b-route" d="M640 405 C725 405 780 435 875 435" marker-end="url(#ticketDataArrow)"/>
+          <path class="ticket-route ticket-update-route" d="M875 205 C750 205 720 470 640 470"/><path class="ticket-route ticket-update-route ticket-worker-b-route" d="M875 475 C780 475 730 470 640 470"/><path class="ticket-route ticket-update-route" d="M640 470 H575" marker-end="url(#ticketUpdateArrow)"/>
+
+          <g class="ticket-motion ticket-stream-one">
+            <circle class="ticket-meta-dot" r="4"><animateMotion dur="3s" repeatCount="indefinite" path="M165 100 C198 100 188 260 215 260"/></circle>
+            <circle class="ticket-meta-dot" r="4"><animateMotion begin="-.8s" dur="2.2s" repeatCount="indefinite" path="M350 260 C390 260 390 150 430 150"/></circle>
+            <circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.5s" dur="3s" repeatCount="indefinite" path="M575 125 C690 125 760 120 875 120"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-1.4s" dur="4.4s" repeatCount="indefinite" path="M350 325 C395 325 390 405 430 405"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-.9s" dur="4.3s" repeatCount="indefinite" path="M575 405 H640 C720 405 755 175 875 175"/></circle>
+            <circle class="ticket-update-dot" r="5"><animateMotion begin="-2.4s" dur="4.6s" repeatCount="indefinite" path="M875 205 C750 205 720 470 640 470 H575"/></circle>
+          </g>
+          <g class="ticket-motion ticket-stream-two">
+            <circle class="ticket-meta-dot" r="4"><animateMotion dur="3.1s" repeatCount="indefinite" path="M165 300 H215"/></circle>
+            <circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.1s" dur="2.4s" repeatCount="indefinite" path="M350 260 C390 260 390 150 430 150"/></circle>
+            <circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.5s" dur="4s" repeatCount="indefinite" path="M575 175 C690 175 760 400 875 400"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-3.1s" dur="4.9s" repeatCount="indefinite" path="M350 325 C395 325 390 405 430 405"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-2.2s" dur="4.6s" repeatCount="indefinite" path="M575 405 H640 C725 405 780 435 875 435"/></circle>
+            <circle class="ticket-update-dot" r="5"><animateMotion begin="-1.2s" dur="4.8s" repeatCount="indefinite" path="M875 475 C780 475 730 470 640 470 H575"/></circle>
+          </g>
+          <g class="ticket-motion ticket-stream-three">
+            <circle class="ticket-meta-dot" r="4"><animateMotion dur="2.8s" repeatCount="indefinite" path="M165 500 C198 500 188 340 215 340"/></circle>
+            <circle class="ticket-meta-dot" r="4"><animateMotion begin="-.7s" dur="2.1s" repeatCount="indefinite" path="M350 260 C390 260 390 150 430 150"/></circle>
+            <circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.2s" dur="3.7s" repeatCount="indefinite" path="M575 175 C690 175 760 400 875 400"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-2.6s" dur="4.4s" repeatCount="indefinite" path="M350 325 C395 325 390 405 430 405"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-1.8s" dur="4.1s" repeatCount="indefinite" path="M575 405 H640 C725 405 780 435 875 435"/></circle>
+            <circle class="ticket-update-dot" r="5"><animateMotion begin="-.8s" dur="4.3s" repeatCount="indefinite" path="M875 475 C780 475 730 470 640 470 H575"/></circle>
+          </g>
+          <g class="ticket-motion ticket-poll-motion"><circle class="ticket-poll-dot" r="4"><animateMotion begin="-2s" dur="4.6s" repeatCount="indefinite" path="M430 475 C388 475 395 365 350 365"/></circle></g>
+        </svg>
+
+        <svg class="ticket-routes ticket-mobile-routes" viewBox="0 0 390 1050" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="ticketMobileMetaArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="ticketMobileDataArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="ticketMobileUpdateArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+          </defs>
+          <path class="ticket-route ticket-user-route" d="M66 111 C66 137 160 137 195 160"/><path class="ticket-route ticket-user-route" d="M195 111 V160"/><path class="ticket-route ticket-user-route" d="M324 111 C324 137 230 137 195 160"/>
+          <path class="ticket-route ticket-meta-route" d="M195 280 V335" marker-end="url(#ticketMobileMetaArrow)"/>
+          <path class="ticket-route ticket-meta-route" d="M150 455 C115 560 75 700 75 820" marker-end="url(#ticketMobileMetaArrow)"/>
+          <path class="ticket-route ticket-meta-route ticket-worker-b-route" d="M240 455 C280 560 315 700 315 820" marker-end="url(#ticketMobileMetaArrow)"/>
+          <path class="ticket-route ticket-data-route" d="M108 230 C65 230 52 330 52 595 C52 615 78 610 108 610" marker-end="url(#ticketMobileDataArrow)"/>
+          <path class="ticket-route ticket-poll-route" d="M108 645 C80 645 70 630 70 605 V350 C70 285 85 255 108 255" marker-end="url(#ticketMobileUpdateArrow)"/>
+          <path class="ticket-route ticket-data-route" d="M195 670 V720"/><path class="ticket-route ticket-data-route" d="M195 720 C155 740 110 780 95 820" marker-end="url(#ticketMobileDataArrow)"/><path class="ticket-route ticket-data-route ticket-worker-b-route" d="M195 720 C240 740 280 780 295 820" marker-end="url(#ticketMobileDataArrow)"/>
+          <path class="ticket-route ticket-update-route" d="M125 820 C135 780 175 750 211 740"/><path class="ticket-route ticket-update-route ticket-worker-b-route" d="M325 820 C315 780 260 750 211 740"/><path class="ticket-route ticket-update-route" d="M211 740 V670" marker-end="url(#ticketMobileUpdateArrow)"/>
+
+          <g class="ticket-motion ticket-stream-one">
+            <circle class="ticket-meta-dot" r="4"><animateMotion dur="3s" repeatCount="indefinite" path="M66 111 C66 137 160 137 195 160"/></circle><circle class="ticket-meta-dot" r="4"><animateMotion begin="-.8s" dur="2.2s" repeatCount="indefinite" path="M195 280 V335"/></circle><circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.5s" dur="3.4s" repeatCount="indefinite" path="M150 455 C115 560 75 700 75 820"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-1.4s" dur="5s" repeatCount="indefinite" path="M108 230 C65 230 52 330 52 595 C52 615 78 610 108 610"/></circle><circle class="ticket-payload-dot" r="7"><animateMotion begin="-.9s" dur="4.2s" repeatCount="indefinite" path="M195 670 V720 C155 740 110 780 95 820"/></circle><circle class="ticket-update-dot" r="5"><animateMotion begin="-2.4s" dur="4.5s" repeatCount="indefinite" path="M125 820 C135 780 175 750 211 740 V670"/></circle>
+          </g>
+          <g class="ticket-motion ticket-stream-two">
+            <circle class="ticket-meta-dot" r="4"><animateMotion dur="3.1s" repeatCount="indefinite" path="M195 111 V160"/></circle><circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.1s" dur="2.4s" repeatCount="indefinite" path="M195 280 V335"/></circle><circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.5s" dur="3.6s" repeatCount="indefinite" path="M240 455 C280 560 315 700 315 820"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-3.1s" dur="5.3s" repeatCount="indefinite" path="M108 230 C65 230 52 330 52 595 C52 615 78 610 108 610"/></circle><circle class="ticket-payload-dot" r="7"><animateMotion begin="-2.2s" dur="4.7s" repeatCount="indefinite" path="M195 670 V720 C240 740 280 780 295 820"/></circle><circle class="ticket-update-dot" r="5"><animateMotion begin="-1.2s" dur="4.9s" repeatCount="indefinite" path="M325 820 C315 780 260 750 211 740 V670"/></circle>
+          </g>
+          <g class="ticket-motion ticket-stream-three">
+            <circle class="ticket-meta-dot" r="4"><animateMotion dur="2.8s" repeatCount="indefinite" path="M324 111 C324 137 230 137 195 160"/></circle><circle class="ticket-meta-dot" r="4"><animateMotion begin="-.7s" dur="2.1s" repeatCount="indefinite" path="M195 280 V335"/></circle><circle class="ticket-meta-dot" r="4"><animateMotion begin="-1.2s" dur="3.3s" repeatCount="indefinite" path="M240 455 C280 560 315 700 315 820"/></circle>
+            <circle class="ticket-payload-dot" r="7"><animateMotion begin="-2.6s" dur="4.8s" repeatCount="indefinite" path="M108 230 C65 230 52 330 52 595 C52 615 78 610 108 610"/></circle><circle class="ticket-payload-dot" r="7"><animateMotion begin="-1.8s" dur="4.2s" repeatCount="indefinite" path="M195 670 V720 C240 740 280 780 295 820"/></circle><circle class="ticket-update-dot" r="5"><animateMotion begin="-.8s" dur="4.4s" repeatCount="indefinite" path="M325 820 C315 780 260 750 211 740 V670"/></circle>
+          </g>
+          <g class="ticket-motion ticket-poll-motion"><circle class="ticket-poll-dot" r="4"><animateMotion begin="-2s" dur="5.2s" repeatCount="indefinite" path="M108 645 C80 645 70 630 70 605 V350 C70 285 85 255 108 255"/></circle></g>
+        </svg>
+
+        <article class="ticket-person ticket-person-one"><i></i><div><small>User 1</small><strong>gpt-oss finetune</strong></div><span data-ticket-user-one-state>Active</span></article>
+        <article class="ticket-person ticket-person-two"><i></i><div><small>User 2</small><strong>Inkling finetune</strong></div><span data-ticket-user-two-state>Waiting</span></article>
+        <article class="ticket-person ticket-person-three"><i></i><div><small>User 3</small><strong>Inkling inference</strong></div><span data-ticket-user-three-state>Waiting</span></article>
+        <article class="ticket-node ticket-gateway"><small>Entry</small><strong>Gateway</strong><span>Lightweight</span><div class="ticket-node-dots" aria-hidden="true"><i></i><i></i><i></i></div></article>
+        <article class="ticket-node ticket-orchestrator"><small>Coordination</small><strong>Orchestrator</strong><span>Route · manage</span><div class="ticket-stack-icon" aria-hidden="true"><i></i><i></i><i></i></div></article>
+        <article class="ticket-node ticket-database"><small>Persistent</small><strong>Database</strong><span>Payloads · progress</span></article>
+        <article class="ticket-worker-card ticket-worker-a"><div><small>Assigned capacity</small><strong>Worker A</strong></div><span class="ticket-worker-state">Active</span><div class="ticket-gpu-row four"><i></i><i></i><i></i><i></i></div><b>User 1 · 4 GPUs</b></article>
+        <article class="ticket-worker-card ticket-worker-b"><div><small>Elastic capacity</small><strong>Worker B</strong></div><span class="ticket-worker-state" data-ticket-worker-b-state>Waiting</span><div class="ticket-gpu-row eight"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><b data-ticket-worker-b-run>8 GPUs</b></article>
+
+        <span class="ticket-route-label ticket-label-command">command</span><span class="ticket-route-label ticket-label-write">write</span><span class="ticket-route-label ticket-label-poll">poll</span><span class="ticket-route-label ticket-label-pull">pull</span><span class="ticket-route-label ticket-label-update">update</span>
+      </div>
+      <div class="ticket-legend" aria-hidden="true"><span><i class="ticket-legend-blue"></i>User 1</span><span><i class="ticket-legend-red"></i>User 2</span><span><i class="ticket-legend-green"></i>User 3</span><span class="ticket-legend-flow"><i></i><b></b><em></em>command · payload · update</span></div>
+    </figure>
+
+    <div class="post-figure-copy reveal" style="--i:2">
+      <div class="post-figure-intro">
+        <span>Resilience and scale</span>
+        <h3>Persistent requests and responsive capacity.</h3>
+        <p>The database keeps requests, progress, and results persistent, so work survives gateway interruptions and can resume without losing data. The gateway records incoming work quickly, while the orchestrator assigns GPU workers and redirects capacity from idle connections to users with pending requests. This design supports hundreds of thousands of concurrent <code>.forward_backward</code> and <code>.generate</code> requests, including large payloads submitted by many users at once.</p>
+          <p>Unlike Tinker, AutoInfra users can request scale-out configurations tailored to their workloads—from an inference fleet spanning thousands of GPUs for high-concurrency RL to parallelism profiles optimized for speed or memory efficiency. When configurations are compatible, the orchestrator can share workers or reassign them within a few seconds, keeping capacity available for active experiments.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="story-section learning-section" id="loop">
+    <div class="reading-column reveal">
+      <p class="kicker">Self-improving models</p>
+      <h2>Improving a self-improving model.</h2>
+      <p>AutoInfra can train models for any task that can be exercised and evaluated in a sandbox. It also closes the loop for SFR's own systems: the models that power <a href="../trainforge/">TrainForge</a> and <a href="../engineer/">Engineer</a> are trained through AutoInfra. Their discoveries—new data, strategies, and learning methods—feed the next model version trained by AutoInfra.</p>
+    </div>
+
+    <figure class="learning-figure wide-figure reveal" style="--i:1">
+      <figcaption class="figure-heading"><span class="figure-number">Figure 6</span><div><h3>Training the systems that improve the model</h3><p>TrainForge, Engineer, and generic harnesses can run in isolated, scalable sandboxes that supply experience and rewards for reinforcement learning.</p></div></figcaption>
+      <div class="learning-map" role="img" aria-label="TrainForge, Engineer, and generic harnesses such as Codex, Claude Code, and Pi run inside scalable sandboxed environments connected to compute and the internet. Their experience and verified outcomes feed a learning algorithm. AutoInfra trains and publishes the next model version, which powers the next round of work.">
+        <svg class="learning-routes" viewBox="0 0 1040 470" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="learnArrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="learnArrowPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="learnArrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+            <marker id="learnArrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
+          </defs>
+          <path class="learning-route learn-goal-route" d="M170 220 H220" marker-end="url(#learnArrowBlue)" />
+          <path class="learning-route learn-experience-route" d="M480 205 H560" marker-end="url(#learnArrowPurple)" />
+          <path class="learning-route learn-policy-route" d="M560 235 H480" marker-end="url(#learnArrowBlue)" />
+          <path class="learning-route learn-train-route" d="M740 220 H810" marker-end="url(#learnArrowOrange)" />
+          <path class="learning-route learn-tool-route" d="M310 345 V360 M420 345 V360" />
+          <path class="learning-route learn-reward-route" d="M455 330 V430 H650 V310" marker-end="url(#learnArrowGreen)" />
+          <path class="learning-route learn-update-route" d="M900 130 V58 H650 V130" marker-end="url(#learnArrowBlue)" />
+        </svg>
+
+        <article class="learning-card learning-goal"><small>Goal</small><strong>Outcome to achieve</strong><span>Define the task</span></article>
+        <article class="learning-card learning-sandbox">
+          <div class="learning-card-head"><div><small>Sandbox</small><strong>Work in context</strong></div><span class="sandbox-status"><i></i>Attempt running</span></div>
+          <div class="sandbox-agents">
+            <div><span class="sandbox-icon forge-icon"><i></i></span><strong>TrainForge</strong><small>Organizes each attempt</small></div>
+            <div><span class="sandbox-icon engineer-icon"><i></i><i></i><i></i></span><strong>Engineer</strong><small>Plans, acts, and uses tools</small></div>
+            <div class="sandbox-agent-generic"><strong>Generic harness</strong><small>Codex / Claude Code / Pi</small></div>
+          </div>
+          <div class="sandbox-verifier"><i>✓</i><span><small>Verified outcome</small><strong>Task reward</strong></span></div>
+        </article>
+        <article class="learning-card learning-algorithm"><small>Algorithm</small><strong>Learn from attempts</strong><span>Compare outcomes</span><span>Shape the learning signal</span></article>
+        <article class="learning-card learning-service"><small>Training service</small><strong>AutoInfra</strong><span>Train the model</span><span>Save + publish next version</span><b>vN → vN+1</b></article>
+
+        <div class="learning-external learning-compute"><span class="external-icon compute-icon"><i></i><i></i><i></i></span><div><small>External connection</small><strong>Compute</strong></div></div>
+        <div class="learning-external learning-internet"><span class="external-icon internet-icon"><i></i></span><div><small>External connection</small><strong>Internet</strong></div></div>
+        <span class="learning-label label-experience" aria-hidden="true">experience</span><span class="learning-label label-policy" aria-hidden="true">model actions</span><span class="learning-label label-signal" aria-hidden="true">learning signal</span><span class="learning-label label-reward" aria-hidden="true">verified reward</span><span class="learning-label label-update" aria-hidden="true">next model version</span>
+
+        <svg class="learning-packets" viewBox="0 0 1040 470" preserveAspectRatio="none" aria-hidden="true">
+          <circle class="learning-pip goal-pip" r="5"><animateMotion dur="2.3s" repeatCount="indefinite" path="M170 220 H220" /></circle>
+          <circle class="learning-pip experience-pip" r="5"><animateMotion dur="2.8s" repeatCount="indefinite" path="M480 205 H560" /></circle>
+          <circle class="learning-pip policy-pip" r="5"><animateMotion begin="-1.1s" dur="2.8s" repeatCount="indefinite" path="M560 235 H480" /></circle>
+          <circle class="learning-pip reward-pip" r="6"><animateMotion begin="-1.3s" dur="5s" repeatCount="indefinite" path="M455 330 V430 H650 V310" /></circle>
+          <circle class="learning-pip learning-signal-pip" r="5"><animateMotion begin="-2s" dur="2.7s" repeatCount="indefinite" path="M740 220 H810" /></circle>
+          <circle class="learning-pip update-pip" r="5"><animateMotion begin="-2.8s" dur="5.2s" repeatCount="indefinite" path="M900 130 V58 H650 V130" /></circle>
+          <circle class="learning-pip compute-pip" r="4"><animateMotion begin="-.4s" dur="2.4s" repeatCount="indefinite" path="M310 360 V345" /></circle>
+          <circle class="learning-pip internet-pip" r="4"><animateMotion begin="-1.2s" dur="2.4s" repeatCount="indefinite" path="M420 360 V345" /></circle>
+        </svg>
+      </div>
+    </figure>
+
+    <div class="post-figure-copy reveal" style="--i:2">
+      <div class="post-figure-intro">
+        <span>Environment separation</span>
+        <h3>Independent environments protect training and evaluation.</h3>
+        <p>To scale RSI learning cycles efficiently while protecting system integrity and guarding against reward hacking, AutoInfra separates the algorithm, training service, and sandbox down to their Python and Conda environments and package installations. Even when these components share the same physical machines, AutoInfra retains its own protected installation and package management. Researchers and agents work in separate algorithm environments, while model rollouts run in isolated sandboxes hosting TrainForge, Engineer, or general-purpose harnesses such as Codex, Claude Code, OpenCode, and Pi.</p>
+          <p>This separation also supports recursive development. <a href="../engineer/">Our Auto Engineer</a> can clone AutoInfra into an isolated environment and optimize the service, while TrainForge can evaluate a newly discovered LLM architecture and promote a successful design into AutoInfra.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="story-section evaluation-section" id="efficiency">
+    <div class="reading-column reveal">
+      <p class="kicker">Evaluation · Scalability · Efficiency · Cost</p>
+      <h2>Frontier efficiency</h2>
+      <p>AutoInfra supports full-parameter and LoRA training across a range of model architectures and training configurations. These evaluations summarize long-context throughput, demonstrated model scale, and the cost of a representative LoRA training run.</p>
+    </div>
+
+    <figure class="evaluation-figure wide-figure reveal" style="--i:1" data-efficiency>
+      <figcaption class="figure-heading"><span class="figure-number">Figure 7</span><div><h3>Training performance and capacity</h3><p>Full-parameter results report per-GPU throughput at one-million-token context. LoRA profiles show the minimum H200 capacity used in this evaluation. K3 results compare training and inference consistency.</p></div></figcaption>
+
+      <div class="evaluation-tabs" role="tablist" aria-label="Training mode">
+        <button class="evaluation-tab is-active" id="efficiency-full-tab" type="button" data-efficiency-mode="full" role="tab" aria-selected="true" aria-controls="efficiency-full"><strong>Full-parameter training</strong><small>Published performance at 1M-token context</small></button>
+        <button class="evaluation-tab" id="efficiency-lora-tab" type="button" data-efficiency-mode="lora" role="tab" aria-selected="false" aria-controls="efficiency-lora" tabindex="-1"><strong>LoRA training</strong><small>Minimum GPUs demonstrated</small></button>
+      </div>
+
+      <div class="evaluation-panel" id="efficiency-full" role="tabpanel" aria-labelledby="efficiency-full-tab">
+        <div class="evaluation-panel-heading evaluation-panel-heading-single"><div><span>Full-parameter evaluation</span><h4>Per-GPU throughput at 1M-token context</h4></div></div>
+        <div class="vertical-chart" role="img" aria-label="At one million token context, the 120B model reached 393 tokens per second per GPU on 16 H200 GPUs, the 600B model reached 213 on 64 H200 GPUs, and the 1T model reached 100 on 96 H200 GPUs.">
+          <div class="chart-unit">tokens/s/GPU</div>
+          <div class="chart-y-axis" aria-hidden="true"><span>400</span><span>300</span><span>200</span><span>100</span><span>0</span></div>
+          <div class="bar-plot throughput-plot">
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:98.25%">393</b><i style="--bar-height:98.25%"></i></div><strong>120B</strong><small>16 H200 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:53.25%">213</b><i style="--bar-height:53.25%"></i></div><strong>600B</strong><small>64 H200 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:25%">100</b><i style="--bar-height:25%"></i></div><strong>1T</strong><small>96 H200 GPUs</small></div>
+          </div>
+        </div>
+        <div class="evaluation-note"><strong>Higher is faster.</strong><span>AutoInfra completes every one-million-token context configuration shown. The best tuned <a href="https://arxiv.org/pdf/2607.01844" target="_blank" rel="noopener noreferrer">FSDP2 variants</a> ran out of memory at these settings.</span></div>
+      </div>
+
+      <div class="evaluation-panel" id="efficiency-lora" role="tabpanel" aria-labelledby="efficiency-lora-tab" hidden>
+        <div class="evaluation-panel-heading"><div><span>LoRA capabilities</span><h4>Minimum GPUs demonstrated</h4></div><p>LoRA updates a compact set of trainable parameters while retaining the base model, reducing the memory needed for each training run.</p></div>
+        <div class="vertical-chart" role="img" aria-label="The minimum H200 capacity used in this evaluation is 2 GPUs for GPT-OSS-20B, 4 GPUs for Inkling Small at 266 billion parameters, and 16 GPUs for Inkling at one trillion parameters.">
+          <div class="chart-unit">GPUs</div>
+          <div class="chart-y-axis" aria-hidden="true"><span>16</span><span>12</span><span>8</span><span>4</span><span>0</span></div>
+          <div class="bar-plot lora-plot">
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:12.5%">2</b><i style="--bar-height:12.5%"></i></div><strong>GPT-OSS-20B</strong><small>2 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:25%">4</b><i style="--bar-height:25%"></i></div><strong>Inkling Small (266B)</strong><small>4 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:100%">16</b><i style="--bar-height:100%"></i></div><strong>Inkling (1T)</strong><small>16 GPUs</small></div>
+          </div>
+        </div>
+        <div class="evaluation-note evaluation-note-lower"><strong>Lower is better.</strong><span>Bars show the minimum H200 GPU count used to run each model in this evaluation.</span></div>
+      </div>
+
+      <div class="cost-effectiveness">
+        <div class="cost-heading"><div><span>Cost effectiveness</span><h4>Cost-effective via Compute Efficiency</h4></div><p>A GPT-OSS-120B LoRA run on one AWS 8×H200 node processes <strong>276.63 million training tokens per hour</strong>. The comparison applies each price to the same training-token volume.</p></div>
+        <div class="cost-layout">
+          <div class="cost-chart" role="img" aria-label="Cost per million training tokens is 19.9 cents for AutoInfra on AWS and 2 dollars 33 cents at Tinker's listed GPT-OSS-120B training price.">
+            <span class="cost-chart-title">Cost per million training tokens</span>
+            <div class="cost-bars">
+              <div class="cost-bar cost-bar-auto"><b>$0.199</b><i style="--cost-height:8.5%"></i><strong>AutoInfra on AWS</strong></div>
+              <div class="cost-bar cost-bar-reference"><b>$2.33</b><i style="--cost-height:100%"></i><strong>Tinker listed price</strong></div>
+            </div>
+          </div>
+          <div class="cost-metrics">
+            <article class="cost-compare"><small>Cost for 276.63M training tokens</small><div class="cost-pair"><span>AutoInfra on AWS<b>$52.92</b></span><span>Tinker listed price<b>$644.55</b></span></div></article>
+            <article class="cost-compare"><small>Cost per 1T training tokens</small><div class="cost-pair"><span>AutoInfra on AWS<b>$192,531</b></span><span>Tinker listed price<b>$2.33M</b></span></div></article>
+            <article class="cost-saving"><small>Estimated savings per 1T</small><strong>$2.131M</strong><span>91.5% lower</span></article>
+          </div>
+        </div>
+        <p class="cost-method">Price comparison for equal token volume, not training speed. AutoInfra estimates use measured throughput and the quoted <a href="https://aws.amazon.com/ec2/capacityblocks/pricing/" target="_blank" rel="noopener noreferrer">AWS 8×H200 node price</a>; Tinker estimates use its <a href="https://tinker-docs.thinkingmachines.ai/tinker/models/" target="_blank" rel="noopener noreferrer">listed GPT-OSS-120B training price per token</a>. Prices may change; storage and data-transfer charges are excluded.</p>
+      </div>
+
+      <div class="mismatch-evaluation">
+        <div class="mismatch-heading"><div><span>Training–inference consistency</span><h4>Minimal training–inference mismatch</h4></div><p>We strive to minimize training–inference mismatch while maintaining speed and efficiency. We do this without turning on batch-invariant kernels, which slow inference. Instead, we conduct per-model analysis and optimization so inference speed is not compromised, even when training and inference use different or inconsistent parallelism layouts.</p></div>
+        <div class="mismatch-table-card">
+          <table>
+            <caption><strong>K3 training–inference mismatch</strong><span>Lower is better.</span></caption>
+            <thead><tr><th scope="col">Model</th><th class="mismatch-auto" scope="col">AutoInfra</th><th scope="col">VERL</th><th scope="col">Tinker</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">8B Dense</th><td class="mismatch-auto"><span aria-label="2.3 times ten to the minus 15">2.3e−15</span></td><td><span aria-label="6.4 times ten to the minus 4">6.4e−4</span></td><td><span aria-label="Not reported">—</span></td></tr>
+              <tr><th scope="row">30B MoE</th><td class="mismatch-auto"><span aria-label="7.0 times ten to the minus 4">7.0e−4</span></td><td><span aria-label="1.5 times ten to the minus 3">1.5e−3</span></td><td><span aria-label="2 times ten to the minus 2">2e−2</span></td></tr>
+            </tbody>
+          </table>
+          <p>— indicates that no result was reported.</p>
+        </div>
+      </div>
+
+      <div class="research-references">
+        <div class="research-reference-heading"><span>SFR research</span><h4>Scalability and efficiency research</h4><p>AutoInfra builds on SFR research into efficient large-model training and reinforcement learning.</p></div>
+        <article><span>Full-parameter training at long context</span><h5>Mixture-of-Parallelisms</h5><p>The study reports 4.7–8.2× higher per-GPU throughput than tuned FSDP2 across evaluated configurations, with long-context results for 120B, 600B, and 1T models.</p><a href="https://arxiv.org/pdf/2607.01844" target="_blank" rel="noopener noreferrer">Read the paper <span aria-hidden="true">↗</span></a></article>
+        <article><span>Efficient reinforcement learning at scale</span><h5>Efficient RL Training for the Agentic Era</h5><p>SFR-RL coordinates generation, tool use, and model updates across a GPU fleet. The study reports full-parameter GPT-OSS-120B training at 1M-token context on 16 H200 GPUs.</p><a href="https://www.salesforce.com/blog/efficient-rl-training-agentic-era/" target="_blank" rel="noopener noreferrer">Read the article <span aria-hidden="true">↗</span></a></article>
+      </div>
+    </figure>
+  </section>
+
+  <section class="closing-section"><div class="closing-inner reveal"><p class="kicker">TrainForge + AutoInfra</p><h2>More experiments reach the model, faster.</h2><p class="closing-lead">TrainForge decides what to try; AutoInfra carries each experiment from request to result. Together, they turn parallel research into a repeatable learning loop.</p><div class="closing-steps"><div><span>01</span><strong>Choose</strong><small>TrainForge proposes and compares experiments.</small></div><div><span>02</span><strong>Run</strong><small>AutoInfra places the model and manages its work.</small></div><div><span>03</span><strong>Learn</strong><small>Saved results guide the next training decision.</small></div></div><a class="btn btn-primary" href="../trainforge/">Explore TrainForge <span aria-hidden="true">→</span></a></div></section>
+</main>
+
+<footer class="foot-ed">
+  <div class="footer-brand"><img src="../assets/salesforce.svg" alt="Salesforce"><div><strong>AutoInfra</strong><small>Salesforce AI Research · 2026</small></div></div>
+  <div class="footer-links"><a href="../">Overview</a><a href="../engineer/">Engineer</a><a href="../trainforge/">TrainForge</a><a href="../training_service/">AutoInfra</a></div>
+  <div class="fine">© 2026 Salesforce, Inc.</div>
+</footer>
+</body>
+</html>

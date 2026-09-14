@@ -34,6 +34,7 @@
     <a href="./" aria-current="page">Overview</a>
     <a href="./engineer/">Engineer</a>
     <a href="./trainforge/">TrainForge</a>
+    <a href="./training_service/">AutoInfra</a>
   </div>
 </nav>
 
@@ -77,6 +78,7 @@
     <div class="section-nav-track">
       <a class="sn-link" href="#mission">Two questions</a>
       <a class="sn-link" href="#how">How it works</a>
+      <a class="sn-link" href="#autoinfra">AutoInfra</a>
       <a class="sn-link" href="#projects">Sub-projects</a>
       <a class="sn-link" href="#practice">In practice</a>
       <a class="sn-link" href="#team">Team</a>
@@ -86,6 +88,7 @@
       <ul class="pages-menu" id="pages-menu">
         <li><a href="engineer/">SFR-AutoR&amp;D-Engineer <small>Engineering goals on real code</small></a></li>
         <li><a href="trainforge/">SFR-AutoR&amp;D-TrainForge <small>Autonomous model training</small></a></li>
+        <li><a href="training_service/">AutoInfra <small>Elastic training infrastructure</small></a></li>
       </ul>
     </div>
   </div>
@@ -154,6 +157,22 @@
         <div class="step" style="--i:3"><i>04</i><div><small>Verify</small><b>Verify and measure</b><span class="desc">Correctness gates and statistics with confidence bounds decide what is real.</span></div></div>
         <div class="step" style="--i:4"><i>05</i><div><small>Promote</small><b>Promote or preserve</b><span class="desc">A vetted artifact ships with its evidence. Anything weaker keeps the incumbent.</span></div></div>
         <div class="stepper-foot"><i>↺</i><span>Only candidates that clear every gate become artifacts. The rest loop back as recorded lessons for the next hypothesis.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AutoInfra ==================== -->
+<section id="autoinfra" class="ed">
+  <div class="container">
+    <div class="ed-grid">
+      <div class="ed-head reveal">
+        <span class="kicker">Shared training infrastructure</span>
+        <h2>AutoInfra supports the research loop.</h2>
+      </div>
+      <div class="ed-prose reveal" style="--i:1">
+        <p><a href="training_service/"><strong>AutoInfra</strong></a> provides shared training and inference infrastructure for SFR-AutoR&amp;D. TrainForge uses it to launch and compare model experiments in parallel. It also supports training the models that power TrainForge and Engineer, while validated improvements from either agent can be incorporated into AutoInfra for the next research cycle.</p>
+        <a class="btn btn-primary" href="training_service/">Explore AutoInfra →</a>
       </div>
     </div>
   </div>
@@ -292,7 +311,7 @@
 
 <footer class="foot-ed">
   <div class="footer-brand"><img src="./assets/salesforce.svg" alt="Salesforce"><div><strong>SFR-AutoR&amp;D</strong><small>Salesforce AI Research · 2026</small></div></div>
-  <div class="footer-links"><a href="./">Overview</a><a href="./engineer/">Engineer</a><a href="./trainforge/">TrainForge</a></div>
+  <div class="footer-links"><a href="./">Overview</a><a href="./engineer/">Engineer</a><a href="./trainforge/">TrainForge</a><a href="./training_service/">AutoInfra</a></div>
   <div class="fine">Performance figures are point-in-time measurements under controlled conditions; results will vary by environment. © 2026 Salesforce, Inc.</div>
 </footer>
 
