@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">Training Forge guided demo</title>
-  <desc id="desc">A three-minute demonstration of autonomous model training from target through verified checkpoint.</desc>
+  <desc id="desc">A two-minute demonstration of autonomous model training and multi-round idea evolution.</desc>
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#032d60"/>
@@ -27,10 +27,10 @@
     <rect x="96" y="92" width="330" height="42" rx="21" fill="#ffffff" fill-opacity=".1" stroke="#ffffff" stroke-opacity=".22"/>
     <text x="261" y="119" text-anchor="middle" fill="#cde9ff" font-size="14" font-weight="750" letter-spacing="1.8">SALESFORCE AI RESEARCH</text>
 
-    <text x="96" y="230" fill="#ffffff" font-size="26" font-weight="700" letter-spacing="1.8">AUTORESEARCH / TRAINING FORGE</text>
-    <text x="96" y="326" fill="#ffffff" font-size="70" font-weight="730" letter-spacing="-2.5">Watch autonomous training</text>
-    <text x="96" y="404" fill="#ffffff" font-size="70" font-weight="730" letter-spacing="-2.5">from target to verified model.</text>
-    <text x="100" y="468" fill="#dceeff" font-size="24">A three-minute guided run with real updates and frozen evaluation.</text>
+    <text x="96" y="230" fill="#ffffff" font-size="26" font-weight="700" letter-spacing="1.8">SFR-AutoR&amp;D TRAINFORGE</text>
+    <text x="96" y="326" fill="#ffffff" font-size="70" font-weight="730" letter-spacing="-2.5">Watch an idea evolve</text>
+    <text x="96" y="404" fill="#ffffff" font-size="70" font-weight="730" letter-spacing="-2.5">into a verified model.</text>
+    <text x="100" y="468" fill="#dceeff" font-size="24">A two-minute guided run with human steering and real evaluation.</text>
 
     <g filter="url(#shadow)">
       <circle cx="1320" cy="330" r="112" fill="#ffffff"/>
@@ -62,7 +62,7 @@
       <text x="1268" y="106" text-anchor="middle" fill="#032d60" font-size="18" font-weight="720">Verify model</text>
     </g>
 
-    <text x="96" y="822" fill="#dceeff" font-size="18">3:00 guided demo</text>
-    <text x="1504" y="822" text-anchor="end" fill="#dceeff" font-size="18">Wait time removed, not training work</text>
+    <text x="96" y="822" fill="#dceeff" font-size="18">1:50 narrated demo</text>
+    <text x="1504" y="822" text-anchor="end" fill="#dceeff" font-size="18">Human steering · idea evolution · verified evidence</text>
   </g>
 </svg>
