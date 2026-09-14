@@ -23,7 +23,7 @@
     const marker = (parseFloat(root.style.getPropertyValue('--nav-h')) || 0) + sectionNav.getBoundingClientRect().height + 24;
     // Team can appear in the hero; sort by document position rather than menu order.
     const ordered = sections.slice().sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
-    let current = null;
+    let current = ordered[0];
     ordered.forEach(section => {
       if (section.getBoundingClientRect().top <= marker) current = section;
     });
