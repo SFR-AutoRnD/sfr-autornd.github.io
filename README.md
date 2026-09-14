@@ -80,12 +80,14 @@ which forwards every page here and maps old section links to `/engineer/`.
 
 ## Research source links
 
-The pandas buttons in `engineer/index.html` link to implementation branches
-in `ShreyPandit/pandas` and are labeled as code links:
+The pandas buttons in `engineer/index.html` link to upstream pull requests
+in `pandas-dev/pandas`:
 
-- Nullable-dtype reductions: `perf-axis1-ea-groupby-fastpath`
-- String hashing: `perf-stringarray-hashing`
-- Row-wise reductions: `perf-axis1-numpy-block-fusion`
+- Nullable-dtype reductions: [PR #68422](https://github.com/pandas-dev/pandas/pull/68422)
+- String hashing: [PR #68423](https://github.com/pandas-dev/pandas/pull/68423)
+- Row-wise reductions: [PR #68424](https://github.com/pandas-dev/pandas/pull/68424)
+
+The interactive research lab links its pandas examples to the same pull requests.
 
 The hnswlib (nmslib/hnswlib#676) and USearch (unum-cloud/USearch#787) buttons
 link to their upstream pull requests.
