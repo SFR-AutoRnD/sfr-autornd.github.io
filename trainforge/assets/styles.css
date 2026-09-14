@@ -2647,7 +2647,6 @@ figcaption,
 
 .reference-theme .contribution-list article.primary-contribution {
   background: #fbfdff;
-  box-shadow: inset 3px 0 0 var(--sf-blue);
 }
 
 .reference-theme .contribution-list article.primary-contribution .contribution-index {
