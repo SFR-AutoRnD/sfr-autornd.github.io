@@ -31,6 +31,8 @@
 
 /* Discovery stories: a case selector, three steps, and one mechanism at a time. */
 .engineer-lab-section{padding:3rem 0;background:#f2f8fd;border-top:1px solid var(--eng-line)}
+.engineer-context{max-width:900px;margin-bottom:2.4rem;scroll-margin-top:calc(var(--nav-h) + var(--subnav-h) + 24px)}
+.engineer-context p + p{margin-top:1rem}
 .engineer-section-head{margin-bottom:1.6rem;max-width:790px}
 .engineer-kicker{margin:0 0 .5rem}
 .engineer-section-head h2{font-size:2.15rem;line-height:1.2;letter-spacing:-.04em;color:var(--eng-ink);font-weight:700}

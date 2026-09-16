@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css?v=autornd-nav-4">
-<link rel="stylesheet" href="assets/engineer.css?v=autornd-naming-9">
+<link rel="stylesheet" href="assets/engineer.css?v=working-loop-intro-10">
 <script src="../assets/site.js?v=section-nav-2" defer></script>
 <script src="assets/engineer.js?v=autornd-naming-9" defer></script>
 </head>
@@ -85,7 +85,6 @@
     <div class="section-nav-title">AutoR&amp;D-Engineer</div>
     <div class="section-nav-track">
       <a class="sn-link" href="#how"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#loop"/></svg>Inside our AutoR&amp;D-Engineer’s working loop</a>
-      <a class="sn-link" href="#overview"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#idea"/></svg>Why AutoR&amp;D-Engineer</a>
       <a class="sn-link" href="#findings"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#chart"/></svg>Findings</a>
       <a class="sn-link" href="#demo"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#play"/></svg>Demo</a>
       <a class="sn-link" href="#next"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#next"/></svg>What’s next</a>
@@ -98,6 +97,11 @@
 <!-- ==================== Interactive research walkthrough ==================== -->
 <section id="how" class="engineer-lab-section">
   <div class="container">
+    <div id="overview" class="engineer-context abstract">
+      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; turning that into a change that is faster and provably equivalent is the hard part.</p>
+      <p>We built an agent that behaves like a careful research scientist: disciplined about controls, and shipping only what it can prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+    </div>
+
     <div class="engineer-section-head">
       <h2>Inside our AutoR&amp;D-Engineer’s working loop</h2>
       <p>Watch our AutoR&amp;D-Engineer turn a performance goal into a hypothesis, a controlled experiment, and a verified improvement.</p>
@@ -184,18 +188,6 @@
       </div>
       <div class="discovery-navigation" data-discovery-navigation hidden><button type="button" data-study-previous disabled>← Back</button><div class="process-playback"><span data-study-progress>Step 1 of 4</span><button type="button" data-study-autoplay aria-pressed="true" aria-label="Pause automatic research walkthrough"><span class="autoplay-icon" aria-hidden="true">Ⅱ</span><span data-autoplay-label>Auto</span></button></div><button type="button" data-study-next>Follow the hypothesis →</button></div>
       <span class="engineer-sr-only" data-study-announcement role="status" aria-live="polite" aria-atomic="true"></span>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== Overview ==================== -->
-<section id="overview" class="ed">
-  <div class="container">
-    <h2 class="section-title">Why We Built SFR-AutoR&amp;D-Engineer</h2>
-    <div class="card abstract">
-      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; turning that into a change that is faster and provably equivalent is the hard part.</p>
-      <br>
-      <p>We built an agent that behaves like a careful research scientist: disciplined about controls, and shipping only what it can prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
     </div>
   </div>
 </section>
