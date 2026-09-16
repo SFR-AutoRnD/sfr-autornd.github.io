@@ -283,14 +283,17 @@
   .site-nav-wordmark{display:flex;flex-direction:column;line-height:1.4}
   .site-nav-wordmark strong{font-size:.94rem;font-weight:700;letter-spacing:-.025em}
   .site-nav-wordmark small{font-size:.75rem;color:var(--text-secondary)}
-  .site-nav-links{display:flex;gap:.35rem;align-items:center}
+  .site-nav-links{display:flex;gap:.35rem;align-items:center;min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:thin}
   .site-nav-links a{font-size:.875rem;font-weight:600;color:var(--text-secondary);text-decoration:none;padding:.5rem .9rem;border-radius:8px;white-space:nowrap;transition:background .2s ease,color .2s ease}
   .site-nav-links a:hover{color:var(--sf-blue-deep);background:var(--bg-tertiary)}
   .site-nav-links a[aria-current=page]{color:var(--sf-blue-deep);background:var(--sf-cloud);box-shadow:inset 0 -2px 0 var(--sf-blue)}
-  @media(max-width:640px){
+  @media(max-width:900px){
     .site-nav{padding:.75rem 1.25rem;flex-wrap:wrap;gap:.75rem}
     .site-nav-links{width:100%;gap:.4rem}
     .site-nav-links a{flex:1;text-align:center;padding:.4rem .6rem}
+  }
+  @media(max-width:640px){
+    .site-nav-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   }
 
   /* ---- umbrella page: editorial hero, section nav, question cards, stepper, switcher, motion ---- */

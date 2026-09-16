@@ -2237,6 +2237,10 @@ figcaption,
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .family-nav-links a {
@@ -3123,11 +3127,7 @@ figcaption,
   }
 }
 
-@media (max-width: 640px) {
-  .reference-theme.has-section-nav .family-nav {
-    position: static;
-  }
-
+@media (max-width: 900px) {
   .family-nav {
     padding: 0.75rem 1.25rem;
     flex-wrap: wrap;
@@ -3142,6 +3142,17 @@ figcaption,
     flex: 1;
     padding: 0.4rem 0.6rem;
     text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .reference-theme.has-section-nav .family-nav {
+    position: static;
+  }
+
+  .family-nav-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .reference-hero {

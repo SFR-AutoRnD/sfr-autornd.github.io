@@ -74,7 +74,7 @@
       label: 'hnswlib · worker leases', finding: '#hnswlib', code: 'https://github.com/nmslib/hnswlib/pull/676',
       titles: ['Trace the repeated borrowing.', 'Give each worker a longer-lived lease.', 'Put baseline and candidate side by side.', 'Less coordination. A measured gain.'],
       descriptions: [
-        'Engineer identifies shared-pool locking around every query. The opportunity is repeated coordination, with search arithmetic left unchanged.',
+        'AutoR&D-Engineer identifies shared-pool locking around every query. The opportunity is repeated coordination, with search arithmetic left unchanged.',
         'It proposes one scratch-memory lease per worker for the whole batch, then implements it with fresh visited state for every query.',
         'It alternates baseline and candidate across independently built indexes, retaining noisy runs as part of the comparison.',
         'It checks outputs and scratch-state safety, then packages the patch with the measurements that support the gain.'
@@ -89,7 +89,7 @@
       label: 'pandas · nullable buffer views', finding: '#pandas-nullable', code: 'https://github.com/pandas-dev/pandas/pull/68422',
       titles: ['Find the allocation hiding in the hot path.', 'Change the view, preserve the kernel.', 'Test the idea across the workload matrix.', 'A faster method, with its proof.'],
       descriptions: [
-        'Engineer traces row-wise reductions and identifies a throwaway row-label array allocated for every element in the frame.',
+        'AutoR&D-Engineer traces row-wise reductions and identifies a throwaway row-label array allocated for every element in the frame.',
         'It proposes compatible views of the existing data and mask, then builds a guarded patch that keeps the numerical kernel and reduction order.',
         'It pairs baseline and candidate on fixed hardware and inputs, alternating run order across reductions, nullable dtypes, and frame shapes.',
         'It checks values, masks, dtypes, and exceptions, then keeps the guarded patch with its benchmark record and technical report.'
@@ -104,7 +104,7 @@
       label: 'USearch · norm caching', finding: '#usearch', code: 'https://github.com/unum-cloud/USearch/pull/787',
       titles: ['Spot the arithmetic that repeats.', 'Calculate once, then reuse.', 'Compare the same search workload.', 'More queries from the same core.'],
       descriptions: [
-        'Engineer identifies vector norms recalculated during cosine comparisons, even though stored vectors have not changed.',
+        'AutoR&D-Engineer identifies vector norms recalculated during cosine comparisons, even though stored vectors have not changed.',
         'It proposes caching each stored norm and computing the query norm once, then implements reuse within the existing graph traversal.',
         'It runs both binaries on the same graph and held-out queries, repeating paired comparisons with two compilers.',
         'It verifies preserved recall and measures numerical differences, then delivers the cache with compiler-specific benchmark evidence.'
@@ -119,7 +119,7 @@
       label: 'pandas · native StringArray hashing', finding: '#pandas-hashing', code: 'https://github.com/pandas-dev/pandas/pull/68423',
       titles: ['Find the work surrounding the kernel.', 'Use the buffer the kernel already accepts.', 'Measure each operation and option.', 'Less adapter work. Verified results.'],
       descriptions: [
-        'Engineer identifies mask creation and array conversions around a hash kernel that already accepts StringArray’s backing data.',
+        'AutoR&D-Engineer identifies mask creation and array conversions around a hash kernel that already accepts StringArray’s backing data.',
         'It proposes direct access to the backing array, then implements checked guards, correct result wrapping, and the original fallback.',
         'It alternates baseline and candidate on the same million-value input, measuring counting and each duplicate-detection mode separately.',
         'It checks values, indexes, dtypes, Unicode, and missing values, then preserves the patch and the evidence for each operation.'

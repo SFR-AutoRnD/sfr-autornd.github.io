@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=autornd-nav-4">
 <link rel="stylesheet" href="assets/styles.css?v=27">
 <script src="../assets/site.js" defer></script>
 <script src="assets/training-service.js?v=11" defer></script>
@@ -33,7 +33,7 @@
   <a class="site-nav-brand" href="../"><img src="../assets/salesforce.svg" alt="Salesforce"><span class="site-nav-wordmark"><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
   <div class="site-nav-links">
     <a href="../">Overview</a>
-    <a href="../engineer/">Engineer</a>
+    <a href="../engineer/">AutoR&amp;D-Engineer</a>
     <a href="../trainforge/">TrainForge</a>
     <a href="../training_service/" aria-current="page">AutoInfra</a>
   </div>
@@ -227,12 +227,12 @@
     <div class="reading-column reveal">
       <p class="kicker">Self-improving models</p>
       <h2>Improving a self-improving model.</h2>
-      <p>AutoInfra can train models for any task that can be exercised and evaluated in a sandbox. It also closes the loop for SFR's own systems: the models that power <a href="../trainforge/">TrainForge</a> and <a href="../engineer/">Engineer</a> are trained through AutoInfra. Their discoveries—new data, strategies, and learning methods—feed the next model version trained by AutoInfra.</p>
+      <p>AutoInfra can train models for any task that can be exercised and evaluated in a sandbox. It also closes the loop for SFR's own systems: the models that power <a href="../trainforge/">TrainForge</a> and <a href="../engineer/">AutoR&amp;D-Engineer</a> are trained through AutoInfra. Their discoveries—new data, strategies, and learning methods—feed the next model version trained by AutoInfra.</p>
     </div>
 
     <figure class="learning-figure wide-figure reveal" style="--i:1">
-      <figcaption class="figure-heading"><span class="figure-number">Figure 6</span><div><h3>Training the systems that improve the model</h3><p>TrainForge, Engineer, and generic harnesses can run in isolated, scalable sandboxes that supply experience and rewards for reinforcement learning.</p></div></figcaption>
-      <div class="learning-map" role="img" aria-label="TrainForge, Engineer, and generic harnesses such as Codex, Claude Code, and Pi run inside scalable sandboxed environments connected to compute and the internet. Their experience and verified outcomes feed a learning algorithm. AutoInfra trains and publishes the next model version, which powers the next round of work.">
+      <figcaption class="figure-heading"><span class="figure-number">Figure 6</span><div><h3>Training the systems that improve the model</h3><p>TrainForge, AutoR&amp;D-Engineer, and generic harnesses can run in isolated, scalable sandboxes that supply experience and rewards for reinforcement learning.</p></div></figcaption>
+      <div class="learning-map" role="img" aria-label="TrainForge, AutoR&amp;D-Engineer, and generic harnesses such as Codex, Claude Code, and Pi run inside scalable sandboxed environments connected to compute and the internet. Their experience and verified outcomes feed a learning algorithm. AutoInfra trains and publishes the next model version, which powers the next round of work.">
         <svg class="learning-routes" viewBox="0 0 1040 470" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <marker id="learnArrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker>
@@ -254,7 +254,7 @@
           <div class="learning-card-head"><div><small>Sandbox</small><strong>Work in context</strong></div><span class="sandbox-status"><i></i>Attempt running</span></div>
           <div class="sandbox-agents">
             <div><span class="sandbox-icon forge-icon"><i></i></span><strong>TrainForge</strong><small>Organizes each attempt</small></div>
-            <div><span class="sandbox-icon engineer-icon"><i></i><i></i><i></i></span><strong>Engineer</strong><small>Plans, acts, and uses tools</small></div>
+            <div><span class="sandbox-icon engineer-icon"><i></i><i></i><i></i></span><strong>AutoR&amp;D-Engineer</strong><small>Plans, acts, and uses tools</small></div>
             <div class="sandbox-agent-generic"><strong>Generic harness</strong><small>Codex / Claude Code / Pi</small></div>
           </div>
           <div class="sandbox-verifier"><i>✓</i><span><small>Verified outcome</small><strong>Task reward</strong></span></div>
@@ -283,8 +283,8 @@
       <div class="post-figure-intro">
         <span>Environment separation</span>
         <h3>Independent environments protect training and evaluation.</h3>
-        <p>To scale RSI learning cycles efficiently while protecting system integrity and guarding against reward hacking, AutoInfra separates the algorithm, training service, and sandbox down to their Python and Conda environments and package installations. Even when these components share the same physical machines, AutoInfra retains its own protected installation and package management. Researchers and agents work in separate algorithm environments, while model rollouts run in isolated sandboxes hosting TrainForge, Engineer, or general-purpose harnesses such as Codex, Claude Code, OpenCode, and Pi.</p>
-          <p>This separation also supports recursive development. <a href="../engineer/">Our Auto Engineer</a> can clone AutoInfra into an isolated environment and optimize the service, while TrainForge can evaluate a newly discovered LLM architecture and promote a successful design into AutoInfra.</p>
+        <p>To scale RSI learning cycles efficiently while protecting system integrity and guarding against reward hacking, AutoInfra separates the algorithm, training service, and sandbox down to their Python and Conda environments and package installations. Even when these components share the same physical machines, AutoInfra retains its own protected installation and package management. Researchers and agents work in separate algorithm environments, while model rollouts run in isolated sandboxes hosting TrainForge, AutoR&amp;D-Engineer, or general-purpose harnesses such as Codex, Claude Code, OpenCode, and Pi.</p>
+          <p>This separation also supports recursive development. <a href="../engineer/">Our AutoR&amp;D-Engineer</a> can clone AutoInfra into an isolated environment and optimize the service, while TrainForge can evaluate a newly discovered LLM architecture and promote a successful design into AutoInfra.</p>
       </div>
     </div>
   </section>
@@ -379,7 +379,7 @@
 
 <footer class="foot-ed">
   <div class="footer-brand"><img src="../assets/salesforce.svg" alt="Salesforce"><div><strong>AutoInfra</strong><small>Salesforce AI Research · 2026</small></div></div>
-  <div class="footer-links"><a href="../">Overview</a><a href="../engineer/">Engineer</a><a href="../trainforge/">TrainForge</a><a href="../training_service/">AutoInfra</a></div>
+  <div class="footer-links"><a href="../">Overview</a><a href="../engineer/">AutoR&amp;D-Engineer</a><a href="../trainforge/">TrainForge</a><a href="../training_service/">AutoInfra</a></div>
   <div class="fine">© 2026 Salesforce, Inc.</div>
 </footer>
 </body>
