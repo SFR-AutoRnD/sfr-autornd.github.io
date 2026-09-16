@@ -29,12 +29,12 @@ Static site, no build step:
   Page anchors work without JavaScript, and reduced-motion preferences are
   respected.
 - `engineer/index.html`: the engineering research article, using the shared
-  stylesheet and navigation script. Includes the narrated demo after the research
-  findings, linked from the hero and section navigation. Technical charts
+  stylesheet and navigation script. The narrated demo is temporarily hidden;
+  its video and poster are retained for future refinement. Technical charts
   remain inline SVG.
 - `assets/AutoRD_Leadership_Demo_AI_Voiceover_Final_demo.mp4`: the supplied
-  three-minute Engineer demo, served as an H.264/AAC MP4 with native playback
-  controls. `assets/engineer-demo-poster.jpg` is its opening title frame.
+  three-minute AutoR&D-Engineer demo, retained as an H.264/AAC MP4 while its
+  page embed is hidden. `assets/engineer-demo-poster.jpg` is its opening title frame.
 - `trainforge/`: copied from `zhaoyiran924/trainforge` (commit `a37e93f`,
   "Launch public Training Forge research site"), including the 8.3 MB demo
   video. Its presentation now uses the same shared styles and navigation as
