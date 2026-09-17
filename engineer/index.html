@@ -47,7 +47,7 @@
       <div class="engineer-intro">
         <h1><span>SFR-AutoR&amp;D</span>AutoR&amp;D-Engineer</h1>
         <h2>Performance research on real code,<br> backed by evidence.</h2>
-        <p>Our AutoR&amp;D-Engineer takes an engineering goal and repeatedly invents, implements, and tests optimization ideas in controlled experiments to reach it. We tested it on pandas, USearch, hnswlib, and Salesforce’s SFR-RL stack, where it delivered faster execution, higher throughput, and lower memory use.</p>
+        <p>Our Auto Engineer takes an engineering goal and repeatedly invents, implements, and tests optimization ideas in controlled experiments to reach it. We tested it on pandas, USearch, hnswlib, and Salesforce’s SFR-RL stack, where it delivered faster execution, higher throughput, and lower memory use.</p>
         <div class="engineer-hero-actions"><a class="btn btn-primary" href="#how">See the research unfold <span aria-hidden="true">↓</span></a><a class="engineer-text-link" href="#findings">Explore the findings <span aria-hidden="true">↗</span></a></div>
       </div>
     </div>
@@ -83,7 +83,7 @@
   <div class="section-nav-inner">
     <div class="section-nav-title">AutoR&amp;D-Engineer</div>
     <div class="section-nav-track">
-      <a class="sn-link" href="#how"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#loop"/></svg>Inside our AutoR&amp;D-Engineer’s working loop</a>
+      <a class="sn-link" href="#how"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#loop"/></svg>Inside the Auto Engineer's working loop</a>
       <a class="sn-link" href="#findings"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#chart"/></svg>Findings</a>
       <a class="sn-link" href="#next"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#next"/></svg>What’s next</a>
     </div>
@@ -96,13 +96,16 @@
 <section id="how" class="engineer-lab-section">
   <div class="container">
     <div id="overview" class="engineer-context abstract">
-      <p>Performance engineering is some of the most valuable, and scarcest, work in software. The wins hide in mature codebases that millions of applications depend on, and every optimization carries a <strong>claim</strong> (<em>"this version is faster, and it computes exactly the same thing"</em>) that has to be tested. A profiler tells you where time goes; turning that into a change that is faster and provably equivalent is the hard part.</p>
-      <p>We built an agent that behaves like a careful research scientist: disciplined about controls, and shipping only what it can prove. We call its outputs <strong>artifacts</strong>: a working patch bundled with the benchmark evidence and analysis that justify it. This page shares the first four codebases it improved: three in the open-source ecosystem, one in Salesforce's own AI infrastructure.</p>
+      <p>What if AI could find hidden performance wins in complex software—and prove that every change is both <strong>faster and correct</strong>? That’s the challenge we’re tackling.</p>
+      <p>Performance optimization is hugely valuable, but this is not just about finding bugs or making small code-level fixes. The real opportunity is to uncover <strong>methodological and algorithmic improvements</strong>—new ways to structure computation, reduce unnecessary work, or improve how a system uses memory and hardware—then validate that those changes preserve correctness.</p>
+      <p>Our <strong>Auto Engineer</strong> does exactly that. It works like a careful research engineer: it identifies bottlenecks, forms hypotheses, proposes new methods, implements them, runs controlled experiments, and keeps only improvements that are supported by evidence.</p>
+      <p>The resulting <strong>artifacts</strong> are more than patches: they are working implementations of verified improvements, packaged with the benchmark results and analysis that explain why they are better.</p>
+      <p>This page shares the first four codebases it improved—three open-source projects and one from Salesforce’s own AI infrastructure.</p>
     </div>
 
     <div class="engineer-section-head">
-      <h2>Inside our AutoR&amp;D-Engineer’s working loop</h2>
-      <p>Watch our AutoR&amp;D-Engineer turn a performance goal into a hypothesis, a controlled experiment, and a verified improvement.</p>
+      <h2>Inside the Auto Engineer's working loop</h2>
+      <p>Watch our Auto Engineer turn a performance goal into a hypothesis, a controlled experiment, and a verified improvement.</p>
     </div>
 
     <div class="discovery-lab" data-discovery-lab data-study="hnswlib" data-step="before" data-playing="false">

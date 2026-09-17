@@ -284,7 +284,7 @@
         <span>Environment separation</span>
         <h3>Independent environments protect training and evaluation.</h3>
         <p>To scale RSI learning cycles efficiently while protecting system integrity and guarding against reward hacking, AutoInfra separates the algorithm, training service, and sandbox down to their Python and Conda environments and package installations. Even when these components share the same physical machines, AutoInfra retains its own protected installation and package management. Researchers and agents work in separate algorithm environments, while model rollouts run in isolated sandboxes hosting TrainForge, AutoR&amp;D-Engineer, or general-purpose harnesses such as Codex, Claude Code, OpenCode, and Pi.</p>
-          <p>This separation also supports recursive development. <a href="../engineer/">Our AutoR&amp;D-Engineer</a> can clone AutoInfra into an isolated environment and optimize the service, while TrainForge can evaluate a newly discovered LLM architecture and promote a successful design into AutoInfra.</p>
+          <p>This separation also supports recursive development. <a href="../engineer/">Our Auto Engineer</a> can clone AutoInfra into an isolated environment and optimize the service, while TrainForge can evaluate a newly discovered LLM architecture and promote a successful design into AutoInfra.</p>
       </div>
     </div>
   </section>
