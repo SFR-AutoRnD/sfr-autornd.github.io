@@ -95,10 +95,10 @@
         'It checks values, masks, dtypes, and exceptions, then keeps the guarded patch with its benchmark record and technical report.'
       ],
       diagramLabels: ['Inspect: data and mask buffers require a large temporary row-label array before the grouped reduction kernel.', 'Hypothesis: compatible views of the existing data and mask remove the large row-label array; the numerical kernel stays the same.'],
-      value: '1.38×', unit: 'median reduction speedup', scope: 'Up to 1.84× across 40 benchmark cells; the full range is 1.22–1.84×.',
+      value: '1.84×', qualifier: 'up to', unit: 'faster nullable reductions', scope: 'Across 40 benchmark cells; median speedup: 1.38×. Range: 1.22–1.84×.',
       correctness: '134,064 differential cases for this optimization. Zero differences in values, masks, dtypes, or exceptions.',
       measurement: 'Paired, CPU-pinned measurements. Every bootstrap interval is above parity.',
-      ratio: 1.38, ratioLabel: '1.38×', comparisonLabel: 'Median reduction speedup', comparisonNote: '40 benchmark cells · four operations · five dtypes · two shapes.'
+      ratio: 1.84, ratioLabel: '1.84×', comparisonLabel: 'Best benchmark speedup', comparisonNote: 'Best of 40 benchmark cells · median 1.38× · range 1.22–1.84×.'
     },
     usearch: {
       label: 'USearch · norm caching', finding: '#usearch', code: 'https://github.com/unum-cloud/USearch/pull/787',
@@ -141,7 +141,7 @@
   const next = lab.querySelector('[data-study-next]');
   const autoplayButton = lab.querySelector('[data-study-autoplay]');
   const announcement = lab.querySelector('[data-study-announcement]');
-  let selected = 'hnswlib', step = 0;
+  let selected = choices[0].dataset.studyChoice, step = 0;
   let autoplay = !motion.matches;
   let visible = !('IntersectionObserver' in window), pageActive = true;
   let timer = null, startedAt = null, remaining = durations[0];
@@ -186,6 +186,8 @@
     setText('study-title', study.titles[step]); setText('study-description', study.descriptions[step]);
     setText('study-handoff', handoffs[step]);
     setText('proof-value', study.value); setText('proof-unit', study.unit); setText('proof-scope', study.scope);
+    setText('proof-qualifier', study.qualifier || '');
+    lab.querySelector('[data-proof-qualifier]').hidden = !study.qualifier;
     setText('proof-correctness', study.correctness); setText('proof-measurement', study.measurement);
     const hashing = selected === 'hashing';
     lab.querySelector('[data-experiment-comparison]').hidden = hashing;
