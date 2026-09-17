@@ -23,53 +23,56 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-const familyNav = document.querySelector(".family-nav");
-const sectionNav = document.querySelector(".section-nav");
-const syncNavHeights = () => {
-  document.documentElement.style.setProperty(
-    "--nav-h",
-    `${familyNav?.offsetHeight || 67}px`,
-  );
-  document.documentElement.style.setProperty(
-    "--subnav-h",
-    `${sectionNav?.offsetHeight || 52}px`,
-  );
-};
-syncNavHeights();
-window.addEventListener("resize", syncNavHeights, { passive: true });
+// The landing page uses the shared navigation; standalone idea pages keep theirs.
+if (!document.body.classList.contains("trainforge-page")) {
+  const familyNav = document.querySelector(".family-nav");
+  const sectionNav = document.querySelector(".section-nav");
+  const syncNavHeights = () => {
+    document.documentElement.style.setProperty(
+      "--nav-h",
+      `${familyNav?.offsetHeight || 67}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--subnav-h",
+      `${sectionNav?.offsetHeight || 52}px`,
+    );
+  };
+  syncNavHeights();
+  window.addEventListener("resize", syncNavHeights, { passive: true });
 
-const sectionLinks = [...document.querySelectorAll(".section-nav a")].filter(
-  (link) => {
-    const target = new URL(link.href, window.location.href);
-    return target.pathname === window.location.pathname && Boolean(target.hash);
-  },
-);
-const sectionById = new Map(
-  sectionLinks.map((link) => [
-    new URL(link.href, window.location.href).hash.slice(1),
-    link,
-  ]),
-);
-
-if ("IntersectionObserver" in window && sectionById.size) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-      for (const link of sectionLinks) {
-        const active = link === sectionById.get(visible.target.id);
-        link.classList.toggle("active", active);
-        if (active) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
-      }
+  const sectionLinks = [...document.querySelectorAll(".section-nav a")].filter(
+    (link) => {
+      const target = new URL(link.href, window.location.href);
+      return target.pathname === window.location.pathname && Boolean(target.hash);
     },
-    { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.2, 0.5] },
   );
-  for (const id of sectionById.keys()) {
-    const section = document.getElementById(id);
-    if (section) observer.observe(section);
+  const sectionById = new Map(
+    sectionLinks.map((link) => [
+      new URL(link.href, window.location.href).hash.slice(1),
+      link,
+    ]),
+  );
+
+  if ("IntersectionObserver" in window && sectionById.size) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        for (const link of sectionLinks) {
+          const active = link === sectionById.get(visible.target.id);
+          link.classList.toggle("active", active);
+          if (active) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+      },
+      { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.2, 0.5] },
+    );
+    for (const id of sectionById.keys()) {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    }
   }
 }
 

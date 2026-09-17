@@ -2,6 +2,29 @@
 (function () {
   'use strict';
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const flow = document.querySelector('[data-engineer-flow]');
+  if (flow) {
+    const toggle = flow.querySelector('[data-flow-toggle]');
+    let autoplay = !motion.matches;
+    let visible = !('IntersectionObserver' in window);
+    const syncFlow = () => {
+      flow.dataset.playing = String(autoplay && visible && !document.hidden);
+      toggle.setAttribute('aria-pressed', String(autoplay));
+      flow.querySelector('[data-flow-toggle-icon]').textContent = autoplay ? 'Ⅱ' : '▶';
+      flow.querySelector('[data-flow-toggle-label]').textContent = autoplay ? 'Pause animation' : 'Play animation';
+    };
+    toggle.addEventListener('click', () => { autoplay = !autoplay; syncFlow(); });
+    document.addEventListener('visibilitychange', syncFlow);
+    motion.addEventListener('change', () => { if (motion.matches) autoplay = false; syncFlow(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        syncFlow();
+      }, {threshold: 0.2}).observe(flow);
+    }
+    toggle.hidden = false;
+    syncFlow();
+  }
   const findings = document.getElementById('findings');
   if (findings) {
     const projects = Array.from(findings.querySelectorAll('[data-finding-panel]'));
