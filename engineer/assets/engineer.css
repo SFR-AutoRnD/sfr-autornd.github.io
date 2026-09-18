@@ -316,7 +316,8 @@
 /* Results stay visible: project gains lead into one complete study at a time. */
 .findings-alias{display:block;height:0;scroll-margin-top:calc(var(--nav-h) + var(--subnav-h) + 20px)}
 .engineer-page #findings .section-title{text-align:left;margin-bottom:.7rem}
-.findings-intro{max-width:800px;font-size:1rem;line-height:1.75;color:var(--text-secondary);margin:0 0 1.6rem}
+.findings-intro{font-size:1rem;line-height:1.75;color:var(--text-secondary);margin:0 0 1.6rem}
+.findings-system{white-space:nowrap}
 .findings-picker{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #cedfec;border-radius:16px;overflow:hidden;margin:0 0 1.25rem;background:#fff}
 .findings-picker[hidden],.optimization-picker[hidden],.finding-study[hidden],.finding-optimization[hidden]{display:none!important}
 .findings-picker button{position:relative;display:flex;align-items:stretch;flex-direction:column;text-align:left;padding:1.2rem;border:0;border-right:1px solid #d7e5f0;font:inherit;background:#fff;color:var(--sf-navy);cursor:pointer;transition:background .25s ease,color .25s ease}

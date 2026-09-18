@@ -17,11 +17,6 @@
 .reference-button.primary{color:#fff;background:var(--sf-blue);border-color:var(--sf-blue);transition:background .2s ease,box-shadow .2s ease}
 .reference-button.primary:hover{background:var(--sf-blue-deep);box-shadow:var(--shadow-md)}
 .reference-button.is-disabled{color:var(--text-muted);background:#f4f8fc;font-size:.8125rem;font-weight:500}
-.reference-authors{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;margin-top:2rem;padding-top:1.35rem;border-top:1px solid var(--border-color)}
-.reference-author{display:inline-flex;align-items:center;gap:.5rem;color:var(--sf-navy);text-decoration:none}
-.reference-author img{width:32px;height:32px;object-fit:cover;border-radius:50%;border:1px solid var(--border-color)}
-.reference-author strong{font-size:.75rem;font-weight:500}
-.reference-author:hover strong{text-decoration:underline;text-underline-offset:3px}
 
 /* One native input/output figure, with a visible evaluation-to-idea feedback path. */
 .trainforge-process{--agent-accent:#137572;--agent-tint:#e1f1ec;--agent-drawing:#9bc6bd;--cycle-play-state:paused;border:1px solid #cedfec;border-radius:20px;background:#fff;overflow:hidden}
@@ -163,6 +158,14 @@
 .featured-method-delta{color:var(--sf-blue-deep);background:#eef6ff;border:1px solid #d6e7f7;border-radius:9px;min-width:66px;padding:.4rem .5rem;font-size:1.25rem;font-weight:600;line-height:1.4;text-align:center;letter-spacing:-.025em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .program-model-meta{grid-column:1/-1;display:flex;align-items:center;gap:.7rem;border-top:1px solid var(--border-color);padding-top:1rem;font-size:.8125rem;color:var(--text-secondary);margin:0}
 
+/* Match the overview's team portraits at the end of the page. */
+.trainforge-page .section.team{padding:2rem 0}
+.trainforge-page .team .authors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem;max-width:720px;margin:0 auto}
+.trainforge-page .team .author-img{width:88px;height:88px;border-width:3px;margin-bottom:.65rem;box-shadow:0 5px 16px rgba(3,45,96,.08)}
+.trainforge-page .team .author-fallback{font-size:1.6rem}
+.trainforge-page .team .author-name{font-size:.92rem;line-height:1.5}
+.trainforge-page .team .byline{margin-top:1.1rem}
+
 /* Existing idea dialogs use the same type scale, borders, and evidence panels. */
 .idea-detail-dialog{width:min(780px,calc(100% - 2rem));max-height:calc(100dvh - 2rem);margin:auto;padding:0;overflow:auto;border:1px solid #d8e6f1;border-radius:20px;background:#fff;color:var(--text-primary);box-shadow:0 28px 80px rgba(3,45,96,.24)}
 .idea-detail-dialog::backdrop{background:rgba(3,45,96,.54);backdrop-filter:blur(5px)}
@@ -214,6 +217,8 @@ html.idea-dialog-open{overflow:hidden}
   .featured-methods{border-left:0;padding-left:0}
 }
 @media(max-width:640px){
+  .trainforge-page .team .authors{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 1rem}
+  .trainforge-page .team .author-img{width:80px;height:80px}
   .trainforge-hero{padding:1.4rem 0 1.3rem}
   .trainforge-hero h1{font-size:clamp(2.75rem,10.5vw,4rem)}
   .trainforge-promise{font-size:1.35rem;line-height:1.5}
@@ -233,7 +238,6 @@ html.idea-dialog-open{overflow:hidden}
   .process-feedback-mobile{display:block;position:absolute;top:0;right:-22px;width:22px;height:100%;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
   .reference-actions{margin-top:1.2rem}
-  .reference-authors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem 1rem;margin-top:1.5rem}
   .trainforge-page .section{padding:2.4rem 0}
   .section-heading{margin-bottom:1.4rem}
   .section-heading h2{font-size:1.8rem}
