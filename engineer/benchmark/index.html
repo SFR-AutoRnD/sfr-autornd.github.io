@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AutoR&D-Engineer on AutoResearchExam · Salesforce AI Research</title>
+  <title>AutoR&amp;D-Engineer, tested on AutoResearchExam benchmark · Salesforce AI Research</title>
   <meta name="description" content="Explore six selected AutoResearchExam task results from Astra-based research campaigns: recorded progress, benchmark comparisons, and the ideas behind the improvements.">
   <link rel="icon" type="image/svg+xml" href="../../assets/salesforce.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/site.css?v=autornd-nav-4">
-  <link rel="stylesheet" href="assets/benchmark.css?v=4">
+  <link rel="stylesheet" href="assets/benchmark.css?v=5">
   <script src="assets/benchmark.js?v=5" defer></script>
 </head>
 <body class="benchmark-page">
@@ -22,15 +22,16 @@
 
   <header class="benchmark-hero shell">
     <div class="hero-copy">
-      <h1>Better ideas.<br><span>Measurable progress.</span></h1>
+      <h1>AutoR&amp;D-Engineer, <span>tested on AutoResearchExam benchmark</span></h1>
     </div>
     <div class="hero-intro">
       <p>We plug <strong>GPT-6 Astra</strong> into our AutoResearch framework and compare it with published Astra runs using <strong>Terminus 2</strong> on <a href="https://benchmarks.bespokelabs.ai/autoresearchexam/" target="_blank" rel="noopener noreferrer">Bespoke Labs’ AutoResearchExam benchmark</a>.</p>
-      <p>How efficiently can our framework turn the same base model into research progress? Explore six selected results, and replay the ideas behind each improvement.</p>
+      <p>How efficiently can our framework turn the same base model into research progress?</p>
     </div>
   </header>
 
   <main class="shell" id="main-content">
+    <p class="evaluation-protocol">We follow <a href="https://benchmarks.bespokelabs.ai/autoresearchexam/#setup" target="_blank" rel="noopener noreferrer">Bespoke Labs’ scoring protocol</a>: original task environments and graders, <strong>no internet access in task containers</strong>, and validation-based checkpoint selection with separate hidden-test scoring. Bespoke Labs’ published setup also includes an adversarial reward-hacking judge that reviews environments and completed runs.</p>
     <div class="selection-heading"><p>Choose a task to explore</p></div>
     <div class="task-picker" role="tablist" aria-label="Benchmark tasks">
       <button type="button" id="tab-cpu-decoding" role="tab" aria-controls="task-panel" aria-selected="true" data-task="cpu-decoding"><strong>CPU decoding</strong><span class="task-gain">+63.0% <small>final test speedup</small></span></button>
