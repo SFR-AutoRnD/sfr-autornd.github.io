@@ -8,7 +8,7 @@
   const picker = document.querySelector('.task-picker');
   const tabs = [...picker.querySelectorAll('[data-task]')];
   const chart = { width: 800, height: 430, left: 42, right: 18, top: 174, bottom: 36, max: 1 };
-  const state = { data: null, task: null, metric: 'v', time: 24, playing: false, raf: 0, gainIndex: -2, visible: false, autoplay: true };
+  const state = { data: null, task: null, metric: 'v', time: 24, playing: false, raf: 0, lastFrame: 0, hold: 0, gainIndex: -2, visible: false, autoplay: true };
   const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   const timeLabel = hours => {
     const minutes = Math.round(hours * 60);
@@ -37,7 +37,37 @@
   function stop() {
     state.playing = false;
     cancelAnimationFrame(state.raf);
+    state.raf = 0;
     updatePlayButton();
+  }
+
+  function syncPlayback() {
+    // Visibility and open details suspend playback without clearing the reader's
+    // choice to play. Returning to the chart resumes from the same point.
+    cancelAnimationFrame(state.raf);
+    state.raf = 0;
+    if (!state.playing || !state.visible || document.hidden || $('idea-dialog').open || $('run-dialog').open) return;
+    state.lastFrame = performance.now();
+    state.raf = requestAnimationFrame(advanceReplay);
+  }
+
+  function advanceReplay(now) {
+    state.raf = 0;
+    if (!state.playing) return;
+    const elapsed = Math.min(now - state.lastFrame, 100);
+    state.lastFrame = now;
+    // Research time stays linear between checkpoints, with a brief automatic
+    // reading pause at each gain. Preserve that pause across interruptions.
+    if (state.hold > 0) state.hold = Math.max(0, state.hold - elapsed);
+    else {
+      const next = state.task.gains.find(gain => gain.t > state.time + 1e-8);
+      const target = Math.min(24, state.time + elapsed * 24 / 12000);
+      if (next && next.t <= target) { state.time = next.t; state.hold = 3000; }
+      else state.time = target;
+    }
+    renderFrame();
+    if (state.time >= 24) stop();
+    else state.raf = requestAnimationFrame(advanceReplay);
   }
 
   function positionIdea() {
@@ -133,31 +163,12 @@
     if (!state.task) return;
     state.autoplay = false;
     if (state.playing) { stop(); return; }
-    if (state.time >= 23.999) state.time = 0;
+    if (state.time >= 23.999) { state.time = 0; state.hold = 0; }
     state.playing = true;
     pointerLeave();
     updatePlayButton();
-    let last = performance.now();
-    let hold = 0;
-    // Research time remains linear between checkpoints. Each new validation
-    // best gets a reading pause; the measured timestamps never change.
-    const frame = now => {
-      if (!state.playing) return;
-      const elapsed = Math.min(now - last, 100);
-      last = now;
-      if (hold > 0) hold = Math.max(0, hold - elapsed);
-      else {
-        const next = state.task.gains.find(gain => gain.t > state.time + 1e-8);
-        const target = Math.min(24, state.time + elapsed * 24 / 12000);
-        if (next && next.t <= target) { state.time = next.t; hold = 3000; }
-        else state.time = target;
-      }
-      renderFrame();
-      if (state.time >= 24) stop();
-      else state.raf = requestAnimationFrame(frame);
-    };
     renderFrame();
-    state.raf = requestAnimationFrame(frame);
+    syncPlayback();
   }
 
   function stepPath(points, end) {
@@ -201,7 +212,7 @@
 
   function renderTask(id, options = {}) {
     const task = state.data.tasks.find(t => t.id === id) || state.data.tasks[0];
-    stop(); state.task = task;
+    stop(); state.task = task; state.hold = 0;
     state.metric = task.kind === 'auarc' ? 'h' : 'v';
     state.autoplay = options.animate ?? state.autoplay;
     state.time = state.autoplay && !motion.matches ? 0 : 24; state.gainIndex = -2;
@@ -242,14 +253,13 @@
     const gain = state.task?.gains[index];
     if (!gain) return;
     state.autoplay = false; stop(); pointerLeave();
-    state.time = gain.t; renderFrame(); updatePlayButton();
+    state.time = gain.t; state.hold = 0; renderFrame(); updatePlayButton();
     $('selection-status').textContent = `${timeLabel(gain.t)}. ${gain.title}. Use Explore this idea for details.`;
   }
 
   function openDetails() {
     const gain = state.task.gains[state.gainIndex];
     if (!gain) return;
-    stop();
     const rawMetrics = {
       'cpu-decoding': ['Validation speedup', 'Hidden-test speedup', '×'],
       'decoder-graphs': ['Validation speedup', 'Hidden-test speedup', '×'],
@@ -268,6 +278,7 @@
     $('detail-note').textContent = gain.kind === 'remeasurement' ? 'This is a recorded remeasurement. A higher timing result alone does not establish a new algorithmic improvement.' : 'The measurement covers the cumulative implementation at this checkpoint; it does not isolate the contribution of this change from all earlier work.';
     $('detail-source').href = state.task.source;
     $('idea-dialog').showModal();
+    syncPlayback();
   }
 
   function pointerMove(event) {
@@ -321,7 +332,6 @@
   function openRun(slug) {
     const task = state.data.nearTies.tasks.find(task => task.slug === slug);
     if (!task) return;
-    stop();
     $('run-icon').innerHTML = runIcon(task);
     $('run-task-name').textContent = task.short;
     $('run-title').textContent = task.approach;
@@ -337,6 +347,7 @@
     $('run-steps').innerHTML = task.gains.map((gain, i) => `<details class="run-step" name="run-improvement"${i === 0 ? ' open' : ''}><summary><span class="run-step-dot" aria-hidden="true"></span><span><small>${timeLabel(gain.t)} · Checkpoint ${gain.checkpoint}</small><strong>${escape(gain.title)}</strong></span><span class="run-step-toggle" aria-hidden="true">+</span></summary><div class="run-step-body"><p>${escape(gain.detail)}</p><div class="run-step-measure"><span>Validation ${escape(task.metric)}</span><strong><span>${runMetric(task, gain.before)}</span> <span aria-hidden="true">→</span><span class="sr-only">to</span> ${runMetric(task, gain.after)}</strong></div></div></details>`).join('');
     $('run-dialog').showModal();
     $('run-dialog').scrollTop = 0;
+    syncPlayback();
   }
 
   picker.addEventListener('click', event => {
@@ -359,15 +370,15 @@
     state.autoplay = false; stop(); state.time = 24; renderFrame(); updatePlayButton();
     $('selection-status').textContent = `${state.task.short}: ${state.task.gain} ${state.task.gainLabel}. Final comparison revealed.`;
   });
-  $('restart-replay').addEventListener('click', () => { stop(); state.time = 0; play(); });
-  $('research-time').addEventListener('input', event => { state.autoplay = false; stop(); state.time = Number(event.target.value); renderFrame(); updatePlayButton(); });
-  $('metric-select').addEventListener('change', event => { state.autoplay = false; stop(); state.metric = event.target.value; pointerLeave(); drawChart(); });
+  $('restart-replay').addEventListener('click', () => { stop(); state.time = 0; state.hold = 0; play(); });
+  $('research-time').addEventListener('input', event => { state.autoplay = false; stop(); state.time = Number(event.target.value); state.hold = 0; renderFrame(); updatePlayButton(); });
+  $('metric-select').addEventListener('change', event => { state.metric = event.target.value; pointerLeave(); drawChart(); });
   $('idea-select').addEventListener('change', event => goToIdea(Number(event.target.value)));
   $('previous-idea').addEventListener('click', () => goToIdea(state.gainIndex - 1));
   $('next-idea').addEventListener('click', () => goToIdea(state.gainIndex + 1));
   $('idea-details').addEventListener('click', openDetails);
-  $('idea-popup').addEventListener('pointerenter', event => { if (event.pointerType !== 'touch' && state.playing) stop(); });
-  $('idea-popup').addEventListener('focusin', () => { if (state.playing) stop(); });
+  $('idea-dialog').addEventListener('close', syncPlayback);
+  $('run-dialog').addEventListener('close', syncPlayback);
   $('near-tie-tasks').addEventListener('click', event => {
     const button = event.target.closest('[data-run]');
     if (button && state.data) openRun(button.dataset.run);
@@ -384,15 +395,15 @@
   });
   svg.addEventListener('pointermove', pointerMove);
   svg.addEventListener('pointerleave', pointerLeave);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  document.addEventListener('visibilitychange', syncPlayback);
   window.addEventListener('hashchange', () => { if (state.data) renderTask(location.hash.slice(1), { animate: false }); });
   motion.addEventListener('change', () => { if (motion.matches && state.task) { stop(); state.time = 24; renderFrame(); updatePlayButton(); } });
   new ResizeObserver(drawChart).observe(wrap);
   const visibility = new IntersectionObserver(entries => {
     state.visible = entries[0].isIntersecting;
-    if (!state.visible && state.playing) stop();
     if (state.visible && state.task && state.autoplay && !motion.matches) play();
-  }, { threshold: .4 });
+    else syncPlayback();
+  }, { threshold: 0 });
 
   fetch('assets/results.json').then(response => {
     if (!response.ok) throw new Error('Results unavailable');
