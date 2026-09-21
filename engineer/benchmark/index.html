@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoR&D-Engineer on AutoResearchExam · Salesforce AI Research</title>
+  <meta name="description" content="Explore six selected AutoResearchExam task results from Astra-based research campaigns: recorded progress, benchmark comparisons, and the ideas behind the improvements.">
+  <link rel="icon" type="image/svg+xml" href="../../assets/salesforce.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/site.css?v=autornd-nav-4">
+  <link rel="stylesheet" href="assets/benchmark.css?v=3">
+  <script src="assets/benchmark.js?v=3" defer></script>
+</head>
+<body class="benchmark-page">
+  <a class="skip-link" href="#main-content">Skip to results</a>
+  <nav class="site-nav" aria-label="SFR-AutoR&D sites">
+    <a class="site-nav-brand" href="../../"><img src="../../assets/salesforce.svg" alt="Salesforce"><span class="site-nav-wordmark"><strong>Salesforce AI Research</strong><small>SFR-AutoR&amp;D</small></span></a>
+    <div class="site-nav-links"><a href="../../">Overview</a><a href="../">AutoR&amp;D-Engineer</a><a href="./" aria-current="page">Benchmark</a></div>
+  </nav>
+
+  <header class="benchmark-hero shell">
+    <div class="hero-copy">
+      <h1>Better ideas.<br><span>Measurable progress.</span></h1>
+    </div>
+    <div class="hero-intro">
+      <p>We plug <strong>GPT-6 Astra</strong> into our AutoResearch framework and compare it with published Astra runs using <strong>Terminus 2</strong> on <a href="https://benchmarks.bespokelabs.ai/autoresearchexam/" target="_blank" rel="noopener noreferrer">Bespoke Labs’ AutoResearchExam benchmark</a>.</p>
+      <p>How efficiently can our framework turn the same base model into research progress? Explore six selected results, and replay the ideas behind each improvement.</p>
+    </div>
+  </header>
+
+  <main class="shell" id="main-content">
+    <div class="selection-heading"><p>Choose a task to explore</p></div>
+    <div class="task-picker" role="tablist" aria-label="Benchmark tasks">
+      <button type="button" id="tab-cpu-decoding" role="tab" aria-controls="task-panel" aria-selected="true" data-task="cpu-decoding"><strong>CPU decoding</strong><span class="task-gain">+63.0% <small>final test speedup</small></span></button>
+      <button type="button" id="tab-decoder-graphs" role="tab" aria-controls="task-panel" aria-selected="false" tabindex="-1" data-task="decoder-graphs"><strong>Decoder graphs</strong><span class="task-gain">+23.5% <small>final test speedup</small></span></button>
+      <button type="button" id="tab-sparse-embeddings" role="tab" aria-controls="task-panel" aria-selected="false" tabindex="-1" data-task="sparse-embeddings"><strong>Sparse embeddings</strong><span class="task-gain">+7.8% <small>final test nDCG</small></span></button>
+      <button type="button" id="tab-subset-selection" role="tab" aria-controls="task-panel" aria-selected="false" tabindex="-1" data-task="subset-selection"><strong>Subset selection</strong><span class="task-gain">−2.0% <small>final test discrepancy</small></span></button>
+      <button type="button" id="tab-categorical-learning" role="tab" aria-controls="task-panel" aria-selected="false" tabindex="-1" data-task="categorical-learning"><strong>Categorical learning</strong><span class="task-gain">+2.1% <small>24h test AUARC</small></span></button>
+      <button type="button" id="tab-covariance" role="tab" aria-controls="task-panel" aria-selected="false" tabindex="-1" data-task="covariance"><strong>Covariance estimation</strong><span class="task-gain">+0.54% <small>24h test AUARC</small></span></button>
+    </div>
+
+    <article class="research-lab" id="task-panel" role="tabpanel" aria-labelledby="tab-cpu-decoding" tabindex="0">
+      <div class="lab-heading">
+        <div><h2 id="task-title">Make every decoding step do less work.</h2><p id="task-goal">Generate text faster on an eight-core CPU while meeting the benchmark’s token-agreement requirement.</p></div>
+        <a class="source-link" id="task-source" href="https://benchmarks.bespokelabs.ai/autoresearchexam/tasks.html#cpu-llm-decode-throughput" target="_blank" rel="noopener noreferrer">Task brief <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <div class="experiment-layout">
+        <section class="chart-panel" aria-label="Recorded research progress">
+          <div class="chart-toolbar">
+            <div><h3>Watch the research unfold</h3><p id="chart-subtitle">Best validation reward · higher is better</p></div>
+            <label class="metric-picker"><span class="sr-only">Progress metric</span><select id="metric-select"><option value="v">Validation progress</option><option value="h">Hidden-test progress</option></select></label>
+          </div>
+          <div class="chart-legend"><span><i class="legend-line ours"></i>AutoR&amp;D-Engineer <small>· Astra</small></span><span><i class="legend-line baseline"></i>Terminus 2 <small>· Astra</small></span></div>
+          <div class="chart-wrap" id="chart-wrap">
+            <svg id="progress-chart" role="img" aria-labelledby="chart-title chart-desc"><title id="chart-title">Recorded checkpoint progress</title><desc id="chart-desc">Compare the selected local research campaign with the published Astra run. Use the research-time slider or Replay research button to explore the trajectory.</desc></svg>
+            <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+            <p class="replay-hint" id="replay-hint" hidden>Every improvement has a story.<br><span>Watch an idea appear at each new validation best.</span></p>
+            <div class="idea-popup" id="idea-popup" hidden>
+              <div class="idea-popup-meta"><span id="idea-time"></span><span id="idea-gain"></span></div>
+              <h4 id="idea-title"></h4><p id="idea-summary"></p>
+              <button type="button" id="idea-details">Explore this idea <span aria-hidden="true">↗</span></button>
+            </div>
+            <p id="loading-note" role="status">Loading recorded checkpoints…</p>
+          </div>
+          <div class="timeline-toolbar">
+            <button type="button" class="replay-button" id="replay-button" disabled><span id="replay-icon" aria-hidden="true">▶</span><span id="replay-label">Replay research</span></button>
+            <button type="button" class="restart-replay" id="restart-replay" aria-label="Restart replay from the beginning" title="Restart replay" disabled>↺</button>
+            <div class="timeline-range"><label class="sr-only" for="research-time">Research time</label><input type="range" id="research-time" min="0" max="24" step="0.01" value="24" disabled><output id="research-time-output" for="research-time">24h 00m</output></div>
+          </div>
+          <div class="idea-navigation" aria-label="Explore recorded improvements">
+            <button type="button" id="previous-idea" aria-label="Previous improvement">←</button>
+            <label for="idea-select" class="sr-only">Jump to an improvement</label><select id="idea-select" disabled><option>Loading ideas…</option></select>
+            <button type="button" id="next-idea" aria-label="Next improvement">→</button>
+            <span id="idea-count"></span>
+          </div>
+          <div class="chart-footnote"><span id="chart-note">Recorded checkpoints; scores are held between evaluations.</span></div>
+        </section>
+
+        <aside class="result-panel" id="result-panel" aria-label="Final task comparison">
+          <div class="result-pending" id="result-pending">
+            <div class="result-orbit" aria-hidden="true"><svg viewBox="0 0 120 120"><circle class="orbit-track" cx="60" cy="60" r="52"/><circle id="result-progress-ring" cx="60" cy="60" r="52" pathLength="100"/><path class="orbit-trend" d="M36 75V60h15V49h15V35h18"/></svg><span id="result-pending-time">0h</span></div>
+            <h3>The ideas come first.<br>The result follows.</h3>
+            <p>Follow the research through the 24-hour timeline.</p>
+            <button type="button" id="show-result">Show final result <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="result-reveal" id="result-reveal" hidden>
+          <div class="result-arrival"><span class="result-check" aria-hidden="true">✓</span><p>At the finish</p><span>24h</span></div>
+          <strong class="result-gain" id="result-gain">+63.0%</strong><p class="result-gain-label" id="result-gain-label">higher final test speedup</p>
+          <div class="result-comparison">
+            <p class="comparison-caption" id="result-metric">Final hidden-test speedup</p>
+            <div class="comparison-row"><div><span class="series-name">Our campaign</span><b id="our-result">13.37×</b></div><span class="result-bar"><i id="our-result-bar"></i></span></div>
+            <div class="comparison-row is-baseline"><div><span class="series-name">Published Astra</span><b id="baseline-result">8.20×</b></div><span class="result-bar"><i id="baseline-result-bar"></i></span></div>
+          </div>
+          <p class="metric-explanation" id="metric-explanation">Speedup against the task reference. Higher is better.</p>
+          </div>
+        </aside>
+      </div>
+
+    </article>
+    <p class="selection-status sr-only" id="selection-status" role="status" aria-live="polite"></p>
+
+    <section class="near-ties" aria-labelledby="near-ties-heading">
+      <div class="near-ties-heading"><div><h2 id="near-ties-heading">Four more tasks. More ideas to explore.</h2><p>Final results within ±5% of published Astra. Open a task to see the ideas, checkpoints, and evidence.</p></div><span class="near-ties-hint">Click a card to explore <span aria-hidden="true">↘</span></span></div>
+      <ul id="near-tie-tasks"></ul>
+    </section>
+
+    <section class="reading-guide" aria-labelledby="reading-heading">
+      <div class="guide-intro"><h2 id="reading-heading">Read the result.<br>Explore the evidence.</h2><p>Recorded checkpoints, the original task graders, and validation-based selection. Each result links the research decisions to the measurements behind them.</p><div class="evidence-links"><a class="text-link" href="assets/checkpoint-curves.csv" download>Download curve data <span aria-hidden="true">↓</span></a><a class="text-link" href="assets/results.json" download>Results &amp; sources <span aria-hidden="true">↓</span></a></div></div>
+      <div class="guide-questions">
+        <details><summary>What does the progress curve show?<span aria-hidden="true">+</span></summary><p>Validation progress tracks the best validation reward reached so far. Hidden-test progress tracks the hidden reward of that same validation-selected solution. The curves use the benchmark website’s difficulty-adjusted reward mapping, so higher is better on every chart. They are drawn as steps from recorded evaluations, with no invented intermediate improvements.</p></details>
+        <details><summary>Final performance and AUARC<span aria-hidden="true">+</span></summary><p>CPU decoding, decoder graphs, sparse embeddings, and subset selection highlight the final hidden-test metric. Categorical learning and covariance estimation highlight 24-hour hidden-test AUARC: the average reward held over time. Finding a good solution earlier contributes more area. The percentages compare the metric named on each result card.</p><p>Every chart uses a 24-hour axis. The decoder-graph run ended at 3.92 hours: its dashed blue continuation holds the last selected result constant through hour 24. That continuation adds no new measurements. Its result card compares the selected checkpoint with published Astra’s 24-hour final result.</p></details>
+        <details><summary>Model and reasoning settings<span aria-hidden="true">+</span></summary><p>Both systems use GPT-6 Astra. The six campaigns shown here use <strong>high</strong> reasoning effort; Bespoke Labs reports using the highest effort available for its evaluations.</p><p>These campaigns combine AutoResearch and operator contributions. This comparison explores the results of those workflows; it does not isolate the framework from every other experimental difference.</p></details>
+        <details><summary>Evaluation methodology and safeguards<span aria-hidden="true">+</span></summary><p>We use the benchmark’s original task graders and difficulty-adjusted reward mapping. Checkpoints are selected using validation scores, with separate hidden-test grading of the selected solutions. Retained artifacts and result files are linked by checked hashes.</p><p>Bespoke Labs’ methodology includes an adversarial quality-control and reward-hacking agent. Our records include source, task-constraint, and access reviews; they do not establish that Bespoke Labs’ judge independently certified these local runs.</p><a class="text-link" href="https://benchmarks.bespokelabs.ai/autoresearchexam/#setup" target="_blank" rel="noopener noreferrer">Read the benchmark methodology <span aria-hidden="true">↗</span></a></details>
+        <details><summary>Task coverage and comparison sources<span aria-hidden="true">+</span></summary><p>We randomly sampled CPU tasks to keep Astra evaluation costs manageable. The initial campaign covered 21 CPU tasks; seven H100-only tasks were excluded. This page highlights six selected task stories and four additional near-ties from those evaluations.</p><p>Near-ties use the relative difference in each task’s final hidden-test metric, with a ±5% threshold. The comparison data was captured on September 21, 2026. Downloadable results include the values and sources.</p></details>
+      </div>
+    </section>
+    <p class="campaign-context">Selected results from Astra-based research campaigns combining AutoResearch and operator contributions.</p>
+    <noscript><div class="no-script-note">Enable JavaScript to replay the checkpoint curves and explore the task stories. The six task cards above summarize the selected results. <a href="assets/checkpoint-curves.csv">Download the recorded data.</a></div></noscript>
+  </main>
+  <dialog class="idea-dialog" id="idea-dialog" aria-labelledby="detail-title">
+    <form method="dialog"><button class="dialog-close" aria-label="Close idea details">×</button></form>
+    <p class="detail-context" id="detail-context"></p><h2 id="detail-title"></h2>
+    <p class="detail-summary" id="detail-summary"></p><p class="detail-explanation" id="detail-explanation"></p>
+    <div class="detail-evidence"><h3>At this checkpoint</h3><dl id="detail-measurements"></dl><p>Validation determines selection. Hidden-test measurements report how that selected solution generalizes.</p></div>
+    <p class="detail-note" id="detail-note"></p>
+    <a class="text-link" id="detail-source" target="_blank" rel="noopener noreferrer">Read the original task <span aria-hidden="true">↗</span></a>
+  </dialog>
+  <dialog class="run-dialog" id="run-dialog" aria-labelledby="run-title">
+    <form method="dialog"><button class="dialog-close" aria-label="Close research walkthrough">×</button></form>
+    <header class="run-dialog-heading"><span class="run-dialog-icon" id="run-icon" aria-hidden="true"></span><div><p id="run-task-name"></p><h2 id="run-title"></h2></div></header>
+    <p class="run-goal" id="run-goal"></p>
+    <div class="run-dialog-layout">
+      <aside class="run-overview" aria-label="Research run summary">
+        <div class="run-counts"><div><strong id="run-checkpoints"></strong><span>completed checkpoints</span></div><div><strong id="run-gains"></strong><span>validation improvements</span></div></div>
+        <div class="run-final"><h3>Final comparison</h3><p id="run-metric"></p><dl><div><dt>Our campaign</dt><dd id="run-ours"></dd></div><div><dt>Published Astra</dt><dd id="run-baseline"></dd></div></dl><p class="run-match" id="run-match"></p><p class="run-direction" id="run-direction"></p></div>
+        <p class="run-selection-note">Improvements below follow validation-based selection. The final comparison uses the selected solution’s hidden-test result.</p>
+        <a class="text-link" id="run-source" target="_blank" rel="noopener noreferrer">Read the original task <span aria-hidden="true">↗</span></a>
+      </aside>
+      <section class="run-ideas" aria-labelledby="run-ideas-heading"><div class="run-ideas-heading"><h3 id="run-ideas-heading">Ideas that moved the run forward</h3><p>Open an idea to see what changed and how it measured.</p></div><div id="run-steps"></div></section>
+    </div>
+  </dialog>
+  <footer class="benchmark-footer shell"><a href="../">← Meet AutoR&amp;D-Engineer</a><span>Salesforce AI Research · 2026</span><a href="https://benchmarks.bespokelabs.ai/autoresearchexam/" target="_blank" rel="noopener noreferrer">AutoResearchExam by Bespoke Labs ↗</a></footer>
+</body>
+</html>

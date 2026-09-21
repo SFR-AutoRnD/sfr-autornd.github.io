@@ -22,6 +22,14 @@
 .engineer-page .section-nav a.sn-link{max-width:min(27rem,calc(100vw - 3rem));white-space:normal}
 .engineer-page .ed{padding:3.1rem 0}
 .engineer-page .section-title{font-size:2rem;line-height:1.25;margin-bottom:1.65rem;letter-spacing:-.035em}
+.engineer-benchmark-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2.5rem;background:linear-gradient(120deg,#fff,#f3f9ff)}
+.engineer-benchmark-card p{font-size:1rem;line-height:1.85;color:var(--text-secondary)}
+.engineer-benchmark-card strong{color:var(--sf-navy);font-weight:600}
+.engineer-benchmark-card p a{text-underline-offset:3px}
+.engineer-benchmark-card .btn{white-space:nowrap}
+.engineer-benchmark-card a:focus-visible{outline:3px solid var(--sf-blue);outline-offset:4px}
+@media(max-width:800px){.engineer-benchmark-card{grid-template-columns:1fr;gap:1.4rem}.engineer-benchmark-card .btn{justify-self:start;white-space:normal}}
+@media(max-width:480px){.engineer-benchmark-card{padding:1.35rem}.engineer-benchmark-card p{font-size:.9375rem}.engineer-benchmark-card .btn{font-size:.875rem;padding:.75rem 1rem}}
 .engineer-page .team{padding:2rem 0}
 .engineer-page .team .authors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem;max-width:720px;margin:0 auto}
 .engineer-page .team .author-img{width:88px;height:88px;border-width:3px;margin-bottom:.65rem;box-shadow:0 5px 16px rgba(3,45,96,.08)}

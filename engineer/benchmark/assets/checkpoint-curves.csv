@@ -1,0 +1,499 @@
+task,series,elapsed_hours,validation_reward,hidden_test_reward,checkpoint,selected_checkpoint
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),0.1228434,0.00011763321962122113,0.000764121554105678,1,1
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),0.2397824,0.11060421364333137,0.11713994889798293,2,2
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),0.4728322,0.18387333714192441,0.18440583965418808,3,3
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),0.7223801,0.20222251421921045,0.20753679126985236,4,4
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),1.1610711,0.25142449515187276,0.25585141541438133,5,5
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),1.606905,0.26072492444173856,0.2682475389442964,6,6
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),2.0213374,0.32860460340278985,0.3191257574725948,7,7
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),2.2376248,0.32860460340278985,0.3191257574725948,8,7
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),2.4896375,0.32860460340278985,0.3191257574725948,9,7
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),2.6590781,0.32860460340278985,0.3191257574725948,10,7
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),2.8057928,0.33422103861517977,0.33801654179841434,11,11
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),3.1095122,0.34452018877818563,0.334330532300632,12,12
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),3.7252757,0.37839596908068424,0.3679428025416135,13,13
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),3.8693769,0.37839596908068424,0.3679428025416135,14,13
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),4.1627107,0.3980574961316342,0.4013135884207005,15,15
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),4.9324488,0.4089218038315775,0,16,16
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),5.0663259,0.4117891298631199,0.4134897360703812,17,17
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),10.2804624,0.4310175748630259,0.42759786392991106,18,18
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),10.3438255,0.4332029700164371,0.42376202049373424,19,19
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),12.9895624,0.4332029700164371,0.42376202049373424,20,19
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),14.3043563,0.4402886793446768,0.4333389999433339,21,21
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),14.9027123,0.4402886793446768,0.4333389999433339,22,21
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),15.8720788,0.4402886793446768,0.4333389999433339,23,21
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),17.2197509,0.4442991631799163,0.4270190836349909,24,24
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),18.0607693,0.4442991631799163,0.4270190836349909,25,24
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),19.3781043,0.454411245547033,0.4211051443321086,26,26
+cpu-llm-decode-throughput,AutoResearch campaign (Astra),21.7204745,0.454411245547033,0.4211051443321086,27,26
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),0.314095,0.20417946221256836,0.2167919799498747,1,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),0.8127013,0.22441363389586155,0.22886057345556649,2,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),1.2497925,0.22441363389586155,0.22886057345556649,3,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),1.8155266,0.22441363389586155,0.22886057345556649,4,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),2.234377,0.22441363389586155,0.22886057345556649,5,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),2.7496838,0.25685334219280725,0.25382633466327814,6,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),4.2754179,0.25685334219280725,0.25382633466327814,7,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),5.0109085,0.25685334219280725,0.25382633466327814,8,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),5.9141228,0.2670644638360984,0.26492526019483803,9,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),7.1234242,0.2670644638360984,0.26492526019483803,10,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),8.59523,0.27106827088818186,0.26661547355070275,11,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),9.4161988,0.27106827088818186,0.26661547355070275,12,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),10.8900803,0.28803266673646744,0.2814968533788667,13,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),11.5357324,0.2951702578433039,0.31525609422076145,14,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),12.5409639,0.2951702578433039,0.31525609422076145,15,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),14.0615713,0.3065809546340787,0.3181508250375017,16,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),15.41324,0.3065809546340787,0.3181508250375017,17,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),16.6991546,0.31236171391820344,0.2975903216209963,18,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),17.5577982,0.31236171391820344,0.2975903216209963,19,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),18.774089,0.31236171391820344,0.2975903216209963,20,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),19.4968407,0.31236171391820344,0.2975903216209963,21,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),20.9140895,0.31236171391820344,0.2975903216209963,22,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),22.0539416,0.31236171391820344,0.2975903216209963,23,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),23.287899,0.31236171391820344,0.2975903216209963,24,
+cpu-llm-decode-throughput,Published Terminus 2 (Astra),24.0,0.31236171391820344,0.2975903216209963,25,
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),1.5737234,0.3808516899296072,0.40897837421708233,1,1
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),1.5848107,0.679327808128899,0.7409219714978313,2,2
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),1.7066066,0.9095120595327203,0.9139046120373686,3,3
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),1.7328987,0.923198262068428,0.9342371665778859,4,4
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),1.8435243,0.9278442572120209,0.9409979106786315,5,5
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),1.8923868,0.9328740951520011,0.9450243024466639,6,6
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.0262708,0.9353138323279295,0.9448666230430033,7,7
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.09877,0.9391782500822321,0.9482956378418119,8,8
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.1065857,0.9391782500822321,0.9482956378418119,9,8
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.127129,0.9401845682979143,0.9501102784326803,10,10
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.182713,0.9419025712538738,0.951161266445771,11,11
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.3699174,0.943068369815225,0.9529910580026401,12,12
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.5614293,0.9435948554382254,0.9535139012190257,13,13
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),2.7230647,0.9450129248940894,0.955956667610569,14,14
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),3.0336271,0.945692209586491,0.9556212920756815,15,15
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),3.2106252,0.9463541550803823,0.9560850962139396,16,16
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),3.5370961,0.9463541550803823,0.9560850962139396,17,16
+cpu-decoder-graph-executor,AutoResearch campaign (Astra),3.7183218,0.9475348012946173,0.9570578923796346,18,18
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),0.0737759,0,0,1,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),0.2138088,0.1425609059978954,0,2,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),0.3211766,0.4179229876227656,0.3571175902537061,3,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),0.4433612,0.4682787659287181,0.41707403745116645,4,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),0.9262021,0.4682787659287181,0.41707403745116645,5,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),1.6878985,0.7512720866850157,0.7752734188665301,6,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),2.011486,0.8133572757712979,0.8396619839413989,7,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),2.551698,0.844488306984061,0.8714137671943737,8,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),3.2341137,0.8687793313321546,0.8769544477020376,9,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),3.7923537,0.8910562073594647,0.9090008476883984,10,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),4.5635752,0.8978612400373279,0.9119108218537937,11,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),5.0412457,0.899928685821707,0.912104650915179,12,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),5.6719913,0.9077242354117859,0.9218959317334243,13,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),6.8245506,0.9156456741791776,0.9241824897903882,14,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),7.5437236,0.9156456741791776,0.9241824897903882,15,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),8.5668364,0.9196766965648151,0.9321783412838749,16,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),9.4317611,0.9232192151048417,0.9345447137006614,17,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),10.2193135,0.9233974340444464,0.9348649490936971,18,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),10.7179843,0.9235869852318414,0.9364025775198431,19,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),11.5122372,0.9235869852318414,0.9364025775198431,20,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),12.2932045,0.9250150430356728,0.9374897943354306,21,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),13.2683553,0.9250785724042476,0.937680487786185,22,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),14.1371046,0.9250785724042476,0.937680487786185,23,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),15.2416739,0.9272035467428584,0.9378810346363351,24,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),16.2210562,0.9272035467428584,0.9378810346363351,25,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),16.6559809,0.9272035467428584,0.9378810346363351,26,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),17.2913658,0.9272035467428584,0.9378810346363351,27,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),18.1012838,0.9272035467428584,0.9378810346363351,28,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),18.6498408,0.9287953496169934,0.938942138786934,29,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),20.3228699,0.9287953496169934,0.938942138786934,30,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),21.2146853,0.9415496085217059,0.9471289165653994,31,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),21.918393,0.9453464578179719,0.9457184794415756,32,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),22.5890774,0.9453464578179719,0.9457184794415756,33,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),23.7972245,0.9453464578179719,0.9457184794415756,34,
+cpu-decoder-graph-executor,Published Terminus 2 (Astra),24.0,0.9453464578179719,0.9457184794415756,35,
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),0.0943485,0,0,1,1
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),0.8370646,0,0,2,1
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),0.9997854,0.2009105210023007,0.19334669301672902,3,3
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),1.4957322,0.49333865210030753,0.4926295346496533,4,4
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),3.1213661,0.49333865210030753,0.4926295346496533,5,4
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),4.4256683,0.5107278892008479,0.5096409008188817,6,6
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),4.4361237,0.5107278892008479,0.5096409008188817,7,6
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),4.443106,0.5107278892008479,0.5096409008188817,8,6
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),6.7671171,0.5107278892008479,0.5096409008188817,9,6
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),8.0149018,0.5127763766704102,0.5152937823765861,10,10
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),9.2622046,0.5131475418273886,0.515521335870711,11,11
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),10.410958,0.5133275131143245,0.5158072709850123,12,12
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),12.8128768,0.5134080473786485,0.5159336884539183,13,13
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),15.4757281,0.5134080473786485,0.5159336884539183,14,13
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),17.3673516,0.5134080473786485,0.5159336884539183,15,13
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),18.9224074,0.5135399287432322,0.5160016097535688,16,16
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),18.9476447,0.5135561293446683,0.5159750978906874,17,17
+sparse-elsa-item-embeddings-8nnz,AutoResearch campaign (Astra),23.5098074,0.5135561293446683,0.5159750978906874,18,17
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),0.1619599,0,0,1,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),0.48065,0,0,2,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),1.0751171,0.05516010704356365,0.07956297658825606,3,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),2.2856524,0.16987522284738407,0.17397371535660786,4,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),3.0801205,0.29201307581862257,0.2957032395383936,5,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),4.1955979,0.30897894361848577,0.3010366915997369,6,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),4.9820593,0.3358173077902564,0.3382993500792184,7,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),6.160838,0.3717956477203438,0.362862070980586,8,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),7.6435541,0.38533758381035527,0.3793348632054257,9,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),9.172989,0.39011340330045646,0.3796065541755556,10,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),11.1641363,0.39393846243385006,0.3817241381484746,11,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),13.6266539,0.4095089157254666,0.3938272819929751,12,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),16.4775815,0.4161451561657779,0.39709221689439256,13,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),16.7451579,0.4191567387260792,0.4008475554756451,14,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),16.9715567,0.4191567387260792,0.4008475554756451,15,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),18.6947615,0.42320054846825206,0.40496167539809275,16,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),18.9217516,0.42320054846825206,0.40496167539809275,17,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),22.5255841,0.42320054846825206,0.40496167539809275,18,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),22.7367389,0.4235513579997284,0.40538548856246437,19,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),22.9671951,0.4324294262603027,0.41506450220606955,20,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),23.1636099,0.4324294262603027,0.41506450220606955,21,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),23.3582925,0.4324294262603027,0.41506450220606955,22,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),23.5560526,0.4399781725091689,0.425926286684211,23,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),23.7437084,0.4399781725091689,0.425926286684211,24,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),23.9310116,0.4399781725091689,0.425926286684211,25,
+sparse-elsa-item-embeddings-8nnz,Published Terminus 2 (Astra),24.0,0.4399781725091689,0.425926286684211,26,
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),0.0028229,0,0,1,1
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),0.1139252,0.5237363680950449,0.5447391351857771,2,2
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),0.2395175,0.5988143308932663,0.6200659767210539,3,3
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),0.511256,0.6135716764621723,0.6431730042145719,4,4
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),1.3306091,0.616890508164007,0.6447005017037533,5,5
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),1.6801761,0.62545877893418,0.6532099686464062,6,6
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),1.9753672,0.6296963547765991,0.6562528906745252,7,7
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),2.8678365,0.6319035165480322,0.6593651338760459,8,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),3.4538486,0.6319035165480322,0.6593651338760459,9,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),4.1014295,0.6319035165480322,0.6593651338760459,10,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),5.4056088,0.6319035165480322,0.6593651338760459,11,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),6.906498,0.6319035165480322,0.6593651338760459,12,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),7.4304467,0.6319035165480322,0.6593651338760459,13,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),8.0411769,0.6319035165480322,0.6593651338760459,14,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),8.6223531,0.6319035165480322,0.6593651338760459,15,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),13.508923,0.6319035165480322,0.6593651338760459,16,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),15.696311,0.6319035165480322,0.6593651338760459,17,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),17.1315888,0.6319035165480322,0.6593651338760459,18,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),19.7003049,0.6319035165480322,0.6593651338760459,19,8
+carps-star-discrepancy-subset-select,AutoResearch campaign (Astra),21.7311192,0.6319035165480322,0.6593651338760459,20,8
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),0.1243369,0.6169563049210315,0.6439641874477732,1,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),0.2778167,0.6173273054033429,0.6447177767456137,2,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),0.4338641,0.6173707711814544,0.6449634215689872,3,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),0.7236369,0.6248713050225737,0.6513353684786907,4,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),1.0416462,0.6253308611199472,0.650721183951071,5,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),1.4504038,0.6256971691858478,0.6519835941927338,6,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),1.8889436,0.6261418149089621,0.6516989002808948,7,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),2.2272755,0.6270131393439472,0.6528210625618388,8,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),2.7387932,0.6274905548648549,0.6527919207063823,9,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),3.4558971,0.6274905548648549,0.6527919207063823,10,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),3.9745622,0.6291024873902462,0.6537556915615835,11,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),4.6941599,0.6293005165946671,0.6538715138418139,12,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),5.3582504,0.6293005165946671,0.6538715138418139,13,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),6.0398257,0.6293052858331657,0.6534280895933632,14,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),7.0704944,0.6293052858331657,0.6534280895933632,15,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),7.5540825,0.6299437080033518,0.6539083828606809,16,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),8.6201084,0.6300266712163624,0.6539449835397491,17,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),9.4161718,0.6300266712163624,0.6539449835397491,18,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),10.2720533,0.6301387699714806,0.6555789990486811,19,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),10.9097363,0.6301984391328593,0.6556312585094356,20,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),11.4907197,0.6302328805503696,0.6547976275141156,21,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),12.0995522,0.63025632230079,0.6551091663450598,22,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),12.7387776,0.63025632230079,0.6551091663450598,23,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),13.9962512,0.6304145068993483,0.6549805365672119,24,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),15.7250507,0.6304145068993483,0.6549805365672119,25,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),16.6454081,0.6304145068993483,0.6549805365672119,26,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),17.2371509,0.6308217264003281,0.655491137602023,27,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),17.8537504,0.6308335344568278,0.6559454968711007,28,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),18.4307531,0.6308335344568278,0.6559454968711007,29,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),19.0729716,0.6308335344568278,0.6559454968711007,30,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),19.6732858,0.6308335344568278,0.6559454968711007,31,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),20.2523341,0.6308335344568278,0.6559454968711007,32,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),20.8572606,0.6308335344568278,0.6559454968711007,33,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),21.4165071,0.6308335344568278,0.6559454968711007,34,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),21.9621607,0.6308335344568278,0.6559454968711007,35,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),23.477119,0.6308335344568278,0.6559454968711007,36,
+carps-star-discrepancy-subset-select,Published Terminus 2 (Astra),24.0,0.6308335344568278,0.6559454968711007,37,
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),0.1159559,0.368996452126844,0.3519212800049367,1,1
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),1.6901498,0.37065753986511296,0.34835652206887385,2,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),1.7282132,0.37065753986511296,0.34835652206887385,3,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),1.8631002,0.37065753986511296,0.34835652206887385,4,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),1.9108928,0.37065753986511296,0.34835652206887385,5,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),3.6837363,0.37065753986511296,0.34835652206887385,6,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),3.7236282,0.37065753986511296,0.34835652206887385,7,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),4.1982156,0.37065753986511296,0.34835652206887385,8,2
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),4.263437,0.37900210315159444,0.35534683081969953,9,9
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),5.5150863,0.37900210315159444,0.35534683081969953,10,9
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),5.5814868,0.3874162159893528,0.3650801189482871,11,11
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),5.6449123,0.3874162159893528,0.3650801189482871,12,11
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),6.3080854,0.38849240985292716,0.36718721026152185,13,13
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),7.5050599,0.38849240985292716,0.36718721026152185,14,13
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),8.5250466,0.38849240985292716,0.36718721026152185,15,13
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),9.3547349,0.38849240985292716,0.36718721026152185,16,13
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),10.1152833,0.3901860881057363,0.36477942559835536,17,17
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),12.8354639,0.3901860881057363,0.36477942559835536,18,17
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),13.0722928,0.3901860881057363,0.36477942559835536,19,17
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),14.8277618,0.3903402129225821,0.3653808917149303,20,20
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),15.0456929,0.3903402129225821,0.3653808917149303,21,20
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),16.3771252,0.3903402129225821,0.3653808917149303,22,20
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),19.6795665,0.3903402129225821,0.3653808917149303,23,20
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),19.9417237,0.3903402129225821,0.3653808917149303,24,20
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),21.1655027,0.3912655062640776,0.36673535873552304,25,25
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),21.8471805,0.3912655062640776,0.36673535873552304,26,25
+dctabeval-aeac-pooled-cat-statistics,AutoResearch campaign (Astra),22.530569,0.3912655062640776,0.36673535873552304,27,25
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),0.1677968,0.35147514936254637,0.32627967722597023,1,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),0.5113406,0.37626379300437357,0.3543032850692137,2,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),0.9227722,0.38926187987600286,0.3563912538964374,3,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),1.3725958,0.38926187987600286,0.3563912538964374,4,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),2.2712428,0.3908027426779235,0.3581837629895418,5,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),3.1993251,0.3909569711698512,0.35758596717865065,6,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),4.3570164,0.3909569711698512,0.35758596717865065,7,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),5.200199,0.3909569711698512,0.35758596717865065,8,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),5.9382212,0.3931189215699111,0.3595298860366292,9,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),6.6737469,0.3945114941541173,0.31942610574968017,10,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),7.5645039,0.3945114941541173,0.31942610574968017,11,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),8.6677648,0.3945114941541173,0.31942610574968017,12,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),9.7683993,0.3945114941541173,0.31942610574968017,13,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),10.8238442,0.3979248335145382,0.36177680502273213,14,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),12.0238124,0.3994807994368511,0.36192675187119416,15,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),12.995459,0.3994807994368511,0.36192675187119416,16,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),14.0934959,0.40182009457796,0.36703657282886565,17,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),15.1888415,0.40338325698520533,0.36763924448981816,18,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),16.2585551,0.40338325698520533,0.36763924448981816,19,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),17.2267707,0.40338325698520533,0.36763924448981816,20,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),18.8686329,0.40369624330207954,0.36990218682270604,21,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),20.3896497,0.40369624330207954,0.36990218682270604,22,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),20.968778,0.40369624330207954,0.36990218682270604,23,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),21.5496719,0.40369624330207954,0.36990218682270604,24,
+dctabeval-aeac-pooled-cat-statistics,Published Terminus 2 (Astra),22.1276426,0.40369624330207954,0.36990218682270604,25,
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),0.0873725,0,0,1,1
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),0.2894152,0.6297610950924312,0.6104234049545475,2,2
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),0.5752868,0.6424673395281758,0.6272907968584327,3,3
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),5.7925833,0.6431325058624535,0.6270219282355105,4,4
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),6.4817237,0.6431812437241188,0.6270274162375513,5,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),7.7784705,0.6431812437241188,0.6270274162375513,6,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),8.2914952,0.6431812437241188,0.6270274162375513,7,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),9.4276294,0.6431812437241188,0.6270274162375513,8,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),10.9449294,0.6431812437241188,0.6270274162375513,9,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),12.2382817,0.6431812437241188,0.6270274162375513,10,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),13.6748041,0.6431812437241188,0.6270274162375513,11,5
+sketched-newton-cov-estimator,AutoResearch campaign (Astra),16.9315916,0.6431812437241188,0.6270274162375513,12,5
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),0.4325912,0.64167738500668,0.6279278295093115,1,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),0.9488457,0.642467455045382,0.6272908834254146,2,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),1.4259797,0.642514777861333,0.6272963360263624,3,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),1.9781243,0.6425604212869591,0.6273223333753107,4,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),2.556835,0.6425604212869591,0.6273223333753107,5,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),3.1803193,0.6425604212869591,0.6273223333753107,6,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),3.8021711,0.6425609008502245,0.6273210062333826,7,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),4.5742708,0.6425609008502245,0.6273210062333826,8,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),5.186949,0.6425609008502245,0.6273210062333826,9,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),5.92556,0.6425609008502245,0.6273210062333826,10,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),6.8145037,0.6425609008502245,0.6273210062333826,11,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),7.6740852,0.6425609008502245,0.6273210062333826,12,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),8.2987932,0.6425609008502245,0.6273210062333826,13,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),9.1138177,0.6425609008502245,0.6273210062333826,14,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),9.844881,0.6425609008502245,0.6273210062333826,15,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),10.6382826,0.6425609008502245,0.6273210062333826,16,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),11.470863,0.6425609010475031,0.627321006358834,17,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),12.2110999,0.6425609010475031,0.627321006358834,18,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),12.9948676,0.6425609010475031,0.627321006358834,19,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),13.8255567,0.6425609010475031,0.627321006358834,20,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),14.5851966,0.6425609010475031,0.627321006358834,21,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),15.5186599,0.6425609010475031,0.627321006358834,22,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),16.2960592,0.6425609010475031,0.627321006358834,23,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),17.2181253,0.6425611762469107,0.6273209064995843,24,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),18.1846565,0.6425611762469107,0.6273209064995843,25,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),19.0669542,0.6425692180133901,0.6273209136070712,26,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),19.818431,0.6425698318289653,0.6273208848416074,27,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),20.3493396,0.6425698318289653,0.6273208848416074,28,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),20.9180692,0.6425698318289653,0.6273208848416074,29,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),21.2907692,0.6425698318289653,0.6273208848416074,30,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),21.6659649,0.6425698318289653,0.6273208848416074,31,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),22.0440945,0.6425698318289653,0.6273208848416074,32,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),22.4242989,0.6425698318289653,0.6273208848416074,33,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),22.8005656,0.6425698318289653,0.6273208848416074,34,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),23.1783841,0.6425698318289653,0.6273208848416074,35,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),23.55589,0.6425698318289653,0.6273208848416074,36,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),23.9360241,0.6425698318289653,0.6273208848416074,37,
+sketched-newton-cov-estimator,Published Terminus 2 (Astra),24.0,0.6425698318289653,0.6273208848416074,38,
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),0.0884327,0,0,1,1
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),0.5020573,0.17014832422936063,0.14962227586245844,2,2
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),2.5274637,0.17014832422936063,0.14962227586245844,3,2
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),5.0830572,0.1841817198651938,0.17389160121519495,4,4
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),5.2254873,0.18896036272678415,0.16862637057882587,5,5
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),7.5624924,0.18896036272678415,0.16862637057882587,6,5
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),7.5737026,0.18896036272678415,0.16862637057882587,7,5
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),8.8172464,0.19379931283639315,0.1753238870236992,8,8
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),9.2198461,0.19967995712361214,0.18365373168781463,9,9
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),9.5592302,0.19967995712361214,0.18365373168781463,10,9
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),9.9520842,0.19967995712361214,0.18365373168781463,11,9
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),11.7060225,0.19967995712361214,0.18365373168781463,12,9
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),13.0498139,0.2079596170163734,0.18610966388320657,13,13
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),13.4989797,0.2079596170163734,0.18610966388320657,14,13
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),13.8539548,0.2079596170163734,0.18610966388320657,15,13
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),14.2004054,0.2079596170163734,0.18610966388320657,16,13
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),15.1086487,0.2079596170163734,0.18610966388320657,17,13
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),16.068038,0.2079596170163734,0.18610966388320657,18,13
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),18.0616673,0.21361637201988656,0.1926815577463632,19,19
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),20.1676703,0.21361637201988656,0.1926815577463632,20,19
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),22.7070707,0.21361637201988656,0.1926815577463632,21,19
+activeprune-al-unlabeled-pool-pruning,AutoResearch campaign (Astra),22.7184273,0.21750055821915643,0.1900744582608015,22,22
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),0.0706465,0.24683379795518665,0.20816870986020117,1,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),0.1752965,0.25068616796640153,0.23230971603560877,2,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),0.3324752,0.25068616796640153,0.23230971603560877,3,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),0.8253192,0.25068616796640153,0.23230971603560877,4,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),1.6223327,0.25901377486420574,0.25221265567789936,5,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),2.4275253,0.26419798052616,0.24456654227212896,6,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),3.7218124,0.26419798052616,0.24456654227212896,7,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),5.0033856,0.2674238898505233,0.24593624219889762,8,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),6.8392297,0.2678772698925037,0.25217518932206096,9,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),7.9817654,0.2678772698925037,0.25217518932206096,10,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),9.5064585,0.2678772698925037,0.25217518932206096,11,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),10.5928109,0.2678772698925037,0.25217518932206096,12,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),11.4549139,0.2678772698925037,0.25217518932206096,13,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),12.3592693,0.268149296786875,0.2435408689730222,14,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),13.3228296,0.268149296786875,0.2435408689730222,15,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),13.9490404,0.268149296786875,0.2435408689730222,16,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),14.4202734,0.268149296786875,0.2435408689730222,17,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),15.1429678,0.268149296786875,0.2435408689730222,18,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),15.6577429,0.268149296786875,0.2435408689730222,19,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),15.9288372,0.268149296786875,0.2435408689730222,20,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),16.438585,0.268149296786875,0.2435408689730222,21,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),16.991801,0.268149296786875,0.2435408689730222,22,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),17.9336491,0.268149296786875,0.2435408689730222,23,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),18.6173598,0.268149296786875,0.2435408689730222,24,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),19.1134873,0.268149296786875,0.2435408689730222,25,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),19.9667098,0.268149296786875,0.2435408689730222,26,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),20.3626279,0.268149296786875,0.2435408689730222,27,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),21.0065052,0.268149296786875,0.2435408689730222,28,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),21.5110437,0.268149296786875,0.2435408689730222,29,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),21.8656661,0.268149296786875,0.2435408689730222,30,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),22.2231846,0.268149296786875,0.2435408689730222,31,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),22.6261293,0.268149296786875,0.2435408689730222,32,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),23.0706583,0.268149296786875,0.2435408689730222,33,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),23.5345176,0.269047599832148,0.24881671501685856,34,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),23.8597733,0.269047599832148,0.24881671501685856,35,
+activeprune-al-unlabeled-pool-pruning,Published Terminus 2 (Astra),24.0,0.269047599832148,0.24881671501685856,36,
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),0.0062959,0,0,1,1
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),0.1323225,0.4327002500567735,0.4413334680037788,2,2
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),0.2778479,0.5665197189072456,0.5693325885604926,3,3
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),0.3778566,0.5936864734721757,0.5958094210598132,4,4
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),0.5505891,0.5977845314634038,0.5984302339059495,5,5
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),1.2914312,0.598686623834447,0.5973130039369234,6,6
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),2.1265834,0.6043798841741312,0.601879996555592,7,7
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),2.9342942,0.6093987402288518,0.6057686589070813,8,8
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),3.5840722,0.6100455526830842,0.6060388012966571,9,9
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),3.7300697,0.6100455526830842,0.6060388012966571,10,9
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),3.9363541,0.6100455526830842,0.6060388012966571,11,9
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),4.4995595,0.6121911952293363,0.6066813145746203,12,12
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),5.1539655,0.6121911952293363,0.6066813145746203,13,12
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),5.7872992,0.6121911952293363,0.6066813145746203,14,12
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),5.8951185,0.6121911952293363,0.6066813145746203,15,12
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),6.5645447,0.6121911952293363,0.6066813145746203,16,12
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),7.2042169,0.6121911952293363,0.6066813145746203,17,12
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),9.1583618,0.6123298561456367,0.6066813145746203,18,18
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),9.8688727,0.6123298561456367,0.6066813145746203,19,18
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),10.0401836,0.6123298561456367,0.6066813145746203,20,18
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),12.1692508,0.6125322586407408,0.6067037927413187,21,21
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),13.1577155,0.6125322586407408,0.6067037927413187,22,21
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),18.214986,0.6125322586407408,0.6067037927413187,23,21
+budgeted-imputation-mcar50,AutoResearch campaign (Astra),18.3219235,0.6125322586407408,0.6067037927413187,24,21
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),0.1270356,0.6011842739108588,0.5980755111193554,1,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),0.3568583,0.6041785844515055,0.5993186568110204,2,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),0.5822591,0.6085643676179492,0.6022474029078587,3,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),0.9301603,0.6132595234764932,0.6027195117399639,4,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),1.2104399,0.6138997805803322,0.6026164884617624,5,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),1.5635967,0.614585784787681,0.603227921288707,6,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),2.2439425,0.6173825199552458,0.6067588145439977,7,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),3.3703416,0.6179454582657106,0.6070909865646048,8,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),5.0441823,0.618285594320818,0.6075172386979408,9,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),6.7166248,0.6184373836013186,0.6078197451650472,10,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),9.6622155,0.6184373836013186,0.6078197451650472,11,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),12.087896,0.6188850294742858,0.6077405722224263,12,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),13.5915834,0.6190400279779897,0.6077631876617101,13,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),14.8499612,0.6190864644159603,0.6077323557453532,14,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),16.5446694,0.6202244761017893,0.6081665409422228,15,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),18.2732365,0.6202244761017893,0.6081665409422228,16,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),20.2283369,0.6205771101416981,0.6090196134041067,17,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),21.6709699,0.620617073650008,0.6090254756113723,18,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),22.7912554,0.622125142723554,0.6095791854929621,19,
+budgeted-imputation-mcar50,Published Terminus 2 (Astra),24.0,0.6221348777478795,0.6095766018462095,20,
+reppo-reliable-onpolicy-control-trainer,AutoResearch campaign (Astra),0.2566413,0.1599187115488533,0.09339197693844113,1,1
+reppo-reliable-onpolicy-control-trainer,AutoResearch campaign (Astra),1.2211698,0.4056838710822128,0.4056838710822128,2,2
+reppo-reliable-onpolicy-control-trainer,AutoResearch campaign (Astra),1.436154,0.5268025545616607,0.5268025545616607,3,3
+reppo-reliable-onpolicy-control-trainer,AutoResearch campaign (Astra),1.5297481,1,1,4,4
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),0.2355894,1,1,1,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),0.4606123,1,1,2,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),1.0170896,1,1,3,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),1.4306619,1,1,4,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),2.0216919,1,1,5,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),2.7454432,1,1,6,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),3.6603556,1,1,7,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),4.144747,1,1,8,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),4.818232,1,1,9,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),5.5450168,1,1,10,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),6.4023081,1,1,11,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),7.4778139,1,1,12,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),8.3308255,1,1,13,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),9.2882989,1,1,14,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),9.9066299,1,1,15,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),10.2587813,1,1,16,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),10.5920337,1,1,17,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),10.9711429,1,1,18,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),11.4152135,1,1,19,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),12.0553985,1,1,20,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),12.8532787,1,1,21,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),13.5606646,1,1,22,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),14.3884591,1,1,23,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),15.0663741,1,1,24,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),15.8838854,1,1,25,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),17.4047275,1,1,26,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),18.0771564,1,1,27,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),18.8628458,1,1,28,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),19.4426608,1,1,29,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),20.1094627,1,1,30,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),20.8303853,1,1,31,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),21.5666116,1,1,32,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),22.4792538,1,1,33,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),23.0796539,1,1,34,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),23.7124875,1,1,35,
+reppo-reliable-onpolicy-control-trainer,Published Terminus 2 (Astra),24.0,1,1,36,
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),0.3824777,0,0,1,1
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),0.48621,0.4223104804668083,0.33530727988674547,2,2
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),0.7755148,0.43925320302716747,0.36264233511507926,3,3
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),1.3135318,0.4698959202368224,0.40182229745642845,4,4
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),1.9425793,0.5030118324247059,0.4424442100184894,5,5
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),2.8575102,0.5237479253090451,0.46762947181470393,6,6
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),3.3330806,0.5264437562856972,0.47330200704922076,7,7
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),3.7155244,0.5274646049059096,0.4742977406488376,8,8
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),4.5597907,0.5283634163028501,0.47184478916109474,9,9
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),4.683068,0.5301700614248209,0.4806102706241905,10,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),6.0912434,0.5301700614248209,0.4806102706241905,11,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),6.948412,0.5301700614248209,0.4806102706241905,12,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),7.6493389,0.5301700614248209,0.4806102706241905,13,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),7.7162193,0.5301700614248209,0.4806102706241905,14,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),12.1953594,0.5301700614248209,0.4806102706241905,15,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),12.4225099,0.5301700614248209,0.4806102706241905,16,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),14.4416554,0.5301700614248209,0.4806102706241905,17,10
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),17.2700279,0.5320161349441925,0.47852661952506775,18,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),17.3342977,0.5320161349441925,0.47852661952506775,19,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),19.140706,0.5320161349441925,0.47852661952506775,20,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),19.2076763,0.5320161349441925,0.47852661952506775,21,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),19.2759906,0.5320161349441925,0.47852661952506775,22,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),20.2303459,0.5320161349441925,0.47852661952506775,23,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),21.4587563,0.5320161349441925,0.47852661952506775,24,18
+tgat-milp-branching-node-count,AutoResearch campaign (Astra),23.1442351,0.5320161349441925,0.47852661952506775,25,18
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),0.3246127,0.4392450505118781,0.35029713820370123,1,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),0.9213137,0.5203260130733992,0.4513711188928317,2,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),1.9937721,0.5203260130733992,0.4513711188928317,3,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),2.6796046,0.5232701191450501,0.4681485129436573,4,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),3.6137738,0.5232701191450501,0.4681485129436573,5,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),4.7015817,0.5232701191450501,0.4681485129436573,6,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),6.164521,0.5243094291531892,0.45827245334698663,7,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),7.1604285,0.5266877550218018,0.47272873375922986,8,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),8.2122005,0.5266877550218018,0.47272873375922986,9,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),9.8722215,0.5292511186407289,0.4763549367398776,10,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),10.9586496,0.5292511186407289,0.4763549367398776,11,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),11.948175,0.5292511186407289,0.4763549367398776,12,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),13.0720869,0.5292511186407289,0.4763549367398776,13,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),14.9586953,0.5292511186407289,0.4763549367398776,14,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),16.1177868,0.5317131876540383,0.4770582580142826,15,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),17.2620261,0.5317131876540383,0.4770582580142826,16,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),18.3626023,0.5317131876540383,0.4770582580142826,17,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),19.2743816,0.5317131876540383,0.4770582580142826,18,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),20.4506613,0.5317131876540383,0.4770582580142826,19,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),21.6369498,0.5317131876540383,0.4770582580142826,20,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),22.8426509,0.5317131876540383,0.4770582580142826,21,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),23.9811783,0.5320576736567942,0.4791002769363593,22,
+tgat-milp-branching-node-count,Published Terminus 2 (Astra),24.0,0.5320576736567942,0.4791002769363593,23,
