@@ -409,6 +409,6 @@
   }).catch(error => {
     console.error('Benchmark page:', error);
     $('loading-note').hidden = false;
-    $('loading-note').textContent = 'The interactive results could not load. Refresh the page, or download the curve data below.';
+    $('loading-note').textContent = 'The interactive results could not load. Refresh the page to try again.';
   });
 })();
