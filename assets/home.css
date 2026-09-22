@@ -156,8 +156,6 @@
 .evidence-project{min-width:0}
 .evidence-project b{display:block;font-size:.875rem;line-height:1.45;color:var(--sf-navy);font-weight:600}
 .evidence-project > small{display:block;font-size:.75rem;line-height:1.5;color:var(--text-secondary);margin-top:.25rem}
-.evidence-project > .evidence-novelty{display:flex;align-items:baseline;flex-wrap:wrap;gap:.3rem .45rem;margin-top:.45rem;color:var(--sf-navy);font-weight:500}
-.evidence-novelty em{display:inline-flex;align-items:center;min-height:20px;padding:.1rem .4rem;border:1px solid var(--agent-line);border-radius:999px;background:var(--agent-soft);color:var(--agent-accent);font-size:.625rem;font-style:normal;font-weight:700;letter-spacing:.045em;text-transform:uppercase;white-space:nowrap}
 .evidence-project > .evidence-benchmarks{margin-top:.3rem;color:var(--text-muted);font-size:.6875rem}
 .evidence-value{display:block;min-width:0;color:var(--agent-accent);text-align:right;font-variant-numeric:tabular-nums}
 .evidence-value strong{display:block;font-size:1.55rem;font-weight:600;line-height:1.1;letter-spacing:-.035em;white-space:nowrap}
@@ -171,6 +169,9 @@
 .evidence-pair .evidence-value em{max-width:none}
 .evidence-arrow{font-size:.875rem;color:var(--agent-accent);align-self:center}
 .evidence-note{font-size:.75rem;line-height:1.65;color:var(--text-muted);margin:0;padding-top:1rem;border-top:1px solid var(--agent-line)}
+.evidence-footer{align-self:stretch}
+.evidence-footer .evidence-row{border-top:1px solid var(--agent-line)}
+.evidence-footer .evidence-note{padding-top:.85rem}
 .evidence-context{display:flex;flex-direction:column;min-width:0;padding:1.05rem 0;border-top:1px solid var(--agent-line)}
 .evidence-context h5{font-size:.8125rem;font-weight:600;line-height:1.5;color:var(--sf-navy);margin:0 0 .85rem}
 .evidence-context-grid,.program-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;flex:1}
