@@ -169,9 +169,16 @@
 .evidence-pair .evidence-value em{max-width:none}
 .evidence-arrow{font-size:.875rem;color:var(--agent-accent);align-self:center}
 .evidence-note{font-size:.75rem;line-height:1.65;color:var(--text-muted);margin:0;padding-top:1rem;border-top:1px solid var(--agent-line)}
-.evidence-footer{align-self:stretch}
-.evidence-footer .evidence-row{border-top:1px solid var(--agent-line)}
-.evidence-footer .evidence-note{padding-top:.85rem}
+.evidence-stack{display:grid;align-content:start;gap:.8rem;padding:1.05rem 0;border-top:1px solid var(--agent-line)}
+.evidence-stack > .evidence-row{min-height:0;padding:0;border-top:0}
+.evidence-demo-mini{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.7rem;align-items:center;padding:.7rem .8rem;border:1px solid var(--agent-line);border-radius:9px;background:var(--agent-soft);color:inherit;text-decoration:none;transition:background .2s ease}
+.evidence-demo-mini:hover{background:#e6f4f1}
+.evidence-demo-mini b{display:block;color:var(--sf-navy);font-size:.75rem;line-height:1.4;font-weight:600}
+.evidence-demo-mini small{display:block;margin-top:.15rem;color:var(--text-secondary);font-size:.6875rem;line-height:1.4}
+.evidence-demo-meta{display:flex;align-items:baseline;gap:.28rem;color:var(--text-secondary);font-size:.6875rem;white-space:nowrap}
+.evidence-demo-meta strong{color:var(--agent-accent);font-size:.8125rem;font-weight:600}
+.evidence-demo-meta i{font-style:normal;color:var(--text-muted)}
+.evidence-demo-meta em{margin-left:.2rem;color:var(--agent-accent);font-size:.8rem;font-style:normal}
 .evidence-context{display:flex;flex-direction:column;min-width:0;padding:1.05rem 0;border-top:1px solid var(--agent-line)}
 .evidence-context h5{font-size:.8125rem;font-weight:600;line-height:1.5;color:var(--sf-navy);margin:0 0 .85rem}
 .evidence-context-grid,.program-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;flex:1}
@@ -321,6 +328,8 @@
   .evidence-value em{max-width:115px}
   .evidence-pair{padding:.75rem;gap:.65rem}
   .evidence-pair .evidence-value + .evidence-value{padding-left:.65rem}
+  .evidence-demo-mini{grid-template-columns:minmax(0,1fr)}
+  .evidence-demo-meta{white-space:normal}
 }
 @media(max-width:380px){
   .agent-header{gap:.9rem}
