@@ -21,9 +21,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css?v=autornd-nav-4">
-<link rel="stylesheet" href="assets/styles.css?v=27">
+<link rel="stylesheet" href="assets/styles.css?v=28">
 <script src="../assets/site.js" defer></script>
-<script src="assets/training-service.js?v=11" defer></script>
+<script src="assets/training-service.js?v=12" defer></script>
 </head>
 <body class="has-section-nav tinker-page autoinfra-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -78,8 +78,15 @@
     </div>
 
     <figure class="api-story-figure wide-figure reveal" style="--i:1" data-api-story>
-      <figcaption class="figure-heading"><span class="figure-number">Figure 1</span><div><h3>A complete training loop through one API</h3><p>Create a client, generate completions, train on the results, apply an optimizer step, and save the updated model.</p></div><div class="figure-controls"><button class="control-button api-replay" type="button" aria-label="Replay API lifecycle animation"><span class="api-replay-mark" aria-hidden="true">↻</span><span>Replay</span></button></div></figcaption>
-      <div class="api-story-map api-phase-create" data-api-map role="img" aria-label="A user creates a training or inference client through the Tinker-compatible AutoInfra API. Tokens are sent for generation and completions with log probabilities return. Training packets return loss values, optimizer steps return gradient norms, and updated model state is saved as a checkpoint.">
+      <figcaption class="figure-heading"><div><h3>A complete training loop through one API</h3><p>Create a client → generate completions → compute loss → apply an optimizer step → save the updated model</p></div></figcaption>
+      <div class="api-story-steps" data-api-controls role="group" aria-label="Explore the training loop" hidden>
+        <button type="button" data-api-step="0" aria-pressed="true" aria-controls="api-loop-map"><span class="api-step-number">1</span><span>Create client</span></button>
+        <button type="button" data-api-step="1" aria-pressed="false" aria-controls="api-loop-map"><span class="api-step-number">2</span><span>Generate</span></button>
+        <button type="button" data-api-step="2" aria-pressed="false" aria-controls="api-loop-map"><span class="api-step-number">3</span><span>Compute loss</span></button>
+        <button type="button" data-api-step="3" aria-pressed="false" aria-controls="api-loop-map"><span class="api-step-number">4</span><span>Optimizer step</span></button>
+        <button type="button" data-api-step="4" aria-pressed="false" aria-controls="api-loop-map"><span class="api-step-number">5</span><span>Save model</span></button>
+      </div>
+      <div class="api-story-map api-phase-create" id="api-loop-map" data-api-map role="img" aria-label="A user creates a training or inference client through the Tinker-compatible AutoInfra API. Tokens are sent for generation and completions with log probabilities return. Training packets return loss values, optimizer steps return gradient norms, and updated model state is saved as a checkpoint.">
         <div class="api-story-note api-note-enter">
           <div><span data-api-note-label>Client setup</span><strong data-api-note-title>Create a training or inference client.</strong><p data-api-note-copy>AutoInfra assigns GPU capacity for the selected model and workload.</p></div>
           <div class="api-story-progress" aria-hidden="true"><i class="is-active"></i><i></i><i></i><i></i><i></i></div>
@@ -116,6 +123,12 @@
         <article class="api-checkpoint-card"><span aria-hidden="true"></span><div><small>Saved model</small><strong>ckpt-1</strong></div></article>
         <code class="api-route-label api-call-label api-label-enter" data-api-call>.create_client()</code><code class="api-route-label api-return-label api-label-enter" data-api-return></code>
       </div>
+      <div class="api-story-navigation" data-api-controls hidden>
+        <button type="button" data-api-previous aria-controls="api-loop-map">← Back</button>
+        <div class="api-playback"><span data-api-step-count>Step 1 of 5</span><button type="button" data-api-toggle aria-pressed="true" aria-label="Pause automatic training loop"><span data-api-toggle-icon aria-hidden="true">Ⅱ</span><span data-api-toggle-label>Pause</span></button></div>
+        <button type="button" data-api-next aria-controls="api-loop-map">Next →</button>
+      </div>
+      <span class="api-story-announcement" data-api-announcement role="status" aria-live="polite" aria-atomic="true"></span>
     </figure>
   </section>
 
@@ -124,7 +137,7 @@
       <p class="kicker">Scaling and parallelism</p><h2>Many experiments, one responsive service.</h2><p>AutoInfra keeps request handling separate from GPU execution. As users submit different workloads, workers are created, assigned, reused, and released without slowing the entry path.</p>
     </div>
     <figure class="ticket-figure wide-figure reveal" style="--i:2" data-ticket-flow>
-      <figcaption class="figure-heading"><span class="figure-number">Figure 5</span><div><h3>Fast coordination, distributed data movement</h3><p>Lightweight commands travel through a fast, high-concurrency lane, while distributed workers process larger payloads through the database.</p></div><div class="figure-controls"><button class="control-button ticket-toggle" type="button" aria-label="Pause command and payload animation"><span class="pause-mark" aria-hidden="true"></span><span class="control-label">Pause</span></button></div></figcaption>
+      <figcaption class="figure-heading"><div><h3>Fast coordination, distributed data movement</h3><p>Lightweight commands travel through a fast, high-concurrency lane, while distributed workers process larger payloads through the database.</p></div><div class="figure-controls"><button class="control-button ticket-toggle" type="button" aria-label="Pause command and payload animation"><span class="pause-mark" aria-hidden="true"></span><span class="control-label">Pause</span></button></div></figcaption>
       <div class="ticket-map ticket-phase-one" data-ticket-map role="img" aria-label="Users 1, 2, and 3 send colored request streams into the gateway. The gateway sends lightweight commands to the orchestrator and writes request data to the persistent database. The orchestrator assigns each stream to a worker. Worker A stays active for User 1. Worker B appears for User 2, then is reused by User 3. Both workers pull payloads and update the database directly.">
 
         <svg class="ticket-routes ticket-desktop-routes" viewBox="0 0 1100 600" preserveAspectRatio="none" aria-hidden="true">

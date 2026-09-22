@@ -46,12 +46,16 @@
     reveals.forEach(function (element) { revealObserver.observe(element); });
   }
 
-  /* Public API lifecycle: create, generate, train, update, and save. */
+  /* Public API lifecycle: select a stage or play the complete loop. */
   const apiStory = document.querySelector('[data-api-story]');
-  let apiStoryController = null;
   if (apiStory) {
     const map = apiStory.querySelector('[data-api-map]');
-    const replay = apiStory.querySelector('.api-replay');
+    const steps = Array.from(apiStory.querySelectorAll('[data-api-step]'));
+    const previous = apiStory.querySelector('[data-api-previous]');
+    const next = apiStory.querySelector('[data-api-next]');
+    const toggle = apiStory.querySelector('[data-api-toggle]');
+    const stepCount = apiStory.querySelector('[data-api-step-count]');
+    const announcement = apiStory.querySelector('[data-api-announcement]');
     const motionLayers = Array.from(apiStory.querySelectorAll('.api-story-routes'));
     const note = apiStory.querySelector('.api-story-note');
     const noteLabel = apiStory.querySelector('[data-api-note-label]');
@@ -66,14 +70,17 @@
     const states = [
       { phase: 'api-phase-create', label: 'Client setup', title: 'Create a training or inference client.', copy: 'AutoInfra assigns GPU capacity for the selected model and workload.', call: '.create_client()', result: '', worker: 'Allocating', detail: 'Client capacity', duration: 4700 },
       { phase: 'api-phase-generate', label: 'Inference', title: 'Send tokens and receive completions.', copy: 'The worker returns generated responses with token-level log probabilities.', call: '.generate([1, 6, 12])', result: '{responses, logprobs}', worker: 'Generating', detail: 'Serving inference', duration: 5100 },
-      { phase: 'api-phase-forward', label: 'Training', title: 'Train on the next packet.', copy: 'The worker evaluates the examples and returns the resulting loss.', call: '.forward_backward(ids=…, adv=…)', result: '{loss}', worker: 'Training', detail: 'Computing loss', duration: 4800 },
+      { phase: 'api-phase-forward', label: 'Training', title: 'Compute loss on the results.', copy: 'The worker evaluates the examples and returns the resulting loss.', call: '.forward_backward(ids=…, adv=…)', result: '{loss}', worker: 'Training', detail: 'Computing loss', duration: 4800 },
       { phase: 'api-phase-optim', label: 'Model update', title: 'Apply the optimizer step.', copy: 'The update is applied and its gradient norm is returned.', call: '.optim_step(ids=…, adv=…)', result: '{grad_norm}', worker: 'Updating', detail: 'Applying update', duration: 4600 },
       { phase: 'api-phase-save', label: 'Checkpoint', title: 'Save the updated model.', copy: 'The worker writes the new model state to persistent storage for later use.', call: '.save_model("ckpt-1")', result: '', worker: 'Saving', detail: 'Writing checkpoint', duration: 5000 }
     ];
-    let apiIndex = reducedMotion.matches ? 1 : 0;
+    let apiIndex = 0;
     let apiTimer = null;
-    let apiPlaying = false;
-    let apiAutoPlayed = reducedMotion.matches;
+    let apiAutoplay = !reducedMotion.matches;
+    let apiVisible = !('IntersectionObserver' in window);
+    let pageActive = true;
+    let startedAt = null;
+    let remaining = states[0].duration;
 
     function restartEntrance(element, className) {
       element.classList.remove(className);
@@ -88,7 +95,7 @@
       });
     }
 
-    function renderApiStory() {
+    function renderApiStory(announce) {
       const state = states[apiIndex];
       phaseClasses.forEach(function (phase) { map.classList.remove(phase); });
       map.classList.add(state.phase);
@@ -103,6 +110,14 @@
         item.classList.toggle('is-active', index === apiIndex);
         item.classList.toggle('is-done', index < apiIndex);
       });
+      steps.forEach(function (button, index) {
+        button.setAttribute('aria-pressed', String(index === apiIndex));
+        button.dataset.complete = String(index < apiIndex);
+      });
+      stepCount.textContent = 'Step ' + (apiIndex + 1) + ' of ' + states.length;
+      next.textContent = apiIndex === states.length - 1 ? 'Start again ↻' : 'Next →';
+      map.setAttribute('aria-label', stepCount.textContent + '. ' + state.title + ' ' + state.copy + ' API call: ' + state.call + (state.result ? '. Returns ' + state.result + '.' : '.'));
+      if (announce) announcement.textContent = stepCount.textContent + '. ' + state.title + ' ' + state.copy;
       motionLayers.forEach(function (layer) {
         if (typeof layer.setCurrentTime === 'function') layer.setCurrentTime(0);
       });
@@ -111,45 +126,69 @@
       restartEntrance(returnLabel, 'api-label-enter');
     }
 
-    function pauseApiStory() {
-      apiPlaying = false;
+    function stopApiTimer() {
+      if (apiTimer === null) return;
       window.clearTimeout(apiTimer);
-      setApiMotionPaused(true);
+      apiTimer = null;
+      remaining = Math.max(0, remaining - (performance.now() - startedAt));
+      startedAt = null;
     }
 
-    function scheduleApiStory() {
-      window.clearTimeout(apiTimer);
-      if (!apiPlaying) return;
+    function syncApiPlayback() {
+      const running = apiAutoplay && apiVisible && pageActive && !document.hidden;
+      apiStory.dataset.playing = String(running);
+      toggle.setAttribute('aria-pressed', String(apiAutoplay));
+      toggle.setAttribute('aria-label', apiAutoplay ? 'Pause automatic training loop' : 'Play automatic training loop');
+      apiStory.querySelector('[data-api-toggle-icon]').textContent = apiAutoplay ? 'Ⅱ' : '▶';
+      apiStory.querySelector('[data-api-toggle-label]').textContent = apiAutoplay ? 'Pause' : 'Play';
+      setApiMotionPaused(!running || reducedMotion.matches);
+      if (!running) { stopApiTimer(); return; }
+      if (apiTimer !== null) return;
+      startedAt = performance.now();
       apiTimer = window.setTimeout(function () {
+        apiTimer = null;
+        startedAt = null;
         apiIndex = (apiIndex + 1) % states.length;
+        remaining = states[apiIndex].duration;
         renderApiStory();
-        scheduleApiStory();
-      }, states[apiIndex].duration);
+        syncApiPlayback();
+      }, remaining);
     }
 
-    function playApiStory(restart) {
-      if (restart) apiIndex = 0;
-      apiPlaying = true;
-      renderApiStory();
-      setApiMotionPaused(false);
-      scheduleApiStory();
+    function selectApiStep(index) {
+      stopApiTimer();
+      apiAutoplay = false;
+      apiIndex = (index + states.length) % states.length;
+      remaining = states[apiIndex].duration;
+      renderApiStory(true);
+      syncApiPlayback();
     }
 
-    replay.addEventListener('click', function () {
-      apiAutoPlayed = true;
-      playApiStory(true);
+    steps.forEach(function (button, index) {
+      button.addEventListener('click', function () { selectApiStep(index); });
     });
-    renderApiStory();
-    pauseApiStory();
+    addArrowKeyNavigation(steps, selectApiStep);
+    previous.addEventListener('click', function () { selectApiStep(apiIndex - 1); });
+    next.addEventListener('click', function () { selectApiStep(apiIndex + 1); });
+    toggle.addEventListener('click', function () { apiAutoplay = !apiAutoplay; syncApiPlayback(); });
+    document.addEventListener('visibilitychange', syncApiPlayback);
+    window.addEventListener('pagehide', function () { pageActive = false; syncApiPlayback(); });
+    window.addEventListener('pageshow', function () { pageActive = true; syncApiPlayback(); });
+    reducedMotion.addEventListener('change', function () {
+      if (reducedMotion.matches) apiAutoplay = false;
+      syncApiPlayback();
+    });
 
-    apiStoryController = {
-      playOnce: function () {
-        if (apiAutoPlayed || reducedMotion.matches) return;
-        apiAutoPlayed = true;
-        playApiStory(true);
-      },
-      pause: pauseApiStory
-    };
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        apiVisible = entries.some(function (entry) { return entry.isIntersecting; });
+        syncApiPlayback();
+      }, { threshold: 0 });
+      observer.observe(apiStory);
+    }
+    apiStory.querySelectorAll('[data-api-controls]').forEach(function (element) { element.hidden = false; });
+    renderApiStory();
+    syncApiPlayback();
   }
 
   /* Lightweight coordination and distributed payload movement. */
@@ -281,7 +320,6 @@
   /* Play each explanation once when it reaches the viewport. */
   if (!reducedMotion.matches && 'IntersectionObserver' in window) {
     const players = [];
-    if (apiStory && apiStoryController) players.push([apiStory, apiStoryController]);
     if (ticketFlow && ticketFlowController) players.push([ticketFlow, ticketFlowController]);
     const playerObserver = new IntersectionObserver(function (entries, observer) {
       entries.forEach(function (entry) {
@@ -296,7 +334,6 @@
 
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) return;
-    if (apiStoryController) apiStoryController.pause();
     if (ticketFlowController) ticketFlowController.pause();
   });
 })();
