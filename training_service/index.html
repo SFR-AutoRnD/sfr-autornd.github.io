@@ -333,13 +333,13 @@
 
       <div class="evaluation-panel" id="efficiency-lora" role="tabpanel" aria-labelledby="efficiency-lora-tab" hidden>
         <div class="evaluation-panel-heading"><div><span>LoRA capabilities</span><h4>Minimum GPUs demonstrated</h4></div><p>LoRA updates a compact set of trainable parameters while retaining the base model, reducing the memory needed for each training run.</p></div>
-        <div class="vertical-chart" role="img" aria-label="The minimum H200 capacity used in this evaluation is 2 GPUs for GPT-OSS-20B, 4 GPUs for Inkling Small at 266 billion parameters, and 16 GPUs for Inkling at one trillion parameters.">
+        <div class="vertical-chart" role="img" aria-label="The minimum H200 capacity used in this evaluation is 2 GPUs for GPT-OSS-20B, 4 GPUs for Inkling Small at 266 billion parameters, and 8 GPUs for Inkling at one trillion parameters.">
           <div class="chart-unit">GPUs</div>
-          <div class="chart-y-axis" aria-hidden="true"><span>16</span><span>12</span><span>8</span><span>4</span><span>0</span></div>
+          <div class="chart-y-axis" aria-hidden="true"><span>8</span><span>6</span><span>4</span><span>2</span><span>0</span></div>
           <div class="bar-plot lora-plot">
-            <div class="bar-column"><div class="bar-track"><b style="--bar-height:12.5%">2</b><i style="--bar-height:12.5%"></i></div><strong>GPT-OSS-20B</strong><small>2 GPUs</small></div>
-            <div class="bar-column"><div class="bar-track"><b style="--bar-height:25%">4</b><i style="--bar-height:25%"></i></div><strong>Inkling Small (266B)</strong><small>4 GPUs</small></div>
-            <div class="bar-column"><div class="bar-track"><b style="--bar-height:100%">16</b><i style="--bar-height:100%"></i></div><strong>Inkling (1T)</strong><small>16 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:25%">2</b><i style="--bar-height:25%"></i></div><strong>GPT-OSS-20B</strong><small>2 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:50%">4</b><i style="--bar-height:50%"></i></div><strong>Inkling Small (266B)</strong><small>4 GPUs</small></div>
+            <div class="bar-column"><div class="bar-track"><b style="--bar-height:100%">8</b><i style="--bar-height:100%"></i></div><strong>Inkling (1T)</strong><small>8 GPUs</small></div>
           </div>
         </div>
         <div class="evaluation-note evaluation-note-lower"><strong>Lower is better.</strong><span>Bars show the minimum H200 GPU count used to run each model in this evaluation.</span></div>
