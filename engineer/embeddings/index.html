@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/site.css?v=autornd-nav-4">
-  <link rel="stylesheet" href="assets/embeddings.css?v=header-13">
+  <link rel="stylesheet" href="assets/embeddings.css?v=captions-14">
   <script src="../../assets/site.js?v=section-nav-2" defer></script>
   <script src="assets/embeddings.js?v=chart-7" defer></script>
 </head>
@@ -55,7 +55,6 @@
               <rect x="210" y="25" width="131" height="25" rx="6" fill="#fff" stroke="#c6deef"/><text x="275.5" y="42" text-anchor="middle" font-size="10.5" font-weight="500" fill="#0b5cab">Relevant documents</text>
             </g>
           </svg>
-          <figcaption>Query–document similarity · conceptual illustration</figcaption>
         </figure>
       </div>
       <div class="report-models"><span><i class="model-dot" aria-hidden="true"></i><strong>sfr-embedding-rnd_R</strong> Research version</span><span><i class="model-dot is-p" aria-hidden="true"></i><strong>sfr-embedding-rnd_P</strong> Production supported version</span><span>272.6M parameters</span></div>
@@ -69,7 +68,6 @@
             <div class="chart-heading"><div><h3 id="public-chart-title">Retrieval quality</h3><p id="public-chart-description">Mean nDCG@10 · 10 retrieval tasks · higher is better</p></div></div>
             <div class="chart-metric-switch" role="group" aria-label="Public chart metric" data-public-chart-controls hidden><button type="button" data-public-choice="retrieval" aria-pressed="true" aria-controls="public-score-bars">Retrieval</button><button type="button" data-public-choice="mean" aria-pressed="false" aria-controls="public-score-bars">Overall MTEB</button></div>
             <div class="score-bars" id="public-score-bars"><div class="score-row" data-chart-model="baseline" style="--row:0"><div class="score-name">Embedding Gemma 2<small>271 M · Baseline</small></div><div class="score-track" aria-hidden="true"><span class="score-fill" style="--score:51.074600000000004%"></span></div><div class="score-result"><strong class="score-number">51.07</strong></div></div><div class="score-row is-r" data-chart-model="R" style="--row:1"><div class="score-name">sfr-embedding-rnd_R<small>272.6 M · Research version</small></div><div class="score-track" aria-hidden="true"><span class="score-fill" style="--score:57.2082%"></span></div><div class="score-result"><strong class="score-number">57.21</strong><small class="score-delta">(+6.13)</small></div></div><div class="score-row is-p" data-chart-model="P" style="--row:2"><div class="score-name">sfr-embedding-rnd_P<small>272.6 M · Production supported version</small></div><div class="score-track" aria-hidden="true"><span class="score-fill" style="--score:55.760799999999996%"></span></div><div class="score-result"><strong class="score-number">55.76</strong><small class="score-delta">(+4.69)</small></div></div><div class="score-axis" aria-hidden="true"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div></div>
-            <figcaption class="chart-caption">Scores on a 0–100 scale. Parentheses show point changes from Embedding Gemma 2, calculated before rounding.</figcaption>
           </figure>
           <aside class="public-takeaway" aria-label="Improvements over Embedding Gemma 2"><span>Research version vs. Gemma 2</span><strong id="public-gain">+6.13</strong><p id="public-gain-description">points in mean retrieval nDCG@10.</p><div class="production-gain"><span>Production supported version</span><strong id="production-gain">+4.69 points</strong></div><p>Both versions improve over their pretrained baseline in retrieval and the overall MTEB mean.</p></aside>
         </div>
