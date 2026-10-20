@@ -13,9 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/site.css?v=autornd-nav-4">
-  <link rel="stylesheet" href="assets/embeddings.css?v=9">
+  <link rel="stylesheet" href="assets/embeddings.css?v=header-13">
   <script src="../../assets/site.js?v=section-nav-2" defer></script>
-  <script src="assets/embeddings.js?v=6" defer></script>
+  <script src="assets/embeddings.js?v=chart-7" defer></script>
 </head>
 <body class="embeddings-page has-section-nav">
   <a class="skip-link" href="#main-content">Skip to results</a>
@@ -26,9 +26,38 @@
   <div class="report-shell">
     <header class="report-header" id="top">
       <nav class="report-breadcrumb" aria-label="Breadcrumb"><a href="../">AutoR&amp;D-Engineer</a><span aria-hidden="true">/</span><span aria-current="page">Embedding research</span></nav>
-      <div class="report-topline"><span>Research report / Model training</span><time datetime="2026-10">October 2026</time></div>
-      <h1>SFR Embedding</h1>
-      <p class="report-deck">Better retrieval from compact embedding models. Developed with AutoR&amp;D-Engineer, our research and production-supported versions build on Embedding Gemma 2. We compare both versions with Embedding Gemma 2 on public and internal benchmarks, and include two independent checkpoints in the internal comparison.</p>
+      <div class="report-intro">
+        <div class="report-intro-copy">
+          <h1>SFR Embedding</h1>
+          <p class="report-deck">AutoR&amp;D-Engineer refines Embedding Gemma 2 into two compact models for stronger document retrieval: a research version and a production-supported version. We evaluate both against the pretrained model on MTEB and internal document collections. The internal comparison also includes two independent checkpoints.</p>
+        </div>
+        <figure class="report-visual">
+          <svg viewBox="0 0 400 230" role="img" aria-labelledby="embedding-space-title embedding-space-description">
+            <title id="embedding-space-title">Connecting a query with relevant documents</title>
+            <desc id="embedding-space-description">Conceptual illustration of a query linked to a cluster of relevant document embeddings. The positions are illustrative, not measured model outputs.</desc>
+            <defs>
+              <pattern id="embedding-space-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#bad3e7" opacity=".55"/></pattern>
+              <radialGradient id="embedding-space-halo"><stop stop-color="#b6dfff" stop-opacity=".8"/><stop offset="1" stop-color="#e6f3fe" stop-opacity="0"/></radialGradient>
+            </defs>
+            <rect width="400" height="230" fill="#f1f8fe"/>
+            <rect width="400" height="230" fill="url(#embedding-space-grid)"/>
+            <ellipse cx="232" cy="112" rx="145" ry="108" fill="url(#embedding-space-halo)"/>
+            <g fill="none" stroke="#bfd9ec" stroke-width="1"><ellipse cx="219" cy="121" rx="139" ry="76" transform="rotate(-17 219 121)"/><ellipse cx="219" cy="121" rx="91" ry="48" transform="rotate(-17 219 121)"/></g>
+            <g fill="#a7bfd2" stroke="#f1f8fe" stroke-width="2.5"><circle cx="52" cy="107" r="4"/><circle cx="88" cy="57" r="4"/><circle cx="117" cy="91" r="3.5"/><circle cx="73" cy="167" r="4"/><circle cx="106" cy="197" r="3.5"/><circle cx="193" cy="198" r="4"/><circle cx="277" cy="191" r="4"/><circle cx="337" cy="169" r="4"/><circle cx="367" cy="123" r="3.5"/><circle cx="348" cy="62" r="4"/><circle cx="159" cy="31" r="3.5"/></g>
+            <g fill="none" stroke="#70b4e5" stroke-width="1.5" stroke-dasharray="4 5"><path d="m151 146 88-69m-88 69 140-30m-140 30 116 14"/></g>
+            <g fill="#0176d3" stroke="#fff" stroke-width="3"><circle cx="239" cy="77" r="7"/><circle cx="291" cy="116" r="7"/><circle cx="267" cy="160" r="7"/></g>
+            <g fill="#74b7e7"><circle cx="218" cy="108" r="3.5"/><circle cx="264" cy="99" r="3.5"/><circle cx="312" cy="143" r="3.5"/><circle cx="276" cy="63" r="3.5"/><circle cx="323" cy="103" r="3"/></g>
+            <circle cx="151" cy="146" r="24" fill="#0176d3" opacity=".1"/>
+            <circle cx="151" cy="146" r="14" fill="#fff" stroke="#0176d3" stroke-width="2"/>
+            <circle cx="149" cy="144" r="4.5" fill="none" stroke="#0b5cab" stroke-width="1.7"/><path d="m152.5 147.5 4 4" stroke="#0b5cab" stroke-width="1.7" stroke-linecap="round"/>
+            <g font-family="'DM Sans',system-ui,sans-serif">
+              <rect x="111" y="179" width="80" height="25" rx="6" fill="#fff" stroke="#c6deef"/><text x="151" y="196" text-anchor="middle" font-size="10.5" font-weight="600" fill="#032d60">Your query</text>
+              <rect x="210" y="25" width="131" height="25" rx="6" fill="#fff" stroke="#c6deef"/><text x="275.5" y="42" text-anchor="middle" font-size="10.5" font-weight="500" fill="#0b5cab">Relevant documents</text>
+            </g>
+          </svg>
+          <figcaption>Query–document similarity · conceptual illustration</figcaption>
+        </figure>
+      </div>
       <div class="report-models"><span><i class="model-dot" aria-hidden="true"></i><strong>sfr-embedding-rnd_R</strong> Research version</span><span><i class="model-dot is-p" aria-hidden="true"></i><strong>sfr-embedding-rnd_P</strong> Production supported version</span><span>272.6M parameters</span></div>
       <nav class="report-jumps" aria-label="In this report"><a href="#public"><span>01</span> Public MTEB</a><a href="#internal"><span>02</span> Internal benchmark</a><a href="#method"><span>03</span> Training approach</a><a href="#evaluation"><span>04</span> Evaluation notes</a></nav>
     </header>
@@ -37,7 +66,7 @@
         <div class="report-section-heading"><div><h2>Public benchmark: MTEB (eng, v2)</h2><p>The same checkpoints, evaluated across 41 embedding tasks, including 10 retrieval tasks.</p></div><a class="report-link" href="assets/results.json" download="embedding-rnd-results.json">Task-level results <span aria-hidden="true">↓</span></a></div>
         <div class="public-layout">
           <figure class="result-chart public-chart" data-animate-chart aria-labelledby="public-chart-title" aria-describedby="public-chart-description">
-            <div class="chart-heading"><div><h3 id="public-chart-title">Retrieval quality</h3><p id="public-chart-description">Mean nDCG@10 · 10 retrieval tasks · higher is better</p></div><button type="button" class="chart-replay" data-replay hidden aria-label="Replay public benchmark animation"><span aria-hidden="true">↻</span> Replay</button></div>
+            <div class="chart-heading"><div><h3 id="public-chart-title">Retrieval quality</h3><p id="public-chart-description">Mean nDCG@10 · 10 retrieval tasks · higher is better</p></div></div>
             <div class="chart-metric-switch" role="group" aria-label="Public chart metric" data-public-chart-controls hidden><button type="button" data-public-choice="retrieval" aria-pressed="true" aria-controls="public-score-bars">Retrieval</button><button type="button" data-public-choice="mean" aria-pressed="false" aria-controls="public-score-bars">Overall MTEB</button></div>
             <div class="score-bars" id="public-score-bars"><div class="score-row" data-chart-model="baseline" style="--row:0"><div class="score-name">Embedding Gemma 2<small>271 M · Baseline</small></div><div class="score-track" aria-hidden="true"><span class="score-fill" style="--score:51.074600000000004%"></span></div><div class="score-result"><strong class="score-number">51.07</strong></div></div><div class="score-row is-r" data-chart-model="R" style="--row:1"><div class="score-name">sfr-embedding-rnd_R<small>272.6 M · Research version</small></div><div class="score-track" aria-hidden="true"><span class="score-fill" style="--score:57.2082%"></span></div><div class="score-result"><strong class="score-number">57.21</strong><small class="score-delta">(+6.13)</small></div></div><div class="score-row is-p" data-chart-model="P" style="--row:2"><div class="score-name">sfr-embedding-rnd_P<small>272.6 M · Production supported version</small></div><div class="score-track" aria-hidden="true"><span class="score-fill" style="--score:55.760799999999996%"></span></div><div class="score-result"><strong class="score-number">55.76</strong><small class="score-delta">(+4.69)</small></div></div><div class="score-axis" aria-hidden="true"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div></div>
             <figcaption class="chart-caption">Scores on a 0–100 scale. Parentheses show point changes from Embedding Gemma 2, calculated before rounding.</figcaption>

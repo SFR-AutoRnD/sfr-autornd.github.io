@@ -1,8 +1,6 @@
 # SFR Embedding
 
-*Research report · AutoR&D-Engineer · October 2026*
-
-Better retrieval from compact embedding models. Developed with AutoR&D-Engineer, our research and production-supported versions build on Embedding Gemma 2. We compare both versions with Embedding Gemma 2 on public and internal benchmarks, and include two independent checkpoints in the internal comparison.
+AutoR&D-Engineer refines Embedding Gemma 2 into two compact models for stronger document retrieval: a research version and a production-supported version. We evaluate both against the pretrained model on MTEB and internal document collections. The internal comparison also includes two independent checkpoints.
 
 **R is the research version; P is the production-supported version.**
 

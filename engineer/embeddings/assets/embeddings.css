@@ -9,10 +9,13 @@
 .report-header{padding:2.1rem 0 0}
 .report-breadcrumb{display:flex;gap:.65rem;align-items:center;color:var(--report-muted);font-size:.78rem;margin-bottom:1.8rem}
 .report-breadcrumb a{color:var(--text-secondary);text-decoration:none}
-.report-topline{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.69rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-blue-deep);font-weight:600}
-.report-topline time{font-weight:400;letter-spacing:.02em;color:var(--report-muted)}
-.report-header h1{font-size:clamp(2.2rem,3.7vw,3.1rem);line-height:1.15;letter-spacing:-.045em;font-weight:600;margin:.65rem 0 .9rem}
+.report-intro{display:grid;grid-template-columns:minmax(0,1fr) 350px;align-items:center;gap:2.75rem}
+.report-intro-copy{min-width:0}
+.report-header h1{font-size:clamp(2.2rem,3.7vw,3.1rem);line-height:1.15;letter-spacing:-.045em;font-weight:600;margin:0 0 .95rem}
 .report-deck{max-width:840px;font-size:1.02rem;line-height:1.8;color:var(--text-secondary)}
+.report-visual{margin:0;overflow:hidden;border:1px solid #d4e4f0;border-radius:14px;background:#f1f8fe}
+.report-visual svg{display:block;width:100%;height:auto}
+.report-visual figcaption{padding:.6rem .75rem;border-top:1px solid #deebf5;background:#fbfdff;font-size:.59rem;line-height:1.5;color:var(--report-muted);text-align:center}
 .report-models{display:flex;align-items:center;flex-wrap:wrap;gap:.75rem 1.5rem;margin:1.25rem 0 1.6rem;font-size:.76rem}
 .report-models>span{display:flex;align-items:center;gap:.5rem}
 .report-models>span:last-child{color:var(--report-muted);border-left:1px solid var(--report-line);padding-left:1.5rem}
@@ -77,9 +80,6 @@
 .chart-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.25rem 1.5rem .85rem}
 .chart-heading h3{font-size:.95rem;font-weight:600;line-height:1.5;letter-spacing:-.015em}
 .chart-heading p{font-size:.69rem;color:var(--report-muted);line-height:1.7;margin-top:.25rem}
-.chart-replay{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .4rem;border:0;background:transparent;color:var(--sf-blue-deep);font-size:.67rem!important;white-space:nowrap;border-radius:4px}
-.chart-replay:hover{background:#edf6fd}
-.chart-replay>span{font-size:1rem;line-height:1}
 .chart-metric-switch{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--report-line);border-radius:7px;background:#f5f8fb}
 .public-chart>.chart-metric-switch{margin:0 1.5rem .4rem}
 .chart-metric-switch button{padding:.4rem .75rem;border:0;border-radius:4px;background:transparent;font-size:.7rem;color:var(--text-secondary);white-space:nowrap}
@@ -121,6 +121,7 @@
 .protocol-layout .report-disclosure p{line-height:1.75;margin-bottom:.75rem}
 .report-end{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center;padding:1.3rem 0 2rem;border-top:1px solid var(--report-line);font-size:.75rem;color:var(--text-secondary)}
 @media(max-width:1000px){
+ .report-intro{grid-template-columns:minmax(0,1fr) 290px;gap:1.75rem}
  .public-layout{grid-template-columns:minmax(0,1fr) 230px;gap:1.25rem}
  .benchmark-table{min-width:1010px}
  .score-row{grid-template-columns:175px minmax(0,1fr) 62px;gap:.6rem}
@@ -131,6 +132,8 @@
  .report-header{padding-top:1.4rem}
  .report-breadcrumb{margin-bottom:1.3rem}
  .report-deck{font-size:.93rem}
+ .report-intro{grid-template-columns:1fr;gap:1.2rem}
+ .report-visual{width:100%;max-width:300px;justify-self:center}
  .report-models{gap:.6rem 1rem;font-size:.7rem}
  .report-models>span:last-child{padding:0;border:0;flex-basis:100%}
  .report-jumps{gap:1.3rem}
@@ -150,8 +153,6 @@
  .production-gain>strong{margin:0}
 }
 @media(max-width:600px){
- .report-topline{font-size:.6rem;letter-spacing:.06em}
- .report-topline time{font-size:.62rem}
  .report-header h1{font-size:2.2rem}
  .report-models{margin-bottom:1.2rem}
  .report-section-heading{align-items:flex-start;gap:.6rem}
@@ -193,4 +194,4 @@
  .chart-caption{padding:.7rem 1rem;font-size:.64rem}
  .chart-metric-switch button{padding:.4rem .65rem;font-size:.67rem}
 }
-@media(prefers-reduced-motion:reduce){.score-fill{transition:none!important}.result-chart .score-fill{transform:none!important}.chart-replay{display:none!important}}
+@media(prefers-reduced-motion:reduce){.score-fill{transition:none!important}.result-chart .score-fill{transform:none!important}}

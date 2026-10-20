@@ -42,7 +42,7 @@
   publicButtons.forEach(button => button.addEventListener('click', () => selectPublicMetric(button.dataset.publicChoice)));
   document.querySelector('[data-public-chart-controls]').hidden = false;
 
-  // Animate the measured bar lengths once on entry; replay remains an explicit action.
+  // Animate the measured bar lengths once on entry.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const charts = [...document.querySelectorAll('[data-animate-chart]')];
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
@@ -55,22 +55,13 @@
   }, {threshold: 0.15}) : null;
 
   charts.forEach(chart => {
-    const replay = chart.querySelector('[data-replay]');
-    replay.hidden = reduceMotion.matches;
     if (!reduceMotion.matches && observer) {
       chart.dataset.motion = 'on';
       observer.observe(chart);
     }
-    replay.addEventListener('click', () => {
-      if (reduceMotion.matches) return;
-      chart.dataset.motion = 'on';
-      chart.classList.remove('is-visible');
-      requestAnimationFrame(() => requestAnimationFrame(() => chart.classList.add('is-visible')));
-    });
   });
   reduceMotion.addEventListener('change', () => {
     charts.forEach(chart => {
-      chart.querySelector('[data-replay]').hidden = reduceMotion.matches;
       if (reduceMotion.matches) {
         delete chart.dataset.motion;
         chart.classList.add('is-visible');
