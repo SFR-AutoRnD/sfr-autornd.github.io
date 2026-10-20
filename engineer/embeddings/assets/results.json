@@ -1,0 +1,337 @@
+{
+  "as_of": "2026-10-20",
+  "benchmark": "MTEB (eng, v2)",
+  "task_count": 41,
+  "retrieval_task_count": 10,
+  "internal_score_scale": "0\u20131",
+  "public_score_scale": "0\u2013100",
+  "model_sizes_source": "User-supplied comparison table",
+  "models": [
+    {
+      "id": "mistral",
+      "name": "SFR Embedding Mistral",
+      "type": "Independent checkpoint",
+      "size": "7 B",
+      "embedding_dimension": 4096,
+      "internal": {
+        "honda": {
+          "mrr": 0.7118490805267526,
+          "recall_at_10": 0.9131707317073171,
+          "hit_at_1": 0.5980487804878049
+        },
+        "multilingual": {
+          "mrr": 0.7558061886249753,
+          "recall_at_10": 0.9558333333333333,
+          "hit_at_1": 0.6458333333333334
+        },
+        "disney": {
+          "mrr": 0.8408841545969005,
+          "recall_at_10": 0.41554399945261955,
+          "hit_at_1": 0.7710843373493976
+        },
+        "miracl": {
+          "mrr": 0.9750034632034632,
+          "recall_at_10": 0.995,
+          "hit_at_1": 0.961
+        }
+      }
+    },
+    {
+      "id": "gemma300m",
+      "name": "Embedding Gemma 300M",
+      "type": "Independent checkpoint",
+      "size": "300 M",
+      "embedding_dimension": 768,
+      "internal": {
+        "honda": {
+          "mrr": 0.7851829454750583,
+          "recall_at_10": 0.948780487804878,
+          "hit_at_1": 0.6926829268292682
+        },
+        "multilingual": {
+          "mrr": 0.8625073098198098,
+          "recall_at_10": 0.9958333333333333,
+          "hit_at_1": 0.7733333333333333
+        },
+        "disney": {
+          "mrr": 0.8887037484131743,
+          "recall_at_10": 0.43924257617345147,
+          "hit_at_1": 0.8313253012048193
+        },
+        "miracl": {
+          "mrr": 0.9807887407136768,
+          "recall_at_10": 0.997,
+          "hit_at_1": 0.968
+        }
+      }
+    },
+    {
+      "id": "baseline",
+      "name": "Embedding Gemma 2",
+      "type": "Baseline",
+      "size": "271 M",
+      "embedding_dimension": 768,
+      "internal": {
+        "honda": {
+          "mrr": 0.7515435615025379,
+          "recall_at_10": 0.9385365853658536,
+          "hit_at_1": 0.6448780487804878
+        },
+        "multilingual": {
+          "mrr": 0.864082792547866,
+          "recall_at_10": 0.9933333333333333,
+          "hit_at_1": 0.7766666666666666
+        },
+        "disney": {
+          "mrr": 0.8622282001800073,
+          "recall_at_10": 0.4132393404974826,
+          "hit_at_1": 0.8012048192771084
+        },
+        "miracl": {
+          "mrr": 0.9901428571428572,
+          "recall_at_10": 1.0,
+          "hit_at_1": 0.983
+        }
+      },
+      "public": {
+        "mean": 67.3043463414634,
+        "retrieval": 51.074600000000004,
+        "per_family": {
+          "Retrieval": 51.074600000000004,
+          "Clustering": 51.552662500000004,
+          "Reranking": 46.058,
+          "STS": 82.76654444444445,
+          "Classification": 88.82028749999999,
+          "PairClassification": 84.57613333333333,
+          "Summarization": 35.0053
+        },
+        "tasks": {
+          "ArguAna": 0.58648,
+          "ArXivHierarchicalClusteringP2P": 0.640291,
+          "ArXivHierarchicalClusteringS2S": 0.600853,
+          "AskUbuntuDupQuestions": 0.606735,
+          "BIOSSES": 0.825163,
+          "Banking77Classification": 0.922435,
+          "BiorxivClusteringP2P.v2": 0.472111,
+          "CQADupstackGamingRetrieval": 0.56743,
+          "CQADupstackUnixRetrieval": 0.40801,
+          "ClimateFEVERHardNegatives": 0.2191,
+          "FEVERHardNegatives": 0.81582,
+          "FiQA2018": 0.31677,
+          "HotpotQAHardNegatives": 0.78066,
+          "ImdbClassification": 0.910296,
+          "MTOPDomainClassification": 0.987506,
+          "MassiveIntentClassification": 0.883389,
+          "MassiveScenarioClassification": 0.91688,
+          "MedrxivClusteringP2P.v2": 0.424437,
+          "MedrxivClusteringS2S.v2": 0.396043,
+          "MindSmallReranking": 0.314425,
+          "SCIDOCS": 0.17846,
+          "SICK-R": 0.821973,
+          "STS12": 0.777967,
+          "STS13": 0.864884,
+          "STS14": 0.827408,
+          "STS15": 0.884717,
+          "STSBenchmark": 0.874736,
+          "SprintDuplicateQuestions": 0.910811,
+          "StackExchangeClustering.v2": 0.640557,
+          "StackExchangeClusteringP2P.v2": 0.477708,
+          "TRECCOVID": 0.79205,
+          "Touche2020Retrieval.v3": 0.44268,
+          "ToxicConversationsClassification": 0.910107,
+          "TweetSentimentExtractionClassification": 0.663667,
+          "TwentyNewsgroupsClustering.v2": 0.472213,
+          "TwitterSemEval2015": 0.758206,
+          "TwitterURLCorpus": 0.868267,
+          "SummEvalSummarization.v2": 0.350053,
+          "AmazonCounterfactualClassification": 0.911343,
+          "STS17": 0.910134,
+          "STS22.v2": 0.662007
+        }
+      }
+    },
+    {
+      "id": "R",
+      "name": "sfr-embedding-rnd_R",
+      "type": "Research",
+      "size": "272.6 M",
+      "embedding_dimension": 2048,
+      "internal": {
+        "honda": {
+          "mrr": 0.7909998892894607,
+          "recall_at_10": 0.9619512195121951,
+          "hit_at_1": 0.6907317073170731
+        },
+        "multilingual": {
+          "mrr": 0.8776949312634796,
+          "recall_at_10": 0.9966666666666667,
+          "hit_at_1": 0.7966666666666666
+        },
+        "disney": {
+          "mrr": 0.9153036908234855,
+          "recall_at_10": 0.46173830818730244,
+          "hit_at_1": 0.8734939759036144
+        },
+        "miracl": {
+          "mrr": 0.9904714285714286,
+          "recall_at_10": 0.999,
+          "hit_at_1": 0.984
+        }
+      },
+      "public": {
+        "mean": 68.60846341463414,
+        "retrieval": 57.2082,
+        "per_family": {
+          "Retrieval": 57.2082,
+          "Clustering": 51.703175,
+          "Reranking": 46.4543,
+          "STS": 81.4864,
+          "Classification": 88.7278125,
+          "PairClassification": 85.3594,
+          "Summarization": 35.052699999999994
+        },
+        "tasks": {
+          "ArguAna": 0.6664,
+          "ArXivHierarchicalClusteringP2P": 0.631616,
+          "ArXivHierarchicalClusteringS2S": 0.605195,
+          "AskUbuntuDupQuestions": 0.610534,
+          "BIOSSES": 0.840158,
+          "Banking77Classification": 0.92763,
+          "BiorxivClusteringP2P.v2": 0.479513,
+          "CQADupstackGamingRetrieval": 0.5907,
+          "CQADupstackUnixRetrieval": 0.41488,
+          "ClimateFEVERHardNegatives": 0.32094,
+          "FEVERHardNegatives": 0.89848,
+          "FiQA2018": 0.41967,
+          "HotpotQAHardNegatives": 0.79381,
+          "ImdbClassification": 0.902856,
+          "MTOPDomainClassification": 0.988235,
+          "MassiveIntentClassification": 0.885508,
+          "MassiveScenarioClassification": 0.916644,
+          "MedrxivClusteringP2P.v2": 0.444708,
+          "MedrxivClusteringS2S.v2": 0.402396,
+          "MindSmallReranking": 0.318552,
+          "SCIDOCS": 0.18223,
+          "SICK-R": 0.81381,
+          "STS12": 0.740564,
+          "STS13": 0.839479,
+          "STS14": 0.805995,
+          "STS15": 0.870705,
+          "STSBenchmark": 0.857803,
+          "SprintDuplicateQuestions": 0.946198,
+          "StackExchangeClustering.v2": 0.637116,
+          "StackExchangeClusteringP2P.v2": 0.464209,
+          "TRECCOVID": 0.80774,
+          "Touche2020Retrieval.v3": 0.62597,
+          "ToxicConversationsClassification": 0.901025,
+          "TweetSentimentExtractionClassification": 0.666327,
+          "TwentyNewsgroupsClustering.v2": 0.471501,
+          "TwitterSemEval2015": 0.746235,
+          "TwitterURLCorpus": 0.868349,
+          "SummEvalSummarization.v2": 0.350527,
+          "AmazonCounterfactualClassification": 0.91,
+          "STS17": 0.91205,
+          "STS22.v2": 0.653212
+        }
+      },
+      "version": "Research version"
+    },
+    {
+      "id": "P",
+      "name": "sfr-embedding-rnd_P",
+      "type": "Production",
+      "size": "272.6 M",
+      "embedding_dimension": 768,
+      "internal": {
+        "honda": {
+          "mrr": 0.7938852263930929,
+          "recall_at_10": 0.9609756097560975,
+          "hit_at_1": 0.6936585365853658
+        },
+        "multilingual": {
+          "mrr": 0.8769642245525866,
+          "recall_at_10": 0.9958333333333333,
+          "hit_at_1": 0.7966666666666666
+        },
+        "disney": {
+          "mrr": 0.9109481883578269,
+          "recall_at_10": 0.426181300405107,
+          "hit_at_1": 0.8614457831325302
+        },
+        "miracl": {
+          "mrr": 0.9904102564102565,
+          "recall_at_10": 0.999,
+          "hit_at_1": 0.983
+        }
+      },
+      "public": {
+        "mean": 68.2232,
+        "retrieval": 55.760799999999996,
+        "per_family": {
+          "Retrieval": 55.760799999999996,
+          "Clustering": 52.0980125,
+          "Reranking": 46.07595,
+          "STS": 81.29745555555556,
+          "Classification": 88.80337499999999,
+          "PairClassification": 84.79083333333334,
+          "Summarization": 34.1306
+        },
+        "tasks": {
+          "ArguAna": 0.66395,
+          "ArXivHierarchicalClusteringP2P": 0.637077,
+          "ArXivHierarchicalClusteringS2S": 0.602494,
+          "AskUbuntuDupQuestions": 0.600506,
+          "BIOSSES": 0.832543,
+          "Banking77Classification": 0.926201,
+          "BiorxivClusteringP2P.v2": 0.488811,
+          "CQADupstackGamingRetrieval": 0.57987,
+          "CQADupstackUnixRetrieval": 0.41733,
+          "ClimateFEVERHardNegatives": 0.31756,
+          "FEVERHardNegatives": 0.88655,
+          "FiQA2018": 0.36362,
+          "HotpotQAHardNegatives": 0.79062,
+          "ImdbClassification": 0.90484,
+          "MTOPDomainClassification": 0.988395,
+          "MassiveIntentClassification": 0.886113,
+          "MassiveScenarioClassification": 0.917485,
+          "MedrxivClusteringP2P.v2": 0.44432,
+          "MedrxivClusteringS2S.v2": 0.408109,
+          "MindSmallReranking": 0.321013,
+          "SCIDOCS": 0.18331,
+          "SICK-R": 0.820417,
+          "STS12": 0.737817,
+          "STS13": 0.843683,
+          "STS14": 0.801985,
+          "STS15": 0.865808,
+          "STSBenchmark": 0.85032,
+          "SprintDuplicateQuestions": 0.931027,
+          "StackExchangeClustering.v2": 0.638915,
+          "StackExchangeClusteringP2P.v2": 0.469631,
+          "TRECCOVID": 0.79725,
+          "Touche2020Retrieval.v3": 0.57602,
+          "ToxicConversationsClassification": 0.906494,
+          "TweetSentimentExtractionClassification": 0.666384,
+          "TwentyNewsgroupsClustering.v2": 0.478484,
+          "TwitterSemEval2015": 0.744868,
+          "TwitterURLCorpus": 0.86783,
+          "SummEvalSummarization.v2": 0.341306,
+          "AmazonCounterfactualClassification": 0.908358,
+          "STS17": 0.912041,
+          "STS22.v2": 0.652157
+        }
+      },
+      "version": "Production supported version"
+    }
+  ],
+  "notes": [
+    "Internal display values match the supplied comparison table at four decimal places.",
+    "All public numbers refer to the same checkpoints as the internal comparison.",
+    "Model parameter counts are the supplied labels; output dimensions come from the evaluation records.",
+    "Public measurements use the same task suite with model-specific context limits and native input conventions."
+  ],
+  "public_model_ids": [
+    "baseline",
+    "R",
+    "P"
+  ]
+}

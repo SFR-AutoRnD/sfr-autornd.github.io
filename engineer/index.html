@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css?v=autornd-nav-4">
-<link rel="stylesheet" href="assets/engineer.css?v=benchmark-section-20">
+<link rel="stylesheet" href="assets/engineer.css?v=research-results-21">
 <script src="../assets/site.js?v=section-nav-2" defer></script>
 <script src="assets/engineer.js?v=autoplay-input-output-13" defer></script>
 </head>
@@ -95,7 +95,7 @@
     <div class="section-nav-track">
       <a class="sn-link" href="#how"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#loop"/></svg>Inside the Auto Engineer's working loop</a>
       <a class="sn-link" href="#findings"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#chart"/></svg>Findings</a>
-      <a class="sn-link" href="#benchmark"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#impact"/></svg>Benchmark</a>
+      <a class="sn-link" href="#research-results"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#chart"/></svg>Research results</a>
       <a class="sn-link" href="#next"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#next"/></svg>What’s next</a>
       <a class="sn-link" href="#team"><svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/ui-icons.svg#team"/></svg>Team</a>
     </div>
@@ -777,13 +777,30 @@ result_t cosine_distance_with_valid_norms(byte_t const* a, byte_t const* b,
   </div>
 </section>
 
-<!-- ==================== Benchmark ==================== -->
-<section id="benchmark" class="ed" aria-labelledby="engineer-benchmark-title">
+<!-- ==================== Research results ==================== -->
+<section id="research-results" class="ed engineer-research-results" aria-labelledby="engineer-research-title">
   <div class="container">
-    <h2 class="section-title" id="engineer-benchmark-title">Benchmarking the research loop</h2>
-    <div class="card engineer-benchmark-card">
-      <p>We evaluate our framework on <a href="https://benchmarks.bespokelabs.ai/autoresearchexam/" target="_blank" rel="noopener noreferrer">Bespoke Labs’ AutoResearchExam</a> to study its research efficiency and performance. With <strong>GPT-6 Astra</strong> powering our framework, we compare against published Astra runs using Terminus 2. Explore the progress curves and the ideas behind each result.</p>
-      <a class="btn btn-primary" href="benchmark/">Explore benchmark results <span aria-hidden="true">→</span></a>
+    <div class="engineer-research-heading">
+      <h2 class="section-title" id="engineer-research-title">Research results</h2>
+      <p>Explore the models our research loop improves and how the framework performs on independent research tasks.</p>
+    </div>
+    <div class="engineer-results-panel">
+      <article class="engineer-result" id="embedding-models" aria-labelledby="engineer-embeddings-title">
+        <div class="engineer-result-heading">
+          <span class="engineer-result-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="../assets/ui-icons.svg#chart"/></svg></span>
+          <div><span class="engineer-result-kicker">Model quality</span><h3 id="engineer-embeddings-title">Embedding models</h3></div>
+        </div>
+        <p>Our research and production-supported versions build on <strong>EmbeddingGemma 2</strong>. Evaluated across 41 public embedding tasks and internal retrieval benchmarks, the research version improves mean retrieval nDCG@10 by <strong>6.13 points</strong> over the pretrained baseline.</p>
+        <a class="engineer-result-link" href="embeddings/">Explore the embedding models <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="engineer-result" id="benchmark" aria-labelledby="engineer-benchmark-title">
+        <div class="engineer-result-heading">
+          <span class="engineer-result-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="../assets/ui-icons.svg#impact"/></svg></span>
+          <div><span class="engineer-result-kicker">Research performance</span><h3 id="engineer-benchmark-title">AutoResearchExam</h3></div>
+        </div>
+        <p>With <strong>GPT-6 Astra</strong> powering our framework, we compare against published Astra runs using Terminus 2 on <a href="https://benchmarks.bespokelabs.ai/autoresearchexam/" target="_blank" rel="noopener noreferrer">Bespoke Labs’ AutoResearchExam</a>. Explore the progress curves and the ideas behind each result.</p>
+        <a class="engineer-result-link" href="benchmark/">Explore benchmark results <span aria-hidden="true">→</span></a>
+      </article>
     </div>
   </div>
 </section>

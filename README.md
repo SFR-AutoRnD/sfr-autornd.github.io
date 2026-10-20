@@ -7,6 +7,7 @@ development agents from Salesforce AI Research, and for its two sub-projects:
 |---|---|---|
 | SFR-AutoR&D | <https://sfr-autornd.github.io/> | Two research directions, the shared research loop, and selected results from both sub-projects. |
 | SFR-AutoR&D-Engineer | <https://sfr-autornd.github.io/engineer/> | Engineering goals on real code: pandas, SFR-RL, USearch, hnswlib. |
+| Embedding models | <https://sfr-autornd.github.io/engineer/embeddings/> | Two EmbeddingGemma 2 training recipes, public benchmarks, and internal retrieval results. |
 | SFR-AutoR&D-TrainForge | <https://sfr-autornd.github.io/trainforge/> | Autonomous model training. Copied from Yiran Zhao's `zhaoyiran924/trainforge` repository. |
 
 Static site, no build step:
@@ -31,7 +32,15 @@ Static site, no build step:
 - `engineer/index.html`: the engineering research article, using the shared
   stylesheet and navigation script. The narrated demo is temporarily hidden;
   its video and poster are retained for future refinement. Technical charts
-  remain inline SVG.
+  remain inline SVG. A unified Research results section links to the embedding
+  models and AutoResearchExam benchmark results.
+- `engineer/embeddings/`: the embedding research article, using the shared
+  design system and section navigation. It opens with animated public MTEB comparisons, followed by an internal
+  benchmark table showing all collections with inline deltas from Embedding Gemma 2,
+  and the research and production-supported training recipes.
+  `assets/results.json` holds the audited numeric record for the selected R and P
+  checkpoints; `assets/internal-benchmark.csv` provides the internal comparison. Default results and
+  the complete article remain readable without JavaScript.
 - `assets/AutoRD_Leadership_Demo_AI_Voiceover_Final_demo.mp4`: the supplied
   three-minute AutoR&D-Engineer demo, retained as an H.264/AAC MP4 while its
   page embed is hidden. `assets/engineer-demo-poster.jpg` is its opening title frame.
@@ -65,7 +74,8 @@ python3 -m http.server 8000 --bind 0.0.0.0
 ```
 
 Open <http://localhost:8000/>, <http://localhost:8000/engineer/>, and
-<http://localhost:8000/trainforge/>. For a remote checkout, forward port 8000
+<http://localhost:8000/trainforge/>, and the embedding article at
+<http://localhost:8000/engineer/embeddings/>. For a remote checkout, forward port 8000
 to your computer. This is a preview only; starting it does not publish changes.
 
 ## Publishing
